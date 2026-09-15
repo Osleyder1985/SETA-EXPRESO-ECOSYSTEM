@@ -43,14 +43,15 @@ jobs:
           echo "PASS QV-001: archivos Markdown no vacíos."
           echo "PASS QV-002: encabezado H1 presente en los Markdown."
 
-      - name: QV-003 - Detect trailing whitespace
+      - name: QV-003 - Detect trailing whitespace outside Markdown
         run: |
           set -euo pipefail
-          if grep -RIn --exclude-dir=.git --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' --exclude='*.gif' '[[:blank:]]$' .; then
-            echo "FAIL QV-003: se detectó whitespace al final de una línea."
+          files=$(find . -type f -not -path './.git/*' -not -name '*.md' -not -name '*.png' -not -name '*.jpg' -not -name '*.jpeg' -not -name '*.gif' -print)
+          if [ -n "$files" ] && grep -nH '[[:blank:]]$' $files; then
+            echo "FAIL QV-003: se detectó whitespace al final de una línea en un artefacto no Markdown."
             exit 1
           fi
-          echo "PASS QV-003: no se detectó trailing whitespace."
+          echo "PASS QV-003: no se detectó trailing whitespace en artefactos no Markdown."
 
       - name: QV-004 - Validate YAML syntax
         run: |

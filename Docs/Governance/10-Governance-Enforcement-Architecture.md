@@ -1,17 +1,17 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.5.0  
+**Versión:** 0.6.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25
+**Issues relacionados:** #13, #20, #22, #23, #25, #33
 
 ---
 
 ## 1. Propósito
 
-Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad y evidencia.
+Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia y Decision Governance.
 
 Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
 
@@ -34,6 +34,9 @@ Issue → Work Branch → Pull Request
                      ▼
             Governance Validation
                      │
+                     ├── Decision Governance
+                     │       │
+                     │       └── ADR / EDR
                      ▼
              Quality Validation
                      │
@@ -61,7 +64,7 @@ Issue → Work Branch → Pull Request
                   Metrics
 ```
 
-Governance, Quality, Security y Evidence Validation son capas independientes. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
+Governance, Decision Governance, Quality, Security y Evidence Validation son capacidades relacionadas pero distinguibles. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
 
 ## 4. Niveles de control
 
@@ -71,6 +74,7 @@ Governance, Quality, Security y Evidence Validation son capas independientes. `m
 | P-Compensatorio | Automatización que bloquea el paso lógico del proceso, pero no la capacidad de GitHub de escribir | Validaciones de PR | Parcial |
 | D-Detectivo | Detecta incumplimiento después o durante la operación | Push a `main` sin PR asociado | Implementado |
 | G-Gobernanza | Política, evidencia y responsabilidad | Issue + PR + revisión | Vigente |
+| DG-Decisión | Conserva y controla decisiones materiales | ADR / EDR | Documental operativo inicial |
 | M-Métrico | Convierte controles en indicadores | % PR conformes | En evolución |
 
 La etiqueta `P-Compensatorio` nunca debe describirse como equivalente a branch protection nativa.
@@ -91,15 +95,24 @@ Todo PR nuevo destinado a `main` deberá poder verificarse automáticamente, com
 10. ausencia de artefactos críticos eliminados sin justificación trazable;
 11. controles de Quality Validation aplicables satisfechos;
 12. controles de Security Validation aplicables satisfechos;
-13. controles de Evidence Validation aplicables satisfechos.
+13. controles de Evidence Validation aplicables satisfechos;
+14. Decision Records aplicables identificados y trazables cuando el cambio implique una decisión material.
 
 ## 6. Quality, Security y Evidence Validation
 
 Quality Validation comprueba propiedades objetivas de calidad del repositorio. Security Validation comprueba propiedades objetivas de seguridad aplicables. Evidence Validation comprueba que la unidad de cambio conserva evidencia mínima, trazable y verificable.
 
-Ninguna de las tres capas sustituye revisión humana, pruebas específicas, Quality Gates o evaluación integral del producto.
+Ninguna de las tres capas sustituye revisión humana, pruebas específicas, Quality Gates, Decision Governance o evaluación integral del producto.
 
-## 7. Evidence Validation
+## 7. Decision Governance
+
+Decision Governance constituye una capacidad transversal de control del razonamiento técnico. Su política y matriz de controles se definen en `19-Decision-Governance.md` y `20-Decision-Governance-Control-Matrix.md`.
+
+Los Decision Records no son un sustituto del control de cambios: complementan Issue, análisis de impacto, PR y evidencia, conservando el contexto, las alternativas, los criterios, los trade-offs, las consecuencias, los riesgos y la evidencia que justifican una decisión material.
+
+La automatización avanzada de índice, enlaces, esquema y supersession queda planificada y no se declara implementada hasta contar con controles reproducibles.
+
+## 8. Evidence Validation
 
 La arquitectura de Evidence Validation se define en `14-Evidence-Validation-Architecture.md`.
 
@@ -113,7 +126,7 @@ Sus controles iniciales EV-001..EV-005 comprueban:
 
 EV-006..EV-009 quedan planificados o no aplicables hasta disponer de resultados de workflows correlacionables, pruebas, releases, despliegues y necesidades de integridad/procedencia más avanzadas.
 
-## 8. Controles sobre `main`
+## 9. Controles sobre `main`
 
 Ante cada `push` a `main`, la automatización deberá:
 
@@ -124,7 +137,7 @@ Ante cada `push` a `main`, la automatización deberá:
 5. conservar el resultado como evidencia detectiva;
 6. no afirmar que la automatización revirtió o impidió el cambio.
 
-## 9. Línea base mínima
+## 10. Línea base mínima
 
 Los siguientes artefactos forman parte de la baseline de enforcement:
 
@@ -143,26 +156,34 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 - `14-Evidence-Validation-Architecture.md`
 - `15-G0-Governance-Readiness-Assessment.md`
 - `16-G0-Impact-Analysis.md`
+- `17-Risk-Management-System.md`
+- `18-Risk-Management-Control-Matrix.md`
+- `19-Decision-Governance.md`
+- `20-Decision-Governance-Control-Matrix.md`
+- `Docs/Architecture/Decision-Records/README.md`
+- `Docs/Architecture/Decision-Records/ADR-Template.md`
+- `Docs/Architecture/Decision-Records/EDR-Template.md`
+- `Docs/Architecture/Decision-Records/Decision-Record-Index.md`
 - `.github/workflows/governance-validation.yml`
 - `.github/workflows/quality-validation.yml`
 - `.github/workflows/security-validation.yml`
 - `.github/workflows/evidence-validation.yml`
 
-La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente.
+La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente cuando el control sea aplicable.
 
-## 10. Governance Gate Enforcement
+## 11. Governance Gate Enforcement
 
 Los Quality Gates utilizan controles de readiness específicos definidos en `11-Governance-Control-Matrix.md`. Para G0, los controles `GC-001` a `GC-004` verifican respectivamente la evaluación formal de readiness, el análisis de impacto, la existencia del paquete de evidencia y la explicitación del riesgo residual.
 
 La arquitectura de enforcement no sustituye la decisión del Gate. Su función es garantizar que la decisión se apoye en evidencia localizable y que las limitaciones técnicas no se oculten.
 
-## 11. Residual risk
+## 12. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-## 12. Métricas iniciales
+## 13. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente:
 
@@ -172,11 +193,12 @@ La arquitectura deberá permitir medir progresivamente:
 - `% PR con Evidence Validation PASS`;
 - `% PR con Issue válida`;
 - `% PR con análisis de impacto`;
+- `% PR con Decision Record aplicable correctamente trazado`;
 - `% pushes a main asociados a PR`;
 - `número de actualizaciones sospechosas de main`;
 - `número de fallos por control y capa`.
 
-## 13. Evolución hacia enforcement nativo
+## 14. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
@@ -188,7 +210,7 @@ Compensatorio + Detectivo + Gobernanza
 Compensatorio + Detectivo + Gobernanza + Preventivo
 ```
 
-## 14. Criterio de verdad
+## 15. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
@@ -196,6 +218,6 @@ La afirmación correcta durante la restricción actual es:
 
 > `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
 
-## 15. Evidencia de implementación
+## 16. Evidencia de implementación
 
-La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, resultados de validación, estado final de integración y documentación actualizada.
+La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, resultados de validación, estado final de integración y documentación actualizada.

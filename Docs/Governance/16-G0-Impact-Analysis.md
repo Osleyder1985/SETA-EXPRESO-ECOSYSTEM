@@ -2,6 +2,7 @@
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Relacionado con:** Issue #25  
+**Pull Request:** #26  
 **Gate:** G0 — Governance Ready  
 **Estado:** Evaluación en curso
 
@@ -26,6 +27,8 @@ Este cambio agrega evidencia explícita para evaluar si la Fase A puede avanzar 
 | `03-Artifacts-And-Evidence.md` | Medio | Registrar nuevo artefacto de evidencia |
 | `10-Governance-Enforcement-Architecture.md` | Medio | Relacionar baseline y controles implementados |
 | `11-Governance-Control-Matrix.md` | Medio | Incorporar trazabilidad del cierre de G0 |
+| `15-G0-Governance-Readiness-Assessment.md` | Alto | Mantener resultado provisional y registrar evidencia de integración |
+| `16-G0-Impact-Analysis.md` | Bajo | Mantener trazabilidad del propio análisis de impacto |
 
 ## Riesgos identificados
 
@@ -41,8 +44,8 @@ G0 no debe marcarse como completado únicamente por existencia documental. Requi
 
 ## Próximos pasos
 
-1. Actualizar artefactos afectados.
-2. Ejecutar las cuatro validaciones automatizadas.
-3. Revisar PR.
-4. Integrar mediante merge controlado.
-5. Registrar cierre definitivo de G0.
+1. Ejecutar las cuatro validaciones automatizadas sobre el commit final del PR #26.
+2. Revisar el PR.
+3. Integrar mediante merge controlado cuando no existan controles pendientes.
+4. Registrar el merge commit y la fecha real de integración.
+5. Actualizar el Roadmap y el assessment para registrar el cierre definitivo de G0.

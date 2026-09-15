@@ -35,7 +35,7 @@ Convertir las capas de Governance Enforcement y Quality Validation en una matriz
 |---|---|---|---|---|---|---|
 | QV-001 | Markdown no vacío | Artefacto documental vacío | Shell | P-Compensatorio/D | Check run | No evalúa semántica |
 | QV-002 | H1 inicial | Estructura documental inconsistente | Shell | P-Compensatorio/D | Check run | No sustituye revisión editorial |
-| QV-003 | Sin trailing whitespace no Markdown | Ruido técnico en artefactos de configuración/código | Shell | P-Compensatorio/D | Check run | Markdown puede usar espacios intencionales |
+| QV-003 | Sin trailing whitespace fuera de Markdown | Ruido técnico en artefactos de configuración/código | Shell | P-Compensatorio/D | Check run | Markdown puede usar espacios intencionales |
 | QV-004 | YAML sintácticamente válido | Configuración inválida | Ruby/Psych | P-Compensatorio/D | Check run | Sintaxis válida no implica semántica correcta |
 | QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
 | QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |

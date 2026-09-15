@@ -340,13 +340,16 @@ gates:
         statement: "Data retention/deletion obligations are satisfied"
         class: HYBRID
       - id: G13-C03
-        statement: "Dependencies and operational access are closed"
+        statement: "Dependencies and operational access are closed or transferred"
         class: HYBRID
-    metrics: ["retirement-completion", "migration-completion", "open-retirement-findings"]
-    evidence: ["Retirement record", "migration/deletion evidence", "evidence archive"]
-    decision_authority: "System/Business authority"
-    pass: "Retirement and evidence preservation are complete."
-    conditional: "Approved bounded residual activities remain."
-    blocked: "Critical migration, deletion or evidence input is missing."
-    reopen: "A retirement obligation or material dependency is discovered."
-    exit_criteria: "System is retired/migrated and lifecycle evidence is preserved."
+      - id: G13-C04
+        statement: "Required evidence is preserved"
+        class: AUTOMATED
+    metrics: ["retirement-completion", "dependency-closure", "evidence-preservation-coverage"]
+    evidence: ["Retirement record", "migration evidence", "data disposition", "closure evidence"]
+    decision_authority: "Operations/System owner authority"
+    pass: "Retirement/migration and evidence preservation are complete."
+    conditional: "Only explicitly accepted residual archival conditions remain."
+    blocked: "Critical migration, data or closure prerequisite is unavailable."
+    reopen: "Post-retirement dependency, data or compliance obligation is discovered."
+    exit_criteria: "System/service retirement formally closed."

@@ -1,23 +1,26 @@
 # Estrategia de protección de `main`
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.1  
-**Estado:** Propuesta para aprobación mediante PR #8  
+**Versión:** 0.2.0  
+**Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issue:** #7
+**Issue de origen:** #7  
+**Actualización de enforcement:** #13
 
 ---
 
 ## 1. Propósito
 
-Definir cómo se protegerá la integridad de `main` mientras el repositorio permanezca privado bajo GitHub Free y no se utilicen planes de pago.
+Definir cómo se protege la integridad de `main` mientras el repositorio permanezca privado bajo GitHub Free y no se utilicen planes de pago.
 
-La estrategia distingue explícitamente entre **protección técnica nativa**, que impide una operación mediante una capacidad de la plataforma, y **controles compensatorios**, que reducen el riesgo mediante proceso, automatización, evidencia y detección.
+La estrategia distingue explícitamente entre **protección técnica nativa**, **controles compensatorios automatizados**, **detección** y **gobernanza**.
 
 ## 2. Restricción conocida
 
-El repositorio es privado y GitHub Free no permite aplicar de forma efectiva Rulesets/branch protection a este repositorio. Por tanto, no se afirmará que `main` está técnicamente protegida mientras esa capacidad no esté disponible.
+El repositorio es privado y GitHub Free no permite aplicar de forma efectiva las capacidades de branch protection/rulesets requeridas para este nivel de enforcement. Por tanto, no se afirmará que `main` está técnicamente protegida mientras esa capacidad no esté disponible.
+
+La documentación vigente de GitHub establece que branch protection está disponible en repositorios públicos con GitHub Free y en repositorios privados con GitHub Pro, Team o Enterprise; rulesets tienen la misma limitación para repositorios privados. citeturn0search0turn0search1
 
 Esta restricción no modifica la política de ingeniería: los cambios de trabajo deberán continuar siguiendo `Issue → Branch → Pull Request → Review → Merge → main`.
 
@@ -25,89 +28,162 @@ Esta restricción no modifica la política de ingeniería: los cambios de trabaj
 
 | Objetivo | Control | Naturaleza | Estado |
 |---|---|---|---|
-| Evitar cambios de trabajo en `main` | Política obligatoria de branch de trabajo | Procedimental | Vigente |
-| Exigir trazabilidad | Issue asociado al cambio | Procedimental | Vigente |
-| Exigir revisión | Pull Request y revisión | Procedimental | Vigente |
-| Verificar documentación mínima del PR | GitHub Actions | Automatizado/detectivo | Implementado en PR #8 |
-| Detectar pushes sobre `main` | Workflow sobre `push` a `main` | Detectivo | Implementado en PR #8 |
-| Impedir force push | Branch protection nativa | Preventivo técnico | No disponible en GitHub Free privado |
-| Impedir push directo | Branch protection nativa | Preventivo técnico | No disponible en GitHub Free privado |
-| Exigir approvals técnicamente | Ruleset/branch protection | Preventivo técnico | No disponible en GitHub Free privado |
-| Exigir status checks para merge | Ruleset/branch protection | Preventivo técnico | No disponible actualmente |
+| Evitar trabajo en `main` | Política obligatoria de branch de trabajo | G | Vigente |
+| Exigir trazabilidad | Issue asociado al cambio | G + D | Automatizado |
+| Exigir revisión | Pull Request y revisión | G | Vigente |
+| Validar título del PR | Governance Validation | P-Compensatorio + D | Implementado |
+| Validar labels | Governance Validation | P-Compensatorio + D | Implementado |
+| Validar análisis de impacto | Governance Validation | P-Compensatorio + D | Implementado |
+| Validar estado único del PR | Governance Validation | P-Compensatorio + D | Implementado |
+| Validar branch distinta de main | Governance Validation | P-Compensatorio + D | Implementado |
+| Validar línea base de main | Governance Validation | D | Implementado |
+| Validar baseline documental | Governance Validation | D | Implementado |
+| Detectar push a main sin PR asociado | Governance Validation | D | Implementado |
+| Impedir push directo técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
+| Impedir force push técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
+| Exigir approvals técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
+| Exigir status checks para merge | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
 
-## 4. Controles compensatorios
+## 4. Governance Enforcement
 
-### 4.1 Control de proceso
+La arquitectura detallada está definida en `10-Governance-Enforcement-Architecture.md`.
 
-Todo trabajo deberá comenzar con un Issue y desarrollarse en una branch distinta de `main`.
+La cadena objetivo es:
 
-El PR deberá documentar qué cambió, por qué, alcance, impacto, artefactos afectados, pruebas/evidencia, relación con el Issue y estado de integración.
+```text
+Developer
+   ↓
+Issue
+   ↓
+Branch
+   ↓
+Pull Request
+   ↓
+Governance Validation
+   ↓
+Quality Validation
+   ↓
+Security Validation
+   ↓
+Evidence Validation
+   ↓
+Review / Approval
+   ↓
+Merge
+   ↓
+main
+   ↓
+Post-Merge Detection
+   ↓
+Evidence + Metrics
+```
 
-### 4.2 Automatización de validaciones
+La automatización actual cubre la capa de Governance Validation y la detección post-merge. Quality, Security y Evidence Validation se integrarán progresivamente como controles específicos del ciclo de vida.
 
-GitHub Actions validará automáticamente condiciones documentales y de gobernanza que puedan comprobarse sin requerir privilegios administrativos de repositorio.
+## 5. Controles compensatorios
 
-La automatización no debe presentarse como sustituto de branch protection. Su función es detectar incumplimientos, producir evidencia y preparar Quality Gates para una futura protección técnica.
+### 5.1 Validación de Pull Request
 
-### 4.3 Detección de cambios sobre `main`
+`Governance Validation` comprueba automáticamente:
 
-Un workflow se ejecutará cuando exista un `push` a `main`. Esto permite conservar evidencia de cualquier actualización de la línea base y detectar situaciones que requieran análisis.
+- branch origen distinta de `main`;
+- título conforme a `Módulo/Archivo: Acción a realizar.`;
+- al menos un label;
+- referencia a Issue;
+- análisis de impacto;
+- exactamente un estado formal de integración;
+- línea base de `main` alcanzable por la branch;
+- presencia de la baseline documental de gobernanza.
 
-Este control es **detectivo**, no preventivo: no puede impedir por sí mismo que un usuario con permisos de escritura realice un push directo.
+Estos controles reducen incumplimientos accidentales y producen evidencia. **No sustituyen una regla nativa que impida el merge.**
 
-### 4.4 Evidencia
+### 5.2 Detección de actualizaciones de `main`
 
-Los resultados de los workflows, commits, Issues y Pull Requests deberán conservarse como evidencia de ingeniería cuando sean relevantes para el cambio.
+Ante cada `push` a `main`, el workflow consulta la API de GitHub para comprobar si el commit tiene Pull Request asociado.
 
-## 5. Modelo de garantía
+Si no encuentra asociación, registra `SUSPICIOUS_DIRECT_UPDATE` y falla la ejecución como control detectivo.
 
-La estrategia se clasifica en tres niveles:
+El fallo no revierte ni impide el cambio ya ocurrido. El evento requiere análisis posterior y clasificación.
 
-- **Nivel P — Preventivo:** la plataforma impide la operación no autorizada.
-- **Nivel D — Detectivo:** la plataforma identifica o registra el incumplimiento después de ocurrido.
-- **Nivel G — Gobernanza:** el proceso obliga organizacionalmente a seguir una práctica y deja evidencia.
+### 5.3 Baseline de gobernanza
 
-Actualmente `main` dispone principalmente de controles **D + G**. El nivel **P** quedará preparado para activarse cuando la plataforma/plan lo permita.
+El workflow comprueba la presencia de los artefactos críticos definidos en `10-Governance-Enforcement-Architecture.md`.
 
-## 6. Riesgo residual
+Una desaparición accidental o modificación estructural no acompañada por la evidencia correspondiente deberá ser investigada como incumplimiento de gobernanza.
 
-El principal riesgo residual es que un actor con permisos de escritura pueda modificar `main` directamente o realizar un force push, debido a la ausencia de branch protection efectiva.
+## 6. Modelo de garantía
 
-Este riesgo se acepta temporalmente bajo la restricción económica/tecnológica definida en el Issue #7 y se mitiga mediante controles de proceso, automatización, detección y evidencia.
+- **P-Nativo:** la plataforma impide la operación.
+- **P-Compensatorio:** la automatización bloquea el paso lógico de validación, pero no puede impedir una escritura que GitHub permita.
+- **D-Detectivo:** identifica o registra incumplimientos.
+- **G-Gobernanza:** política, responsabilidades, revisión y evidencia.
+- **M-Métrico:** convierte el cumplimiento en indicadores.
 
-La aceptación no debe interpretarse como equivalencia funcional con una rama protegida.
+Actualmente `main` dispone de **G + P-Compensatorio + D + M en construcción**. El nivel P-Nativo permanece no disponible bajo la restricción actual.
 
-## 7. Evolución prevista
+## 7. Riesgo residual
 
-Cuando el proyecto disponga de una capacidad compatible de branch protection/rulesets, se deberán activar progresivamente:
+El principal riesgo residual sigue siendo que un actor con permisos de escritura pueda modificar `main` directamente o realizar un force push.
+
+La estrategia reduce la probabilidad de incumplimiento accidental y mejora su detección, pero **no proporciona equivalencia funcional con branch protection nativa**.
+
+El riesgo se acepta temporalmente bajo estas condiciones:
+
+- repositorio privado;
+- GitHub Free;
+- ausencia de plan de pago;
+- mantenimiento de controles compensatorios;
+- revisión periódica de capacidades de GitHub;
+- conservación de evidencia de los eventos sobre `main`.
+
+## 8. Métricas de enforcement
+
+Se comenzarán a medir progresivamente:
+
+- `% PR con Issue válida`;
+- `% PR con título conforme`;
+- `% PR con labels`;
+- `% PR con análisis de impacto`;
+- `% PR con estado formal único`;
+- `% PR con baseline válida`;
+- `% actualizaciones de main asociadas a PR`;
+- `número de SUSPICIOUS_DIRECT_UPDATE`;
+- `% ejecuciones Governance Validation PASS`;
+- `número de fallos por regla`.
+
+## 9. Evolución prevista
+
+Cuando exista capacidad compatible de branch protection/rulesets, se deberán activar progresivamente:
 
 1. Pull Request obligatorio.
 2. Aprobación requerida.
 3. Resolución de conversaciones.
-4. Bloqueo de force push.
-5. Restricción de eliminación.
-6. Status checks obligatorios.
-7. Controles de seguridad y calidad aplicables.
+4. Status checks obligatorios.
+5. Bloqueo de force push.
+6. Restricción de eliminación.
+7. Reglas de seguridad y calidad apropiadas al riesgo.
+8. Aplicación de las reglas también a administradores cuando sea compatible.
 
 La activación deberá realizarse mediante una unidad de cambio controlada y análisis de impacto.
 
-## 8. Relación con otras políticas
+## 10. Relación con otras políticas
 
 Esta estrategia complementa:
 
 - `00-Software-Lifecycle-Master.md`;
 - `03-Artifacts-And-Evidence.md`;
 - `04-Quality-Gates.md`;
-- `06-Change-Control-Workflow.md`.
+- `06-Change-Control-Workflow.md`;
+- `08-Software-Roadmap.md`;
+- `09-Issue-And-Pull-Request-Labeling-Policy.md`;
+- `10-Governance-Enforcement-Architecture.md`.
 
-No sustituye ninguna de ellas.
+## 11. Criterio de verdad operacional
 
-## 9. Criterio de verdad operacional
-
-El proyecto no considerará que `main` está protegida técnicamente por el simple hecho de existir una política documental o un workflow.
+El proyecto no considerará que `main` está protegida técnicamente por el simple hecho de existir una política, un workflow o un check.
 
 La afirmación **“`main` está técnicamente protegida”** solo podrá utilizarse cuando una capacidad efectiva de la plataforma haya sido verificada.
 
-## 10. Estado
+La afirmación operacional válida mientras dure la restricción es:
 
-**Pendiente de aprobación mediante Pull Request #8 asociado al Issue #7.**
+> `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.

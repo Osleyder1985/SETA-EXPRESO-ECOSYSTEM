@@ -1,4 +1,4 @@
-# Impact Analysis — Configuration Management
+# Análisis de impacto — Configuration Management
 
 **Issue:** #45  
 **Estado:** Propuesto

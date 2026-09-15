@@ -1,0 +1,9 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# Campos previstos:
+# license_id, component_or_service, version, source,
+# license_type, obligations, restrictions, compatibility,
+# attribution_notice, exception_reference, evidence

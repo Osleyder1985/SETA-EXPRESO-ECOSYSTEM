@@ -2,13 +2,71 @@
 
 Repositorio oficial de ingeniería del Ecosistema Digital de Seta Expreso S.U.R.L.
 
+> **No solamente construiremos el Ecosistema; construiremos y conservaremos la evidencia de ingeniería que demuestra cómo y por qué fue construido.**
+
 ## Propósito
 
 Este repositorio constituye la fuente controlada de código, documentación, decisiones, modelos, pruebas, configuraciones y evidencias del proyecto.
 
 ## Estado actual
 
-El proyecto se encuentra en la consolidación del marco maestro de ciclo de vida de Ingeniería de Software y de Ingeniería de Sistemas para el Ecosistema.
+El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Roadmap y mecanismos de evidencia.
+
+La construcción funcional no se inicia por defecto hasta que las fases precedentes del ciclo de vida proporcionen la definición y evidencia necesarias.
+
+## 🧭 Roadmap de Ingeniería
+
+El trabajo del Ecosistema se gobierna mediante un **Roadmap maestro derivado directamente de las fases A–O** de `Docs/Governance/00-Software-Lifecycle-Master.md`.
+
+### Engineering Flight Plan
+
+```text
+                 SETA EXPRESO ECOSYSTEM
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+   🟡 NOW                            🔵 NEXT
+   Fundaciones                       Diseño antes
+   de ingeniería                     de construir
+        │                                 │
+   A → B → C → D                    E → F → G → H
+        │                                 │
+        └──────────────┬──────────────────┘
+                       ↓
+                  ⚪ LATER
+              Demostrar y operar
+                  I → J → K → L
+                       │
+                       ↓
+                 ♻️ ALWAYS
+                   M → N → O
+                       │
+                       └────→ evolución
+```
+
+| Horizonte | Fases | Propósito |
+|---|---|---|
+| 🟡 **NOW** | **A–D** | Gobernanza, descubrimiento, valor y requisitos verificables |
+| 🔵 **NEXT** | **E–H** | Definición del sistema, arquitectura, diseño y construcción |
+| ⚪ **LATER** | **I–L** | Verificación, aceptación, despliegue y operación |
+| ♻️ **ALWAYS** | **M–O** | Evolución, mejora, optimización y retirada/migración |
+
+**Regla:** el estado del Roadmap se actualiza con evidencia. Tener documentos preliminares no equivale a completar una fase.
+
+👉 **[Roadmap Maestro completo](Docs/Governance/08-Software-Roadmap.md)**  
+👉 **[Ciclo de Vida Maestro A–O](Docs/Governance/00-Software-Lifecycle-Master.md)**
+
+### Quality Gates
+
+```text
+G0 Governance → G1 Current State → G2 Value & Scope
+      → G3 Requirements → G4 System → G5 Architecture
+      → G6 Design → G7 Build → G8 Verification
+      → G9 Acceptance → G10 Production → G11 Operations
+      → ↺ M/N → G12 Retirement
+```
+
+El Roadmap conecta cada tramo con **entregables, Quality Gates, Issues, Pull Requests y evidencia verificable**.
 
 ## Repository Conventions
 
@@ -57,13 +115,16 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 
 ## Governance Documents
 
-- `Docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.2.0.
+- `Docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.3.0.
 - `Docs/Governance/01-Software-Lifecycle-Audit.md` — auditoría metodológica inicial.
 - `Docs/Governance/02-Standards-Lifecycle-Matrix.md` — alineación del ciclo con referencias normativas y técnicas.
-- `Docs/Governance/03-Artifacts-And-Evidence.md` — catálogo inicial de artefactos y evidencias.
+- `Docs/Governance/03-Artifacts-And-Evidence.md` — catálogo de artefactos y evidencias.
 - `Docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
 - `Docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
 - `Docs/Governance/06-Change-Control-Workflow.md` — flujo obligatorio de Issue → Branch → Pull Request → `main` y control de impacto.
+- `Docs/Governance/07-Main-Protection-Strategy.md` — estrategia de protección compensatoria de `main` bajo GitHub Free + repositorio privado.
+- `Docs/Governance/08-Software-Roadmap.md` — Roadmap maestro de ejecución del ciclo de vida A–O.
+- `Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
 
 ## Change Control
 
@@ -95,8 +156,22 @@ main
 
 **No se realizan cambios de trabajo directamente sobre `main`.** Un Issue puede resolverse mediante uno o varios Pull Requests. Todo Pull Request deberá documentar en español el cambio, su motivo, alcance, impacto, artefactos afectados, pruebas/evidencias y relación con el Issue.
 
-La regla completa está definida en `Docs/Governance/06-Change-Control-Workflow.md`.
+## 🏷️ Labels
+
+Todo **Issue** y **Pull Request** debe tener al menos un label pertinente.
+
+Baseline de clasificación actual:
+
+- `governance` — gobierno, ciclo de vida, políticas, control y planificación.
+- `documentation` — documentación, registros y evidencia documental.
+- `architecture` — arquitectura de sistema/software y decisiones estructurales.
+
+La taxonomía crecerá cuando el proyecto necesite dominios estables adicionales. Los nuevos labels deberán justificarse y documentarse antes de convertirse en clasificación oficial.
+
+👉 **[Política de Labels](Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md)**
+
+La regla completa de control de cambios está definida en `Docs/Governance/06-Change-Control-Workflow.md`.
 
 ## Engineering Principle
 
-> No solamente construiremos el Ecosistema; construiremos y conservaremos la evidencia de ingeniería que demuestra cómo y por qué fue construido.
+> **No solamente construiremos el Ecosistema; construiremos y conservaremos la evidencia de ingeniería que demuestra cómo y por qué fue construido.**

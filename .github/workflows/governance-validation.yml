@@ -41,8 +41,10 @@ jobs:
             fi
           done
 
-          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟢 **LISTO PARA FUSIÓN.**' || true)
-          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟡 **NO FUSIONAR — TRABAJO PENDIENTE.**' || true)
+          # El estado formal debe aparecer exactamente una vez y no se cuenta
+          # cuando aparece dentro de texto descriptivo sobre una transición futura.
+          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
+          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
 
           if [ $((ready_count + pending_count)) -ne 1 ]; then
             echo "ERROR: El Pull Request debe declarar exactamente un estado de integración: LISTO PARA FUSIÓN o NO FUSIONAR — TRABAJO PENDIENTE."
@@ -74,4 +76,6 @@ jobs:
           test -f Docs/Governance/05-Repository-Naming-Convention.md
           test -f Docs/Governance/06-Change-Control-Workflow.md
           test -f Docs/Governance/07-Main-Protection-Strategy.md
+          test -f Docs/Governance/08-Software-Roadmap.md
+          test -f Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
           echo "OK: La línea base documental de gobernanza está presente."

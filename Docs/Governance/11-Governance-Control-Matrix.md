@@ -1,18 +1,18 @@
-# Matriz de controles de Governance Enforcement
+# Matriz de controles de Governance y Quality Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Propuesta para aprobación mediante PR asociado al Issue #13  
+**Versión:** 0.2.0  
+**Estado:** Propuesta para aprobación mediante PR asociado al Issue #20  
 **Fecha:** 2026-09-15  
-**Issue:** #13
+**Issues relacionados:** #13, #20
 
 ---
 
 ## 1. Propósito
 
-Convertir la arquitectura de Governance Enforcement en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
+Convertir las capas de Governance Enforcement y Quality Validation en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
 
-## 2. Matriz
+## 2. Matriz de Governance Enforcement
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -29,17 +29,36 @@ Convertir la arquitectura de Governance Enforcement en una matriz operacional qu
 | GE-011 | Residual risk | Falsa sensación de protección | Política explícita | G | Documento controlado | Depende de lectura/revisión |
 | GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard futuro | Métricas iniciales |
 
-## 3. Criterios de estado
+## 3. Matriz de Quality Validation
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| QV-001 | Markdown no vacío | Artefacto documental vacío | Shell | P-Compensatorio/D | Check run | No evalúa semántica |
+| QV-002 | H1 inicial | Estructura documental inconsistente | Shell | P-Compensatorio/D | Check run | No sustituye revisión editorial |
+| QV-003 | Sin trailing whitespace no Markdown | Ruido técnico en artefactos de configuración/código | Shell | P-Compensatorio/D | Check run | Markdown puede usar espacios intencionales |
+| QV-004 | YAML sintácticamente válido | Configuración inválida | Ruby/Psych | P-Compensatorio/D | Check run | Sintaxis válida no implica semántica correcta |
+| QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
+| QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |
+
+## 4. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
 - **NOT_APPLICABLE:** control no aplica y existe justificación.
 - **NOT_IMPLEMENTED:** control definido pero todavía no automatizado.
 
-## 4. Principio de no sobreafirmación
+## 5. Principio de no sobreafirmación
 
 Ningún control detectivo o compensatorio podrá registrarse como protección nativa. La evidencia debe identificar explícitamente la naturaleza del control.
 
-## 5. Evolución
+Un `Quality Validation PASS` demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente; no certifica la calidad integral del producto.
 
-La matriz se ampliará cuando se incorporen Quality Validation, Security Validation, Evidence Validation, Requirements Governance, Architecture Governance, Data Governance y AI Governance.
+## 6. Relación con Quality Gates
+
+Quality Validation aporta evidencia técnica a los Quality Gates, pero no sustituye su evaluación. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
+
+## 7. Evolución
+
+La matriz se ampliará cuando se incorporen código, pruebas, infraestructura y requisitos verificables. Podrán añadirse controles de pruebas, análisis estático, cobertura justificada, complejidad, rendimiento, resiliencia, contratos e integridad de interfaces.
+
+Security Validation, Evidence Validation, Requirements Governance, Architecture Governance, Data Governance y AI Governance permanecerán como capacidades diferenciadas y se integrarán mediante cambios controlados.

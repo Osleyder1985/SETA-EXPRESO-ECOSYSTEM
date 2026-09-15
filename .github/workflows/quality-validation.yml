@@ -1,0 +1,133 @@
+name: Quality Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  quality-validation:
+    name: Validate repository quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: QV-001 and QV-002 - Validate Markdown files
+        run: |
+          set -euo pipefail
+          files=$(find . -type f -name '*.md' -not -path './.git/*' -print)
+          test -n "$files"
+          failed=0
+          while IFS= read -r file; do
+            if [ ! -s "$file" ]; then
+              echo "FAIL QV-001: archivo Markdown vacío: $file"
+              failed=1
+              continue
+            fi
+            if ! head -n 1 "$file" | grep -Eq '^# .+'; then
+              echo "FAIL QV-002: el Markdown debe comenzar con un encabezado H1: $file"
+              failed=1
+            fi
+          done <<< "$files"
+          if [ "$failed" -ne 0 ]; then exit 1; fi
+          echo "PASS QV-001: archivos Markdown no vacíos."
+          echo "PASS QV-002: encabezado H1 presente en los Markdown."
+
+      - name: QV-003 - Detect trailing whitespace
+        run: |
+          set -euo pipefail
+          if grep -RIn --exclude-dir=.git --exclude='*.png' --exclude='*.jpg' --exclude='*.jpeg' --exclude='*.gif' '[[:blank:]]$' .; then
+            echo "FAIL QV-003: se detectó whitespace al final de una línea."
+            exit 1
+          fi
+          echo "PASS QV-003: no se detectó trailing whitespace."
+
+      - name: QV-004 - Validate YAML syntax
+        run: |
+          set -euo pipefail
+          ruby -e '
+            require "yaml"
+            files = Dir["**/*.{yml,yaml}", ".github/**/*.{yml,yaml}"].uniq.reject { |f| f.start_with?(".git/") }
+            abort "FAIL QV-004: no hay archivos YAML para validar." if files.empty?
+            files.each do |file|
+              YAML.parse_file(file)
+              puts "PASS QV-004: #{file}"
+            rescue Psych::Exception => e
+              warn "FAIL QV-004: #{file}: #{e.message}"
+              exit 1
+            end
+          '
+
+      - name: QV-005 - Validate local Markdown links
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+
+          root = Path('.')
+          pattern = re.compile(r'\[[^\]]*\]\(([^)]+)\)')
+          failures = []
+
+          for document in root.rglob('*.md'):
+              if '.git' in document.parts:
+                  continue
+              text = document.read_text(encoding='utf-8')
+              for target in pattern.findall(text):
+                  target = target.strip().split()[0]
+                  if target.startswith(('http://', 'https://', 'mailto:', '#')):
+                      continue
+                  target_path = target.split('#', 1)[0]
+                  if not target_path:
+                      continue
+                  candidate = (document.parent / target_path).resolve()
+                  if not candidate.exists():
+                      failures.append(f'{document}: enlace local inexistente: {target}')
+
+          if failures:
+              for failure in failures:
+                  print(f'FAIL QV-005: {failure}')
+              sys.exit(1)
+          print('PASS QV-005: no se detectaron enlaces locales Markdown rotos.')
+          PY
+
+      - name: QV-006 - Validate critical repository artifacts
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            Docs/Governance/00-Software-Lifecycle-Master.md
+            Docs/Governance/03-Artifacts-And-Evidence.md
+            Docs/Governance/04-Quality-Gates.md
+            Docs/Governance/05-Repository-Naming-Convention.md
+            Docs/Governance/06-Change-Control-Workflow.md
+            Docs/Governance/07-Main-Protection-Strategy.md
+            Docs/Governance/08-Software-Roadmap.md
+            Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
+            Docs/Governance/10-Governance-Enforcement-Architecture.md
+            Docs/Governance/11-Governance-Control-Matrix.md
+            Docs/Governance/12-Quality-Validation-Architecture.md
+            .github/workflows/governance-validation.yml
+            .github/workflows/quality-validation.yml
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "FAIL QV-006: artefacto crítico ausente o vacío: $file"; exit 1; }
+          done
+          echo "PASS QV-006: artefactos críticos presentes y no vacíos."
+
+      - name: Quality Validation result
+        run: |
+          echo "QUALITY_VALIDATION=PASS"
+          echo "Los controles QV-001..QV-006 aplicables al estado actual del repositorio fueron satisfechos."
+          echo "Este resultado no constituye una certificación de calidad del producto."

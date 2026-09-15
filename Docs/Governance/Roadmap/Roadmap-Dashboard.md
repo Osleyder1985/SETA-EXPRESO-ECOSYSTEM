@@ -2,6 +2,8 @@
 
 > **Estado:** 🟢 PR #28 — integrado en `main`
 >
+> **Versión de la vista:** 0.2.1
+>
 > El Dashboard HTML es una vista visual derivada del Roadmap Maestro.
 
 ## 🧭 Fuente canónica
@@ -38,3 +40,7 @@ Cualquier modificación de estados, fechas, Gates, Issues, PRs o evidencias debe
 ## ⚙️ Consistencia
 
 El Dashboard debe permanecer reconciliado con `Docs/Governance/08-Software-Roadmap.md`. Una divergencia entre la fuente canónica y esta representación derivada constituye un defecto de consistencia y debe corregirse mediante el flujo controlado.
+
+## 🧾 Cierre post-merge
+
+La reconciliación de la vista derivada se ejecuta mediante el Issue #29 y su PR asociado. La evidencia de validación queda vinculada al commit evaluado y a los cuatro controles transversales aplicables.

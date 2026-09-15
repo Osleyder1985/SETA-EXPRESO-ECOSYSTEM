@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.6.0  
+**Versión:** 0.7.0  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -26,8 +26,8 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 
 | Fase | Resultado principal | Estado | Inicio / cumplimiento real | Fecha objetivo | Dependencia | Evidencia de salida |
 |---|---|---|---|---|---|---|
-| A | Concepción y gobernanza | 🟡 | 2026-09-15 | 2026-09-17 | — | G0 + baseline de gobernanza |
-| B | Descubrimiento del sistema y organización | ⚪ | — | 2026-09-24 | A | Current-State Model + G1 |
+| A | Concepción y gobernanza | 🟢 | 2026-09-15 | 2026-09-17 | — | G0 + baseline de gobernanza |
+| B | Descubrimiento del sistema y organización | 🟡 | 2026-09-15 | 2026-09-24 | A | Current-State Model + G1 |
 | C | Necesidades, problema y objetivos | ⚪ | — | 2026-10-01 | B | Problem Statement + Scope + G2 |
 | D | Ingeniería de requisitos | ⚪ | — | 2026-10-15 | C | Requirements Baseline + RTM + G3 |
 | E | Definición y modelado del sistema | ⚪ | — | 2026-10-29 | D | Target System Model + G4 |
@@ -42,7 +42,7 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 | N | Mejora y optimización | 🔵 | — | Desde L | L + evidencia | Improvement Evidence |
 | O | Retirada / migración | ⚪ | — | Según decisión | Evolución | Retirement Record + G13 |
 
-> **A todavía no está completada.** La documentación demuestra preparación, pero la fase requiere evidencia de salida de G0. El cierre definitivo se registrará después de la decisión formal del Gate y de la integración del cambio correspondiente.
+> **A — Concepción y gobernanza queda completada el 2026-09-15.** El Gate G0 fue evaluado como `PASS WITH KNOWN LIMITATIONS` y el cambio fue integrado mediante PR #26 en `main` con merge commit `1bddd0b9da5d3f79d16eaef01fd5952e56dfeb2e`.
 
 ## Camino completo del Ecosistema
 
@@ -50,10 +50,10 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 SETA EXPRESO ECOSYSTEM
         │
         ▼
-A ─ Concepción y gobernanza ─────────────── G0
+A ─ Concepción y gobernanza ─────────────── G0 🟢
         │
         ▼
-B ─ Descubrimiento del sistema ──────────── G1
+B ─ Descubrimiento del sistema ──────────── G1 🟡
         │
         ▼
 C ─ Necesidades, problema y objetivos ────── G2
@@ -101,18 +101,18 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| #25 | Cerrar Gate G0 y establecer baseline ejecutable | 🟡 | 2026-09-15 | 2026-09-17 | Governance + Quality + Security + Evidence Validation | En preparación |
+| — | Preparación de Fase B / Descubrimiento | 🟡 | 2026-09-15 | 2026-09-24 | A/G0 completado | Pendiente |
 
-La actividad #23 ya no se registra como trabajo en curso: Evidence Validation inicial fue integrada mediante PR #24. Su evidencia queda en el registro histórico y en la documentación de Evidence Validation.
+La actividad #23 ya no se registra como trabajo en curso: Evidence Validation inicial fue integrada mediante PR #24. El Issue #25 y PR #26 constituyen el cierre de G0 y quedan registrados en el histórico.
 
 ## Controles transversales de ingeniería
 
 | Capacidad | Estado | Evidencia actual | Evolución |
 |---|---|---|---|
 | Governance Validation | 🟢 | Workflow + PRs validados | Ampliación de controles |
-| Quality Validation | 🟢 | Workflow + PR #21 | Incorporación de controles sobre código y pruebas |
-| Security Validation | 🟢 | Workflow + PR #22 + ejecución post-merge de PR #24 | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
-| Evidence Validation | 🟢 | Issue #23 + PR #24 + workflow integrado | Correlación de workflow runs, testing, releases y procedencia según aplicabilidad |
+| Quality Validation | 🟢 | Workflow + PR #21 + ejecución post-merge de PR #26 | Incorporación de controles sobre código y pruebas |
+| Security Validation | 🟢 | Workflow + PR #22 + ejecuciones posteriores | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
+| Evidence Validation | 🟢 | Issue #23 + PR #24 + PR #26 + workflow integrado | Correlación de workflow runs, testing, releases y procedencia según aplicabilidad |
 
 ## Seguimiento detallado A–D
 
@@ -120,7 +120,7 @@ La actividad #23 ya no se registra como trabajo en curso: Evidence Validation in
 
 | ID | Actividad | Estado | Fecha real | Fecha objetivo | Evidencia |
 |---|---|---|---|---|---|
-| A.1 | Definir propósito y alcance del ciclo de vida | 🟡 | — | 2026-09-15 | Lifecycle Master |
+| A.1 | Definir propósito y alcance del ciclo de vida | 🟢 | 2026-09-15 | — | Lifecycle Master |
 | A.2 | Auditar ciclo de vida contra estándares | 🟢 | 2026-09-15 | — | Lifecycle Audit |
 | A.3 | Consolidar ciclo de vida A–O | 🟢 | 2026-09-15 | — | `00-Software-Lifecycle-Master.md` |
 | A.4 | Establecer gobernanza documental | 🟢 | 2026-09-15 | — | Governance artifacts |
@@ -128,7 +128,7 @@ La actividad #23 ya no se registra como trabajo en curso: Evidence Validation in
 | A.6 | Establecer estrategia de protección de main | 🟢 | 2026-09-15 | — | `07-Main-Protection-Strategy.md` + workflow |
 | A.7 | Establecer Roadmap maestro | 🟢 | 2026-09-15 | — | PR #10 |
 | A.8 | Establecer política de labels | 🟢 | 2026-09-15 | — | PR #10 |
-| A.9 | Cerrar gobernanza / G0 | 🟡 | 2026-09-15 | 2026-09-17 | `15-G0-Governance-Readiness-Assessment.md` + `16-G0-Impact-Analysis.md` + cuatro validaciones + PR #25 |
+| A.9 | Cerrar gobernanza / G0 | 🟢 | 2026-09-15 | — | Issue #25 + PR #26 + G0 Assessment + Impact Analysis + cuatro validaciones + merge commit |
 
 ### B — Descubrimiento
 
@@ -198,7 +198,7 @@ La actividad #23 ya no se registra como trabajo en curso: Evidence Validation in
 
 | Gate | Control | Estado |
 |---|---|---|
-| G0 | Governance Baseline | 🟡 |
+| G0 | Governance Baseline | 🟢 |
 | G1 | Current-State Understanding | ⚪ |
 | G2 | Value & Scope | ⚪ |
 | G3 | Requirements Baseline | ⚪ |
@@ -225,6 +225,8 @@ La actividad #23 ya no se registra como trabajo en curso: Evidence Validation in
 | 2026-09-15 | Security Validation integrada | Issue #22 + PR #22 |
 | 2026-09-15 | Evidence Validation integrada | Issue #23 + PR #24 |
 | 2026-09-15 | Preparación formal del Gate G0 | Issue #25 + `15-G0-Governance-Readiness-Assessment.md` + `16-G0-Impact-Analysis.md` |
+| 2026-09-15 | Gate G0 aprobado con limitación conocida | Issue #25 + PR #26 + cuatro validaciones + merge `1bddd0b9da5d3f79d16eaef01fd5952e56dfeb2e` |
+| 2026-09-15 | Inicio de Fase B — Descubrimiento | Roadmap actualizado tras cierre de G0 |
 
 ## Trazabilidad con GitHub
 
@@ -263,5 +265,5 @@ El Roadmap se actualiza cuando una actividad comienza, termina con evidencia, ca
 - `06-Change-Control-Workflow.md`: define el flujo obligatorio de cambios.
 - `10-Governance-Enforcement-Architecture.md`: define la arquitectura de enforcement.
 - `11-Governance-Control-Matrix.md`: define controles operacionales de gobernanza y Gate.
-- `15-G0-Governance-Readiness-Assessment.md`: documenta la evaluación formal de preparación G0.
-- `16-G0-Impact-Analysis.md`: documenta el análisis de impacto de cierre de G0.
+- `15-G0-Governance-Readiness-Assessment.md`: documenta la evaluación formal de preparación y decisión G0.
+- `16-G0-Impact-Analysis.md`: documenta el análisis de impacto y la evidencia de cierre de G0.

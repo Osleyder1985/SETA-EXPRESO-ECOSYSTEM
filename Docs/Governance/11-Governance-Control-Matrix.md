@@ -1,16 +1,16 @@
-# Matriz de controles de Governance, Quality y Security Enforcement
+# Matriz de controles de Governance, Quality, Security y Evidence Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22
+**Issues relacionados:** #13, #20, #22, #23
 
 ---
 
 ## 1. Propósito
 
-Convertir las capas de Governance Enforcement, Quality Validation y Security Validation en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
+Convertir las capas de Governance Enforcement, Quality Validation, Security Validation y Evidence Validation en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
 
 ## 2. Matriz de Governance Enforcement
 
@@ -54,25 +54,35 @@ Convertir las capas de Governance Enforcement, Quality Validation y Security Val
 | SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner de contenedores futuro | D | Decisión de aplicabilidad | No aplicable al baseline actual |
 | SV-009 | SBOM | Falta de inventario de componentes | Generación SBOM futura | D | Roadmap / decisión | Aún no implementado |
 
-## 5. Criterios de estado
+## 5. Matriz de Evidence Validation
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| EV-001 | Estructura mínima de evidencia en PR | Cambio sin explicación verificable | Secciones obligatorias | P-Compensatorio/D | Check run + PR | No valida semántica |
+| EV-002 | Relación Issue–PR | Unidad de cambio no trazable | Metadata + cuerpo del PR | P-Compensatorio/D | Check run + PR | No demuestra legitimidad del actor |
+| EV-003 | Identidad del commit evaluado | Evidencia asociada a versión incorrecta | Comparación SHA/HEAD | P-Compensatorio/D | Check run | No garantiza permanencia histórica |
+| EV-004 | Declaración de validaciones | Evidencia incompleta | Sección de evidencia esperada | P-Compensatorio/D | Check run + PR | Declaración no sustituye ejecución |
+| EV-005 | Baseline de evidencia presente | Pérdida de infraestructura documental | Existencia de artefactos | P-Compensatorio/D | Check run | No valida suficiencia semántica |
+| EV-006 | Resultados de validaciones previas | Evidencia CI incompleta | Consulta de workflow runs | D | Workflow runs | Planificado |
+| EV-007 | Integridad histórica | Alteración/pérdida de evidencia | Hashes/procedencia | D | Evidencia versionada | NOT_IMPLEMENTED |
+| EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
+| EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |
+
+## 6. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
-- **NOT_APPLICABLE:** control no aplica y existe justificación.
-- **NOT_IMPLEMENTED:** control definido pero todavía no automatizado.
+- **NOT_APPLICABLE:** no aplica y existe justificación.
+- **NOT_IMPLEMENTED:** definido pero todavía no automatizado.
 
-## 6. Principio de no sobreafirmación
+## 7. Principio de no sobreafirmación
 
-Ningún control detectivo o compensatorio podrá registrarse como protección nativa. La evidencia debe identificar explícitamente la naturaleza del control.
+Ningún control detectivo o compensatorio podrá registrarse como protección nativa. PASS demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente.
 
-Un `Quality Validation PASS` demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente; no certifica la calidad integral del producto.
+## 8. Relación con Quality Gates
 
-Un `Security Validation PASS` demuestra únicamente conformidad con los controles de seguridad automatizados aplicables de la versión vigente; no certifica seguridad integral ni ausencia de vulnerabilidades.
+Las cuatro capas aportan evidencia técnica a los Quality Gates, pero no sustituyen su evaluación. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
 
-## 7. Relación con Quality Gates
+## 9. Evolución
 
-Quality Validation y Security Validation aportan evidencia técnica a los Quality Gates, pero no sustituyen su evaluación. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
-
-## 8. Evolución
-
-La matriz se ampliará cuando se incorporen código, pruebas, infraestructura y requisitos verificables. Podrán añadirse controles de pruebas, análisis estático, SCA, secrets scanning especializado, SBOM, IaC, contenedores, DAST, seguridad de API, supply chain y procedencia.
+La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad y evidencia científica.

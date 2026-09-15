@@ -1,7 +1,7 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.0  
+**Versión:** 0.2.1  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
@@ -184,10 +184,19 @@ Esta política debe interpretarse conjuntamente con:
 - `00-Software-Lifecycle-Master.md`;
 - `03-Artifacts-And-Evidence.md`;
 - `04-Quality-Gates.md`;
-- `05-Repository-Naming-Convention.md`.
+- `05-Repository-Naming-Convention.md`;
+- `07-Main-Protection-Strategy.md`.
 
 Las futuras políticas de configuración, seguridad, calidad, DevOps y documentación deberán mantener compatibilidad con este flujo.
 
 ## 13. Regla de decisión
 
 Ante cualquier duda sobre si un cambio requiere Issue, branch, análisis de impacto o Pull Request, se aplicará el criterio más conservador: **el cambio se tratará como controlado y deberá seguir el flujo completo** hasta que exista una política específica que establezca una excepción.
+
+## 14. Protección de `main` bajo restricciones de plataforma
+
+Mientras el repositorio permanezca privado bajo GitHub Free y no disponga de branch protection/rulesets efectivos, la integridad de `main` se gestionará mediante la estrategia de controles compensatorios definida en `07-Main-Protection-Strategy.md`.
+
+Los workflows de gobernanza tienen carácter de control automatizado y/o detectivo. **No deben interpretarse como protección técnica equivalente a branch protection.**
+
+La afirmación de que `main` está técnicamente protegida solo podrá utilizarse cuando la capacidad efectiva de la plataforma haya sido verificada.

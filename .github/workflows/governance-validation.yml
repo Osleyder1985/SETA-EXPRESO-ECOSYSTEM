@@ -1,0 +1,77 @@
+name: Governance Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  governance-validation:
+    name: Validate governance controls
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Pull Request governance metadata
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+
+          if [ "$PR_HEAD_REF" = "main" ]; then
+            echo "ERROR: La branch de origen del Pull Request no puede ser main."
+            exit 1
+          fi
+
+          for required_text in \
+            "Issue #" \
+            "Análisis de impacto"; do
+            if [[ "$PR_BODY" != *"$required_text"* ]]; then
+              echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: $required_text"
+              exit 1
+            fi
+          done
+
+          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟢 **LISTO PARA FUSIÓN.**' || true)
+          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟡 **NO FUSIONAR — TRABAJO PENDIENTE.**' || true)
+
+          if [ $((ready_count + pending_count)) -ne 1 ]; then
+            echo "ERROR: El Pull Request debe declarar exactamente un estado de integración: LISTO PARA FUSIÓN o NO FUSIONAR — TRABAJO PENDIENTE."
+            exit 1
+          fi
+
+          echo "OK: El Pull Request contiene los metadatos mínimos de gobernanza y un estado de integración único."
+
+      - name: Detect update to main
+        if: github.event_name == 'push'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          PUSHER: ${{ github.actor }}
+        run: |
+          set -euo pipefail
+          echo "Se detectó una actualización de main."
+          echo "Commit: $COMMIT_SHA"
+          echo "Actor: $PUSHER"
+          echo "Mensaje: $COMMIT_MESSAGE"
+          echo "Este control es detectivo; no sustituye branch protection nativa."
+
+      - name: Repository governance baseline
+        run: |
+          set -euo pipefail
+          test -f Docs/Governance/00-Software-Lifecycle-Master.md
+          test -f Docs/Governance/03-Artifacts-And-Evidence.md
+          test -f Docs/Governance/04-Quality-Gates.md
+          test -f Docs/Governance/05-Repository-Naming-Convention.md
+          test -f Docs/Governance/06-Change-Control-Workflow.md
+          test -f Docs/Governance/07-Main-Protection-Strategy.md
+          echo "OK: La línea base documental de gobernanza está presente."

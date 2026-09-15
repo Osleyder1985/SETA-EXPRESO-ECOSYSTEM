@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.7.0  
+**Versión:** 0.8.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,11 +19,11 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Decision Governance, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
-| Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
-| Diseño | Detailed Design, API Specs, Data Models | Design reviews |
+| Arquitectura | Architecture Description, Views, ADRs, Architecture Decision Log | Reviews, decisions |
+| Diseño | Detailed Design, API Specs, Data Models, EDRs cuando correspondan | Design reviews |
 | Construcción | Source Code, Config, Build Artifacts | Commits, CI results |
 | Testing | Test Plans, Cases, Results | Test runs, reports |
 | Seguridad | Threat Models, Security Requirements, Findings, Security Validation results | Scans, reviews, remediation |
@@ -166,4 +166,29 @@ La cadena de evidencia deberá conservar, cuando aplique:
 Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidence Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md` y `Docs/Governance/14-Evidence-Validation-Architecture.md`.
+## 13. Decision Governance y Decision Records
+
+Decision Governance constituye una capacidad transversal para conservar el razonamiento de decisiones materiales de arquitectura e ingeniería. Los `Architecture Decision Records (ADR)` y `Engineering Decision Records (EDR)` son artefactos controlados cuando una decisión tenga impacto material, incertidumbre relevante, consecuencias duraderas, alternativas significativas, riesgo apreciable o necesidad de trazabilidad futura.
+
+Los Decision Records deberán conservar, como mínimo cuando correspondan:
+
+- Context;
+- Decision;
+- Alternatives;
+- Criteria;
+- Trade-offs;
+- Consequences;
+- Risks;
+- Evidence;
+- Status;
+- Supersedes;
+- Superseded by;
+- Traceability y Approval según aplicabilidad.
+
+La existencia de un Decision Record no implica que una alternativa haya sido seleccionada por anticipado. Las decisiones se registrarán cuando exista contexto y evidencia suficientes, evitando decisiones prematuras durante las fases de descubrimiento y definición.
+
+Los registros se gestionarán bajo `Docs/Architecture/Decision-Records/` y se relacionarán con requisitos, arquitectura, diseño, riesgos, Issues, Pull Requests, Quality Gates y evidencia cuando corresponda.
+
+## 14. Referencias de gobernanza
+
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md`, `Docs/Governance/14-Evidence-Validation-Architecture.md`, `Docs/Governance/19-Decision-Governance.md` y `Docs/Governance/20-Decision-Governance-Control-Matrix.md`.

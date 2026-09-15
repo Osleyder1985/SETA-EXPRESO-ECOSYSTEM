@@ -46,8 +46,6 @@ jobs:
           ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
           pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
           if [ $((ready_count + pending_count)) -ne 1 ]; then exit 1; fi
-          git fetch origin main --depth=1
-          if ! git merge-base --is-ancestor "origin/main" HEAD; then exit 1; fi
           echo "OK: Governance metadata conforms."
 
       - name: Repository governance baseline

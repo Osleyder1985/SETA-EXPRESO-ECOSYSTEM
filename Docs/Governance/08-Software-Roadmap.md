@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.7.0  
+**Versión:** 0.7.1  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -27,7 +27,7 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 | Fase | Resultado principal | Estado | Inicio / cumplimiento real | Fecha objetivo | Dependencia | Evidencia de salida |
 |---|---|---|---|---|---|---|
 | A | Concepción y gobernanza | 🟢 | 2026-09-15 | 2026-09-17 | — | G0 + baseline de gobernanza |
-| B | Descubrimiento del sistema y organización | 🟡 | 2026-09-15 | 2026-09-24 | A | Current-State Model + G1 |
+| B | Descubrimiento del sistema y organización | ⚪ | — | 2026-09-24 | A | Current-State Model + G1 |
 | C | Necesidades, problema y objetivos | ⚪ | — | 2026-10-01 | B | Problem Statement + Scope + G2 |
 | D | Ingeniería de requisitos | ⚪ | — | 2026-10-15 | C | Requirements Baseline + RTM + G3 |
 | E | Definición y modelado del sistema | ⚪ | — | 2026-10-29 | D | Target System Model + G4 |
@@ -53,7 +53,7 @@ SETA EXPRESO ECOSYSTEM
 A ─ Concepción y gobernanza ─────────────── G0 🟢
         │
         ▼
-B ─ Descubrimiento del sistema ──────────── G1 🟡
+B ─ Descubrimiento del sistema ──────────── G1
         │
         ▼
 C ─ Necesidades, problema y objetivos ────── G2
@@ -101,7 +101,7 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| — | Preparación de Fase B / Descubrimiento | 🟡 | 2026-09-15 | 2026-09-24 | A/G0 completado | Pendiente |
+| — | Fase B — Descubrimiento del sistema y organización | ⚪ | — | 2026-09-24 | A/G0 completado | Pendiente de iniciar |
 
 La actividad #23 ya no se registra como trabajo en curso: Evidence Validation inicial fue integrada mediante PR #24. El Issue #25 y PR #26 constituyen el cierre de G0 y quedan registrados en el histórico.
 
@@ -226,7 +226,6 @@ La actividad #23 ya no se registra como trabajo en curso: Evidence Validation in
 | 2026-09-15 | Evidence Validation integrada | Issue #23 + PR #24 |
 | 2026-09-15 | Preparación formal del Gate G0 | Issue #25 + `15-G0-Governance-Readiness-Assessment.md` + `16-G0-Impact-Analysis.md` |
 | 2026-09-15 | Gate G0 aprobado con limitación conocida | Issue #25 + PR #26 + cuatro validaciones + merge `1bddd0b9da5d3f79d16eaef01fd5952e56dfeb2e` |
-| 2026-09-15 | Inicio de Fase B — Descubrimiento | Roadmap actualizado tras cierre de G0 |
 
 ## Trazabilidad con GitHub
 

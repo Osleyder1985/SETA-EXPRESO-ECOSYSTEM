@@ -59,21 +59,25 @@ Supplier / Third-Party Governance añade una capa transversal sobre adquisición
 
 ## 4. Interpretación
 
+### ISO/IEC/IEEE 15288:2023
+
+Se utiliza para mantener una perspectiva de sistema y ecosistema. Es especialmente relevante para necesidades de stakeholders, definición del sistema, arquitectura, integración, validación, operación, mantenimiento y retirada.
+
 ### ISO/IEC/IEEE 12207:2026
 
 Se utiliza para estructurar el ciclo de vida y los procesos específicos de software, incluyendo adquisición, suministro, desarrollo, operación, mantenimiento y disposición.
 
-### ISO/IEC 27036-2:2022
+### ISO/IEC/IEEE 29148:2018
 
-Se utiliza para estructurar requisitos de seguridad aplicables a relaciones entre adquirentes y proveedores, incluyendo definición, implementación, operación, monitorización, revisión, mantenimiento y mejora de dichas relaciones.
+Se utiliza para orientar la ingeniería de requisitos y la gestión de la información asociada. La edición 2018 es la referencia oficial utilizada mientras una futura edición no haya sido publicada como estándar.
 
-### ISO/IEC 27036-3:2023
+### ISO/IEC/IEEE 42010:2022
 
-Se utiliza para gestionar riesgos de seguridad derivados de cadenas de suministro de hardware, software y servicios, incluyendo visibilidad de proveedores y niveles inferiores de suministro cuando sean relevantes.
+Se utiliza para estructurar la descripción de arquitectura mediante stakeholders, concerns, viewpoints, modelos y relaciones, sin imponer una metodología concreta.
 
-### ISO/IEC 27036-4:2016
+### ISO/IEC 25010:2023
 
-Se utiliza como referencia específica para relaciones con proveedores de servicios cloud y los riesgos de seguridad asociados a su adquisición y provisión.
+Se utiliza para seleccionar características de calidad pertinentes y convertirlas, cuando corresponda, en requisitos, objetivos de diseño, pruebas, métricas y criterios de aceptación.
 
 ### NIST SP 800-218 / SSDF 1.1
 
@@ -87,7 +91,33 @@ Se utiliza como referencia principal para estructurar la gestión de riesgos del
 
 Se utiliza como referencia complementaria para seleccionar técnicas de evaluación de riesgos cuando el contexto requiera métodos más específicos que la escala cualitativa 1–5 adoptada inicialmente por el Risk Management System.
 
-Las referencias restantes se mantienen con las interpretaciones establecidas en la baseline anterior.
+### ISO/IEC 42001:2023
+
+Se utiliza como referencia para estructurar la capacidad de gestión de IA: políticas, objetivos, responsabilidades, procesos, evaluación, tratamiento de riesgos y mejora continua. La adopción de sus conceptos no constituye certificación ni declaración de conformidad.
+
+### ISO/IEC 23894:2023
+
+Se utiliza como referencia específica para integrar la gestión de riesgos de IA con las actividades y funciones de la organización que desarrollen, produzcan, desplieguen o utilicen productos, sistemas o servicios con IA.
+
+### NIST AI RMF 1.0
+
+Se utiliza como referencia práctica para gobernar, mapear, medir y gestionar riesgos de IA. Su aplicación se integra con Risk Management, Security, Quality, Evidence y Decision Governance. NIST mantiene el AI RMF como recurso vivo y su revisión futura deberá ser monitorizada.
+
+### NIST AI 600-1
+
+Se utiliza como referencia complementaria para riesgos específicos de IA generativa cuando el Ecosistema utilice capacidades generativas. No se presupone que todo caso de uso futuro sea generativo.
+
+### ISO/IEC 27036-2:2022
+
+Se utiliza para estructurar requisitos de seguridad aplicables a relaciones entre adquirentes y proveedores, incluyendo definición, implementación, operación, monitorización, revisión, mantenimiento y mejora de dichas relaciones.
+
+### ISO/IEC 27036-3:2023
+
+Se utiliza para gestionar riesgos de seguridad derivados de cadenas de suministro de hardware, software y servicios, incluyendo visibilidad de proveedores y niveles inferiores de suministro cuando sean relevantes.
+
+### ISO/IEC 27036-4:2016
+
+Se utiliza como referencia específica para relaciones con proveedores de servicios cloud y los riesgos de seguridad asociados a su adquisición y provisión.
 
 ## 5. Regla de actualización
 

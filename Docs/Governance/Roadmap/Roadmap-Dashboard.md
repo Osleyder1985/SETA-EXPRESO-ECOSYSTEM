@@ -1,39 +1,28 @@
 # 🗺️ SETA EXPRESO ECOSYSTEM — Roadmap Dashboard
 
-> **Estado:** 🚧 Prototipo funcional v0.1.0
+> **Estado:** 🚧 PR #28 — implementación en revisión
 >
-> El dashboard interactivo completo está implementado en `Roadmap-Dashboard.html`.
+> El Dashboard HTML es una vista visual derivada del Roadmap Maestro.
 
-## 🧭 Vista rápida
+## 🧭 Fuente canónica
 
-```text
-🟢 A ━━━━━━━ 🚀 B ━━━━━━━ ⚪ C ━━━━━━━ ⚪ D ━━━━━━━ ⚪ E ━━━━━━━ ⚪ F
- G0             G1             G2             G3             G4             G5
- ✅             ⏳             🔒             🔒             🔒             🔒
+`Docs/Governance/08-Software-Roadmap.md`
 
-       ← HISTORIA COMPLETADA →     📍 AQUÍ     → CAMINO PENDIENTE →
-```
+Los estados, fechas, Gates, dependencias y resultados deben mantenerse primero en el Roadmap canónico. El Dashboard no constituye una fuente de verdad independiente.
 
-### 🟢 Completado
+## 🎛️ Interacción requerida
 
-**A — Concepción y gobernanza**  
-**G0 — Governance Ready**  
-Resultado: `PASS WITH KNOWN LIMITATIONS`
-
-### 🚀 Próximo
-
-**B — Descubrimiento del sistema y organización**  
-**G1 — Current-State Understanding**  
-Objetivo inicial: 2026-09-24
-
-### ⚪ Pendiente
-
-C → D → E → F → G → H → I → J → K → L → M → N → O
+- Filtros: Todos, Completados, Actual y Pendientes.
+- Detalles desplegables por fase.
+- Recorrido visual A–O.
+- Vista de progreso y trazabilidad.
+- Diseño responsive.
+- Sin dependencias externas obligatorias.
 
 ## 🔗 Trazabilidad
 
 `Roadmap → Issue → Branch → Change → Governance → Quality → Security → Evidence → PR → main → Evidence`
 
-## 📖 Fuente canónica
+## 📌 Regla de actualización
 
-`Docs/Governance/08-Software-Roadmap.md`
+Cualquier modificación de estados, fechas, Gates, Issues, PRs o evidencias debe realizarse mediante `Issue → Branch → PR → Validaciones → Revisión → Merge`. No se permite corregir únicamente la representación visual para alterar el estado del proyecto.

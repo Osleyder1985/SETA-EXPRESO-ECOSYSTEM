@@ -1,16 +1,16 @@
 # Matriz de controles de Governance, Quality, Security y Evidence Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.5.0  
+**Versión:** 0.6.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25
+**Issues relacionados:** #13, #20, #22, #23, #25, #33
 
 ---
 
 ## 1. Propósito
 
-Convertir las capas de Governance Enforcement, Quality Validation, Security Validation y Evidence Validation, junto con los controles de readiness de los Quality Gates, en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
+Convertir las capas de Governance Enforcement, Decision Governance, Quality Validation, Security Validation y Evidence Validation, junto con los controles de readiness de los Quality Gates, en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
 
 ## 2. Matriz de Governance Enforcement
 
@@ -40,7 +40,33 @@ Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son d
 | GC-003 | G0 Evidence Package | Decisión de gate sin evidencia trazable | Consolidación y revisión de evidencia | G/D | Assessment + Impact Analysis + validaciones + PR | La suficiencia semántica final requiere revisión |
 | GC-004 | Residual Risk Acceptance | Ocultar limitaciones técnicas o sobreafirmar controles | Registro explícito de riesgos residuales | G | Governance baseline + Gate decision | La aceptación requiere autoridad responsable |
 
-## 4. Matriz de Quality Validation
+## 4. Matriz de Decision Governance
+
+Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de los Architecture Decision Records (ADR) y Engineering Decision Records (EDR). Su detalle normativo-operacional se desarrolla en `20-Decision-Governance-Control-Matrix.md`.
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| DG-001 | Decision Record estructurado | Decisiones sin razonamiento verificable | ADR/EDR template | G/D | Decision Record | Revisión semántica humana |
+| DG-002 | Identidad estable | Pérdida de trazabilidad histórica | ADR-NNN / EDR-NNN | G/D | Índice + archivo | Integridad automática aún planificada |
+| DG-003 | Contexto | Decisión descontextualizada | Campo obligatorio | G | Decision Record | Calidad depende de la información disponible |
+| DG-004 | Alternativas | Decisión sin comparación | Campo obligatorio | G | Decision Record | No obliga a una cantidad fija de alternativas |
+| DG-005 | Criterios | Selección no justificable | Criterios explícitos | G | Decision Record | Los criterios requieren juicio de ingeniería |
+| DG-006 | Trade-offs | Costes y compromisos ocultos | Sección obligatoria | G | Decision Record | Evaluación cualitativa puede requerir revisión |
+| DG-007 | Consecuencias | Impactos futuros no registrados | Sección obligatoria | G | Decision Record | No predice todos los efectos |
+| DG-008 | Riesgos | Decisión desvinculada de Risk Management | Referencia a Risk Register | G | Decision Record + Risk Register | Correlación automática futura |
+| DG-009 | Evidencia | Decisión sin base objetiva | Referencias controladas | G/D | Decision Record | Evidencia externa puede requerir metadatos |
+| DG-010 | Status | Estado ambiguo | Estados controlados | G/D | Decision Record | Requiere actualización disciplinada |
+| DG-011 | Supersession | Historia de decisiones destruida | `Supersedes` / `Superseded by` | G | Cadena de registros | Validación automática futura |
+| DG-012 | Trazabilidad | Decisión aislada | Requisitos/Issues/PR/Gates | G | Enlaces y referencias | No toda relación es automática |
+| DG-013 | Approval | Decisión material sin autoridad | Sección de aprobación | G | Decision Record | Autoridad depende del contexto |
+| DG-014 | Premature Decision Control | Decisiones técnicas inventadas antes del contexto | Criterio de materialidad + fases | G | Issue/Decision Index | Requiere criterio humano |
+| DG-015 | Index Integrity | Índice inconsistente | Validación de índice futura | D | Index + workflow | No implementado |
+| DG-016 | Schema Validation | Campos obligatorios ausentes | Linter/schema futuro | P-Compensatorio/D | Check run | No implementado |
+| DG-017 | Link Validation | Referencias rotas | Validación futura | P-Compensatorio/D | Check run | No implementado |
+| DG-018 | Supersession Consistency | Cadena histórica inconsistente | Validación futura | D | Check run | No implementado |
+| DG-019 | Decision Metrics | Falta de visibilidad sobre decisiones | Métricas futuras | M | Dashboard | No implementado |
+
+## 5. Matriz de Quality Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -51,7 +77,7 @@ Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son d
 | QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
 | QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |
 
-## 5. Matriz de Security Validation
+## 6. Matriz de Security Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -65,7 +91,7 @@ Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son d
 | SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner de contenedores futuro | D | Decisión de aplicabilidad | No aplicable al baseline actual |
 | SV-009 | SBOM | Falta de inventario de componentes | Generación SBOM futura | D | Roadmap / decisión | Aún no implementado |
 
-## 6. Matriz de Evidence Validation
+## 7. Matriz de Evidence Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -79,21 +105,21 @@ Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son d
 | EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
 | EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |
 
-## 7. Criterios de estado
+## 8. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
 - **NOT_APPLICABLE:** no aplica y existe justificación.
 - **NOT_IMPLEMENTED:** definido pero todavía no automatizado.
 
-## 8. Principio de no sobreafirmación
+## 9. Principio de no sobreafirmación
 
 Ningún control detectivo o compensatorio podrá registrarse como protección nativa. PASS demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente.
 
-## 9. Relación con Quality Gates
+## 10. Relación con Quality Gates
 
-Las cuatro capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
+Las capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Decision Governance aporta evidencia del razonamiento de decisiones materiales cuando corresponda. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
 
-## 10. Evolución
+## 11. Evolución
 
-La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad y evidencia científica.
+La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad, validación automatizada de Decision Records y métricas de decisión.

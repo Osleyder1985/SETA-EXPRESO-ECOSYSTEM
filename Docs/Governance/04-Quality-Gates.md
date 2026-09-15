@@ -1,8 +1,8 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Definición inicial  
+**Versión:** 0.2.0  
+**Estado:** Definición inicial controlada  
 **Fecha:** 2026-09-15
 
 ---
@@ -46,7 +46,8 @@ Cada gate deberá considerar, según aplicabilidad:
 - pruebas;
 - trazabilidad;
 - evidencia;
-- responsables y aprobaciones.
+- responsables y aprobaciones;
+- control de cambios y estado del Pull Request cuando el gate implique una modificación controlada.
 
 ## 4. Regla de decisión
 
@@ -61,6 +62,10 @@ Un gate puede resultar:
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
+Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir comprobar que el cambio fue propuesto mediante Issue, implementado en branch, sometido a análisis de impacto y presentado mediante Pull Request antes de su integración.
+
 ## 6. Evolución
 
 Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
+
+Los criterios de los gates evolucionarán mediante cambios controlados y análisis de impacto sobre el ciclo maestro, el catálogo de artefactos y las políticas relacionadas.

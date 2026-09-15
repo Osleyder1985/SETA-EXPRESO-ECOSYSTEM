@@ -10,7 +10,7 @@ Este repositorio constituye la fuente controlada de código, documentación, dec
 
 ## Estado actual
 
-El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Roadmap y mecanismos de evidencia.
+El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Decision Governance, Roadmap y mecanismos de evidencia.
 
 La construcción funcional no se inicia por defecto hasta que las fases precedentes del ciclo de vida proporcionen la definición y evidencia necesarias.
 
@@ -95,6 +95,7 @@ SETA-EXPRESO-ECOSYSTEM/
 │   ├── Business/
 │   ├── Requirements/
 │   ├── Architecture/
+│   │   └── Decision-Records/
 │   ├── Design/
 │   ├── Testing/
 │   ├── Security/
@@ -125,6 +126,24 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 - `Docs/Governance/07-Main-Protection-Strategy.md` — estrategia de protección compensatoria de `main` bajo GitHub Free + repositorio privado.
 - `Docs/Governance/08-Software-Roadmap.md` — Roadmap maestro de ejecución del ciclo de vida A–O.
 - `Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
+- `Docs/Governance/19-Decision-Governance.md` — política formal de Architecture y Engineering Decision Records.
+- `Docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
+
+## Decision Governance
+
+Las decisiones materiales de arquitectura e ingeniería se gestionarán mediante **Architecture Decision Records (ADR)** y **Engineering Decision Records (EDR)** cuando corresponda. Un Decision Record debe conservar el contexto, decisión, alternativas, criterios, trade-offs, consecuencias, riesgos, evidencia, estado y relaciones de supersession, además de trazabilidad y aprobación según aplicabilidad.
+
+Los registros controlados se almacenan en:
+
+```text
+Docs/Architecture/Decision-Records/
+├── README.md
+├── ADR-Template.md
+├── EDR-Template.md
+└── Decision-Record-Index.md
+```
+
+Los ejemplos de decisiones futuras —como PostgreSQL, arquitectura modular, REST/GraphQL, Kubernetes, proveedor, identidad o arquitectura de IA— son **temas potenciales**, no decisiones aprobadas. No se registrarán como decisiones hasta disponer del contexto y la evidencia necesarios.
 
 ## Change Control
 
@@ -142,6 +161,8 @@ Implementación
 Análisis de impacto
   ↓
 Actualización de artefactos afectados
+  ↓
+Decision Record cuando corresponda
   ↓
 Pruebas / evidencia
   ↓

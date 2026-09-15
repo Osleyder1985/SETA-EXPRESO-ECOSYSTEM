@@ -1,0 +1,130 @@
+version: 1.0.0
+status: proposed
+source_of_truth: Docs/Governance/Configuration/Configuration-Item-Register.yml
+configuration_items:
+  - ci_id: CI-001
+    name: Requirements Baseline
+    type: requirements
+    description: Approved set of requirements and acceptance criteria for a controlled scope.
+    owner: Requirements Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: Docs/Requirements/
+    dependencies: []
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-002
+    name: Architecture Baseline
+    type: architecture
+    description: Approved architecture description and associated views for a controlled scope.
+    owner: Architecture Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: Docs/Architecture/
+    dependencies: [CI-001]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-003
+    name: Database Schema
+    type: data-design
+    description: Controlled database schema and migration definition when the database exists.
+    owner: Data Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: null
+    dependencies: [CI-001, CI-002]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-004
+    name: API Contract
+    type: interface
+    description: Controlled API/interface contract when interfaces are established.
+    owner: Architecture Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: null
+    dependencies: [CI-001, CI-002]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-005
+    name: Security Baseline
+    type: security
+    description: Approved security requirements and control configuration for a controlled scope.
+    owner: Security Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: Docs/Security/
+    dependencies: [CI-001, CI-002]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-006
+    name: Infrastructure
+    type: infrastructure
+    description: Controlled infrastructure definition and configuration.
+    owner: DevOps/Operations Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: Infrastructure/
+    dependencies: [CI-002, CI-005]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-007
+    name: Source Code
+    type: software
+    description: Controlled source code forming part of the system baseline.
+    owner: Engineering Owner
+    status: ACTIVE
+    version: 0.1.0
+    baseline: null
+    source: Source/
+    dependencies: [CI-001, CI-002, CI-004, CI-005]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-008
+    name: Test Suite
+    type: verification
+    description: Controlled automated and manual verification assets.
+    owner: Quality Owner
+    status: ACTIVE
+    version: 0.1.0
+    baseline: null
+    source: Tests/
+    dependencies: [CI-001, CI-007]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []
+  - ci_id: CI-009
+    name: Deployment Configuration
+    type: deployment
+    description: Controlled deployment configuration, manifests and release parameters.
+    owner: Operations Owner
+    status: PROPOSED
+    version: 0.1.0
+    baseline: null
+    source: Configuration/
+    dependencies: [CI-006, CI-007, CI-008]
+    change_control: Issue-Branch-PR
+    approval: null
+    evidence: []
+    change_history: []

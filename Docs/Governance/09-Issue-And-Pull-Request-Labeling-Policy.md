@@ -1,121 +1,118 @@
-# Política de Labels para Issues y Pull Requests
+# Política de Labels y Títulos para Issues y Pull Requests
 
-**Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
+**Versión:** 0.2.0  
 **Estado:** Vigente  
-**Relacionado:** Issue #9
-
----
+**Relacionado:** Issue #11
 
 ## 1. Propósito
 
-Establecer una clasificación consistente para Issues y Pull Requests que facilite descubrimiento, priorización, filtrado, trazabilidad y lectura del historial de ingeniería.
+Establecer una clasificación y una convención de títulos consistente para Issues y Pull Requests, facilitando descubrimiento, priorización, filtrado, trazabilidad y lectura del historial de ingeniería.
 
-Los labels son metadatos de gobernanza: **no sustituyen el título, el alcance, los criterios de aceptación ni la documentación del cambio**.
+Los labels son metadatos de gobernanza. **No sustituyen el título, alcance, criterios de aceptación ni documentación del cambio.**
 
----
+## 2. Regla obligatoria de labels
 
-## 2. Regla obligatoria
+Todo Issue y todo Pull Request debe tener al menos un label pertinente antes de considerarse correctamente clasificado.
 
-Todo Issue y todo Pull Request del proyecto deberá tener al menos un label pertinente antes de considerarse una unidad de trabajo correctamente clasificada.
+Cuando el trabajo atraviese varios dominios, pueden utilizarse varios labels, pero solo los que aporten información real. Un PR hereda normalmente la clasificación principal del Issue que implementa y puede añadir una clasificación secundaria justificada.
 
-Cuando el trabajo atraviese varios dominios, se podrán utilizar varios labels, pero solo los que aporten información real.
-
-Un PR hereda normalmente la clasificación principal del Issue que implementa y puede añadir una clasificación secundaria cuando su contenido lo justifique.
-
----
-
-## 3. Labels actualmente disponibles y significado
-
-La clasificación debe utilizar los labels realmente disponibles en GitHub. La baseline actual verificada del repositorio incluye:
+## 3. Labels actualmente disponibles
 
 | Label | Uso |
 |---|---|
-| `governance` | Gobierno, políticas, procesos, ciclo de vida, control de cambios, planificación y decisiones de gobierno. |
-| `documentation` | Documentación, registros, evidencias documentales, índices y mantenimiento documental. |
+| `governance` | Gobierno, políticas, procesos, ciclo de vida, control de cambios, planificación y decisiones. |
+| `documentation` | Documentación, registros, evidencias documentales e índices. |
 | `architecture` | Arquitectura de sistema/software, diseño estructural y decisiones arquitectónicas. |
 
-Los labels estándar o adicionales que GitHub pueda ofrecer no se consideran automáticamente parte de la taxonomía del proyecto: su incorporación deberá justificarse y documentarse.
+Los labels estándar adicionales de GitHub no pasan automáticamente a formar parte de la taxonomía oficial del proyecto. Su incorporación requiere justificación y documentación.
 
----
+## 4. Convención obligatoria de títulos
 
-## 4. Matriz de clasificación por tipo de trabajo
+Toda nueva Issue y todo nuevo Pull Request utilizará exactamente esta estructura conceptual:
 
-| Trabajo | Label principal recomendado | Secundarios posibles |
-|---|---|---|
-| Ciclo de vida, políticas, gobernanza | `governance` | `documentation` |
-| Roadmap, planificación de ingeniería | `governance` | `documentation` |
-| Documentos, registros, evidencia | `documentation` | `governance` |
-| Arquitectura del Ecosistema | `architecture` | `governance`, `documentation` |
-| Arquitectura de software | `architecture` | `documentation` |
-| Cambio que actualiza política + documentos | `governance` | `documentation` |
-| Cambio arquitectónico documentado | `architecture` | `governance`, `documentation` |
+> **`Módulo/Archivo: Acción a realizar.`**
 
----
+### Componentes
 
-## 5. Reglas para Issues
+| Componente | Regla |
+|---|---|
+| **Módulo** | Dominio o área del Ecosistema: `Gobernanza`, `Descubrimiento`, `Requisitos`, `Arquitectura`, `Testing`, etc. |
+| **Archivo** | Artefacto principal afectado cuando exista. Puede omitirse cuando el trabajo no esté ligado a un archivo concreto. |
+| **Acción** | Verbo claro que describa qué se realizará. |
+| **Puntuación** | El título termina en punto. |
+
+### Ejemplos válidos
+
+- `Gobernanza/08-Software-Roadmap.md: Actualizar seguimiento y fechas.`
+- `Descubrimiento/Stakeholders: Identificar y registrar actores.`
+- `Requisitos/Requirements-Baseline.md: Definir requisitos verificables.`
+- `Arquitectura/Architecture-Baseline.md: Establecer arquitectura objetivo.`
+- `Testing/Verification-Plan.md: Definir estrategia de verificación.`
+
+### Ejemplos no válidos
+
+- `Update docs`
+- `Fix roadmap`
+- `Cambios varios`
+- `Implementación`
+- `Roadmap`
+
+El número de Issue/PR es identificador de GitHub y no sustituye el título descriptivo.
+
+## 5. Diferencia entre título, label y fase
+
+Estos tres mecanismos tienen funciones distintas:
+
+```text
+Título  → ¿Qué acción concreta se realizará?
+Label   → ¿De qué naturaleza/dominio es el trabajo?
+Fase    → ¿Dónde encaja en el ciclo de vida A–O?
+```
+
+**Título ≠ label ≠ fase.** No se utilizará un label para compensar un título ambiguo ni un título para sustituir la trazabilidad de fase.
+
+## 6. Reglas para Issues
 
 Antes de iniciar una unidad de trabajo:
 
-- el Issue debe describir objetivo, contexto, alcance y criterios de aceptación;
-- debe identificar la fase/subfase del ciclo de vida cuando corresponda;
-- debe incluir análisis de impacto inicial cuando sea relevante;
-- debe tener labels pertinentes;
-- no se debe usar un label para ocultar una clasificación ambigua.
+- título conforme a la convención;
+- objetivo, contexto, alcance y criterios de aceptación;
+- fase/subfase del ciclo de vida cuando corresponda;
+- análisis de impacto inicial cuando sea relevante;
+- labels pertinentes;
+- dependencias y evidencia esperada cuando existan.
 
-Al cerrar el Issue, su estado y labels deben continuar describiendo correctamente la naturaleza del trabajo realizado.
-
----
-
-## 6. Reglas para Pull Requests
+## 7. Reglas para Pull Requests
 
 Todo PR deberá:
 
+- utilizar la convención de títulos;
 - estar vinculado a un Issue;
-- conservar los labels pertinentes del trabajo que integra;
-- documentar el cambio y su motivo;
+- conservar los labels pertinentes;
+- documentar cambio y motivo;
 - declarar análisis de impacto;
 - identificar artefactos afectados;
 - registrar pruebas/evidencia;
-- declarar explícitamente uno y solo uno de los estados formales del proyecto:
-  - 🟢 `LISTO PARA FUSIÓN`;
-  - 🟡 `NO FUSIONAR — TRABAJO PENDIENTE`.
+- declarar explícitamente uno y solo uno de los estados formales de integración del proyecto.
 
-La ausencia de un label no puede interpretarse como aprobación ni como ausencia de impacto.
+## 8. Regularización histórica
 
----
+Los Issues y PRs históricos no se reescribirán artificialmente. Cuando sea útil, podrán regularizarse sus labels o metadatos sin alterar el contenido sustantivo ni romper la trazabilidad histórica.
 
-## 7. Regularización histórica
+La nueva convención de títulos se aplica obligatoriamente desde Issue #11 en adelante.
 
-Cuando un Issue o PR histórico carezca de labels, podrá regularizarse sin reabrirlo ni modificar su contenido sustantivo. La regularización es una mejora de metadatos y debe preservar su historial.
+## 9. Evolución de la taxonomía
 
-La baseline inicial de gobernanza fue regularizada durante la implementación del Issue #9 para los artefactos identificados sin clasificación.
+Cuando aparezcan dominios permanentes como requisitos, testing, seguridad, datos, DevOps u operaciones, se evaluará la incorporación de labels específicos antes de utilizarlos como clasificación oficial.
 
----
+La incorporación deberá considerar necesidad real, ausencia de solapamiento, estabilidad semántica, utilidad para métricas/Roadmap y documentación del significado.
 
-## 8. Evolución de la taxonomía
-
-La taxonomía crecerá con el proyecto. Cuando aparezcan dominios permanentes como requisitos, testing, seguridad, datos, DevOps u operaciones, se deberá evaluar la incorporación de labels específicos antes de utilizarlos como clasificación oficial.
-
-La ampliación de la taxonomía debe considerar:
-
-1. necesidad real de filtrado;
-2. ausencia de solapamiento semántico;
-3. estabilidad del concepto;
-4. utilidad para métricas y Roadmap;
-5. compatibilidad con el flujo de Issues/PRs;
-6. documentación de su significado.
-
----
-
-## 9. Relación con el Roadmap
-
-Los labels ayudan a clasificar el trabajo; el Roadmap determina dónde encaja ese trabajo en el ciclo de vida.
+## 10. Relación con el Roadmap
 
 ```text
-Label
+Título
   ↓
-Dominio / naturaleza del trabajo
+Label / dominio
   ↓
 Issue
   ↓
@@ -128,4 +125,4 @@ Evidence
 Baseline
 ```
 
-**Label ≠ fase.** Un mismo label puede aparecer en múltiples fases porque los procesos transversales acompañan todo el ciclo de vida.
+El Roadmap determina el avance temporal y de ejecución; los Issues y PRs son las unidades trazables de trabajo e integración.

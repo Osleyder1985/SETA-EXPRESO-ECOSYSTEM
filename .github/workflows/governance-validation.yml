@@ -32,17 +32,16 @@ jobs:
             exit 1
           fi
 
-          for required_text in \
-            "Issue #" \
-            "Análisis de impacto"; do
-            if [[ "$PR_BODY" != *"$required_text"* ]]; then
-              echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: $required_text"
-              exit 1
-            fi
-          done
+          if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then
+            echo "ERROR: El Pull Request no contiene una referencia válida a un Issue."
+            exit 1
+          fi
 
-          # El estado formal debe aparecer exactamente una vez y no se cuenta
-          # cuando aparece dentro de texto descriptivo sobre una transición futura.
+          if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then
+            echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: Análisis de impacto"
+            exit 1
+          fi
+
           ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
           pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
 

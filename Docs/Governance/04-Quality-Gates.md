@@ -1,7 +1,7 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.6.0  
+**Versión:** 0.7.0  
 **Estado:** Definición controlada en evolución  
 **Fecha:** 2026-09-15
 
@@ -129,9 +129,22 @@ Cada gate deberá considerar, según aplicabilidad:
 - evidencia;
 - responsables y aprobaciones;
 - control de cambios y estado del Pull Request cuando el gate implique una modificación controlada;
-- resultados de Governance Validation, Quality Validation, Security Validation y Evidence Validation cuando correspondan.
+- resultados de Governance Validation, Quality Validation, Security Validation y Evidence Validation cuando correspondan;
+- decisiones materiales de arquitectura e ingeniería y sus Decision Records cuando sean aplicables.
 
-## 6. Regla de decisión
+## 6. Decision Governance en Quality Gates
+
+Las decisiones materiales que condicionen la aceptación de arquitectura, diseño, tecnología, integraciones, seguridad, datos, operación o evolución deberán estar respaldadas por un `ADR` o `EDR` cuando corresponda a los criterios de materialidad definidos en `19-Decision-Governance.md`.
+
+En particular:
+
+- **G5 Architecture Baseline:** deberá comprobarse la existencia y estado de los ADR relevantes para las decisiones arquitectónicas materiales.
+- **G6 Design Ready:** deberá comprobarse la trazabilidad de las decisiones de diseño materiales hacia sus requisitos, alternativas, riesgos y evidencia.
+- **G12 Evolution Ready:** los cambios que alteren decisiones previamente registradas deberán actualizar, superseder o complementar el Decision Record correspondiente.
+
+La ausencia de un Decision Record aplicable no se corregirá inventando una decisión histórica. Deberá registrarse la decisión cuando exista contexto y evidencia suficientes, o quedar como condición/pending work trazable.
+
+## 7. Regla de decisión
 
 Un gate puede resultar:
 
@@ -144,7 +157,7 @@ Un gate puede resultar:
 
 Una excepción no debe ocultarse convirtiendo un `FAIL` automatizado en `PASS`. Debe registrarse como condición, excepción o decisión controlada según corresponda.
 
-## 7. Evidencia
+## 8. Evidencia
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
@@ -152,7 +165,7 @@ Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir
 
 Cuando aplique una validación automatizada, la evidencia deberá identificar el workflow run y los controles ejecutados.
 
-## 8. Evolución
+## 9. Evolución
 
 Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
 

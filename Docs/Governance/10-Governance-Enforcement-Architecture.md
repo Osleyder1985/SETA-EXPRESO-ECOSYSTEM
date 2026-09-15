@@ -1,17 +1,17 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.6.0  
+**Versión:** 0.7.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35
 
 ---
 
 ## 1. Propósito
 
-Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia y Decision Governance.
+Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia, Decision Governance y medición.
 
 Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
 
@@ -62,9 +62,12 @@ Issue → Work Branch → Pull Request
              └───────┬────────┘
                      ▼
                   Metrics
+                     │
+                     ▼
+             Interpretation / Action
 ```
 
-Governance, Decision Governance, Quality, Security y Evidence Validation son capacidades relacionadas pero distinguibles. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
+Governance, Decision Governance, Quality, Security, Evidence Validation y Metrics Governance son capacidades relacionadas pero distinguibles. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
 
 ## 4. Niveles de control
 
@@ -75,7 +78,7 @@ Governance, Decision Governance, Quality, Security y Evidence Validation son cap
 | D-Detectivo | Detecta incumplimiento después o durante la operación | Push a `main` sin PR asociado | Implementado |
 | G-Gobernanza | Política, evidencia y responsabilidad | Issue + PR + revisión | Vigente |
 | DG-Decisión | Conserva y controla decisiones materiales | ADR / EDR | Documental operativo inicial |
-| M-Métrico | Convierte controles en indicadores | % PR conformes | En evolución |
+| M-Métrico | Convierte controles y resultados en indicadores reproducibles | Catálogo + dashboard | Documental operativo inicial |
 
 La etiqueta `P-Compensatorio` nunca debe describirse como equivalente a branch protection nativa.
 
@@ -160,6 +163,8 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 - `18-Risk-Management-Control-Matrix.md`
 - `19-Decision-Governance.md`
 - `20-Decision-Governance-Control-Matrix.md`
+- `21-Engineering-Metrics-Governance.md`
+- `22-Engineering-Metrics-Control-Matrix.md`
 - `Docs/Architecture/Decision-Records/README.md`
 - `Docs/Architecture/Decision-Records/ADR-Template.md`
 - `Docs/Architecture/Decision-Records/EDR-Template.md`
@@ -177,13 +182,27 @@ Los Quality Gates utilizan controles de readiness específicos definidos en `11-
 
 La arquitectura de enforcement no sustituye la decisión del Gate. Su función es garantizar que la decisión se apoye en evidencia localizable y que las limitaciones técnicas no se oculten.
 
-## 12. Residual risk
+## 12. Metrics Governance
+
+Metrics Governance convierte los resultados observables del proceso de ingeniería en indicadores definidos y reproducibles. Su política, catálogo y matriz de controles se encuentran en `21-Engineering-Metrics-Governance.md` y `22-Engineering-Metrics-Control-Matrix.md`.
+
+La capa métrica es principalmente de medición, diagnóstico y retroalimentación. No debe presentarse como enforcement preventivo ni como sustituto de los controles de Governance, Quality, Security o Evidence.
+
+El catálogo define la semántica de cada métrica; el Dashboard es una vista derivada. Una métrica sin fuente operacional suficiente permanece en estado `defined`, `provisional` o `blocked` y no debe convertirse artificialmente en cero ni en cumplimiento.
+
+La evolución prevista es:
+
+```text
+Sources → Collection → Calculation → Snapshots → Trends → Alerts → Actions → Outcomes
+```
+
+## 13. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-## 13. Métricas iniciales
+## 14. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente:
 
@@ -196,9 +215,12 @@ La arquitectura deberá permitir medir progresivamente:
 - `% PR con Decision Record aplicable correctamente trazado`;
 - `% pushes a main asociados a PR`;
 - `número de actualizaciones sospechosas de main`;
-- `número de fallos por control y capa`.
+- `número de fallos por control y capa`;
+- disponibilidad y cobertura de las métricas definidas;
+- antigüedad de datos y frescura de snapshots;
+- métricas con evidencia insuficiente o estado bloqueado.
 
-## 14. Evolución hacia enforcement nativo
+## 15. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
@@ -210,7 +232,7 @@ Compensatorio + Detectivo + Gobernanza
 Compensatorio + Detectivo + Gobernanza + Preventivo
 ```
 
-## 15. Criterio de verdad
+## 16. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
@@ -218,6 +240,6 @@ La afirmación correcta durante la restricción actual es:
 
 > `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
 
-## 16. Evidencia de implementación
+## 17. Evidencia de implementación
 
-La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, resultados de validación, estado final de integración y documentación actualizada.
+La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, resultados de validación, métricas y snapshots cuando existan, estado final de integración y documentación actualizada.

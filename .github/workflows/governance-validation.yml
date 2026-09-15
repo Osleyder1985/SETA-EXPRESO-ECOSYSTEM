@@ -34,84 +34,54 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-
-          if [ "$PR_HEAD_REF" = "main" ]; then
-            echo "ERROR: La branch de origen del Pull Request no puede ser main."
-            exit 1
-          fi
-
-          # POSIX ERE: grep -E no admite grupos no capturantes (?:...).
-          if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then
-            echo "ERROR: La branch debe cumplir issue-<numero>-<slug-corto>."
-            exit 1
-          fi
-
+          if [ "$PR_HEAD_REF" = "main" ]; then exit 1; fi
+          if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then exit 1; fi
           issue_number=$(printf '%s\n' "$PR_HEAD_REF" | sed -E 's/^issue-([0-9]+)-.*/\1/')
-          if [[ "$PR_BODY" != *"#$issue_number"* ]]; then
-            echo "ERROR: La branch referencia Issue #$issue_number, pero el cuerpo del PR no contiene esa referencia."
-            exit 1
-          fi
-
-          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then
-            echo "ERROR: El título del Pull Request debe cumplir: Módulo/Archivo: Acción a realizar."
-            exit 1
-          fi
-
-          if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then
-            echo "ERROR: El Pull Request no contiene una referencia válida a un Issue."
-            exit 1
-          fi
-
-          if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then
-            echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: Análisis de impacto"
-            exit 1
-          fi
-
-          # No depender únicamente del snapshot del evento: GitHub puede ejecutar
-          # el workflow con un payload anterior al cambio de labels. Se consulta
-          # el estado actual del PR mediante la API para validar el dato vigente.
-          label_count=$(curl --fail-with-body --silent --show-error \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" \
-            | jq '.labels | length')
-          if [ "$label_count" -lt 1 ]; then
-            echo "ERROR: El Pull Request debe tener al menos un label pertinente."
-            exit 1
-          fi
-
+          if [[ "$PR_BODY" != *"#$issue_number"* ]]; then exit 1; fi
+          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then exit 1; fi
+          if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then exit 1; fi
+          if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then exit 1; fi
+          label_count=$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq '.labels | length')
+          if [ "$label_count" -lt 1 ]; then exit 1; fi
           ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
           pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
-
-          if [ $((ready_count + pending_count)) -ne 1 ]; then
-            echo "ERROR: El Pull Request debe declarar exactamente un estado de integración: LISTO PARA FUSIÓN o NO FUSIONAR — TRABAJO PENDIENTE."
-            exit 1
-          fi
-
+          if [ $((ready_count + pending_count)) -ne 1 ]; then exit 1; fi
           git fetch origin main --depth=1
-          if ! git merge-base --is-ancestor "origin/main" HEAD; then
-            echo "ERROR: La branch del Pull Request no contiene la línea base actual de main. Rebase o actualiza la branch antes de integrar."
-            exit 1
-          fi
-
-          echo "OK: Metadatos, título, labels, Issue/branch y línea base del Pull Request conformes."
+          if ! git merge-base --is-ancestor "origin/main" HEAD; then exit 1; fi
+          echo "OK: Governance metadata conforms."
 
       - name: Repository governance baseline
         run: |
           set -euo pipefail
-          test -f Docs/Governance/00-Software-Lifecycle-Master.md
-          test -f Docs/Governance/03-Artifacts-And-Evidence.md
-          test -f Docs/Governance/04-Quality-Gates.md
-          test -f Docs/Governance/05-Repository-Naming-Convention.md
-          test -f Docs/Governance/06-Change-Control-Workflow.md
-          test -f Docs/Governance/07-Main-Protection-Strategy.md
-          test -f Docs/Governance/08-Software-Roadmap.md
-          test -f Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
-          test -f Docs/Governance/10-Governance-Enforcement-Architecture.md
-          test -f Docs/Governance/11-Governance-Control-Matrix.md
-          test -f .github/workflows/governance-validation.yml
-          echo "OK: La línea base documental y automatizada de gobernanza está presente."
+          required=(
+            Docs/Governance/00-Software-Lifecycle-Master.md
+            Docs/Governance/03-Artifacts-And-Evidence.md
+            Docs/Governance/04-Quality-Gates.md
+            Docs/Governance/05-Repository-Naming-Convention.md
+            Docs/Governance/06-Change-Control-Workflow.md
+            Docs/Governance/07-Main-Protection-Strategy.md
+            Docs/Governance/08-Software-Roadmap.md
+            Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
+            Docs/Governance/10-Governance-Enforcement-Architecture.md
+            Docs/Governance/11-Governance-Control-Matrix.md
+            Docs/Governance/17-Risk-Management-System.md
+            Docs/Governance/18-Risk-Management-Control-Matrix.md
+            Docs/Governance/19-Decision-Governance.md
+            Docs/Governance/20-Decision-Governance-Control-Matrix.md
+            Docs/Governance/21-Engineering-Metrics-Governance.md
+            Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
+            Docs/Governance/Metrics/Metric-Catalog.yml
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
+            .github/workflows/governance-validation.yml
+            .github/workflows/quality-validation.yml
+            .github/workflows/security-validation.yml
+            .github/workflows/evidence-validation.yml
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "FAIL: baseline artifact missing or empty: $file"; exit 1; }
+          done
+          echo "OK: Governance baseline present."
 
       - name: Detect update to main
         if: github.event_name == 'push'
@@ -123,24 +93,12 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-
-          echo "Se detectó una actualización de main."
           echo "Commit: $COMMIT_SHA"
           echo "Actor: $PUSHER"
           echo "Mensaje: $COMMIT_MESSAGE"
-
-          pr_count=$(curl --fail-with-body --silent --show-error \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "X-GitHub-Api-Version: 2026-03-10" \
-            "https://api.github.com/repos/$REPOSITORY/commits/$COMMIT_SHA/pulls" \
-            | jq 'length')
-
+          pr_count=$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/commits/$COMMIT_SHA/pulls" | jq 'length')
           if [ "$pr_count" -eq 0 ]; then
             echo "SUSPICIOUS_DIRECT_UPDATE: no se encontró un Pull Request asociado al commit que actualizó main."
-            echo "Este control es detectivo y requiere análisis del evento; no puede impedir ni revertir por sí mismo el cambio."
             exit 1
           fi
-
-          echo "OK: La actualización de main tiene al menos un Pull Request asociado."
-          echo "Este control confirma trazabilidad detectiva; no sustituye branch protection nativa."
+          echo "OK: main update has Pull Request traceability."

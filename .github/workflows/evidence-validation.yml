@@ -73,6 +73,11 @@ jobs:
             Docs/Governance/03-Artifacts-And-Evidence.md
             Docs/Governance/10-Governance-Enforcement-Architecture.md
             Docs/Governance/14-Evidence-Validation-Architecture.md
+            Docs/Governance/21-Engineering-Metrics-Governance.md
+            Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
+            Docs/Governance/Metrics/Metric-Catalog.yml
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
             .github/workflows/governance-validation.yml
             .github/workflows/quality-validation.yml
             .github/workflows/security-validation.yml

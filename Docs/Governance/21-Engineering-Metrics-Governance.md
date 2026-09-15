@@ -52,41 +52,35 @@ Una métrica puede tener más de una clasificación.
 ## 6. Dimensiones iniciales
 
 ### Delivery
-
 - Lead Time
 - Change Failure Rate
 - Deployment Frequency
 - Recovery Time
 
 ### Quality
-
 - Defect Density
 - Escaped Defects
 - Test Coverage
 - Requirement Coverage
 
 ### Requirements
-
 - % requisitos trazables
 - % requisitos verificados
 - % requisitos ambiguos
 - Change Volatility
 
 ### Architecture
-
 - Architectural Debt
 - ADR Coverage
 - Architecture Compliance
 
 ### Security
-
 - Vulnerabilities
 - Remediation Time
 - Dependency Risk
 - Secrets Exposure
 
 ### Governance
-
 - % PR con Issue
 - % PR con Impact Analysis
 - % PR con Evidence
@@ -158,22 +152,11 @@ Debe presentar como mínimo:
 
 ## 11. Interpretación
 
-Una métrica no debe interpretarse de forma aislada. Antes de tomar una acción se debe revisar:
-
-- periodo de medición;
-- tamaño de muestra;
-- cambios de proceso;
-- cambios de alcance;
-- calidad de la fuente;
-- posibles efectos de medición;
-- relación con otras métricas;
-- riesgos y decisiones relacionados.
+Una métrica no debe interpretarse de forma aislada. Antes de tomar una acción se debe revisar periodo, tamaño de muestra, cambios de proceso o alcance, calidad de la fuente, posibles efectos de medición y relación con otras métricas, riesgos y decisiones.
 
 ## 12. Gobernanza del sistema métrico
 
 Los cambios de definición, fórmula, fuente, umbral o alcance de una métrica son cambios controlados y deben conservar historial.
-
-Las métricas materialmente relevantes para arquitectura, seguridad, calidad o gobernanza deben poder vincularse con el artefacto de decisión o control correspondiente.
 
 ## 13. Automatización futura
 

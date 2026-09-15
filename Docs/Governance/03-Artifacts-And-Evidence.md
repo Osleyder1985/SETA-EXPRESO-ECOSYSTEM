@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.8.0  
+**Versión:** 0.9.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Decision Governance, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Decision Governance, Metrics Governance, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs, Architecture Decision Log | Reviews, decisions |
@@ -28,7 +28,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 | Testing | Test Plans, Cases, Results | Test runs, reports |
 | Seguridad | Threat Models, Security Requirements, Findings, Security Validation results | Scans, reviews, remediation |
 | DevOps | Pipelines, Releases, Deployment Plans | Pipeline logs, release records |
-| Operaciones | Runbooks, Incidents, Problems, Metrics | Operational records |
+| Operaciones | Runbooks, Incidents, Problems, Metrics, Metric Snapshots | Operational records, measurements |
 | Datos | Data Models, Migration Plans, Quality Records | Validation and migration evidence |
 | Investigación | Protocols, Datasets, Analysis, Results | Reproducible study evidence |
 
@@ -124,7 +124,8 @@ Un Quality Gate deberá conservar un paquete de evidencia suficiente para justif
 - riesgos residuales relevantes;
 - decisión formal del Gate;
 - Issue y Pull Request asociados;
-- commit integrado cuando la decisión dependa de la integración.
+- commit integrado cuando la decisión dependa de la integración;
+- métricas aplicables, periodo, fuente y limitaciones cuando formen parte de la evidencia del Gate.
 
 Para el Gate G0, el paquete mínimo está compuesto por:
 
@@ -150,11 +151,32 @@ Los controles `GC-001` a `GC-004` de `11-Governance-Control-Matrix.md` definen l
 
 La existencia del paquete no implica por sí misma que el Gate haya sido aprobado: la decisión debe quedar registrada explícitamente.
 
-## 11. Evidencia externa
+## 11. Evidencia de Metrics Governance
+
+Metrics Governance deberá conservar, cuando exista medición operacional suficiente:
+
+- Metric ID y versión de definición;
+- periodo de medición;
+- fuente y método de colección;
+- población, numerador y denominador cuando correspondan;
+- cálculo reproducible;
+- resultado y unidad;
+- baseline, target y thresholds cuando estén formalmente definidos;
+- limitaciones y disponibilidad del dato;
+- snapshot histórico cuando corresponda;
+- interpretación;
+- decisión o acción derivada cuando exista;
+- relación con riesgos, requisitos, decisiones, gates o cambios afectados.
+
+La definición y el catálogo son evidencia de la semántica controlada de la métrica; no equivalen a evidencia de que la métrica ya tenga datos operacionales. Los valores `TBD`, `N/A` o estados equivalentes deberán conservar la razón de su ausencia cuando aplique.
+
+El Dashboard de Engineering Governance es una representación derivada y no constituye la fuente canónica del dato. La fuente canónica de cada métrica es su entrada en `Docs/Governance/Metrics/Metric-Catalog.yml` junto con la evidencia operacional correspondiente.
+
+## 12. Evidencia externa
 
 Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confidencialidad, regulación o naturaleza del medio, el repositorio conservará metadatos suficientes para localizarla y verificar su integridad cuando sea apropiado.
 
-## 12. Control de cambios
+## 13. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
 
@@ -166,7 +188,7 @@ La cadena de evidencia deberá conservar, cuando aplique:
 Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidence Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-## 13. Decision Governance y Decision Records
+## 14. Decision Governance y Decision Records
 
 Decision Governance constituye una capacidad transversal para conservar el razonamiento de decisiones materiales de arquitectura e ingeniería. Los `Architecture Decision Records (ADR)` y `Engineering Decision Records (EDR)` son artefactos controlados cuando una decisión tenga impacto material, incertidumbre relevante, consecuencias duraderas, alternativas significativas, riesgo apreciable o necesidad de trazabilidad futura.
 
@@ -189,6 +211,6 @@ La existencia de un Decision Record no implica que una alternativa haya sido sel
 
 Los registros se gestionarán bajo `Docs/Architecture/Decision-Records/` y se relacionarán con requisitos, arquitectura, diseño, riesgos, Issues, Pull Requests, Quality Gates y evidencia cuando corresponda.
 
-## 14. Referencias de gobernanza
+## 15. Referencias de gobernanza
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md`, `Docs/Governance/14-Evidence-Validation-Architecture.md`, `Docs/Governance/19-Decision-Governance.md` y `Docs/Governance/20-Decision-Governance-Control-Matrix.md`.
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md`, `Docs/Governance/14-Evidence-Validation-Architecture.md`, `Docs/Governance/19-Decision-Governance.md`, `Docs/Governance/20-Decision-Governance-Control-Matrix.md`, `Docs/Governance/21-Engineering-Metrics-Governance.md` y `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md`.

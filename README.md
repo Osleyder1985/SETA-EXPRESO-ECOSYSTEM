@@ -10,7 +10,7 @@ Este repositorio constituye la fuente controlada de código, documentación, dec
 
 ## Estado actual
 
-El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Decision Governance, Roadmap y mecanismos de evidencia.
+El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Decision Governance, Roadmap, Metrics Governance y mecanismos de evidencia.
 
 La construcción funcional no se inicia por defecto hasta que las fases precedentes del ciclo de vida proporcionen la definición y evidencia necesarias.
 
@@ -92,6 +92,8 @@ SETA-EXPRESO-ECOSYSTEM/
 ├── README.md
 ├── Docs/
 │   ├── Governance/
+│   │   ├── Metrics/
+│   │   └── Risk/
 │   ├── Business/
 │   ├── Requirements/
 │   ├── Architecture/
@@ -128,6 +130,11 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 - `Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
 - `Docs/Governance/19-Decision-Governance.md` — política formal de Architecture y Engineering Decision Records.
 - `Docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
+- `Docs/Governance/21-Engineering-Metrics-Governance.md` — política formal de métricas de ingeniería.
+- `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md` — matriz de controles de Metrics Governance.
+- `Docs/Governance/Metrics/Metric-Catalog.yml` — catálogo canónico de métricas.
+- `Docs/Governance/Metrics/Engineering-Governance-Dashboard.md` — vista documental derivada del catálogo métrico.
+- `Docs/Governance/Metrics/Engineering-Governance-Dashboard.html` — Dashboard visual derivado del catálogo.
 
 ## Decision Governance
 
@@ -144,6 +151,37 @@ Docs/Architecture/Decision-Records/
 ```
 
 Los ejemplos de decisiones futuras —como PostgreSQL, arquitectura modular, REST/GraphQL, Kubernetes, proveedor, identidad o arquitectura de IA— son **temas potenciales**, no decisiones aprobadas. No se registrarán como decisiones hasta disponer del contexto y la evidencia necesarios.
+
+## Engineering Metrics Governance
+
+El Ecosistema mantiene un sistema formal para definir, medir, interpretar y evolucionar indicadores de ingeniería. La capacidad cubre **Delivery, Quality, Requirements, Architecture, Security y Governance**.
+
+La fuente canónica es `Docs/Governance/Metrics/Metric-Catalog.yml`. El Dashboard es una representación derivada y no reemplaza al catálogo ni a la evidencia operacional.
+
+Cada métrica debe conservar, según aplicabilidad, definición, fórmula, población, unidad, fuente, método de colección, frecuencia, owner, baseline, target, thresholds, disponibilidad, evidencia y limitaciones. Cuando todavía no existe evidencia operacional suficiente, el estado permanece explícitamente `defined`, `provisional` o `blocked`; no se inventan valores.
+
+La trazabilidad métrica es:
+
+```text
+Metric Definition
+  ↓
+Source
+  ↓
+Collection
+  ↓
+Calculation
+  ↓
+Snapshot / Evidence
+  ↓
+Interpretation
+  ↓
+Decision / Action
+  ↓
+Outcome
+```
+
+👉 **[Engineering Governance Dashboard](Docs/Governance/Metrics/Engineering-Governance-Dashboard.html)**  
+👉 **[Metric Catalog](Docs/Governance/Metrics/Metric-Catalog.yml)**
 
 ## Change Control
 
@@ -176,6 +214,8 @@ main
 ```
 
 **No se realizan cambios de trabajo directamente sobre `main`.** Un Issue puede resolverse mediante uno o varios Pull Requests. Todo Pull Request deberá documentar en español el cambio, su motivo, alcance, impacto, artefactos afectados, pruebas/evidencias y relación con el Issue.
+
+Los cambios en definiciones, fórmulas, fuentes, alcance, targets o thresholds de métricas también requieren control de cambios y análisis de impacto.
 
 ## 🏷️ Labels
 

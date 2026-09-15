@@ -1,7 +1,7 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.5.0  
+**Versión:** 0.6.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
@@ -138,6 +138,7 @@ Como mínimo deberán considerarse estas relaciones:
 | Movimiento/renombrado → referencias | Enlaces, índices, referencias cruzadas, automatizaciones y documentación |
 | Seguridad automatizada → gobernanza/calidad | Matriz de controles, Quality Gates, evidencia, Roadmap y workflows |
 | Decisión material → arquitectura/diseño/riesgo | ADR/EDR, requisitos, alternativas, criterios, trade-offs, consecuencias, riesgos y evidencia |
+| Métrica → gobernanza/calidad/operación | Definición, fórmula, fuente, catálogo, dashboard, evidencia, thresholds, controles y decisiones dependientes |
 
 ## 8. Decision Records como parte del cambio controlado
 
@@ -147,7 +148,25 @@ Un Decision Record no sustituye al Issue ni al Pull Request. Su función es cons
 
 Una decisión existente que deje de ser válida no deberá eliminarse para ocultar la historia. Se conservará su estado y se utilizará `Supersedes` / `Superseded by` para representar la evolución.
 
-## 9. Criterio de cierre del cambio
+## 9. Cambios sobre el sistema de métricas
+
+Las modificaciones a cualquiera de los siguientes elementos se tratarán como cambios controlados:
+
+- definición de una métrica;
+- fórmula o población de cálculo;
+- unidad o alcance;
+- fuente o método de recolección;
+- frecuencia;
+- owner;
+- baseline, target o thresholds formalmente aprobados;
+- estado de disponibilidad;
+- evidencia o método de trazabilidad;
+- interpretación o acción asociada;
+- estructura del dashboard derivado cuando altere su semántica.
+
+El cambio deberá explicar su impacto sobre el catálogo, evidencias históricas, dashboards, controles, Quality Gates, riesgos y Decision Records relacionados. No deberán reescribirse valores históricos para ocultar una modificación de definición; cuando una métrica cambie de semántica, deberá preservarse la historia y documentarse la transición.
+
+## 10. Criterio de cierre del cambio
 
 Un cambio no se considerará completo únicamente porque el archivo directamente modificado sea correcto.
 
@@ -163,7 +182,7 @@ Antes del Pull Request deberá comprobarse que:
 - Governance Validation, Quality Validation y Security Validation fueron ejecutadas cuando correspondan;
 - cualquier pendiente quedó identificado y trazado.
 
-## 10. Revisión e integración
+## 11. Revisión e integración
 
 La revisión del Pull Request deberá comprobar tanto la corrección del cambio como su coherencia con el resto del Ecosistema.
 
@@ -173,7 +192,7 @@ El merge representa la integración controlada del cambio en la línea base `mai
 
 Mientras no exista branch protection/rulesets efectivos, los workflows de Governance, Quality y Security Validation son controles compensatorios/detectivos y **no constituyen un mecanismo técnico equivalente a una rama protegida**.
 
-## 11. Evidencia de ingeniería
+## 12. Evidencia de ingeniería
 
 Cuando corresponda, el cambio deberá conservar la siguiente cadena de evidencia:
 
@@ -207,9 +226,29 @@ Release
 Evidencia operacional
 ```
 
+Para métricas, cuando existan datos operacionales, la cadena específica será:
+
+```text
+Metric Definition
+  ↓
+Source
+  ↓
+Collection
+  ↓
+Calculation
+  ↓
+Snapshot / Evidence
+  ↓
+Interpretation
+  ↓
+Decision / Action
+  ↓
+Outcome
+```
+
 No todos los cambios requerirán todos los elementos de la cadena, pero la ausencia de un elemento relevante deberá ser justificable.
 
-## 12. Relación con el ciclo de vida
+## 13. Relación con el ciclo de vida
 
 Este flujo es un mecanismo transversal del ciclo de vida maestro. No constituye una fase independiente.
 
@@ -217,7 +256,7 @@ Se aplica durante requisitos, arquitectura, diseño, construcción, pruebas, des
 
 La integración explícita del flujo en el ciclo maestro se establece en `Docs/Governance/00-Software-Lifecycle-Master.md`.
 
-## 13. Relación con otras políticas
+## 14. Relación con otras políticas
 
 Esta política debe interpretarse conjuntamente con:
 
@@ -233,15 +272,17 @@ Esta política debe interpretarse conjuntamente con:
 - `12-Quality-Validation-Architecture.md`;
 - `13-Security-Validation-Architecture.md`;
 - `19-Decision-Governance.md`;
-- `20-Decision-Governance-Control-Matrix.md`.
+- `20-Decision-Governance-Control-Matrix.md`;
+- `21-Engineering-Metrics-Governance.md`;
+- `22-Engineering-Metrics-Control-Matrix.md`.
 
 Las futuras políticas de configuración, seguridad, calidad, DevOps y documentación deberán mantener compatibilidad con este flujo.
 
-## 14. Regla de decisión
+## 15. Regla de decisión
 
 Ante cualquier duda sobre si un cambio requiere Issue, branch, análisis de impacto o Pull Request, se aplicará el criterio más conservador: **el cambio se tratará como controlado y deberá seguir el flujo completo** hasta que exista una política específica que establezca una excepción.
 
-## 15. Protección de `main` bajo restricciones de plataforma
+## 16. Protección de `main` bajo restricciones de plataforma
 
 Mientras el repositorio permanezca privado bajo GitHub Free y no disponga de branch protection/rulesets efectivos, la integridad de `main` se gestionará mediante la estrategia de controles compensatorios definida en `07-Main-Protection-Strategy.md` y la arquitectura de enforcement definida en `10-Governance-Enforcement-Architecture.md`.
 

@@ -1,0 +1,435 @@
+version: 0.1.0
+status: controlled-baseline
+principles:
+  - definition-before-measurement
+  - evidence-before-score
+  - trend-before-isolated-value
+  - context-before-threshold
+  - no-vanity-metrics
+  - no-false-precision
+metrics:
+  - id: EM-001
+    name: Lead Time
+    dimension: Delivery
+    type: [descriptive, outcome]
+    definition: Tiempo desde el inicio formal de un cambio hasta su integración o despliegue, según el evento operacional definido.
+    formula: TBD
+    unit: duration
+    source: GitHub
+    collection_method: TBD
+    frequency: weekly
+    owner: Engineering
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Git history and workflow evidence
+    status: defined
+    limitations: Deployment semantics are not yet defined for the project.
+  - id: EM-002
+    name: Change Failure Rate
+    dimension: Delivery
+    type: [outcome, control]
+    definition: Proporción de cambios desplegados que provocan fallo y requieren rollback, hotfix o recuperación definida.
+    formula: Failed Changes / Total Changes * 100
+    unit: percent
+    source: TBD
+    collection_method: TBD
+    frequency: monthly
+    owner: Engineering
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Deployment and incident records
+    status: defined
+    limitations: Requires a controlled definition of failed deployment.
+  - id: EM-003
+    name: Deployment Frequency
+    dimension: Delivery
+    type: [descriptive, leading]
+    definition: Número de despliegues a un entorno definido durante un periodo.
+    formula: Deployment Count / Period
+    unit: deployments_per_period
+    source: TBD
+    collection_method: TBD
+    frequency: weekly
+    owner: Operations
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Deployment records
+    status: defined
+    limitations: Deployment environments do not yet exist.
+  - id: EM-004
+    name: Recovery Time
+    dimension: Delivery
+    type: [outcome, control]
+    definition: Tiempo entre la detección de un incidente de servicio y la recuperación al estado operacional aceptado.
+    formula: Recovery Timestamp - Detection Timestamp
+    unit: duration
+    source: TBD
+    collection_method: TBD
+    frequency: monthly
+    owner: Operations
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Incident records
+    status: defined
+    limitations: Requires operational incident telemetry.
+  - id: EM-005
+    name: Defect Density
+    dimension: Quality
+    type: [diagnostic, outcome]
+    definition: Número de defectos respecto al tamaño de software definido para el periodo.
+    formula: Defects / Software Size
+    unit: defects_per_size_unit
+    source: Issue tracker and software repository
+    collection_method: TBD
+    frequency: monthly
+    owner: Quality
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Defect records and size measurement
+    status: defined
+    limitations: Software size unit must be selected before baseline.
+  - id: EM-006
+    name: Escaped Defects
+    dimension: Quality
+    type: [outcome, control]
+    definition: Defectos detectados después del punto de control de calidad definido.
+    formula: Escaped Defects / Total Defects * 100
+    unit: percent
+    source: Issue tracker
+    collection_method: TBD
+    frequency: monthly
+    owner: Quality
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Defect lifecycle records
+    status: defined
+    limitations: Escape boundary is not yet operationally defined.
+  - id: EM-007
+    name: Test Coverage
+    dimension: Quality
+    type: [descriptive, control]
+    definition: Proporción de elementos cubiertos por la estrategia de pruebas aplicable.
+    formula: Covered Applicable Items / Applicable Items * 100
+    unit: percent
+    source: Test tooling
+    collection_method: TBD
+    frequency: per_change
+    owner: Quality
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Test reports
+    status: defined
+    limitations: Coverage must be defined by test level and scope, not treated as a universal quality score.
+  - id: EM-008
+    name: Requirement Coverage
+    dimension: Quality
+    type: [control]
+    definition: Proporción de requisitos aplicables con verification evidence.
+    formula: Requirements with Verification Evidence / Applicable Requirements * 100
+    unit: percent
+    source: Requirements repository
+    collection_method: TBD
+    frequency: per_gate
+    owner: Requirements
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Traceability matrix and test evidence
+    status: defined
+    limitations: Depends on formal requirements baseline.
+  - id: EM-009
+    name: Requirement Traceability
+    dimension: Requirements
+    type: [control]
+    definition: Proporción de requisitos aplicables con trazabilidad completa al menos hasta verification evidence.
+    formula: Fully Traceable Requirements / Applicable Requirements * 100
+    unit: percent
+    source: Requirements and traceability artifacts
+    collection_method: TBD
+    frequency: per_gate
+    owner: Requirements
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Traceability matrix
+    status: defined
+    limitations: Traceability depth must be defined.
+  - id: EM-010
+    name: Requirement Verification
+    dimension: Requirements
+    type: [control]
+    definition: Proporción de requisitos aceptados que disponen de evidencia de verificación válida.
+    formula: Verified Requirements / Applicable Requirements * 100
+    unit: percent
+    source: Requirements and Tests
+    collection_method: TBD
+    frequency: per_gate
+    owner: Quality
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Verification records
+    status: defined
+    limitations: Acceptance and verification must remain distinct.
+  - id: EM-011
+    name: Ambiguous Requirements
+    dimension: Requirements
+    type: [diagnostic, control]
+    definition: Proporción de requisitos clasificados como ambiguos mediante un criterio de revisión establecido.
+    formula: Ambiguous Requirements / Reviewed Requirements * 100
+    unit: percent
+    source: Requirements reviews
+    collection_method: TBD
+    frequency: per_baseline
+    owner: Requirements
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Requirements review records
+    status: defined
+    limitations: Ambiguity rubric must be defined.
+  - id: EM-012
+    name: Change Volatility
+    dimension: Requirements
+    type: [diagnostic, leading]
+    definition: Magnitud de cambios en requisitos durante un periodo respecto a la baseline correspondiente.
+    formula: TBD
+    unit: percent
+    source: Requirements history
+    collection_method: TBD
+    frequency: monthly
+    owner: Requirements
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Versioned requirements baseline
+    status: defined
+    limitations: Change taxonomy and denominator must be established.
+  - id: EM-013
+    name: Architectural Debt
+    dimension: Architecture
+    type: [diagnostic, control]
+    definition: Inventario ponderado de decisiones, constraints o work items arquitectónicos que generan coste futuro aceptado.
+    formula: TBD
+    unit: debt_score
+    source: Architecture records
+    collection_method: TBD
+    frequency: monthly
+    owner: Architecture
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: ADR/EDR and architecture debt register
+    status: defined
+    limitations: Must not be reduced to an arbitrary count of technical issues.
+  - id: EM-014
+    name: ADR Coverage
+    dimension: Architecture
+    type: [control]
+    definition: Proporción de decisiones arquitectónicas materialmente aplicables que poseen ADR/EDR aprobado o estado formal equivalente.
+    formula: Material Decisions with Record / Applicable Material Decisions * 100
+    unit: percent
+    source: Decision Record Index
+    collection_method: TBD
+    frequency: per_gate
+    owner: Architecture
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: ADR/EDR index
+    status: defined
+    limitations: Requires a criterion for identifying material decisions.
+  - id: EM-015
+    name: Architecture Compliance
+    dimension: Architecture
+    type: [control]
+    definition: Proporción de controles arquitectónicos verificables que cumplen la baseline vigente.
+    formula: Compliant Architecture Controls / Applicable Controls * 100
+    unit: percent
+    source: Architecture verification evidence
+    collection_method: TBD
+    frequency: per_gate
+    owner: Architecture
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Architecture compliance records
+    status: defined
+    limitations: Applicable controls must be explicitly enumerated.
+  - id: EM-016
+    name: Vulnerabilities
+    dimension: Security
+    type: [outcome, control]
+    definition: Vulnerabilidades conocidas dentro del alcance y periodo definidos, clasificadas por severidad.
+    formula: Count by severity
+    unit: findings
+    source: Security tooling
+    collection_method: TBD
+    frequency: per_change
+    owner: Security
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Security scan reports
+    status: defined
+    limitations: Tool coverage and severity normalization must be controlled.
+  - id: EM-017
+    name: Remediation Time
+    dimension: Security
+    type: [outcome, control]
+    definition: Tiempo desde la detección de un finding hasta su remediación aceptada.
+    formula: Remediation Timestamp - Detection Timestamp
+    unit: duration
+    source: Security findings
+    collection_method: TBD
+    frequency: monthly
+    owner: Security
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Finding lifecycle
+    status: defined
+    limitations: Risk acceptance must not be counted as remediation.
+  - id: EM-018
+    name: Dependency Risk
+    dimension: Security
+    type: [diagnostic, control]
+    definition: Exposición a riesgo derivada de dependencias con vulnerabilidades, obsolescencia o soporte insuficiente.
+    formula: TBD
+    unit: risk_score
+    source: Dependency inventory and security tooling
+    collection_method: TBD
+    frequency: per_change
+    owner: Security
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: SBOM/dependency reports when available
+    status: defined
+    limitations: Scoring must not double-count the same vulnerability.
+  - id: EM-019
+    name: Secrets Exposure
+    dimension: Security
+    type: [control]
+    definition: Exposiciones detectadas de secretos o material sensible dentro del alcance definido.
+    formula: Count of confirmed exposures
+    unit: findings
+    source: Security validation
+    collection_method: Automated scan when available
+    frequency: per_change
+    owner: Security
+    baseline: TBD
+    target: 0
+    thresholds: TBD
+    evidence: Security scan results
+    status: defined
+    limitations: False positives and historical fixtures require controlled classification.
+  - id: EM-020
+    name: PR with Issue
+    dimension: Governance
+    type: [control]
+    definition: Proporción de PR aplicables vinculados a un Issue válido.
+    formula: PRs with Valid Issue / Applicable PRs * 100
+    unit: percent
+    source: GitHub
+    collection_method: TBD
+    frequency: per_pr
+    owner: Governance
+    baseline: TBD
+    target: 100
+    thresholds: TBD
+    evidence: PR and Issue metadata
+    status: defined
+    limitations: Exceptions must be explicitly recorded.
+  - id: EM-021
+    name: PR with Impact Analysis
+    dimension: Governance
+    type: [control]
+    definition: Proporción de PR aplicables que contienen análisis de impacto verificable.
+    formula: PRs with Valid Impact Analysis / Applicable PRs * 100
+    unit: percent
+    source: GitHub
+    collection_method: TBD
+    frequency: per_pr
+    owner: Governance
+    baseline: TBD
+    target: 100
+    thresholds: TBD
+    evidence: PR body and affected artifact evidence
+    status: defined
+    limitations: Validation depth is initially documentary.
+  - id: EM-022
+    name: PR with Evidence
+    dimension: Governance
+    type: [control]
+    definition: Proporción de PR aplicables con evidencia requerida y verificable.
+    formula: PRs with Required Evidence / Applicable PRs * 100
+    unit: percent
+    source: GitHub
+    collection_method: TBD
+    frequency: per_pr
+    owner: Governance
+    baseline: TBD
+    target: 100
+    thresholds: TBD
+    evidence: PR evidence section and workflow results
+    status: defined
+    limitations: Evidence completeness rules evolve with governance maturity.
+  - id: EM-023
+    name: Out-of-Process Changes
+    dimension: Governance
+    type: [control, leading]
+    definition: Proporción de cambios detectados fuera del flujo controlado Issue → Branch → PR → Validation → Merge.
+    formula: Confirmed Out-of-Process Changes / Applicable Changes * 100
+    unit: percent
+    source: Git history and governance evidence
+    collection_method: TBD
+    frequency: monthly
+    owner: Governance
+    baseline: TBD
+    target: 0
+    thresholds: TBD
+    evidence: Git history and deviation records
+    status: defined
+    limitations: Detection is compensatory while native branch protection is unavailable.
+  - id: EM-024
+    name: Gates Pass Rate
+    dimension: Governance
+    type: [control]
+    definition: Proporción de ejecuciones de gates aplicables que terminan en PASS según las reglas vigentes.
+    formula: Passed Gate Executions / Applicable Gate Executions * 100
+    unit: percent
+    source: GitHub Actions
+    collection_method: TBD
+    frequency: weekly
+    owner: Governance
+    baseline: TBD
+    target: TBD
+    thresholds: TBD
+    evidence: Workflow runs
+    status: defined
+    limitations: Must distinguish initial failures later remediated from persistent failures.
+  - id: EM-025
+    name: Artifacts without Owner
+    dimension: Governance
+    type: [control]
+    definition: Proporción de artefactos controlados sin owner identificado.
+    formula: Artifacts without Owner / Applicable Artifacts * 100
+    unit: percent
+    source: Artifact catalog
+    collection_method: TBD
+    frequency: monthly
+    owner: Governance
+    baseline: TBD
+    target: 0
+    thresholds: TBD
+    evidence: Artifact catalog
+    status: defined
+    limitations: Applicability and ownership model must be kept current.

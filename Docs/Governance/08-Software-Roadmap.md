@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -40,7 +40,7 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 | L | Operación y soporte | ⚪ | — | 2027-03-12 | K | Operational Baseline + G11 |
 | M | Mantenimiento y evolución | 🔵 | — | Desde K | K / L | Evolution Releases |
 | N | Mejora y optimización | 🔵 | — | Desde L | L + evidencia | Improvement Evidence |
-| O | Retirada / migración | ⚪ | — | Según decisión | Evolución | Retirement Record + G12 |
+| O | Retirada / migración | ⚪ | — | Según decisión | Evolución | Retirement Record + G13 |
 
 > **A todavía no está completada.** La documentación demuestra preparación, pero la fase requiere evidencia de salida de G0.
 
@@ -92,7 +92,7 @@ L ─ Operación y soporte ───────────────── G
                                     O Retirada / Migración
                                                │
                                                ▼
-                                              G12
+                                              G13
 ```
 
 El macroflujo es el camino de control. Las actividades internas pueden ejecutarse iterativa, incremental, concurrente o recursivamente cuando el contexto lo justifique.
@@ -101,9 +101,9 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| #22 | Automatizar Security Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) + Quality Validation (#20) | En construcción |
+| #23 | Automatizar Evidence Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance (#13) + Quality (#20) + Security (#22) | En construcción |
 
-La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria de Governance Validation, Quality Validation y Security Validation.
+La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria de Governance, Quality, Security y Evidence Validation.
 
 ## Controles transversales de ingeniería
 
@@ -111,8 +111,8 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 |---|---|---|---|
 | Governance Validation | 🟢 | Workflow + PRs validados | Ampliación de controles |
 | Quality Validation | 🟢 | Workflow + PR #21 | Incorporación de controles sobre código y pruebas |
-| Security Validation | 🟡 | Issue #22 + rama de implementación | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
-| Evidence Validation | ⚪ | Arquitectura prevista | Implementación posterior |
+| Security Validation | 🟢 | Workflow + PR #22 | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
+| Evidence Validation | 🟡 | Issue #23 + rama de implementación | Correlación de workflow runs, testing, releases y procedencia según aplicabilidad |
 
 ## Seguimiento detallado A–D
 
@@ -210,7 +210,8 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 | G9 | Acceptance | ⚪ |
 | G10 | Production Readiness | ⚪ |
 | G11 | Operational Readiness | ⚪ |
-| G12 | Retirement | ⚪ |
+| G12 | Evolution Readiness | ⚪ |
+| G13 | Retirement | ⚪ |
 
 ## Registro histórico
 
@@ -221,14 +222,15 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 | 2026-09-15 | Estrategia compensatoria de main | `07-Main-Protection-Strategy.md` |
 | 2026-09-15 | Roadmap y política de labels | PR #10 |
 | 2026-09-15 | Quality Validation integrada | Issue #20 + PR #21 |
-| 2026-09-15 | Security Validation iniciada | Issue #22 |
+| 2026-09-15 | Security Validation integrada | Issue #22 + PR #22 |
+| 2026-09-15 | Evidence Validation iniciada | Issue #23 |
 
 ## Trazabilidad con GitHub
 
 ```text
 Roadmap Activity → Issue → Branch → Implementation → Impact Analysis
 → Governance Validation → Quality Validation → Security Validation
-→ Evidence / Tests → Pull Request → Review → Merge → main Baseline
+→ Evidence Validation → Tests / Evidence → Pull Request → Review → Merge → main Baseline
 ```
 
 ## Convención de títulos de Issues y Pull Requests

@@ -1,0 +1,91 @@
+name: Evidence Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  evidence-validation:
+    name: Validate engineering evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: EV-001 - Validate minimum PR evidence structure
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          for section in '## Objetivo' '## Cambios' '## Análisis de impacto' '## Evidencia esperada' '## Relación'; do
+            printf '%s\n' "$PR_BODY" | grep -Fq "$section" || { echo "FAIL EV-001: falta la sección requerida: $section"; exit 1; }
+          done
+          echo "PASS EV-001: estructura mínima de evidencia presente en el PR."
+
+      - name: EV-002 - Validate Issue to PR traceability
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -euo pipefail
+          printf '%s\n%s\n' "$PR_TITLE" "$PR_BODY" | grep -Eq '#[0-9]+' || { echo "FAIL EV-002: no se encontró referencia a un Issue."; exit 1; }
+          printf '%s\n' "$PR_BODY" | grep -Eq 'Closes #[0-9]+|Fixes #[0-9]+|Resolves #[0-9]+' || { echo "FAIL EV-002: no se encontró una relación explícita de cierre con Issue."; exit 1; }
+          echo "PASS EV-002: relación Issue–PR declarada."
+
+      - name: EV-003 - Validate evaluated commit identity
+        env:
+          EXPECTED_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        run: |
+          set -euo pipefail
+          actual_sha=$(git rev-parse HEAD)
+          test "$actual_sha" = "$EXPECTED_SHA" || { echo "FAIL EV-003: HEAD ($actual_sha) no coincide con el commit evaluado ($EXPECTED_SHA)."; exit 1; }
+          echo "PASS EV-003: commit evaluado identificado de forma determinista: $actual_sha"
+
+      - name: EV-004 - Validate declared validation evidence
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          printf '%s\n' "$PR_BODY" | grep -Fq 'Governance Validation' || { echo "FAIL EV-004: no se declaró Governance Validation en la evidencia esperada."; exit 1; }
+          printf '%s\n' "$PR_BODY" | grep -Fq 'Quality Validation' || { echo "FAIL EV-004: no se declaró Quality Validation en la evidencia esperada."; exit 1; }
+          printf '%s\n' "$PR_BODY" | grep -Fq 'Security Validation' || { echo "FAIL EV-004: no se declaró Security Validation en la evidencia esperada."; exit 1; }
+          printf '%s\n' "$PR_BODY" | grep -Fq 'Evidence Validation' || { echo "FAIL EV-004: no se declaró Evidence Validation en la evidencia esperada."; exit 1; }
+          echo "PASS EV-004: validaciones requeridas declaradas."
+
+      - name: EV-005 - Validate evidence baseline artifacts
+        run: |
+          set -euo pipefail
+          required=(
+            Docs/Governance/03-Artifacts-And-Evidence.md
+            Docs/Governance/10-Governance-Enforcement-Architecture.md
+            Docs/Governance/14-Evidence-Validation-Architecture.md
+            .github/workflows/governance-validation.yml
+            .github/workflows/quality-validation.yml
+            .github/workflows/security-validation.yml
+            .github/workflows/evidence-validation.yml
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "FAIL EV-005: artefacto de evidencia ausente o vacío: $file"; exit 1; }
+          done
+          echo "PASS EV-005: baseline de evidencia presente."
+
+      - name: Evidence Validation result
+        run: |
+          echo "EVIDENCE_VALIDATION=PASS"
+          echo "Los controles EV-001..EV-005 aplicables al estado actual fueron satisfechos."
+          echo "EV-006 queda planificado para correlacionar automáticamente resultados de workflows previos."
+          echo "Este resultado no constituye certificación de suficiencia de evidencia ni de calidad, seguridad o corrección del producto."

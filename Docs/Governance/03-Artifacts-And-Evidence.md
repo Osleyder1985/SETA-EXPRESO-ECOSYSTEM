@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.5.0  
+**Versión:** 0.6.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Security Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
@@ -52,7 +52,7 @@ Cuando un artefacto sea crítico, su evidencia debería permitir responder:
 
 ## 6. Evidencia de enforcement
 
-Los controles automatizados de gobernanza, calidad y seguridad deberán conservar, cuando corresponda:
+Los controles automatizados de gobernanza, calidad, seguridad y evidencia deberán conservar, cuando corresponda:
 
 - nombre del workflow;
 - commit validado;
@@ -62,7 +62,7 @@ Los controles automatizados de gobernanza, calidad y seguridad deberán conserva
 - mensaje de fallo o éxito;
 - actor/evento asociado;
 - clasificación del control: preventivo compensatorio, detectivo o gobernanza;
-- estado global de Governance Validation, Quality Validation y Security Validation.
+- estado global de Governance Validation, Quality Validation, Security Validation y Evidence Validation.
 
 Los workflows no se consideran evidencia suficiente por su mera existencia: debe existir una ejecución verificable o una justificación explícita.
 
@@ -95,11 +95,27 @@ Una ejecución de Security Validation deberá permitir identificar como mínimo:
 
 Un `SECURITY_VALIDATION=PASS` solo evidencia la conformidad con los controles de seguridad automatizados aplicables; no constituye certificación de seguridad ni ausencia de vulnerabilidades.
 
-## 9. Evidencia externa
+## 9. Evidencia de Evidence Validation
+
+Una ejecución de Evidence Validation deberá permitir identificar como mínimo:
+
+- commit evaluado;
+- Pull Request, cuando aplique;
+- Issue relacionado;
+- controles EV ejecutados;
+- resultado individual y global;
+- evidencia mínima declarada en el PR;
+- mensajes de fallo;
+- workflow run;
+- fecha/hora y contexto de ejecución.
+
+Un `EVIDENCE_VALIDATION=PASS` solo evidencia la conformidad con los controles de evidencia automatizados aplicables; no certifica suficiencia de evidencia ni la corrección del producto.
+
+## 10. Evidencia externa
 
 Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confidencialidad, regulación o naturaleza del medio, el repositorio conservará metadatos suficientes para localizarla y verificar su integridad cuando sea apropiado.
 
-## 10. Control de cambios
+## 11. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
 
@@ -108,7 +124,7 @@ Toda adición, modificación, actualización, movimiento, renombrado o eliminaci
 La cadena de evidencia deberá conservar, cuando aplique:
 
 ```text
-Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidencia → Pull Request → Revisión → Merge → main
+Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidence Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/12-Quality-Validation-Architecture.md` y `Docs/Governance/13-Security-Validation-Architecture.md`.
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md` y `Docs/Governance/14-Evidence-Validation-Architecture.md`.

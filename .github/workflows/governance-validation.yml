@@ -97,6 +97,7 @@ jobs:
           test -f Docs/Governance/08-Software-Roadmap.md
           test -f Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
           test -f Docs/Governance/10-Governance-Enforcement-Architecture.md
+          test -f Docs/Governance/11-Governance-Control-Matrix.md
           test -f .github/workflows/governance-validation.yml
           echo "OK: La línea base documental y automatizada de gobernanza está presente."
 

@@ -16,6 +16,9 @@ jobs:
     name: Validate governance controls
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Validate Pull Request governance metadata
         if: github.event_name == 'pull_request'
         env:

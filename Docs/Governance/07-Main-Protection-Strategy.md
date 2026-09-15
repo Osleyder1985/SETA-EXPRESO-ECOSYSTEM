@@ -1,8 +1,8 @@
 # Estrategia de protección de `main`
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Propuesta para aprobación  
+**Versión:** 0.1.1  
+**Estado:** Propuesta para aprobación mediante PR #8  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
 **Issue:** #7
@@ -28,8 +28,8 @@ Esta restricción no modifica la política de ingeniería: los cambios de trabaj
 | Evitar cambios de trabajo en `main` | Política obligatoria de branch de trabajo | Procedimental | Vigente |
 | Exigir trazabilidad | Issue asociado al cambio | Procedimental | Vigente |
 | Exigir revisión | Pull Request y revisión | Procedimental | Vigente |
-| Verificar documentación mínima del PR | GitHub Actions | Automatizado/detectivo | En implementación |
-| Detectar pushes sobre `main` | Workflow sobre `push` a `main` | Detectivo | En implementación |
+| Verificar documentación mínima del PR | GitHub Actions | Automatizado/detectivo | Implementado en PR #8 |
+| Detectar pushes sobre `main` | Workflow sobre `push` a `main` | Detectivo | Implementado en PR #8 |
 | Impedir force push | Branch protection nativa | Preventivo técnico | No disponible en GitHub Free privado |
 | Impedir push directo | Branch protection nativa | Preventivo técnico | No disponible en GitHub Free privado |
 | Exigir approvals técnicamente | Ruleset/branch protection | Preventivo técnico | No disponible en GitHub Free privado |
@@ -110,4 +110,4 @@ La afirmación **“`main` está técnicamente protegida”** solo podrá utiliz
 
 ## 10. Estado
 
-**Pendiente de aprobación mediante Pull Request asociado al Issue #7.**
+**Pendiente de aprobación mediante Pull Request #8 asociado al Issue #7.**

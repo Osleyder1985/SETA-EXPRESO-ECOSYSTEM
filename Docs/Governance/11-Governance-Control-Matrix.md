@@ -1,16 +1,16 @@
 # Matriz de controles de Governance, Quality, Security y Evidence Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.6.0  
+**Versión:** 0.7.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35
 
 ---
 
 ## 1. Propósito
 
-Convertir las capas de Governance Enforcement, Decision Governance, Quality Validation, Security Validation y Evidence Validation, junto con los controles de readiness de los Quality Gates, en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
+Convertir las capas de Governance Enforcement, Decision Governance, Quality Validation, Security Validation y Evidence Validation, junto con los controles de readiness de los Quality Gates y la nueva capacidad de Metrics Governance, en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
 
 ## 2. Matriz de Governance Enforcement
 
@@ -27,7 +27,7 @@ Convertir las capas de Governance Enforcement, Decision Governance, Quality Vali
 | GE-009 | Línea base actual | Branch desactualizada | Git ancestry validation | P-Compensatorio/D | Check run | No sustituye política de actualización |
 | GE-010 | PR asociado a push | Cambio fuera del flujo | GitHub API | D | Push workflow | No revierte el cambio |
 | GE-011 | Residual risk | Falsa sensación de protección | Política explícita | G | Documento controlado | Depende de lectura/revisión |
-| GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard futuro | Métricas iniciales |
+| GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard | Métricas iniciales |
 
 ## 3. Matriz de Governance Gate Controls
 
@@ -66,7 +66,42 @@ Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de
 | DG-018 | Supersession Consistency | Cadena histórica inconsistente | Validación futura | D | Check run | No implementado |
 | DG-019 | Decision Metrics | Falta de visibilidad sobre decisiones | Métricas futuras | M | Dashboard | No implementado |
 
-## 5. Matriz de Quality Validation
+## 5. Matriz de Metrics Governance
+
+Los controles EM gobiernan la definición, medición, interpretación y evolución de las métricas de ingeniería. Su detalle se desarrolla en `22-Engineering-Metrics-Control-Matrix.md`.
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| EM-001 | Política de métricas | Medición sin gobierno | `21-Engineering-Metrics-Governance.md` | G | Política controlada | Capacidad documental inicial |
+| EM-002 | Identidad estable | Métricas no trazables | Metric ID | G/D | Catálogo | Validación automática futura |
+| EM-003 | Definición operacional | Ambigüedad semántica | Definición controlada | G | Catálogo | Requiere contexto operacional |
+| EM-004 | Fórmula | Resultados no reproducibles | Fórmula explícita | G/D | Catálogo/cálculo | Algunas métricas requieren método específico |
+| EM-005 | Población de cálculo | Denominadores inconsistentes | Numerador/denominador/población | G | Catálogo | Datos reales aún no disponibles |
+| EM-006 | Fuente | Métrica sin origen verificable | Source | G/D | Catálogo/evidencia | Fuentes operacionales futuras |
+| EM-007 | Recolección | Datos no reproducibles | Collection Method | G/D | Catálogo/registros | Automatización futura |
+| EM-008 | Frecuencia | Falta de frescura conocida | Frequency | G | Catálogo/snapshots | Sin snapshots operacionales todavía |
+| EM-009 | Owner | Métrica sin responsable | Owner | G | Catálogo | Requiere asignación operacional futura |
+| EM-010 | Baseline | Interpretación sin punto de referencia | Baseline | M | Snapshot | TBD hasta disponer de datos |
+| EM-011 | Target | Objetivo inventado o no aprobado | Target | G/M | Política/catálogo | TBD cuando no exista decisión formal |
+| EM-012 | Thresholds | Alarmas sin contexto | Thresholds | G/M | Política/catálogo | No deben inventarse |
+| EM-013 | Availability Status | Datos ausentes interpretados como cero | Estado definido/provisional/bloqueado | M | Catálogo/dashboard | Requiere fuentes reales |
+| EM-014 | Limitations | Falsa precisión | Limitations | G | Catálogo/dashboard | Revisión humana |
+| EM-015 | Traceability | Métrica aislada | Metric → Source → Calculation → Evidence | G/M | Catálogo/evidencia | Correlación automática futura |
+| EM-016 | Risk Relation | Métricas desconectadas del riesgo | Risk linkage | G/M | Risk Register | Automatización futura |
+| EM-017 | Decision Relation | Métricas sin uso decisional | Decision linkage | G/M | Decision Records | Automatización futura |
+| EM-018 | Dashboard Derivation | Vista tomada como fuente de verdad | Dashboard derivado | G/D | Catalog + dashboard | Generación reproducible futura |
+| EM-019 | Historical Integrity | Cambios semánticos que reescriben historia | Snapshots/versionado | D/M | Historial | Automatización futura |
+| EM-020 | Automatic Extraction | Datos manuales no sostenibles | Integración de fuentes | D | Workflow/collector futuro | No implementado |
+| EM-021 | Automatic Calculation | Error manual de cálculo | Motor reproducible | D | Workflow/artifact futuro | No implementado |
+| EM-022 | Catalog Validation | Catálogo inconsistente | Schema/linter | P-Compensatorio/D | Check run futuro | No implementado |
+| EM-023 | Trend Detection | Cambios relevantes no detectados | Series temporales | D/M | Snapshot history futuro | No implementado |
+| EM-024 | Actionable Alerts | Indicador sin respuesta | Alertas + owner/action | D/M | Alert record futuro | No implementado |
+| EM-025 | Correlation | Métricas interpretadas aisladamente | Correlación multidimensional | M | Analysis future | No implementado |
+| EM-026 | Governance Health | Falta de visión global | Health indicators | M | Dashboard futuro | No implementado |
+| EM-027 | Periodic Review | Métricas obsoletas | Revisión controlada | G/M | Review record | Periodicidad operacional futura |
+| EM-028 | Metric Change Control | Deriva semántica no controlada | Change Control + Impact Analysis | G/D | Issue/PR | Depende de disciplina y validación |
+
+## 6. Matriz de Quality Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -77,7 +112,7 @@ Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de
 | QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
 | QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |
 
-## 6. Matriz de Security Validation
+## 7. Matriz de Security Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -91,7 +126,7 @@ Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de
 | SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner de contenedores futuro | D | Decisión de aplicabilidad | No aplicable al baseline actual |
 | SV-009 | SBOM | Falta de inventario de componentes | Generación SBOM futura | D | Roadmap / decisión | Aún no implementado |
 
-## 7. Matriz de Evidence Validation
+## 8. Matriz de Evidence Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -105,21 +140,21 @@ Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de
 | EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
 | EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |
 
-## 8. Criterios de estado
+## 9. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
 - **NOT_APPLICABLE:** no aplica y existe justificación.
 - **NOT_IMPLEMENTED:** definido pero todavía no automatizado.
 
-## 9. Principio de no sobreafirmación
+## 10. Principio de no sobreafirmación
 
 Ningún control detectivo o compensatorio podrá registrarse como protección nativa. PASS demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente.
 
-## 10. Relación con Quality Gates
+## 11. Relación con Quality Gates
 
-Las capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Decision Governance aporta evidencia del razonamiento de decisiones materiales cuando corresponda. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
+Las capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Decision Governance aporta evidencia del razonamiento de decisiones materiales cuando corresponda. Metrics Governance aporta indicadores y evidencia cuantitativa cuando existen fuentes operacionales suficientes. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
 
-## 11. Evolución
+## 12. Evolución
 
-La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad, validación automatizada de Decision Records y métricas de decisión.
+La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad, validación automatizada de Decision Records, extracción/cálculo de métricas y métricas de decisión.

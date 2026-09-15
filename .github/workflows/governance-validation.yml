@@ -27,13 +27,13 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           PR_HEAD_REF: ${{ github.head_ref }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
           REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           PR_BODY="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.body // ""')"
+          PR_TITLE="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.title // ""')"
           if [ "$PR_HEAD_REF" = "main" ]; then exit 1; fi
           if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then exit 1; fi
           issue_number=$(printf '%s\n' "$PR_HEAD_REF" | sed -E 's/^issue-([0-9]+)-.*/\1/')

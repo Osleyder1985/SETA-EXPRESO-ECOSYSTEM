@@ -92,6 +92,8 @@ Evidence Validation
   ↓
 Review / Approval
   ↓
+Quality Gate Decision
+  ↓
 Merge
 ```
 
@@ -103,7 +105,7 @@ Comprueba las reglas de trazabilidad, nomenclatura, labels, análisis de impacto
 
 ### Quality Validation
 
-Aporta comprobaciones técnicas objetivas. Un `QUALITY_VALIDATION=PASS` no certifica la calidad integral del producto.
+Aporta comprobaciones técnicas objetivas. Un `QUALITY_VALIDATION=PASS` no certifica la calidad integral del producto ni equivale a PASS de un gate.
 
 ### Security Validation
 
@@ -229,9 +231,9 @@ La clasificación de cada comprobación es:
 
 La máquina no deberá inventar evidencia, valores de métricas, aceptación ni decisiones.
 
-## 11. G4 — Requirements Baseline: ejemplo de criterio operacional
+## 11. G3 — Requirements Baseline: ejemplo de criterio operacional
 
-G4 constituye el primer ejemplo explícito de cómo una decisión de gate debe transformarse en condiciones verificables:
+G3 constituye el primer ejemplo explícito de cómo una decisión de gate debe transformarse en condiciones verificables:
 
 ```text
 PASS solamente si:

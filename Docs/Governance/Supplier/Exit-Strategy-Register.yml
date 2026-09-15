@@ -1,0 +1,11 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# Campos previstos:
+# exit_strategy_id, third_party_id, criticality,
+# termination_conditions, data_export, portability,
+# replacement_options, migration, credential_revocation,
+# data_return_or_deletion, continuity, rto_rpo_reference,
+# decommissioning, closure_evidence, owner, review_date

@@ -83,8 +83,6 @@ La selección futura de métricas y pruebas deberá derivarse de requisitos de c
 
 Quality Validation proporciona evidencia técnica para los gates, pero no decide por sí sola el resultado de todos ellos.
 
-Ejemplo:
-
 ```text
 QV PASS
   ↓

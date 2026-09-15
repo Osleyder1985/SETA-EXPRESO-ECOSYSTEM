@@ -1,7 +1,7 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.1  
+**Versión:** 0.3.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
@@ -43,6 +43,14 @@ Pruebas / validación / evidencia
   ↓
 Pull Request
   ↓
+Governance Validation
+  ↓
+Quality Validation
+  ↓
+Security Validation
+  ↓
+Evidence Validation
+  ↓
 Revisión
   ↓
 Correcciones, si son necesarias
@@ -52,7 +60,11 @@ Aprobación
 Merge
   ↓
 main
+  ↓
+Post-Merge Governance Detection
 ```
+
+La arquitectura automatizada que implementa actualmente la capa de Governance Validation está definida en `10-Governance-Enforcement-Architecture.md`.
 
 ## 4. Issue obligatorio
 
@@ -76,6 +88,8 @@ Un Issue podrá ser resuelto mediante uno o varios Pull Requests cuando el cambi
 
 Toda implementación deberá realizarse en una branch distinta de `main`.
 
+Las branches asociadas a Issues seguirán la convención `issue-<numero>-<slug-corto>` definida en `05-Repository-Naming-Convention.md`.
+
 La branch deberá partir de una línea base conocida y permanecer asociada al Issue que origina el trabajo.
 
 No se utilizará `main` como espacio de trabajo para modificaciones parciales, experimentales o en curso.
@@ -95,6 +109,8 @@ El Pull Request deberá describir en español, como mínimo:
 7. relación explícita con el Issue;
 8. trabajo pendiente, si existe;
 9. estado explícito de integración: **LISTO PARA FUSIÓN** o **NO FUSIONAR — TRABAJO PENDIENTE**.
+
+El título deberá cumplir la convención `Módulo/Archivo: Acción a realizar.` y el PR deberá tener al menos un label pertinente.
 
 ## 7. Análisis de impacto obligatorio
 
@@ -141,6 +157,8 @@ La aprobación no deberá limitarse a revisar el archivo modificado. Debe consid
 
 El merge representa la integración controlada del cambio en la línea base `main`.
 
+Mientras no exista branch protection/rulesets efectivos, los workflows de Governance Validation son controles compensatorios/detectivos y **no constituyen un mecanismo técnico equivalente a una rama protegida**.
+
 ## 10. Evidencia de ingeniería
 
 Cuando corresponda, el cambio deberá conservar la siguiente cadena de evidencia:
@@ -185,7 +203,10 @@ Esta política debe interpretarse conjuntamente con:
 - `03-Artifacts-And-Evidence.md`;
 - `04-Quality-Gates.md`;
 - `05-Repository-Naming-Convention.md`;
-- `07-Main-Protection-Strategy.md`.
+- `07-Main-Protection-Strategy.md`;
+- `08-Software-Roadmap.md`;
+- `09-Issue-And-Pull-Request-Labeling-Policy.md`;
+- `10-Governance-Enforcement-Architecture.md`.
 
 Las futuras políticas de configuración, seguridad, calidad, DevOps y documentación deberán mantener compatibilidad con este flujo.
 
@@ -195,8 +216,8 @@ Ante cualquier duda sobre si un cambio requiere Issue, branch, análisis de impa
 
 ## 14. Protección de `main` bajo restricciones de plataforma
 
-Mientras el repositorio permanezca privado bajo GitHub Free y no disponga de branch protection/rulesets efectivos, la integridad de `main` se gestionará mediante la estrategia de controles compensatorios definida en `07-Main-Protection-Strategy.md`.
+Mientras el repositorio permanezca privado bajo GitHub Free y no disponga de branch protection/rulesets efectivos, la integridad de `main` se gestionará mediante la estrategia de controles compensatorios definida en `07-Main-Protection-Strategy.md` y la arquitectura de enforcement definida en `10-Governance-Enforcement-Architecture.md`.
 
-Los workflows de gobernanza tienen carácter de control automatizado y/o detectivo. **No deben interpretarse como protección técnica equivalente a branch protection.**
+Los workflows de gobernanza tienen carácter de control automatizado, compensatorio y/o detectivo. **No deben interpretarse como protección técnica equivalente a branch protection.**
 
 La afirmación de que `main` está técnicamente protegida solo podrá utilizarse cuando la capacidad efectiva de la plataforma haya sido verificada.

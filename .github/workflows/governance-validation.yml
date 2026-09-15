@@ -29,6 +29,9 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_HEAD_REF: ${{ github.head_ref }}
           PR_TITLE: ${{ github.event.pull_request.title }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
 
@@ -64,7 +67,15 @@ jobs:
             exit 1
           fi
 
-          label_count=$(jq '.pull_request.labels | length' "$GITHUB_EVENT_PATH")
+          # No depender únicamente del snapshot del evento: GitHub puede ejecutar
+          # el workflow con un payload anterior al cambio de labels. Se consulta
+          # el estado actual del PR mediante la API para validar el dato vigente.
+          label_count=$(curl --fail-with-body --silent --show-error \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" \
+            | jq '.labels | length')
           if [ "$label_count" -lt 1 ]; then
             echo "ERROR: El Pull Request debe tener al menos un label pertinente."
             exit 1

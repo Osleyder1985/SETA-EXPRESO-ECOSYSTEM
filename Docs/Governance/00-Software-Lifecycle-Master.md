@@ -1,8 +1,8 @@
 # Ciclo de Vida Maestro de Ingeniería de Software y del Ecosistema
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.0  
-**Estado:** Borrador consolidado para aprobación  
+**Versión:** 0.3.0  
+**Estado:** Candidato a baseline controlada  
 **Idioma documental:** Español  
 **Convención de nombres:** Inglés, Title Case por segmentos y palabras separadas por guiones  
 **Fecha:** 2026-09-15
@@ -397,405 +397,242 @@ O.2 Análisis de impacto.
 O.3 Estrategia de migración.  
 O.4 Migración de datos.  
 O.5 Retención y archivado.  
-O.6 Desmantelamiento.  
-O.7 Revocación de accesos y dependencias.  
-O.8 Validación post-retirada.  
-O.9 Auditoría final.  
-O.10 Cierre y preservación de evidencia.
-
-## 6. Procesos transversales
-
-Los siguientes procesos atraviesan todas las fases según aplicabilidad:
-
-### 6.1 Stakeholder Management
-Identificación, análisis, comunicación, participación y seguimiento de stakeholders.
-
-### 6.2 Requirements Management
-Gestión de necesidades, requisitos, baselines, cambios y trazabilidad.
-
-### 6.3 Architecture Management
-Gestión de modelos, viewpoints, decisiones, principios, riesgos y baselines arquitectónicas.
-
-### 6.4 Risk Management
-Identificación, análisis, respuesta, seguimiento y cierre de riesgos y oportunidades.
-
-### 6.5 Quality Management
-Definición de objetivos, métricas, criterios, revisiones, controles y mejora.
-
-### 6.6 Security Engineering
-Seguridad de requisitos, threat modeling, secure design, secure coding, supply-chain security, testing, deployment y operación.
-
-### 6.7 Configuration Management
-Control de versiones, baselines, configuraciones, artefactos y elementos controlados.
-
-### 6.8 Change Management
-Evaluación, autorización, implementación y verificación de cambios.
-
-### 6.9 Data Management
-Gobernanza, calidad, seguridad, ciclo de vida, migración y trazabilidad de datos.
-
-### 6.10 Measurement
-Definición de métricas, recolección, análisis, interpretación y uso para decisiones.
-
-### 6.11 Decision Management
-Registro de decisiones significativas, alternativas consideradas, criterios y consecuencias.
-
-### 6.12 Information and Documentation Management
-Creación, revisión, aprobación, versionado, publicación, archivado y preservación de documentación.
-
-### 6.13 Acquisition and Supply
-Evaluación y gestión de productos, servicios, proveedores y dependencias externas.
-
-### 6.14 Dependency and Asset Management
-Inventario y control de software de terceros, servicios, licencias, activos y dependencias críticas.
-
-### 6.15 Knowledge Management
-Conservación y transferencia de conocimiento técnico, operacional y organizacional.
-
-### 6.16 Process Improvement
-Evaluación y evolución del propio proceso de ingeniería.
-
-## 7. Calidad del producto
-
-La calidad se gestionará desde la definición de necesidades y requisitos. Los atributos relevantes se convertirán, cuando sea posible, en requisitos medibles, decisiones de diseño, pruebas, métricas y criterios de aceptación.
-
-```text
-Necesidad
-   ↓
-Objetivo de calidad
-   ↓
-Requisito medible
-   ↓
-Diseño
-   ↓
-Implementación
-   ↓
-Prueba
-   ↓
-Métrica
-   ↓
-Aceptación
-   ↓
-Medición operacional
-```
-
-ISO/IEC 25010:2023 será la referencia de modelo de calidad; la selección concreta de atributos y métricas dependerá del contexto del Ecosistema.
-
-## 8. Seguridad
-
-La seguridad se integra durante todo el ciclo y se apoya en NIST SP 800-218 / SSDF 1.1 como referencia de prácticas de desarrollo seguro.
-
-Como mínimo se considerarán, según aplicabilidad:
-
-- seguridad de requisitos;
-- threat modeling;
-- secure architecture;
-- secure design;
-- secure coding;
-- dependency and supply-chain security;
-- secret management;
-- static and dynamic analysis;
-- vulnerability management;
-- security testing;
-- secure deployment;
-- logging and monitoring;
-- incident response;
-- security maintenance;
-- secure retirement.
-
-## 9. Adquisición y suministro
-
-Todo componente externo relevante deberá evaluarse antes de incorporarse al Ecosistema. La evaluación podrá incluir:
-
-- propósito;
-- proveedor;
-- dependencia;
-- criticidad;
-- coste;
-- licencia y condiciones de uso;
-- seguridad;
-- privacidad cuando aplique;
-- disponibilidad;
-- lock-in;
-- soporte;
-- riesgo de continuidad;
-- alternativa;
-- estrategia de sustitución o salida.
-
-## 10. Artefactos y evidencia
-
-Cada actividad relevante debe producir el artefacto o evidencia proporcional a su importancia.
-
-Categorías mínimas:
-
-| Categoría | Ejemplos |
-|---|---|
-| Gobernanza | Charter, políticas, registros |
-| Negocio | Problemas, objetivos, procesos |
-| Requisitos | Necesidades, requisitos, aceptación |
-| Arquitectura | Descripción, modelos, ADRs |
-| Diseño | Diseños detallados, contratos, modelos |
-| Construcción | Código, configuración, builds |
-| Verificación | Planes, pruebas, resultados |
-| Validación | Aceptación, evidencias de uso |
-| Seguridad | Threat models, análisis, findings |
-| DevOps | Pipelines, releases, deployment evidence |
-| Operación | Runbooks, incidentes, métricas |
-| Datos | Modelos, migraciones, calidad |
-| Investigación | Datasets, protocolos, resultados |
-
-## 11. Trazabilidad
-
-La trazabilidad mínima seguirá el principio:
-
-```text
-Business Need
-    ↓
-Objective
-    ↓
-System Need
-    ↓
-Requirement
-    ↓
-Architecture Decision
-    ↓
-Design Element
-    ↓
-Implementation
-    ↓
-Test
-    ↓
-Validation
-    ↓
-Release
-    ↓
-Operational Evidence
-```
-
-La implementación concreta utilizará identificadores estables para elementos que necesiten trazabilidad persistente.
-
-## 12. GitHub como infraestructura de ingeniería
-
-El repositorio será la fuente controlada de código, documentación, decisiones, modelos, pruebas, configuración y evidencia que pueda mantenerse de forma apropiada en Git.
-
-La cadena de evidencia esperada es:
-
-```text
-Problema
-  ↓
-Objetivo
-  ↓
-Requisito
-  ↓
-Issue
-  ↓
-Diseño / ADR
-  ↓
-Pull Request
-  ↓
-Commit
-  ↓
-Test
-  ↓
-Release
-  ↓
-Evidencia operacional
-```
-
-No todo artefacto físico o confidencial debe almacenarse directamente en GitHub; cuando corresponda, el repositorio conservará su referencia, metadatos, hash, ubicación controlada y evidencia de existencia.
-
-## 13. Convención de estructura y nombres
-
-### 13.1 Estructura
-
-Los directorios y nombres de archivo utilizarán inglés. La documentación será escrita principalmente en español.
-
-```text
-SETA-EXPRESO-ECOSYSTEM/
-├── README.md
-├── Docs/
-├── Source/
-├── Tests/
-├── Infrastructure/
-├── Configuration/
-├── Scripts/
-└── .github/
-```
-
-### 13.2 Nombres
-
-Regla: prefijo numérico cuando exista orden documental + palabras en inglés con inicial mayúscula + guiones + extensión en minúscula.
-
-Ejemplo:
-
-`01-Software-Lifecycle-Audit.md`
-
-No se utilizarán formas como `01-CICLO-DE-VIDA-AUDITORIA.md`, `software_lifecycle_audit.md` o `software-lifecycle-audit.md` para los artefactos controlados del proyecto.
-
-### 13.3 Documentación
-
-Toda documentación del proyecto debe residir bajo `Docs/`, organizada por dominio.
-
-## 14. Quality Gates
-
-Los gates representan puntos de control; no necesariamente son únicos ni impiden iteraciones adicionales.
-
-| Gate | Nombre | Propósito |
-|---|---|---|
-| G0 | Governance Ready | Gobierno y reglas mínimas establecidas |
-| G1 | Discovery Ready | Comprensión suficiente del estado actual |
-| G2 | Problem and Objectives Ready | Problema, necesidades y objetivos definidos |
-| G3 | Requirements Baseline | Requisitos verificables y trazables |
-| G4 | System Definition Ready | Sistema objetivo y contexto definidos |
-| G5 | Architecture Baseline | Arquitectura evaluada y controlada |
-| G6 | Design Ready | Diseño suficientemente detallado |
-| G7 | Build Ready | Construcción y controles automatizados establecidos |
-| G8 | Verification Ready | Evidencia de verificación aceptable |
-| G9 | Validation Accepted | Validación y aceptación logradas |
-| G10 | Production Ready | Despliegue y operación preparados |
-| G11 | Operationally Stable | Operación estable y observable |
-| G12 | Evolution Ready | Cambio/evolución evaluados y controlados |
-| G13 | Retirement Complete | Retirada/migración completada y evidencia preservada |
-
-Los criterios concretos de cada gate se definirán en `Docs/Governance/04-Quality-Gates.md`.
-
-## 15. Versionado y configuración
-
-El proyecto utilizará control de versiones para código y documentación. Los cambios relevantes deberán ser identificables y asociables con su razón de cambio.
-
-Las baselines importantes deberán incluir:
-
-- versión;
-- fecha;
-- responsable;
-- estado;
-- alcance;
-- elementos incluidos;
-- decisiones asociadas;
-- evidencia de aprobación.
-
-## 16. Decisiones arquitectónicas y de ingeniería
-
-Las decisiones con impacto significativo deben registrarse como ADRs o en el mecanismo de decisión que el proyecto establezca.
-
-Cada decisión debe incluir, cuando aplique:
-
-- contexto;
-- problema;
-- opciones;
-- criterios;
-- decisión;
-- consecuencias;
-- riesgos;
-- alternativas descartadas;
-- referencias.
-
-## 17. Métricas
-
-Las métricas se definirán según objetivos y decisiones, evitando recopilar datos sin propósito.
-
-Podrán incluir, según la fase:
-
-- cobertura de requisitos;
-- defectos;
-- tiempos de ciclo;
-- frecuencia de despliegue;
-- tasa de cambios fallidos;
-- recuperación ante fallos;
-- disponibilidad;
-- rendimiento;
-- vulnerabilidades;
-- calidad de datos;
-- satisfacción de usuarios;
-- coste operacional;
-- deuda técnica;
-- indicadores de proceso.
-
-No se congelará una taxonomía única de métricas de entrega hasta evaluar el contexto y las fuentes disponibles.
-
-## 18. Integración con investigación científica
-
-El proyecto puede producir posteriormente conocimiento científico, pero ingeniería y ciencia mantendrán objetivos y criterios diferentes.
-
-La cadena prevista es:
-
-```text
-Ingeniería de Software
-       ↓
-Sistema real
-       ↓
-Datos / observaciones
-       ↓
-Problema de investigación
-       ↓
-Pregunta científica
-       ↓
-Hipótesis
-       ↓
-Experimento / estudio
-       ↓
-Análisis
-       ↓
-Resultados
-       ↓
-Nuevo conocimiento
-       ↓
-Publicación
-```
-
-Cuando una actividad del proyecto tenga potencial científico, la evidencia deberá conservarse con suficiente trazabilidad para permitir posteriormente un protocolo de investigación reproducible, sin alterar artificialmente la ingeniería para producir una publicación.
-
-## 19. Regla de completitud
-
-Una fase o cambio significativo no se considerará completo únicamente porque el software funcione.
-
-La completitud debe evaluarse respecto de:
-
-```text
-Objetivo
-+ Requisitos
-+ Calidad
-+ Seguridad
-+ Diseño
-+ Implementación
-+ Verificación
-+ Validación
-+ Operación
-+ Evidencia
-+ Trazabilidad
-```
-
-La profundidad exigida será proporcional al riesgo y al impacto.
-
-## 20. Adaptación del ciclo
-
-El ciclo podrá adaptarse por producto, componente, release, iniciativa o cambio. La adaptación deberá quedar documentada cuando modifique controles, artefactos, gates o responsabilidades esperadas.
-
-La adaptación no debe eliminar controles críticos sin una justificación explícita basada en riesgo, contexto y consecuencias.
-
-## 21. Estado de esta versión
-
-La versión **0.2.0** es el borrador consolidado resultante de la auditoría metodológica inicial.
-
-Antes de declararla baseline oficial deberán revisarse y aprobarse como mínimo:
-
-1. este documento;
-2. la matriz de estándares;
-3. el catálogo de artefactos y evidencias;
-4. los quality gates;
-5. la convención documental y de repositorio.
-
-Una vez aprobados, el ciclo de vida se convertirá en la referencia normativa interna del proyecto y cualquier modificación posterior deberá seguir control de cambios.
+O.6 Desmantelamiento.
 
 ---
 
-## 22. Referencias normativas y técnicas
+## 6. Procesos y controles transversales
 
-- ISO/IEC/IEEE 15288:2023 — Systems and software engineering — System life cycle processes.
-- ISO/IEC/IEEE 12207:2026 — Systems and software engineering — Software life cycle processes.
-- ISO/IEC/IEEE 29148:2018 — Systems and software engineering — Life cycle processes — Requirements engineering.
-- ISO/IEC/IEEE 42010:2022 — Software, systems and enterprise — Architecture description.
-- ISO/IEC 25010:2023 — Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model.
-- NIST SP 800-218 / Secure Software Development Framework (SSDF) Version 1.1.
+Las fases A–O constituyen una organización del trabajo, pero no representan la totalidad de la ingeniería. Los siguientes procesos y disciplinas atraviesan el ciclo completo y se activan según contexto, riesgo y naturaleza del cambio:
 
-**Nota:** las referencias se utilizan para alineación y criterio de ingeniería. No se reproducen textos normativos protegidos ni se asume conformidad normativa automática por el simple hecho de utilizar este marco.
+- Gobernanza y toma de decisiones.
+- Gestión de cambios.
+- Gestión de configuración y baselines.
+- Gestión de riesgos y oportunidades.
+- Gestión de calidad.
+- Ingeniería de seguridad y privacidad cuando corresponda.
+- Gestión de requisitos y trazabilidad.
+- Gestión de datos e información.
+- Gestión de dependencias y suministro/adquisición.
+- Gestión de documentación y conocimiento.
+- Medición y análisis.
+- Automatización y DevSecOps.
+- Observabilidad y operación.
+- Gestión de defectos y no conformidades.
+- Gestión de decisiones y Architecture Decision Records.
+- Gestión de evidencia y reproducibilidad.
+- Integración con actividades de investigación científica.
+
+Estos controles no deben interpretarse como fases adicionales. Su aplicación puede ser concurrente, iterativa, incremental o recursiva.
+
+---
+
+## 7. Control obligatorio de cambios del repositorio
+
+El control de cambios del repositorio constituye un mecanismo transversal obligatorio del ciclo de vida.
+
+### 7.1 Flujo operativo
+
+Todo cambio controlado seguirá, como mínimo, esta cadena:
+
+```text
+Issue
+  ↓
+Análisis del problema / necesidad / oportunidad
+  ↓
+Definición de alcance y criterios de aceptación
+  ↓
+Branch de trabajo
+  ↓
+Implementación
+  ↓
+Análisis de impacto
+  ↓
+Actualización de artefactos afectados
+  ↓
+Pruebas / validación / evidencia
+  ↓
+Pull Request
+  ↓
+Revisión
+  ↓
+Correcciones, si son necesarias
+  ↓
+Aprobación
+  ↓
+Merge
+  ↓
+main
+```
+
+### 7.2 Reglas obligatorias
+
+1. `main` es la línea base integrada y controlada; no es espacio de trabajo.
+2. Ningún cambio de trabajo deberá realizarse directamente sobre `main`.
+3. Todo cambio significativo deberá estar respaldado por un Issue antes de su implementación.
+4. La implementación se realizará en una branch asociada al Issue.
+5. Un Issue puede resolverse mediante uno o varios Pull Requests.
+6. Todo Pull Request destinado a `main` deberá estar vinculado al Issue correspondiente.
+7. Issues y Pull Requests del proyecto se redactarán en español.
+8. Todo cambio deberá incluir análisis de impacto sobre los artefactos relacionados.
+9. Los artefactos afectados deberán actualizarse en la misma unidad de cambio cuando sea razonable; de lo contrario, el pendiente deberá quedar explícitamente trazado.
+10. Ningún Pull Request deberá considerarse listo para integración mientras tenga trabajo pendiente no resuelto que afecte sus criterios de aceptación.
+11. Antes de solicitar la revisión/fusión de un Pull Request se deberá declarar explícitamente su estado: **LISTO PARA FUSIÓN** o **NO FUSIONAR — TRABAJO PENDIENTE**.
+
+La política operativa detallada se encuentra en `Docs/Governance/06-Change-Control-Workflow.md`.
+
+### 7.3 Análisis de impacto mínimo
+
+Como mínimo deberán considerarse estas relaciones:
+
+| Cambio origen | Posibles artefactos afectados |
+|---|---|
+| Documento → documento | Referencias, definiciones, versiones, terminología y dependencias documentales |
+| Requisito → arquitectura/diseño | Arquitectura, ADR, diseño, interfaces, pruebas y trazabilidad |
+| Arquitectura → código | Componentes, interfaces, configuración, infraestructura y documentación técnica |
+| Código → pruebas | Pruebas unitarias, integración, regresión, evidencia y documentación |
+| Seguridad → arquitectura/diseño | Controles, amenazas, requisitos, configuración y pruebas de seguridad |
+| Pruebas → requisitos | Criterios de aceptación, trazabilidad y estado de verificación/validación |
+| Configuración → DevOps | Pipelines, despliegue, infraestructura, secretos y runbooks |
+| Datos → documentación | Modelos, contratos, migraciones, calidad y trazabilidad |
+| Ingeniería → investigación | Hipótesis, métricas, evidencia, metodología y resultados científicos |
+| Movimiento/renombrado → referencias | Enlaces, índices, referencias cruzadas, automatizaciones y documentación |
+
+---
+
+## 8. Artefactos, evidencia y trazabilidad
+
+Cada unidad de ingeniería deberá conservar evidencia proporcional a su importancia y riesgo.
+
+La cadena de trazabilidad objetivo es:
+
+```text
+Problema / Necesidad
+        ↓
+Objetivo
+        ↓
+Requisito
+        ↓
+Decisión / Diseño / ADR
+        ↓
+Issue
+        ↓
+Branch
+        ↓
+Pull Request
+        ↓
+Commit
+        ↓
+Prueba / Verificación / Validación
+        ↓
+Release
+        ↓
+Evidencia operacional
+        ↓
+Resultado / Aprendizaje
+```
+
+No todos los cambios requerirán todos los elementos de la cadena. La ausencia de un elemento relevante deberá ser justificable.
+
+La documentación, código, pruebas, configuraciones, modelos, decisiones y evidencias deberán permanecer coherentes entre sí. Un archivo correcto de forma aislada no constituye evidencia suficiente de coherencia del Ecosistema.
+
+---
+
+## 9. Quality Gates
+
+Los Quality Gates son puntos de decisión basados en evidencia. No convierten el ciclo en cascada.
+
+Los gates principales son:
+
+| ID | Gate | Fase asociada |
+|---|---|---|
+| G0 | Governance Ready | A |
+| G1 | Discovery Ready | B |
+| G2 | Problem And Objectives Ready | C |
+| G3 | Requirements Baseline | D |
+| G4 | System Definition Ready | E |
+| G5 | Architecture Baseline | F |
+| G6 | Design Ready | G |
+| G7 | Build Ready | H |
+| G8 | Verification Ready | I |
+| G9 | Validation Accepted | J |
+| G10 | Production Ready | K |
+| G11 | Operationally Stable | L |
+| G12 | Evolution Ready | M/N |
+| G13 | Retirement Complete | O |
+
+Todo gate deberá considerar, según aplicabilidad, alcance, requisitos, calidad, seguridad, riesgos, dependencias, configuración, pruebas, trazabilidad, evidencia y responsables.
+
+Para cualquier cambio controlado que atraviese un gate, la evidencia deberá demostrar que el cambio siguió el flujo de control establecido y que su impacto fue evaluado.
+
+Los resultados posibles de un gate son:
+
+- **PASS:** criterios satisfechos.
+- **PASS WITH CONDITIONS:** puede continuar con condiciones explícitas y trazables.
+- **REWORK:** debe regresar a actividades anteriores.
+- **BLOCKED:** existe un impedimento que requiere decisión o información externa.
+
+---
+
+## 10. Investigación científica y generación de conocimiento
+
+El proyecto se gestionará de forma que determinados resultados puedan convertirse, cuando exista mérito científico, en evidencia para investigación, publicaciones, tesis, informes técnicos o estudios reproducibles.
+
+Las actividades de investigación no sustituyen la ingeniería del producto. Deben mantener separación conceptual entre:
+
+- evidencia necesaria para construir y operar el Ecosistema;
+- evidencia utilizada para evaluar hipótesis o preguntas de investigación;
+- resultados científicos derivados del proyecto.
+
+Cuando una actividad de ingeniería pueda producir evidencia científica, deberá preservarse información suficiente sobre contexto, método, versión, datos, configuración, métricas, amenazas a la validez y resultados.
+
+---
+
+## 11. Aplicación de estándares
+
+El ciclo se apoya en estándares y marcos reconocidos, pero no se aplicará ninguna práctica únicamente por conformidad nominal.
+
+La adaptación deberá justificarse por contexto, riesgo, tamaño, criticidad, restricciones, recursos y objetivos del Ecosistema.
+
+Referencias principales:
+
+- ISO/IEC/IEEE 15288:2023 — ciclo de vida de sistemas.
+- ISO/IEC/IEEE 12207:2026 — ciclo de vida de software.
+- ISO/IEC/IEEE 29148:2018 — ingeniería de requisitos.
+- ISO/IEC/IEEE 42010:2022 — descripción de arquitectura.
+- ISO/IEC 25010:2023 — modelo de calidad de producto.
+- NIST SP 800-218 / SSDF 1.1 — prácticas de desarrollo seguro de software.
+
+La matriz de relación entre estándares y ciclo de vida se mantendrá en `Docs/Governance/02-Standards-Lifecycle-Matrix.md`.
+
+---
+
+## 12. Criterio de suficiencia de ingeniería
+
+No existe un nivel universal de documentación o control que deba aplicarse con igual profundidad a todos los cambios.
+
+La profundidad de ingeniería se determinará considerando, como mínimo:
+
+- impacto para el negocio;
+- criticidad del sistema;
+- riesgo técnico y operacional;
+- seguridad y privacidad;
+- complejidad;
+- incertidumbre;
+- dependencia de terceros;
+- impacto de datos;
+- reversibilidad del cambio;
+- requisitos regulatorios o contractuales;
+- potencial valor científico.
+
+La reducción de rigor deberá ser una decisión explícita y justificable, nunca una omisión accidental.
+
+---
+
+## 13. Gobernanza del propio ciclo de vida
+
+Este documento es un artefacto controlado. Sus modificaciones deberán seguir el flujo establecido en la sección 7 y activar análisis de impacto sobre las políticas, matrices, catálogos, gates, README, nomenclatura y demás artefactos relacionados.
+
+Las versiones del documento representan estados controlados del marco de ingeniería. La aprobación de una versión no impide su evolución posterior cuando nueva evidencia o cambios del contexto lo justifiquen.
+
+**Estado de esta versión:** Candidato a baseline controlada; requiere revisión mediante Pull Request y cumplimiento de los criterios de aceptación del Issue que originó el cambio.

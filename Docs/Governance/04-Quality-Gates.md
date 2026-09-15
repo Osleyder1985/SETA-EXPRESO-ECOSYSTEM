@@ -1,8 +1,8 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.9.0  
-**Estado:** Definición controlada en evolución  
+**Versión:** 1.0.0  
+**Estado:** Definición controlada y operacional  
 **Fecha:** 2026-09-15
 
 ---
@@ -14,6 +14,8 @@ Definir puntos de control para decidir si existe evidencia suficiente para avanz
 Los gates no convierten el ciclo en cascada. Un gate puede requerir volver a una fase anterior cuando la evidencia sea insuficiente.
 
 Un Quality Gate representa una decisión basada en evidencia; no es únicamente la ejecución exitosa de workflows automatizados.
+
+A partir de esta versión, cada gate dispone además de una especificación operacional con criterios de entrada, entradas requeridas, comprobaciones, métricas, evidencia, autoridad de decisión y criterios de salida.
 
 ## 2. Gates
 
@@ -90,6 +92,8 @@ Evidence Validation
   ↓
 Review / Approval
   ↓
+Quality Gate Decision
+  ↓
 Merge
 ```
 
@@ -101,7 +105,7 @@ Comprueba las reglas de trazabilidad, nomenclatura, labels, análisis de impacto
 
 ### Quality Validation
 
-Aporta comprobaciones técnicas objetivas. Un `QUALITY_VALIDATION=PASS` no certifica la calidad integral del producto.
+Aporta comprobaciones técnicas objetivas. Un `QUALITY_VALIDATION=PASS` no certifica la calidad integral del producto ni equivale a PASS de un gate.
 
 ### Security Validation
 
@@ -184,29 +188,103 @@ Cuando aplique, el paquete de evidencia del gate podrá incluir:
 
 Las métricas sirven como evidencia para decidir; no sustituyen la evaluación de requisitos, arquitectura, riesgos, pruebas, aceptación ni juicio de ingeniería.
 
-## 9. Regla de decisión
+## 9. Modelo formal de decisión
 
 Un gate puede resultar:
 
-- **PASS:** criterios satisfechos.
-- **PASS WITH KNOWN LIMITATIONS:** criterios satisfechos con limitaciones técnicas conocidas aceptadas y documentadas.
-- **PASS WITH CONDITIONS:** puede continuar con condiciones explícitas y fecha/responsable de resolución.
-- **REWORK:** debe regresar a actividades anteriores.
-- **BLOCKED:** existe impedimento que requiere decisión o información externa.
-- **FAIL:** existe incumplimiento que impide la aceptación.
+- **PASS:** todos los criterios obligatorios satisfechos y exit criteria cumplidos.
+- **CONDITIONAL:** los criterios obligatorios están satisfechos, pero existen condiciones explícitas, acotadas, con responsable y fecha de resolución, aprobadas por la autoridad correspondiente.
+- **BLOCKED:** falta una entrada, dependencia, evidencia o decisión de autoridad necesaria para evaluar o continuar.
+- **REOPEN:** un evento posterior invalida parcial o totalmente la evidencia o decisión previa y obliga a reevaluar el gate.
 
-Una excepción no debe ocultarse convirtiendo un `FAIL` automatizado en `PASS`. Debe registrarse como condición, excepción o decisión controlada según corresponda.
+Los estados históricos `PASS WITH KNOWN LIMITATIONS`, `PASS WITH CONDITIONS`, `REWORK` y `FAIL` quedan interpretados dentro del modelo operacional mediante la especificación de cada gate y las reglas de disposición correspondientes. No se permite convertir automáticamente un `FAIL` en `PASS`.
 
-## 10. Evidencia
+Una excepción debe quedar registrada como condición, excepción o decisión controlada.
+
+## 10. Especificación operacional obligatoria
+
+Cada gate G0–G13 deberá disponer de los siguientes elementos:
+
+```text
+Entry Criteria
+Required Inputs
+Checks
+Metrics
+Evidence
+Decision Authority
+PASS
+CONDITIONAL
+BLOCKED
+REOPEN
+Exit Criteria
+```
+
+La especificación operacional completa y machine-readable se mantiene en:
+
+`Docs/Governance/Quality/Quality-Gate-Catalog.yml`
+
+La clasificación de cada comprobación es:
+
+- `AUTOMATED`: puede comprobarse objetivamente por máquina.
+- `HYBRID`: la máquina prepara/verifica evidencia y una autoridad humana completa el juicio.
+- `HUMAN`: requiere juicio o aprobación humana.
+
+La máquina no deberá inventar evidencia, valores de métricas, aceptación ni decisiones.
+
+## 11. G3 — Requirements Baseline: ejemplo de criterio operacional
+
+G3 constituye el primer ejemplo explícito de cómo una decisión de gate debe transformarse en condiciones verificables:
+
+```text
+PASS solamente si:
+
+100% requirements tienen ID
+100% tienen owner
+100% tienen acceptance criteria
+≥95% tienen trazabilidad
+0 requirements críticos ambiguos
+100% requirements críticos verificables
+```
+
+Estos criterios deben tener una fuente de datos, una definición operacional y evidencia reproducible. Los umbrales son criterios de ejemplo hasta que sean justificados y aprobados dentro del contexto real de requisitos del Ecosistema.
+
+## 12. Evidencia y automatización progresiva
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
-Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir comprobar que el cambio fue propuesto mediante Issue, implementado en branch, sometido a análisis de impacto y presentado mediante Pull Request antes de su integración.
+Cada resultado de gate deberá poder responder, como mínimo:
 
-Cuando aplique una validación automatizada, la evidencia deberá identificar el workflow run y los controles ejecutados.
+```text
+¿Qué gate?
+¿Qué versión de criterios?
+¿Qué entrada se evaluó?
+¿Qué checks se ejecutaron?
+¿Qué métricas se calcularon?
+¿Qué evidencia las sustenta?
+¿Qué autoridad decidió?
+¿Qué resultado produjo?
+¿Qué condiciones quedaron abiertas?
+¿Qué puede provocar REOPEN?
+```
 
-## 11. Evolución
+La automatización se ampliará progresivamente a medida que Requirements, Architecture, Tests, Data, Infrastructure y Operational telemetry dispongan de fuentes estructuradas. Los controles automatizados deberán producir evidencia reproducible y no deberán confundirse con la decisión final cuando esta requiera juicio humano.
 
-Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
+## 13. Evolución
 
-Los criterios de los gates evolucionarán mediante cambios controlados y análisis de impacto sobre el ciclo maestro, el catálogo de artefactos y las políticas relacionadas.
+Los criterios específicos de cada gate evolucionarán mediante cambios controlados y análisis de impacto sobre:
+
+- ciclo maestro;
+- catálogo de artefactos;
+- Quality Validation;
+- Risk Management;
+- Decision Governance;
+- Security Validation;
+- Evidence Validation;
+- Engineering Metrics;
+- Requirements;
+- Architecture;
+- Data Governance;
+- AI Governance;
+- Supplier/Third-Party Governance.
+
+Cualquier modificación de criterios, thresholds, autoridad o semántica de resultados deberá quedar trazada mediante Issue → Branch → PR → Validaciones → Review → Merge.

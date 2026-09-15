@@ -1,7 +1,7 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
@@ -38,6 +38,8 @@ Implementación
 Análisis de impacto
   ↓
 Actualización de todos los artefactos afectados
+  ↓
+Decision Record cuando corresponda
   ↓
 Pruebas / validación / evidencia
   ↓
@@ -125,7 +127,7 @@ Como mínimo deberán considerarse estas relaciones:
 | Cambio origen | Posibles artefactos afectados |
 |---|---|
 | Documento → documento | Referencias, definiciones, versiones, terminología y dependencias documentales |
-| Requisito → arquitectura/diseño | Arquitectura, ADR, diseño, interfaces, pruebas y trazabilidad |
+| Requisito → arquitectura/diseño | Arquitectura, ADR/EDR, diseño, interfaces, pruebas y trazabilidad |
 | Arquitectura → código | Componentes, interfaces, configuración, infraestructura y documentación técnica |
 | Código → pruebas | Pruebas unitarias, integración, regresión, evidencia y documentación |
 | Seguridad → arquitectura/diseño | Controles, amenazas, requisitos, configuración y pruebas de seguridad |
@@ -135,8 +137,17 @@ Como mínimo deberán considerarse estas relaciones:
 | Ingeniería → investigación | Hipótesis, métricas, evidencia, metodología y resultados científicos |
 | Movimiento/renombrado → referencias | Enlaces, índices, referencias cruzadas, automatizaciones y documentación |
 | Seguridad automatizada → gobernanza/calidad | Matriz de controles, Quality Gates, evidencia, Roadmap y workflows |
+| Decisión material → arquitectura/diseño/riesgo | ADR/EDR, requisitos, alternativas, criterios, trade-offs, consecuencias, riesgos y evidencia |
 
-## 8. Criterio de cierre del cambio
+## 8. Decision Records como parte del cambio controlado
+
+Cuando una unidad de cambio implique una decisión material de arquitectura o ingeniería, deberá crearse, actualizarse o supersederse un `ADR` o `EDR` según corresponda, de acuerdo con `19-Decision-Governance.md`.
+
+Un Decision Record no sustituye al Issue ni al Pull Request. Su función es conservar el razonamiento técnico de la decisión y mantener su trazabilidad histórica.
+
+Una decisión existente que deje de ser válida no deberá eliminarse para ocultar la historia. Se conservará su estado y se utilizará `Supersedes` / `Superseded by` para representar la evolución.
+
+## 9. Criterio de cierre del cambio
 
 Un cambio no se considerará completo únicamente porque el archivo directamente modificado sea correcto.
 
@@ -146,12 +157,13 @@ Antes del Pull Request deberá comprobarse que:
 - los artefactos afectados fueron actualizados;
 - las referencias no quedaron rotas;
 - los requisitos y decisiones mantienen trazabilidad;
+- los Decision Records aplicables están creados o actualizados;
 - las pruebas correspondientes fueron ejecutadas o justificadamente planificadas;
 - la evidencia relevante quedó registrada;
 - Governance Validation, Quality Validation y Security Validation fueron ejecutadas cuando correspondan;
 - cualquier pendiente quedó identificado y trazado.
 
-## 9. Revisión e integración
+## 10. Revisión e integración
 
 La revisión del Pull Request deberá comprobar tanto la corrección del cambio como su coherencia con el resto del Ecosistema.
 
@@ -161,7 +173,7 @@ El merge representa la integración controlada del cambio en la línea base `mai
 
 Mientras no exista branch protection/rulesets efectivos, los workflows de Governance, Quality y Security Validation son controles compensatorios/detectivos y **no constituyen un mecanismo técnico equivalente a una rama protegida**.
 
-## 10. Evidencia de ingeniería
+## 11. Evidencia de ingeniería
 
 Cuando corresponda, el cambio deberá conservar la siguiente cadena de evidencia:
 
@@ -174,7 +186,9 @@ Requisito
   ↓
 Issue
   ↓
-Diseño / ADR
+ADR / EDR
+  ↓
+Diseño / Implementación
   ↓
 Pull Request
   ↓
@@ -195,7 +209,7 @@ Evidencia operacional
 
 No todos los cambios requerirán todos los elementos de la cadena, pero la ausencia de un elemento relevante deberá ser justificable.
 
-## 11. Relación con el ciclo de vida
+## 12. Relación con el ciclo de vida
 
 Este flujo es un mecanismo transversal del ciclo de vida maestro. No constituye una fase independiente.
 
@@ -203,7 +217,7 @@ Se aplica durante requisitos, arquitectura, diseño, construcción, pruebas, des
 
 La integración explícita del flujo en el ciclo maestro se establece en `Docs/Governance/00-Software-Lifecycle-Master.md`.
 
-## 12. Relación con otras políticas
+## 13. Relación con otras políticas
 
 Esta política debe interpretarse conjuntamente con:
 
@@ -215,16 +229,19 @@ Esta política debe interpretarse conjuntamente con:
 - `08-Software-Roadmap.md`;
 - `09-Issue-And-Pull-Request-Labeling-Policy.md`;
 - `10-Governance-Enforcement-Architecture.md`;
+- `11-Governance-Control-Matrix.md`;
 - `12-Quality-Validation-Architecture.md`;
-- `13-Security-Validation-Architecture.md`.
+- `13-Security-Validation-Architecture.md`;
+- `19-Decision-Governance.md`;
+- `20-Decision-Governance-Control-Matrix.md`.
 
 Las futuras políticas de configuración, seguridad, calidad, DevOps y documentación deberán mantener compatibilidad con este flujo.
 
-## 13. Regla de decisión
+## 14. Regla de decisión
 
 Ante cualquier duda sobre si un cambio requiere Issue, branch, análisis de impacto o Pull Request, se aplicará el criterio más conservador: **el cambio se tratará como controlado y deberá seguir el flujo completo** hasta que exista una política específica que establezca una excepción.
 
-## 14. Protección de `main` bajo restricciones de plataforma
+## 15. Protección de `main` bajo restricciones de plataforma
 
 Mientras el repositorio permanezca privado bajo GitHub Free y no disponga de branch protection/rulesets efectivos, la integridad de `main` se gestionará mediante la estrategia de controles compensatorios definida en `07-Main-Protection-Strategy.md` y la arquitectura de enforcement definida en `10-Governance-Enforcement-Architecture.md`.
 

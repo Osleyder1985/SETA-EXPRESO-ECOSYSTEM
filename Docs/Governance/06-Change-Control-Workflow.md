@@ -1,7 +1,7 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
@@ -64,7 +64,7 @@ main
 Post-Merge Governance Detection
 ```
 
-La arquitectura automatizada que implementa actualmente la capa de Governance Validation está definida en `10-Governance-Enforcement-Architecture.md`.
+La arquitectura automatizada que implementa las capas de Governance, Quality y Security Validation está definida en `10-Governance-Enforcement-Architecture.md`, `12-Quality-Validation-Architecture.md` y `13-Security-Validation-Architecture.md`.
 
 ## 4. Issue obligatorio
 
@@ -134,6 +134,7 @@ Como mínimo deberán considerarse estas relaciones:
 | Datos → documentación | Modelos, contratos, migraciones, calidad y trazabilidad |
 | Ingeniería → investigación | Hipótesis, métricas, evidencia, metodología y resultados científicos |
 | Movimiento/renombrado → referencias | Enlaces, índices, referencias cruzadas, automatizaciones y documentación |
+| Seguridad automatizada → gobernanza/calidad | Matriz de controles, Quality Gates, evidencia, Roadmap y workflows |
 
 ## 8. Criterio de cierre del cambio
 
@@ -147,6 +148,7 @@ Antes del Pull Request deberá comprobarse que:
 - los requisitos y decisiones mantienen trazabilidad;
 - las pruebas correspondientes fueron ejecutadas o justificadamente planificadas;
 - la evidencia relevante quedó registrada;
+- Governance Validation, Quality Validation y Security Validation fueron ejecutadas cuando correspondan;
 - cualquier pendiente quedó identificado y trazado.
 
 ## 9. Revisión e integración
@@ -157,7 +159,7 @@ La aprobación no deberá limitarse a revisar el archivo modificado. Debe consid
 
 El merge representa la integración controlada del cambio en la línea base `main`.
 
-Mientras no exista branch protection/rulesets efectivos, los workflows de Governance Validation son controles compensatorios/detectivos y **no constituyen un mecanismo técnico equivalente a una rama protegida**.
+Mientras no exista branch protection/rulesets efectivos, los workflows de Governance, Quality y Security Validation son controles compensatorios/detectivos y **no constituyen un mecanismo técnico equivalente a una rama protegida**.
 
 ## 10. Evidencia de ingeniería
 
@@ -177,6 +179,12 @@ Diseño / ADR
 Pull Request
   ↓
 Commit
+  ↓
+Governance Validation
+  ↓
+Quality Validation
+  ↓
+Security Validation
   ↓
 Test
   ↓
@@ -206,7 +214,9 @@ Esta política debe interpretarse conjuntamente con:
 - `07-Main-Protection-Strategy.md`;
 - `08-Software-Roadmap.md`;
 - `09-Issue-And-Pull-Request-Labeling-Policy.md`;
-- `10-Governance-Enforcement-Architecture.md`.
+- `10-Governance-Enforcement-Architecture.md`;
+- `12-Quality-Validation-Architecture.md`;
+- `13-Security-Validation-Architecture.md`.
 
 Las futuras políticas de configuración, seguridad, calidad, DevOps y documentación deberán mantener compatibilidad con este flujo.
 

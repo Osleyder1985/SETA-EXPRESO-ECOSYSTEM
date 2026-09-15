@@ -1,0 +1,267 @@
+version: "1.0.0"
+project: "SETA EXPRESO ECOSYSTEM"
+result_states:
+  - PASS
+  - CONDITIONAL
+  - BLOCKED
+  - REOPEN
+check_classes:
+  - AUTOMATED
+  - HYBRID
+  - HUMAN
+
+# Operational baseline. Thresholds that require real project data remain explicitly provisional.
+gates:
+  - id: G0
+    name: Governance Ready
+    phase: A
+    entry_criteria: ["Governance baseline exists"]
+    required_inputs: ["Lifecycle", "Governance controls", "Risk register", "Decision governance", "Validation evidence"]
+    checks:
+      - {id: G0-C01, description: "Governance baseline present", class: AUTOMATED}
+      - {id: G0-C02, description: "Residual risks and limitations recorded", class: HYBRID}
+      - {id: G0-C03, description: "Required validation evidence available", class: AUTOMATED}
+    metrics: ["governance-control-coverage", "open-critical-governance-findings"]
+    evidence: ["Governance readiness assessment", "Impact analysis", "Validation runs", "Risk register"]
+    decision_authority: "Governance authority"
+    pass: "Mandatory checks satisfied and baseline evidence complete."
+    conditional: "Only bounded, approved conditions remain."
+    blocked: "Required governance input or authority decision is missing."
+    reopen: "A material governance change invalidates prior evidence."
+    exit_criteria: "Governance baseline accepted for the next phase."
+
+  - id: G1
+    name: Discovery Ready
+    phase: B
+    entry_criteria: ["G0 accepted"]
+    required_inputs: ["Current-state discovery evidence", "Stakeholder/context information"]
+    checks:
+      - {id: G1-C01, description: "Discovery scope documented", class: AUTOMATED}
+      - {id: G1-C02, description: "Material unknowns and assumptions reviewed", class: HYBRID}
+    metrics: ["discovery-completeness"]
+    evidence: ["Discovery record", "Stakeholder evidence", "Assumption log"]
+    decision_authority: "Product/system authority"
+    pass: "Discovery evidence is sufficient for needs analysis."
+    conditional: "Known bounded unknowns have owners and resolution dates."
+    blocked: "Material current-state information is unavailable."
+    reopen: "New evidence materially changes the understood current state."
+    exit_criteria: "Current state is sufficiently understood."
+
+  - id: G2
+    name: Problem And Objectives Ready
+    phase: C
+    entry_criteria: ["G1 accepted"]
+    required_inputs: ["Business needs", "Problem statement", "Objectives"]
+    checks:
+      - {id: G2-C01, description: "Problem and objectives documented", class: AUTOMATED}
+      - {id: G2-C02, description: "Objectives are materially accepted", class: HUMAN}
+    metrics: ["objective-coverage"]
+    evidence: ["Problem statement", "Objectives record", "Stakeholder acceptance"]
+    decision_authority: "Business/product authority"
+    pass: "Problem, needs and objectives are accepted."
+    conditional: "Bounded assumptions are explicitly accepted."
+    blocked: "Business decision or required stakeholder input is missing."
+    reopen: "Material business need or objective changes."
+    exit_criteria: "Needs and objectives provide a stable basis for requirements."
+
+  - id: G3
+    name: Requirements Baseline
+    phase: D
+    entry_criteria: ["G2 accepted"]
+    required_inputs: ["Requirements baseline", "Traceability", "Acceptance criteria", "Owners"]
+    checks:
+      - {id: G3-C01, description: "100% of requirements have unique IDs", class: AUTOMATED}
+      - {id: G3-C02, description: "100% of requirements have owner", class: AUTOMATED}
+      - {id: G3-C03, description: "100% of requirements have acceptance criteria", class: AUTOMATED}
+      - {id: G3-C04, description: "At least 95% have traceability", class: AUTOMATED}
+      - {id: G3-C05, description: "Zero critical requirements are ambiguous", class: HYBRID}
+      - {id: G3-C06, description: "100% of critical requirements are verifiable", class: HYBRID}
+    metrics: ["requirements-id-coverage", "requirements-owner-coverage", "requirements-acceptance-criteria-coverage", "requirements-traceability-coverage", "critical-requirements-verifiability"]
+    evidence: ["Requirements baseline", "Traceability matrix", "Ambiguity review", "Verification evidence"]
+    decision_authority: "Requirements authority / product owner"
+    pass: "All mandatory requirements criteria are satisfied."
+    conditional: "Only explicitly approved bounded conditions remain."
+    blocked: "Required requirements inputs or acceptance authority are missing."
+    reopen: "A material requirement change invalidates the baseline."
+    exit_criteria: "Requirements baseline is controlled and usable by downstream engineering."
+
+  - id: G4
+    name: System Definition Ready
+    phase: E
+    entry_criteria: ["G3 accepted"]
+    required_inputs: ["System context", "System boundary", "Actors", "Interfaces", "Constraints"]
+    checks:
+      - {id: G4-C01, description: "System boundary documented", class: AUTOMATED}
+      - {id: G4-C02, description: "External actors and interfaces identified", class: HYBRID}
+      - {id: G4-C03, description: "Material constraints documented", class: HYBRID}
+    metrics: ["system-definition-completeness"]
+    evidence: ["System definition", "Context model", "Interface inventory"]
+    decision_authority: "System authority"
+    pass: "System definition is sufficient for architecture."
+    conditional: "Bounded open points are controlled."
+    blocked: "Critical system context is unknown."
+    reopen: "System boundary or context materially changes."
+    exit_criteria: "System definition is accepted as architecture input."
+
+  - id: G5
+    name: Architecture Baseline
+    phase: F
+    entry_criteria: ["G4 accepted"]
+    required_inputs: ["Architecture description", "Quality attributes", "Risks", "Decision records"]
+    checks:
+      - {id: G5-C01, description: "Architecture description exists", class: AUTOMATED}
+      - {id: G5-C02, description: "Quality attributes are addressed", class: HYBRID}
+      - {id: G5-C03, description: "Material architecture decisions have Decision Records", class: HYBRID}
+      - {id: G5-C04, description: "Architecture risks are assessed", class: HYBRID}
+    metrics: ["architecture-decision-coverage", "quality-attribute-coverage"]
+    evidence: ["Architecture description", "Decision Records", "Risk analysis", "Quality attribute evidence"]
+    decision_authority: "Architecture authority"
+    pass: "Architecture baseline is sufficiently justified and controlled."
+    conditional: "Approved bounded architectural debt remains."
+    blocked: "Critical architecture evidence or decision authority is missing."
+    reopen: "A material architecture or constraint change occurs."
+    exit_criteria: "Architecture baseline is controlled for design."
+
+  - id: G6
+    name: Design Ready
+    phase: G
+    entry_criteria: ["G5 accepted"]
+    required_inputs: ["Detailed design", "Interfaces", "Data design", "Security design", "Decision records"]
+    checks:
+      - {id: G6-C01, description: "Design covers applicable requirements", class: HYBRID}
+      - {id: G6-C02, description: "Interfaces and contracts are defined", class: HYBRID}
+      - {id: G6-C03, description: "Material design decisions are traceable", class: HYBRID}
+    metrics: ["design-requirement-coverage", "interface-contract-coverage"]
+    evidence: ["Design description", "Interface contracts", "Decision Records", "Traceability"]
+    decision_authority: "Engineering/design authority"
+    pass: "Design is sufficiently detailed for construction."
+    conditional: "Bounded design debt is accepted."
+    blocked: "Critical design input is missing."
+    reopen: "Material design assumptions become invalid."
+    exit_criteria: "Design is controlled for implementation."
+
+  - id: G7
+    name: Build Ready
+    phase: H
+    entry_criteria: ["G6 accepted"]
+    required_inputs: ["Build configuration", "Development controls", "Dependencies", "Security controls"]
+    checks:
+      - {id: G7-C01, description: "Build and repository controls are available", class: AUTOMATED}
+      - {id: G7-C02, description: "Dependencies and third-party inputs are identified", class: HYBRID}
+      - {id: G7-C03, description: "Secure development controls applicable to build are defined", class: HYBRID}
+    metrics: ["build-readiness-coverage", "dependency-identification-coverage"]
+    evidence: ["Build configuration", "Dependency records", "Security evidence"]
+    decision_authority: "Engineering authority"
+    pass: "Construction controls and inputs are ready."
+    conditional: "Bounded build limitations are approved."
+    blocked: "Required build input or dependency is unavailable."
+    reopen: "Build constraints materially change."
+    exit_criteria: "Construction may proceed under controlled conditions."
+
+  - id: G8
+    name: Verification Ready
+    phase: I
+    entry_criteria: ["G7 accepted", "Integrated increment exists"]
+    required_inputs: ["Verification plan", "Test evidence", "Integration evidence", "Requirements traceability"]
+    checks:
+      - {id: G8-C01, description: "Applicable verification activities executed", class: HYBRID}
+      - {id: G8-C02, description: "Verification evidence is traceable", class: AUTOMATED}
+      - {id: G8-C03, description: "Critical verification failures are dispositioned", class: HUMAN}
+    metrics: ["verification-coverage", "critical-verification-failure-count"]
+    evidence: ["Verification results", "Test reports", "Traceability matrix"]
+    decision_authority: "Verification authority"
+    pass: "Required verification evidence satisfies acceptance criteria."
+    conditional: "Approved bounded limitations remain."
+    blocked: "Verification cannot be completed due to missing inputs."
+    reopen: "New evidence invalidates a verification conclusion."
+    exit_criteria: "Increment is ready for validation."
+
+  - id: G9
+    name: Validation Accepted
+    phase: J
+    entry_criteria: ["G8 accepted"]
+    required_inputs: ["Validation plan", "Acceptance criteria", "User/business evidence", "Known limitations"]
+    checks:
+      - {id: G9-C01, description: "Acceptance criteria evaluated", class: HYBRID}
+      - {id: G9-C02, description: "Material validation findings dispositioned", class: HUMAN}
+      - {id: G9-C03, description: "Acceptance authority decision recorded", class: HUMAN}
+    metrics: ["acceptance-criteria-coverage", "open-validation-findings"]
+    evidence: ["Validation report", "Acceptance record", "Finding disposition"]
+    decision_authority: "Business/acceptance authority"
+    pass: "Acceptance criteria are satisfied and acceptance is recorded."
+    conditional: "Explicitly accepted limitations have owners and dates."
+    blocked: "Acceptance authority or required validation evidence is unavailable."
+    reopen: "Accepted behavior or requirements materially change."
+    exit_criteria: "Validated increment is authorized for transition."
+
+  - id: G10
+    name: Production Ready
+    phase: K
+    entry_criteria: ["G9 accepted"]
+    required_inputs: ["Deployment plan", "Configuration", "Rollback", "Operations readiness", "Security evidence"]
+    checks:
+      - {id: G10-C01, description: "Deployment plan and rollback defined", class: HYBRID}
+      - {id: G10-C02, description: "Production configuration controlled", class: AUTOMATED}
+      - {id: G10-C03, description: "Operational ownership established", class: HUMAN}
+    metrics: ["deployment-readiness-coverage", "rollback-readiness"]
+    evidence: ["Deployment plan", "Rollback plan", "Production checklist"]
+    decision_authority: "Release/operations authority"
+    pass: "Transition controls and operational readiness are complete."
+    conditional: "Bounded deployment conditions are approved."
+    blocked: "Production dependency or readiness input is missing."
+    reopen: "Deployment context materially changes."
+    exit_criteria: "Release may transition to production."
+
+  - id: G11
+    name: Operationally Stable
+    phase: L
+    entry_criteria: ["G10 accepted", "System deployed"]
+    required_inputs: ["Telemetry", "Incidents", "SLO/SLA evidence", "Operational metrics"]
+    checks:
+      - {id: G11-C01, description: "Monitoring and alerting are operational", class: AUTOMATED}
+      - {id: G11-C02, description: "Material incidents are managed", class: HYBRID}
+      - {id: G11-C03, description: "Operational performance is within approved thresholds", class: HYBRID}
+    metrics: ["availability", "incident-rate", "mean-time-to-recovery"]
+    evidence: ["Operational dashboards", "Incident records", "Service reports"]
+    decision_authority: "Operations authority"
+    pass: "Operational evidence supports stable service."
+    conditional: "Known bounded operational limitations are accepted."
+    blocked: "Telemetry or operational evidence is insufficient."
+    reopen: "Material incident or degradation invalidates stability evidence."
+    exit_criteria: "Service is operating under controlled conditions."
+
+  - id: G12
+    name: Evolution Ready
+    phase: M/N
+    entry_criteria: ["Operational baseline or approved change need exists"]
+    required_inputs: ["Change proposal", "Impact analysis", "Risks", "Metrics", "Decision records"]
+    checks:
+      - {id: G12-C01, description: "Change impact is assessed", class: HYBRID}
+      - {id: G12-C02, description: "Material risks are treated or accepted", class: HUMAN}
+      - {id: G12-C03, description: "Superseded material decisions are updated", class: HYBRID}
+    metrics: ["change-failure-rate", "risk-closure-rate", "decision-record-coverage"]
+    evidence: ["Change request", "Impact analysis", "Risk evidence", "Decision Records"]
+    decision_authority: "Change/product/engineering authority"
+    pass: "Change is justified, controlled and ready for execution."
+    conditional: "Bounded conditions are explicitly approved."
+    blocked: "Critical impact, risk or decision information is missing."
+    reopen: "New evidence materially changes the change assessment."
+    exit_criteria: "Evolution can proceed under change control."
+
+  - id: G13
+    name: Retirement Complete
+    phase: O
+    entry_criteria: ["Retirement decision approved"]
+    required_inputs: ["Retirement plan", "Migration/deletion evidence", "Data disposition", "Evidence preservation"]
+    checks:
+      - {id: G13-C01, description: "Retirement activities completed", class: HYBRID}
+      - {id: G13-C02, description: "Data disposition requirements satisfied", class: HYBRID}
+      - {id: G13-C03, description: "Required evidence preserved", class: AUTOMATED}
+    metrics: ["retirement-completion", "migration-completion", "open-retirement-findings"]
+    evidence: ["Retirement record", "Migration/deletion evidence", "Evidence archive"]
+    decision_authority: "System/business authority"
+    pass: "Retirement and evidence preservation are complete."
+    conditional: "Approved bounded residual activities remain."
+    blocked: "Critical migration, deletion or evidence input is missing."
+    reopen: "A retirement obligation or material dependency is discovered."
+    exit_criteria: "System is retired/migrated and lifecycle evidence is preserved."

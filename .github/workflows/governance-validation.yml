@@ -34,26 +34,34 @@ jobs:
 
           for required_text in \
             "Issue #" \
-            "Análisis de impacto" \
-            "LISTO PARA FUSIÓN" \
-            "NO FUSIONAR — TRABAJO PENDIENTE"; do
+            "Análisis de impacto"; do
             if [[ "$PR_BODY" != *"$required_text"* ]]; then
               echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: $required_text"
               exit 1
             fi
           done
 
-          echo "OK: El Pull Request contiene los metadatos mínimos de gobernanza."
+          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟢 **LISTO PARA FUSIÓN.**' || true)
+          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Fc '🟡 **NO FUSIONAR — TRABAJO PENDIENTE.**' || true)
+
+          if [ $((ready_count + pending_count)) -ne 1 ]; then
+            echo "ERROR: El Pull Request debe declarar exactamente un estado de integración: LISTO PARA FUSIÓN o NO FUSIONAR — TRABAJO PENDIENTE."
+            exit 1
+          fi
+
+          echo "OK: El Pull Request contiene los metadatos mínimos de gobernanza y un estado de integración único."
 
       - name: Detect update to main
         if: github.event_name == 'push'
         env:
           COMMIT_SHA: ${{ github.sha }}
           COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          PUSHER: ${{ github.actor }}
         run: |
           set -euo pipefail
           echo "Se detectó una actualización de main."
           echo "Commit: $COMMIT_SHA"
+          echo "Actor: $PUSHER"
           echo "Mensaje: $COMMIT_MESSAGE"
           echo "Este control es detectivo; no sustituye branch protection nativa."
 

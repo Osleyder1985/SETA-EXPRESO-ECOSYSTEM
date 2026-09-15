@@ -1,8 +1,8 @@
 # Convención de estructura y nomenclatura del repositorio
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Política inicial  
+**Versión:** 0.2.0  
+**Estado:** Política propuesta para aprobación  
 **Fecha:** 2026-09-15
 
 ---
@@ -45,6 +45,7 @@ Reglas:
 03-Artifacts-And-Evidence.md
 04-Quality-Gates.md
 05-Repository-Naming-Convention.md
+06-Change-Control-Workflow.md
 ```
 
 ## 5. Ejemplos incorrectos
@@ -77,3 +78,9 @@ Infrastructure/
 ## 8. Aplicación
 
 Esta política aplica a nuevos artefactos y modificaciones estructurales. Cuando un archivo existente contradiga la política, se renombrará mediante un cambio controlado y se actualizarán todas las referencias afectadas.
+
+## 9. Control de cambios e impacto
+
+Los cambios de nombres, movimientos, adiciones, modificaciones o eliminaciones de artefactos están sujetos al flujo definido en `06-Change-Control-Workflow.md`.
+
+En particular, cualquier cambio estructural deberá incluir un análisis de impacto sobre referencias, índices, enlaces, automatizaciones, trazabilidad y demás artefactos dependientes. Cuando el impacto requiera actualizar otros artefactos, estos deberán actualizarse en la misma unidad de cambio o quedar registrados como trabajo pendiente trazable.

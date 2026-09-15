@@ -1,8 +1,8 @@
 # Flujo de control de cambios y trazabilidad
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Política propuesta para aprobación  
+**Versión:** 0.2.0  
+**Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15
 
@@ -93,7 +93,8 @@ El Pull Request deberá describir en español, como mínimo:
 5. artefactos afectados;
 6. pruebas, validaciones y evidencias realizadas;
 7. relación explícita con el Issue;
-8. trabajo pendiente, si existe.
+8. trabajo pendiente, si existe;
+9. estado explícito de integración: **LISTO PARA FUSIÓN** o **NO FUSIONAR — TRABAJO PENDIENTE**.
 
 ## 7. Análisis de impacto obligatorio
 
@@ -173,6 +174,8 @@ No todos los cambios requerirán todos los elementos de la cadena, pero la ausen
 Este flujo es un mecanismo transversal del ciclo de vida maestro. No constituye una fase independiente.
 
 Se aplica durante requisitos, arquitectura, diseño, construcción, pruebas, despliegue, operación, mantenimiento, evolución, mejora y retirada cuando exista un cambio controlado.
+
+La integración explícita del flujo en el ciclo maestro se establece en `Docs/Governance/00-Software-Lifecycle-Master.md`.
 
 ## 12. Relación con otras políticas
 

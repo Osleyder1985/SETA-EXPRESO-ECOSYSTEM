@@ -1,8 +1,8 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Catálogo inicial  
+**Versión:** 0.2.0  
+**Estado:** Catálogo controlado inicial  
 **Fecha:** 2026-09-15
 
 ---
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Risk Register | Aprobaciones, decisiones |
+| Gobernanza | Project Charter, Governance Model, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
@@ -47,6 +47,7 @@ Cuando un artefacto sea crítico, su evidencia debería permitir responder:
 5. ¿Con qué versión o configuración?
 6. ¿Qué resultado produjo?
 7. ¿Qué requisitos, decisiones o riesgos afecta?
+8. ¿Qué Issue y Pull Request controlaron el cambio, cuando corresponda?
 
 ## 6. Evidencia externa
 
@@ -55,3 +56,13 @@ Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confide
 ## 7. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
+
+Toda adición, modificación, actualización, movimiento, renombrado o eliminación de un artefacto deberá activar un análisis de impacto sobre los artefactos relacionados. Si otro artefacto resulta afectado, deberá actualizarse en la misma unidad de cambio cuando sea razonable o quedar registrado como trabajo pendiente trazable.
+
+La cadena de evidencia deberá conservar, cuando aplique:
+
+```text
+Necesidad / Problema → Issue → Branch → Cambio → Impacto → Evidencia → Pull Request → Revisión → Merge → main
+```
+
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md` y `Docs/Governance/06-Change-Control-Workflow.md`.

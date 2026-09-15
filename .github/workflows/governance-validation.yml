@@ -62,6 +62,9 @@ jobs:
             Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
             Docs/Governance/10-Governance-Enforcement-Architecture.md
             Docs/Governance/11-Governance-Control-Matrix.md
+            Docs/Governance/12-Quality-Validation-Architecture.md
+            Docs/Governance/13-Security-Validation-Architecture.md
+            Docs/Governance/14-Evidence-Validation-Architecture.md
             Docs/Governance/17-Risk-Management-System.md
             Docs/Governance/18-Risk-Management-Control-Matrix.md
             Docs/Governance/19-Decision-Governance.md

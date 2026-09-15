@@ -8,32 +8,62 @@ Este repositorio constituye la fuente controlada de código, documentación, dec
 
 ## Estado actual
 
-El proyecto se encuentra en la definición y validación de su marco maestro de ciclo de vida de Ingeniería de Software.
+El proyecto se encuentra en la consolidación del marco maestro de ciclo de vida de Ingeniería de Software y de Ingeniería de Sistemas para el Ecosistema.
 
-## Estructura inicial
+## Repository Conventions
+
+- **Repository structure:** English.
+- **Directory names:** English, Title Case by word, separated with `-` when multi-word.
+- **File names:** English, Title Case by word, separated with `-` when multi-word.
+- **Documentation content:** Spanish.
+- **Code and technical identifiers:** English by default, with justified exceptions when required by an external technology or integration.
+- **Documentation root:** `Docs/`.
+
+Example:
 
 ```text
-00-GOVERNANCE/
-01-BUSINESS/
-02-REQUIREMENTS/
-03-ARCHITECTURE/
-04-DESIGN/
-05-SOURCE/
-06-TESTING/
-07-SECURITY/
-08-DEVOPS/
-09-OPERATIONS/
-10-DATA/
-11-RESEARCH/
-12-DOCUMENTATION/
+01-Software-Lifecycle-Audit.md
+02-Standards-Lifecycle-Matrix.md
+03-Artifacts-And-Evidence.md
 ```
 
-## Principio rector
+## Repository Structure
+
+```text
+SETA-EXPRESO-ECOSYSTEM/
+├── README.md
+├── Docs/
+│   ├── Governance/
+│   ├── Business/
+│   ├── Requirements/
+│   ├── Architecture/
+│   ├── Design/
+│   ├── Testing/
+│   ├── Security/
+│   ├── DevOps/
+│   ├── Operations/
+│   ├── Data/
+│   ├── Research/
+│   └── Standards/
+├── Source/
+├── Tests/
+├── Infrastructure/
+├── Configuration/
+├── Scripts/
+└── .github/
+```
+
+Git no almacena directorios vacíos; las carpetas se crearán conforme existan artefactos que deban gestionarse en ellas.
+
+## Governance Documents
+
+- `Docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.2.0.
+- `Docs/Governance/01-Software-Lifecycle-Audit.md` — auditoría metodológica inicial.
+- `Docs/Governance/02-Standards-Lifecycle-Matrix.md` — alineación del ciclo con referencias normativas y técnicas.
+- `Docs/Governance/03-Artifacts-And-Evidence.md` — catálogo inicial de artefactos y evidencias.
+- `Docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
+- `Docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
+
+## Engineering Principle
 
 > No solamente construiremos el Ecosistema; construiremos y conservaremos la evidencia de ingeniería que demuestra cómo y por qué fue construido.
-
-## Documento rector actual
-
-- `00-GOVERNANCE/01-CICLO-DE-VIDA-AUDITORIA.md`
-
-La versión consolidada del ciclo de vida será establecida después de la auditoría metodológica y normativa.

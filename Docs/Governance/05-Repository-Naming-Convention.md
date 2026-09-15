@@ -1,15 +1,15 @@
 # Convención de estructura y nomenclatura del repositorio
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.0  
-**Estado:** Política propuesta para aprobación  
+**Versión:** 0.3.0  
+**Estado:** Política vigente  
 **Fecha:** 2026-09-15
 
 ---
 
 ## 1. Objetivo
 
-Establecer una convención única para directorios y archivos del repositorio, reduciendo ambigüedad y evitando renombrados inconsistentes durante la evolución del proyecto.
+Establecer una convención única para directorios, archivos y branches del repositorio, reduciendo ambigüedad y evitando renombrados inconsistentes durante la evolución del proyecto.
 
 ## 2. Idioma
 
@@ -19,7 +19,7 @@ El contenido de la documentación utiliza **español** como idioma principal.
 
 El código y los identificadores técnicos utilizarán inglés, salvo excepciones justificadas por una tecnología, estándar o integración externa.
 
-## 3. Formato de nombres
+## 3. Formato de nombres de archivos
 
 La convención general es:
 
@@ -84,3 +84,33 @@ Esta política aplica a nuevos artefactos y modificaciones estructurales. Cuando
 Los cambios de nombres, movimientos, adiciones, modificaciones o eliminaciones de artefactos están sujetos al flujo definido en `06-Change-Control-Workflow.md`.
 
 En particular, cualquier cambio estructural deberá incluir un análisis de impacto sobre referencias, índices, enlaces, automatizaciones, trazabilidad y demás artefactos dependientes. Cuando el impacto requiera actualizar otros artefactos, estos deberán actualizarse en la misma unidad de cambio o quedar registrados como trabajo pendiente trazable.
+
+## 10. Convención de branches
+
+Las branches de trabajo asociadas a Issues utilizarán:
+
+```text
+issue-<numero>-<slug-corto>
+```
+
+Ejemplos:
+
+```text
+issue-13-governance-enforcement
+issue-14-requirements-baseline
+issue-15-system-discovery
+```
+
+Reglas:
+
+1. `main` no se utilizará como branch de trabajo.
+2. Toda branch de trabajo deberá corresponder a un Issue existente.
+3. El número del Issue deberá aparecer en la branch.
+4. El slug será corto, descriptivo y en minúsculas.
+5. Las palabras del slug se separarán con `-`.
+6. No se utilizarán espacios ni caracteres especiales.
+7. La branch deberá partir de una línea base conocida.
+
+Esta convención permite que Governance Validation compruebe automáticamente una relación mínima entre `Issue` y `Branch`.
+
+Las excepciones deberán estar justificadas en el Issue/PR y no deberán utilizarse para trabajar directamente sobre `main`.

@@ -1,7 +1,7 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.7.0  
+**Versión:** 0.8.0  
 **Estado:** Definición controlada en evolución  
 **Fecha:** 2026-09-15
 
@@ -144,7 +144,25 @@ En particular:
 
 La ausencia de un Decision Record aplicable no se corregirá inventando una decisión histórica. Deberá registrarse la decisión cuando exista contexto y evidencia suficientes, o quedar como condición/pending work trazable.
 
-## 7. Regla de decisión
+## 7. Métricas de ingeniería como evidencia de Gate
+
+Las métricas definidas en `Docs/Governance/21-Engineering-Metrics-Governance.md` y `Docs/Governance/Metrics/Metric-Catalog.yml` constituyen una fuente formal de evidencia para evaluar la salud y evolución del proceso cuando exista una fuente operacional suficiente.
+
+Los Quality Gates no deberán convertir métricas sin baseline en criterios numéricos artificiales. Cuando una métrica esté en estado `defined`, `provisional` o `blocked`, el gate deberá registrar la limitación y no interpretarla como cero, cumplimiento o incumplimiento.
+
+Cuando aplique, el paquete de evidencia del gate podrá incluir:
+
+- métricas aplicables y su periodo de medición;
+- fuente y método de cálculo;
+- baseline y target si existen;
+- tendencia histórica cuando exista;
+- desviaciones respecto de thresholds formalmente definidos;
+- limitaciones de cobertura o calidad de datos;
+- acciones o decisiones derivadas.
+
+Las métricas sirven como evidencia para decidir; no sustituyen la evaluación de requisitos, arquitectura, riesgos, pruebas, aceptación ni juicio de ingeniería.
+
+## 8. Regla de decisión
 
 Un gate puede resultar:
 
@@ -157,7 +175,7 @@ Un gate puede resultar:
 
 Una excepción no debe ocultarse convirtiendo un `FAIL` automatizado en `PASS`. Debe registrarse como condición, excepción o decisión controlada según corresponda.
 
-## 8. Evidencia
+## 9. Evidencia
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
@@ -165,7 +183,7 @@ Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir
 
 Cuando aplique una validación automatizada, la evidencia deberá identificar el workflow run y los controles ejecutados.
 
-## 9. Evolución
+## 10. Evolución
 
 Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
 

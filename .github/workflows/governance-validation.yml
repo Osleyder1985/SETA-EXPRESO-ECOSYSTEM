@@ -43,8 +43,8 @@ jobs:
           if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then exit 1; fi
           label_count=$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq '.labels | length')
           if [ "$label_count" -lt 1 ]; then exit 1; fi
-          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
-          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
+          ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^[[:space:]]*🟢[[:space:]]+\*\*LISTO PARA FUSIÓN\.\*\*[[:space:]]*$' || true)
+          pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^[[:space:]]*🟡[[:space:]]+\*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*[[:space:]]*$' || true)
           if [ $((ready_count + pending_count)) -ne 1 ]; then exit 1; fi
           echo "OK: Governance metadata conforms."
 

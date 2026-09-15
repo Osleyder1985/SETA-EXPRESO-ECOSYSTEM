@@ -1,16 +1,16 @@
 # Matriz de controles de Governance, Quality, Security y Evidence Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23
+**Issues relacionados:** #13, #20, #22, #23, #25
 
 ---
 
 ## 1. Propósito
 
-Convertir las capas de Governance Enforcement, Quality Validation, Security Validation y Evidence Validation en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
+Convertir las capas de Governance Enforcement, Quality Validation, Security Validation y Evidence Validation, junto con los controles de readiness de los Quality Gates, en una matriz operacional que permita saber qué se controla, por qué, cómo, qué evidencia se obtiene y cuál es la limitación residual.
 
 ## 2. Matriz de Governance Enforcement
 
@@ -29,7 +29,18 @@ Convertir las capas de Governance Enforcement, Quality Validation, Security Vali
 | GE-011 | Residual risk | Falsa sensación de protección | Política explícita | G | Documento controlado | Depende de lectura/revisión |
 | GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard futuro | Métricas iniciales |
 
-## 3. Matriz de Quality Validation
+## 3. Matriz de Governance Gate Controls
+
+Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son distintos de GE: GE controla la integridad del flujo de cambios; GC controla que exista evidencia suficiente para decidir el avance de una fase.
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| GC-001 | G0 Governance Readiness Assessment | Avanzar de fase sin evaluar objetivamente la baseline de gobernanza | Evaluación formal del Gate G0 | G/D | `15-G0-Governance-Readiness-Assessment.md` | La evaluación requiere revisión de criterios y evidencia |
+| GC-002 | G0 Impact Analysis | Introducir el cierre de G0 sin actualizar artefactos dependientes | Análisis formal de impacto | G/D | `16-G0-Impact-Analysis.md` | Puede requerir juicio de ingeniería sobre dependencias |
+| GC-003 | G0 Evidence Package | Decisión de gate sin evidencia trazable | Consolidación y revisión de evidencia | G/D | Assessment + Impact Analysis + validaciones + PR | La suficiencia semántica final requiere revisión |
+| GC-004 | Residual Risk Acceptance | Ocultar limitaciones técnicas o sobreafirmar controles | Registro explícito de riesgos residuales | G | Governance baseline + Gate decision | La aceptación requiere autoridad responsable |
+
+## 4. Matriz de Quality Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -40,7 +51,7 @@ Convertir las capas de Governance Enforcement, Quality Validation, Security Vali
 | QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
 | QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |
 
-## 4. Matriz de Security Validation
+## 5. Matriz de Security Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -54,7 +65,7 @@ Convertir las capas de Governance Enforcement, Quality Validation, Security Vali
 | SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner de contenedores futuro | D | Decisión de aplicabilidad | No aplicable al baseline actual |
 | SV-009 | SBOM | Falta de inventario de componentes | Generación SBOM futura | D | Roadmap / decisión | Aún no implementado |
 
-## 5. Matriz de Evidence Validation
+## 6. Matriz de Evidence Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -68,21 +79,21 @@ Convertir las capas de Governance Enforcement, Quality Validation, Security Vali
 | EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
 | EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |
 
-## 6. Criterios de estado
+## 7. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
 - **NOT_APPLICABLE:** no aplica y existe justificación.
 - **NOT_IMPLEMENTED:** definido pero todavía no automatizado.
 
-## 7. Principio de no sobreafirmación
+## 8. Principio de no sobreafirmación
 
 Ningún control detectivo o compensatorio podrá registrarse como protección nativa. PASS demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente.
 
-## 8. Relación con Quality Gates
+## 9. Relación con Quality Gates
 
-Las cuatro capas aportan evidencia técnica a los Quality Gates, pero no sustituyen su evaluación. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
+Las cuatro capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
 
-## 9. Evolución
+## 10. Evolución
 
 La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad y evidencia científica.

@@ -1,0 +1,11 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# Campos previstos:
+# assessment_id, third_party_id, scope, criticality,
+# identity_access, encryption, vulnerability_management,
+# supply_chain_security, logging_monitoring, incident_management,
+# continuity_recovery, attestations, subprocessors, findings,
+# disposition, owner, assessment_date, next_review, evidence

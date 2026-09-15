@@ -63,6 +63,39 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 - `Docs/Governance/03-Artifacts-And-Evidence.md` — catálogo inicial de artefactos y evidencias.
 - `Docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
 - `Docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
+- `Docs/Governance/06-Change-Control-Workflow.md` — flujo obligatorio de Issue → Branch → Pull Request → `main` y control de impacto.
+
+## Change Control
+
+Los cambios del repositorio siguen un flujo obligatorio:
+
+```text
+Issue
+  ↓
+Análisis y alcance
+  ↓
+Branch
+  ↓
+Implementación
+  ↓
+Análisis de impacto
+  ↓
+Actualización de artefactos afectados
+  ↓
+Pruebas / evidencia
+  ↓
+Pull Request
+  ↓
+Revisión y aprobación
+  ↓
+Merge
+  ↓
+main
+```
+
+**No se realizan cambios de trabajo directamente sobre `main`.** Un Issue puede resolverse mediante uno o varios Pull Requests. Todo Pull Request deberá documentar en español el cambio, su motivo, alcance, impacto, artefactos afectados, pruebas/evidencias y relación con el Issue.
+
+La regla completa está definida en `Docs/Governance/06-Change-Control-Workflow.md`.
 
 ## Engineering Principle
 

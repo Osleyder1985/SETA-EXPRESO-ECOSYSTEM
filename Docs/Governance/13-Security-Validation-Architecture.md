@@ -15,7 +15,7 @@ Definir la primera capa automatizada de **Security Validation (SV)** para detect
 
 Security Validation es una capa transversal del ciclo de vida. No sustituye threat modeling, arquitectura de seguridad, análisis de riesgos, pruebas de penetración, revisión humana, gestión de vulnerabilidades ni aceptación de seguridad.
 
-NIST SP 800-218 (SSDF 1.1) recomienda integrar prácticas de desarrollo seguro dentro del ciclo de desarrollo existente, mientras que NIST CSF 2.0 organiza la gestión del riesgo mediante las funciones Govern, Identify, Protect, Detect, Respond y Recover. En este repositorio se utilizan como marcos de referencia y vocabulario; su adopción no implica conformidad automática. citeturn0search0turn0search12
+NIST SP 800-218 (SSDF 1.1) recomienda integrar prácticas de desarrollo seguro dentro del ciclo de desarrollo existente, mientras que NIST CSF 2.0 organiza la gestión del riesgo mediante las funciones Govern, Identify, Protect, Detect, Respond y Recover. En este repositorio se utilizan como marcos de referencia y vocabulario; su adopción no implica conformidad automática.
 
 ## 2. Posición en la cadena de control
 
@@ -71,11 +71,11 @@ main
 
 ### NIST SSDF 1.1
 
-La implementación inicial se alinea conceptualmente con prácticas de preparación del entorno de desarrollo seguro, protección de componentes y reducción/detección de vulnerabilidades. SSDF proporciona prácticas y tareas de alto nivel que deben integrarse al SDLC, no un checklist universal que pueda declararse satisfecho únicamente por CI. citeturn0search0turn0search9
+La implementación inicial se alinea conceptualmente con prácticas de preparación del entorno de desarrollo seguro, protección de componentes y reducción/detección de vulnerabilidades. SSDF proporciona prácticas y tareas de alto nivel que deben integrarse al SDLC, no un checklist universal que pueda declararse satisfecho únicamente por CI.
 
 ### NIST CSF 2.0
 
-La arquitectura utiliza principalmente los resultados conceptuales de **Govern, Identify, Protect y Detect** para estructurar gobernanza, identificación de activos/riesgos, controles preventivos y detección. CSF 2.0 es orientado a resultados y no prescribe una implementación tecnológica única. citeturn0search12turn0search5
+La arquitectura utiliza principalmente los resultados conceptuales de **Govern, Identify, Protect y Detect** para estructurar gobernanza, identificación de activos/riesgos, controles preventivos y detección. CSF 2.0 es orientado a resultados y no prescribe una implementación tecnológica única.
 
 ### ISO/IEC/IEEE 12207:2026 y 15288:2023
 

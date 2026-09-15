@@ -1,0 +1,10 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# Campos previstos:
+# vendor_risk_id, third_party_id, risk_category, cause, event,
+# consequence, probability, impact, exposure, treatment,
+# residual_probability, residual_impact, residual_exposure,
+# owner, review_date, trigger, evidence, related_risks

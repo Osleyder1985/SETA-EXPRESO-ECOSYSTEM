@@ -1,0 +1,11 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# Campos previstos:
+# contract_control_id, third_party_id, contract_reference,
+# service_levels, availability, support, incident_notification,
+# confidentiality, data_use, subprocessors, audit_rights,
+# change_notice, continuity, portability, termination,
+# data_return_or_deletion, evidence, review_date

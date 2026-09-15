@@ -1,0 +1,11 @@
+version: "0.1.0"
+status: "controlled-empty-baseline"
+issue: 41
+entries: []
+
+# No se agregan proveedores ficticios.
+# Campos previstos por entrada:
+# third_party_id, provider_name, category, service_or_component,
+# lifecycle_role, criticality, internal_owner, affected_systems,
+# data_access, processing_regions, contract_reference, status,
+# onboarding_date, review_date, related_risks, dependencies, evidence

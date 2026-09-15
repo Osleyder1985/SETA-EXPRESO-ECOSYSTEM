@@ -68,9 +68,18 @@ jobs:
             Docs/Governance/20-Decision-Governance-Control-Matrix.md
             Docs/Governance/21-Engineering-Metrics-Governance.md
             Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
-            Docs/Governance/Metrics/Metric-Catalog.yml
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
+            Docs/Governance/23-AI-Governance.md
+            Docs/Governance/24-AI-Governance-Control-Matrix.md
+            Docs/Governance/25-Data-Governance.md
+            Docs/Governance/26-Data-Governance-Control-Matrix.md
+            Docs/Governance/35-Configuration-Management.md
+            Docs/Governance/41-Configuration-Management-Control-Matrix.md
+            Docs/Governance/Configuration/README.md
+            Docs/Governance/Configuration/Configuration-Item-Register.yml
+            Docs/Governance/Configuration/Configuration-Baseline-Register.yml
+            Docs/Governance/Configuration/Configuration-Status-Accounting.md
+            Docs/Governance/Configuration/Configuration-Audit-Checklist.md
+            Docs/Governance/Configuration/Configuration-Impact-Analysis.md
             .github/workflows/governance-validation.yml
             .github/workflows/quality-validation.yml
             .github/workflows/security-validation.yml

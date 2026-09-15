@@ -26,14 +26,14 @@ jobs:
       - name: Validate Pull Request governance metadata
         if: github.event_name == 'pull_request'
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
           PR_HEAD_REF: ${{ github.head_ref }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
           REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          PR_BODY="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.body // ""')"
+          PR_TITLE="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.title // ""')"
           if [ "$PR_HEAD_REF" = "main" ]; then exit 1; fi
           if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then exit 1; fi
           issue_number=$(printf '%s\n' "$PR_HEAD_REF" | sed -E 's/^issue-([0-9]+)-.*/\1/')
@@ -62,15 +62,27 @@ jobs:
             Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
             Docs/Governance/10-Governance-Enforcement-Architecture.md
             Docs/Governance/11-Governance-Control-Matrix.md
+            Docs/Governance/12-Quality-Validation-Architecture.md
+            Docs/Governance/13-Security-Validation-Architecture.md
+            Docs/Governance/14-Evidence-Validation-Architecture.md
             Docs/Governance/17-Risk-Management-System.md
             Docs/Governance/18-Risk-Management-Control-Matrix.md
             Docs/Governance/19-Decision-Governance.md
             Docs/Governance/20-Decision-Governance-Control-Matrix.md
             Docs/Governance/21-Engineering-Metrics-Governance.md
             Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
-            Docs/Governance/Metrics/Metric-Catalog.yml
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
+            Docs/Governance/23-AI-Governance.md
+            Docs/Governance/24-AI-Governance-Control-Matrix.md
+            Docs/Governance/25-Data-Governance.md
+            Docs/Governance/26-Data-Governance-Control-Matrix.md
+            Docs/Governance/35-Configuration-Management.md
+            Docs/Governance/41-Configuration-Management-Control-Matrix.md
+            Docs/Governance/Configuration/README.md
+            Docs/Governance/Configuration/Configuration-Item-Register.yml
+            Docs/Governance/Configuration/Configuration-Baseline-Register.yml
+            Docs/Governance/Configuration/Configuration-Status-Accounting.md
+            Docs/Governance/Configuration/Configuration-Audit-Checklist.md
+            Docs/Governance/Configuration/Configuration-Impact-Analysis.md
             .github/workflows/governance-validation.yml
             .github/workflows/quality-validation.yml
             .github/workflows/security-validation.yml

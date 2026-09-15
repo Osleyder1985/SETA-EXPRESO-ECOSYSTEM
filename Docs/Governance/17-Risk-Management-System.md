@@ -1,8 +1,8 @@
 # Sistema de Gestión de Riesgos
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 0.1.1  
+**Estado:** Baseline en validación  
 **Fecha:** 2026-09-15  
 **Issue:** #31
 
@@ -295,3 +295,11 @@ Estas automatizaciones deberán añadirse como controles explícitos y no deben 
 ## 20. Criterio de madurez de esta baseline
 
 El Problema #2 no se considerará completamente resuelto por la mera creación de documentos. La capacidad se considerará **implementada como sistema documental operativo** cuando el proceso, registro, criterios, trazabilidad y revisión estén integrados y exista evidencia de uso real. La automatización avanzada podrá evolucionar posteriormente.
+
+## 21. Evidencia esperada para la validación de esta baseline
+
+- Issue #31.
+- PR #32.
+- Resultados de Governance Validation, Quality Validation, Security Validation y Evidence Validation sobre el HEAD final.
+- `Docs/Governance/Risk/Risk-Register.yml` y su representación legible.
+- Revisión de coherencia con Quality Gates y catálogo de artefactos.

@@ -20,7 +20,7 @@ La estrategia distingue explícitamente entre **protección técnica nativa**, *
 
 El repositorio es privado y GitHub Free no permite aplicar de forma efectiva las capacidades de branch protection/rulesets requeridas para este nivel de enforcement. Por tanto, no se afirmará que `main` está técnicamente protegida mientras esa capacidad no esté disponible.
 
-La documentación vigente de GitHub establece que branch protection está disponible en repositorios públicos con GitHub Free y en repositorios privados con GitHub Pro, Team o Enterprise; rulesets tienen la misma limitación para repositorios privados. citeturn0search0turn0search1
+Esta conclusión está sustentada por la documentación oficial vigente de GitHub sobre disponibilidad de branch protection y rulesets para repositorios privados.
 
 Esta restricción no modifica la política de ingeniería: los cambios de trabajo deberán continuar siguiendo `Issue → Branch → Pull Request → Review → Merge → main`.
 

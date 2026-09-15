@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.2.0  
+**Versión:** 0.3.0  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -96,6 +96,14 @@ L ─ Operación y soporte ───────────────── G
 ```
 
 El macroflujo es el camino de control. Las actividades internas pueden ejecutarse iterativa, incremental, concurrente o recursivamente cuando el contexto lo justifique.
+
+## Trabajo actualmente en curso
+
+| Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
+|---|---|---|---|---|---|---|
+| #20 | Automatizar Quality Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) | En desarrollo |
+
+La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria del workflow.
 
 ## Seguimiento detallado A–D
 
@@ -208,7 +216,8 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 ```text
 Roadmap Activity → Issue → Branch → Implementation → Impact Analysis
-→ Evidence / Tests → Pull Request → Review → Merge → main Baseline
+→ Governance Validation → Quality Validation → Evidence / Tests
+→ Pull Request → Review → Merge → main Baseline
 ```
 
 ## Convención de títulos de Issues y Pull Requests

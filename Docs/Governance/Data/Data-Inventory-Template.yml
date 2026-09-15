@@ -1,0 +1,8 @@
+version: 0.1.0
+status: template
+last_review: 2026-09-15
+data_assets: []
+# Future entries must be evidence-based and include at least:
+# id, name, domain, type, owner, steward, custodian, classification,
+# purpose, source, system_of_record, quality_rules, lineage,
+# retention, access_policy, privacy, backup, recovery, audit, status, evidence.

@@ -1,0 +1,7 @@
+version: 0.1.0
+status: template
+last_review: 2026-09-15
+rules: []
+# Rules will be added only after requirements and real data domains exist.
+# Suggested fields: id, data_asset, dimension, rule, formula, severity,
+# threshold, frequency, owner, steward, evidence, status.

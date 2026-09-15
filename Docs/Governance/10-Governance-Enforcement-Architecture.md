@@ -1,11 +1,11 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22
+**Issues relacionados:** #13, #20, #22, #23
 
 ---
 
@@ -13,22 +13,12 @@
 
 Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad y evidencia.
 
-La arquitectura no afirma capacidades de GitHub que no estén realmente disponibles. Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
+Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
 
 ## 2. Principio rector
 
 ```text
-POLÍTICA
-   ↓
-CONTROL AUTOMATIZABLE
-   ↓
-VALIDACIÓN
-   ↓
-EVIDENCIA
-   ↓
-MÉTRICA
-   ↓
-RESPUESTA
+POLÍTICA → CONTROL AUTOMATIZABLE → VALIDACIÓN → EVIDENCIA → MÉTRICA → RESPUESTA
 ```
 
 La automatización no debe confundirse con protección nativa. Un workflow puede fallar, detectar, registrar o notificar; solo una capacidad de plataforma que impida efectivamente una operación constituye enforcement técnico preventivo.
@@ -71,7 +61,7 @@ Issue → Work Branch → Pull Request
                   Metrics
 ```
 
-En el estado actual, Governance Validation, Quality Validation y Security Validation son ejecutables. Evidence Validation queda como capa evolutiva. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
+Governance, Quality, Security y Evidence Validation son capas independientes. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
 
 ## 4. Niveles de control
 
@@ -97,43 +87,46 @@ Todo PR nuevo destinado a `main` deberá poder verificarse automáticamente, com
 6. exactamente un estado formal de integración;
 7. branch de trabajo identificable y asociada al Issue;
 8. línea base documental mínima presente;
-9. branch basada en una línea base alcanzable de `main`, salvo excepción explícita;
+9. branch basada en una línea base alcanzable de `main`;
 10. ausencia de artefactos críticos eliminados sin justificación trazable;
 11. controles de Quality Validation aplicables satisfechos;
-12. controles de Security Validation aplicables satisfechos.
+12. controles de Security Validation aplicables satisfechos;
+13. controles de Evidence Validation aplicables satisfechos.
 
-El workflow deberá producir mensajes de error específicos y accionables.
+## 6. Quality, Security y Evidence Validation
 
-## 6. Quality Validation
+Quality Validation comprueba propiedades objetivas de calidad del repositorio. Security Validation comprueba propiedades objetivas de seguridad aplicables. Evidence Validation comprueba que la unidad de cambio conserva evidencia mínima, trazable y verificable.
 
-Quality Validation es una capa independiente que comprueba propiedades objetivas del repositorio. Su arquitectura, controles y limitaciones se definen en `12-Quality-Validation-Architecture.md`.
+Ninguna de las tres capas sustituye revisión humana, pruebas específicas, Quality Gates o evaluación integral del producto.
 
-Los controles iniciales QV-001..QV-006 cubren Markdown, estructura mínima, whitespace fuera de Markdown, sintaxis YAML, enlaces locales y presencia de artefactos críticos.
+## 7. Evidence Validation
 
-Un `QUALITY_VALIDATION=PASS` significa exclusivamente que los controles automatizados aplicables fueron satisfechos. No constituye certificación de calidad integral del producto ni sustituye revisión, pruebas específicas o Quality Gates.
+La arquitectura de Evidence Validation se define en `14-Evidence-Validation-Architecture.md`.
 
-## 7. Security Validation
+Sus controles iniciales EV-001..EV-005 comprueban:
 
-Security Validation es una capa independiente que comprueba propiedades objetivas de seguridad aplicables al estado del repositorio. Su arquitectura, controles y limitaciones se definen en `13-Security-Validation-Architecture.md`.
+- estructura mínima de evidencia en el PR;
+- relación Issue–PR;
+- identidad determinista del commit evaluado;
+- declaración de Governance, Quality, Security y Evidence Validation;
+- presencia de la baseline documental de evidencia.
 
-Los controles iniciales SV-001..SV-004 cubren material secreto de alto riesgo, permisos de workflows, triggers privilegiados y la integridad básica del propio control de seguridad. SV-005..SV-009 quedan explícitamente clasificados según aplicabilidad hasta que existan código, dependencias, infraestructura, contenedores y artefactos de software que justifiquen controles adicionales.
-
-Un `SECURITY_VALIDATION=PASS` significa exclusivamente que los controles de seguridad automatizados aplicables fueron satisfechos. No constituye certificación de seguridad integral ni ausencia de vulnerabilidades.
+EV-006..EV-009 quedan planificados o no aplicables hasta disponer de resultados de workflows correlacionables, pruebas, releases, despliegues y necesidades de integridad/procedencia más avanzadas.
 
 ## 8. Controles sobre `main`
 
 Ante cada `push` a `main`, la automatización deberá:
 
 1. registrar SHA, actor y mensaje;
-2. identificar si el commit está asociado a uno o más Pull Requests mediante la API de GitHub cuando sea posible;
-3. distinguir evidencia de integración mediante PR de una actualización sin PR asociado;
+2. identificar si el commit está asociado a uno o más Pull Requests mediante la API cuando sea posible;
+3. distinguir integración mediante PR de actualización sin PR asociado;
 4. marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado;
 5. conservar el resultado como evidencia detectiva;
 6. no afirmar que la automatización revirtió o impidió el cambio.
 
-## 9. Integridad de la gobernanza, calidad y seguridad
+## 9. Línea base mínima
 
-Los siguientes artefactos constituyen la línea base mínima:
+Los siguientes artefactos forman parte de la baseline de enforcement:
 
 - `00-Software-Lifecycle-Master.md`
 - `03-Artifacts-And-Evidence.md`
@@ -147,52 +140,37 @@ Los siguientes artefactos constituyen la línea base mínima:
 - `11-Governance-Control-Matrix.md`
 - `12-Quality-Validation-Architecture.md`
 - `13-Security-Validation-Architecture.md`
+- `14-Evidence-Validation-Architecture.md`
 - `.github/workflows/governance-validation.yml`
 - `.github/workflows/quality-validation.yml`
 - `.github/workflows/security-validation.yml`
+- `.github/workflows/evidence-validation.yml`
 
 La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente.
 
-## 10. Matriz resumida
+## 10. Residual risk
 
-| Control | Riesgo | Mecanismo | Evidencia | Limitación |
-|---|---|---|---|---|
-| PR con Issue | Cambio no trazable | Workflow | Check run + PR | No impide push directo |
-| Impact analysis | Dependencias omitidas | Workflow + revisión | PR | Puede requerir juicio humano |
-| Governance baseline | Gobierno degradado | Workflow | Check run | No valida semántica |
-| Quality baseline | Degradación técnica básica | Quality workflow | Check run | Cobertura limitada al contexto actual |
-| Security baseline | Riesgos básicos de seguridad | Security workflow | Check run | Cobertura limitada al contexto actual |
-| Secret material | Exposición accidental | Pattern scan | Check run | No sustituye scanner especializado |
-| Workflow permissions | Privilegios excesivos | Permissions validation | Check run | No garantiza seguridad total |
-| Dangerous trigger | Ejecución privilegiada | Trigger validation | Check run | Requiere excepción formal para casos legítimos |
-| Push asociado a PR | Cambio fuera del flujo | API + workflow | Push run | Detectivo |
-| Residual risk | Falsa sensación de protección | Documentación | Estrategia | Requiere revisión |
-
-## 11. Residual risk
-
-El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no puede convertir GitHub Actions en una barrera de escritura equivalente a branch protection.
+El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-La capa de Security Validation tampoco garantiza ausencia de vulnerabilidades; los controles iniciales son deliberadamente limitados al contexto actual.
-
-## 12. Métricas iniciales
+## 11. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente:
 
 - `% PR con Governance Validation PASS`;
 - `% PR con Quality Validation PASS`;
 - `% PR con Security Validation PASS`;
+- `% PR con Evidence Validation PASS`;
 - `% PR con Issue válida`;
 - `% PR con análisis de impacto`;
 - `% pushes a main asociados a PR`;
 - `número de actualizaciones sospechosas de main`;
-- `número de fallos de calidad por control`;
-- `número de fallos de seguridad por control`.
+- `número de fallos por control y capa`.
 
-## 13. Evolución hacia enforcement nativo
+## 12. Evolución hacia enforcement nativo
 
-Cuando exista capacidad compatible de GitHub, la arquitectura deberá conservar sus validaciones aunque se active branch protection/rulesets.
+Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
 ```text
 Compensatorio + Detectivo + Gobernanza
@@ -202,14 +180,14 @@ Compensatorio + Detectivo + Gobernanza
 Compensatorio + Detectivo + Gobernanza + Preventivo
 ```
 
-## 14. Criterio de verdad
+## 13. Criterio de verdad
 
-Nunca se utilizará la expresión `main protegida técnicamente` para describir esta arquitectura mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
+Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
 La afirmación correcta durante la restricción actual es:
 
 > `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
 
-## 15. Evidencia de implementación
+## 14. Evidencia de implementación
 
 La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, resultados de validación, estado final de integración y documentación actualizada.

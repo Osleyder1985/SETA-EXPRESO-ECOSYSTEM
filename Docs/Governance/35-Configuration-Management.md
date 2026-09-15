@@ -10,7 +10,7 @@
 
 Establecer la capacidad formal de Configuration Management (CM) del Ecosistema. Git seguirá siendo el mecanismo principal de control de versiones, pero CM añade identificación formal de Configuration Items (CI), baselines, control de cambios, accounting del estado y verificación/auditoría.
 
-ISO 10007:2017 define estas capacidades como elementos centrales de la gestión de configuración y permanece como versión vigente, aunque existe una revisión de ISO/WD 10007 en desarrollo. citeturn0search2turn0search4
+ISO 10007:2017 permanece como referencia vigente para configuration management; existe una revisión `ISO/WD 10007` en desarrollo, que todavía no es un estándar publicado. citeturn0search2turn0search4
 
 ISO/IEC/IEEE 12207:2026 proporciona el marco vigente del ciclo de vida del software y aplica a todo el ciclo de vida, incluida definición, desarrollo, operación, mantenimiento y retirada. citeturn0search0
 
@@ -265,3 +265,7 @@ La primera implementación proporciona una capacidad documental y estructurada d
 - Pull Request asociado;
 - resultados Governance/Quality/Security/Evidence Validation;
 - commit de integración.
+
+## 22. Criterio de no-invención
+
+La baseline inicial es una **baseline propuesta**, no una declaración de que los nueve CIs ya estén implementados o aprobados. Los campos sin evidencia permanecen explícitamente vacíos o `null` hasta que exista el artefacto correspondiente.

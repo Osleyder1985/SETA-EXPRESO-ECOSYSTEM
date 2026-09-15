@@ -58,9 +58,9 @@ Quality Validation es una capa previa a la integración. No sustituye la revisi�
 |---|---|---|---|---|---|
 | QV-001 | Archivos Markdown no vacíos | Evitar artefactos documentales vacíos | Shell | Check run | No evalúa calidad semántica |
 | QV-002 | Encabezado Markdown válido | Mantener estructura mínima de documentos | Shell | Check run | No sustituye revisión editorial |
-| QV-003 | Sin trailing whitespace | Reducir ruido y variaciones innecesarias | Shell | Check run | No detecta problemas de contenido |
+| QV-003 | Sin trailing whitespace fuera de Markdown | Reducir ruido y variaciones innecesarias | Shell | Check run | Markdown puede usar espacios intencionales |
 | QV-004 | YAML válido | Detectar errores sintácticos en configuración YAML | Ruby/Psych | Check run | Sintaxis válida no implica configuración correcta |
-| QV-005 | Integridad de enlaces locales Markdown | Detectar referencias locales rotas | Shell | Check run | No valida enlaces externos ni semántica |
+| QV-005 | Integridad de enlaces locales Markdown | Detectar referencias locales rotas | Python estándar | Check run | No valida enlaces externos ni semántica |
 | QV-006 | Archivos críticos presentes | Evitar pérdida accidental de artefactos esenciales | Shell | Check run | El inventario evolucionará con el proyecto |
 
 Los controles QV-001–QV-006 constituyen la línea base de calidad técnica del repositorio en su estado actual. No se establecen métricas de cobertura, complejidad o rendimiento porque todavía no existe código de aplicación suficiente para justificar umbrales.

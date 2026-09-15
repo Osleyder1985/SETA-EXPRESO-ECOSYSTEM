@@ -2,50 +2,73 @@
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Relacionado con:** Issue #25  
-**Pull Request:** #26  
+**Pull Request de baseline:** #26  
+**Pull Request de cierre:** pendiente  
 **Gate:** G0 — Governance Ready  
-**Estado:** Evaluación en curso
+**Versión:** 1.1.0  
+**Estado:** Cerrado con limitación conocida  
+**Fecha de actualización:** 2026-09-15
 
 ## Propósito
 
-Registrar el análisis de impacto generado por la incorporación de la evaluación formal de G0 y determinar qué artefactos de gobernanza requieren actualización.
+Registrar el análisis de impacto generado por la incorporación de la evaluación formal de G0, determinar los artefactos afectados y conservar la evidencia de sincronización e integración necesaria para el cierre del Gate.
 
 ## Cambio analizado
 
-Se incorpora la evaluación formal de preparación de gobernanza:
+Se incorporó y posteriormente integró la evaluación formal de preparación de gobernanza mediante PR #26.
 
-- `15-G0-Governance-Readiness-Assessment.md`
-
-Este cambio agrega evidencia explícita para evaluar si la Fase A puede avanzar a estado completado.
+El cambio agregó evidencia explícita para evaluar y cerrar la Fase A, junto con la actualización coordinada del catálogo de artefactos, Quality Gates, Roadmap, Governance Enforcement y matriz de controles.
 
 ## Artefactos impactados
 
-| Artefacto | Impacto | Acción requerida |
+| Artefacto | Impacto | Acción realizada |
 |---|---|---|
-| `08-Software-Roadmap.md` | Alto | Actualizar estado de G0, evidencia y registro histórico |
-| `04-Quality-Gates.md` | Alto | Relacionar criterios de G0 con evaluación formal |
-| `03-Artifacts-And-Evidence.md` | Medio | Registrar nuevo artefacto de evidencia |
-| `10-Governance-Enforcement-Architecture.md` | Medio | Relacionar baseline y controles implementados |
-| `11-Governance-Control-Matrix.md` | Medio | Incorporar trazabilidad del cierre de G0 |
-| `15-G0-Governance-Readiness-Assessment.md` | Alto | Mantener resultado provisional y registrar evidencia de integración |
-| `16-G0-Impact-Analysis.md` | Bajo | Mantener trazabilidad del propio análisis de impacto |
+| `08-Software-Roadmap.md` | Alto | Se actualizará en el PR de cierre con estado y fecha real de G0 |
+| `04-Quality-Gates.md` | Alto | Se relacionaron los criterios GC-001..GC-004 con G0 |
+| `03-Artifacts-And-Evidence.md` | Medio | Se registró el paquete de evidencia de G0 |
+| `10-Governance-Enforcement-Architecture.md` | Medio | Se relacionó la baseline y el cierre de G0 |
+| `11-Governance-Control-Matrix.md` | Medio | Se incorporaron GC-001..GC-004 |
+| `15-G0-Governance-Readiness-Assessment.md` | Alto | Se registró la decisión definitiva y evidencia de integración |
+| `16-G0-Impact-Analysis.md` | Bajo | Se actualiza este registro para conservar la trazabilidad del cierre |
+
+## Validaciones del cambio integrado
+
+| Validación | Resultado | Evidencia |
+|---|---|---|
+| Governance Validation | PASS | PR #26, workflow run #42 |
+| Quality Validation | PASS | PR #26, workflow run #25 |
+| Security Validation | PASS | PR #26, workflow run #7 |
+| Evidence Validation | PASS | PR #26, workflow run #4 |
+
+Las cuatro validaciones se ejecutaron sobre el commit final del PR #26 antes de su integración.
+
+## Evidencia de integración
+
+- PR #26: `Gobernanza/G0: Establecer baseline ejecutable y evaluar el Gate.`
+- Commit validado antes del merge: `b859ecf6659e0903c4795a52813165cae32d6bf0`.
+- Merge commit: `1bddd0b9da5d3f79d16eaef01fd5952e56dfeb2e`.
+- Fecha de integración: `2026-09-15T17:32:02Z`.
+- Issue #25: cerrado con estado `completed`.
+- Quality Validation post-merge sobre `main`: run #26, PASS.
 
 ## Riesgos identificados
 
 | Riesgo | Estado |
 |---|---|
-| Protección nativa de `main` limitada por GitHub Free + repositorio privado | Riesgo residual conocido |
-| Declarar G0 completo sin evidencia suficiente | Controlado mediante evaluación formal |
-| Desalineación documental | Mitigado mediante este análisis |
+| Protección nativa de `main` limitada por GitHub Free + repositorio privado | Riesgo residual conocido y explícitamente aceptado como limitación |
+| Declarar G0 completo sin evidencia suficiente | Mitigado mediante evaluación formal, cuatro validaciones, revisión y merge documentado |
+| Desalineación documental posterior al merge | Se corrige mediante este cierre y actualización coordinada del Roadmap |
 
 ## Criterio de decisión
 
-G0 no debe marcarse como completado únicamente por existencia documental. Requiere evidencia de que los controles definidos están implementados, evaluados y trazados.
+G0 no se considera completado únicamente por existencia documental. En este caso existe evidencia de controles implementados, evaluación satisfactoria, revisión, integración mediante PR y conservación del merge commit.
+
+La decisión de G0 es `PASS WITH KNOWN LIMITATIONS` porque la única limitación relevante permanece en la capacidad preventiva de protección nativa de `main`.
 
 ## Próximos pasos
 
-1. Ejecutar las cuatro validaciones automatizadas sobre el commit final del PR #26.
-2. Revisar el PR.
-3. Integrar mediante merge controlado cuando no existan controles pendientes.
-4. Registrar el merge commit y la fecha real de integración.
-5. Actualizar el Roadmap y el assessment para registrar el cierre definitivo de G0.
+1. Actualizar el Roadmap con la fecha real de cierre y el merge commit.
+2. Ejecutar las cuatro validaciones sobre el PR de cierre.
+3. Revisar e integrar el PR de cierre mediante merge controlado.
+4. Confirmar que la baseline de gobernanza permanece coherente después de la actualización.
+5. Iniciar la Fase B — Descubrimiento del sistema y organización — una vez cerrado el PR de cierre.

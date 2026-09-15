@@ -101,7 +101,7 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| #20 | Automatizar Quality Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) | En desarrollo |
+| #20 | Automatizar Quality Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) | #21 |
 
 La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria del workflow.
 

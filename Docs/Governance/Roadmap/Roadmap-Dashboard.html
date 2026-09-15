@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SETA EXPRESO ECOSYSTEM — Roadmap Dashboard</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2b;--panel2:#182238;--text:#eef3ff;--muted:#aab6d0;--ok:#39d98a;--current:#6ea8fe;--planned:#7f8ca8;--warn:#ffd166;--line:#31405f;--shadow:0 12px 32px rgba(0,0,0,.25)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0%,#182442 0,#0b1020 42%);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}.wrap{max-width:1500px;margin:auto;padding:28px}.hero{padding:28px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#16213a,#10182a);box-shadow:var(--shadow)}h1{font-size:clamp(28px,4vw,48px);margin:0 0 8px}.subtitle{color:var(--muted);font-size:18px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}.stat{padding:18px;border-radius:16px;background:var(--panel2);border:1px solid var(--line)}.stat b{display:block;font-size:28px}.ok{color:var(--ok)}.blue{color:var(--current)}.muted{color:var(--muted)}.journey{margin:28px 0;overflow-x:auto;padding-bottom:12px}.track{display:flex;min-width:1200px;align-items:flex-start}.node{width:145px;position:relative;text-align:center}.node:not(:last-child):after{content:"";position:absolute;top:27px;left:calc(50% + 20px);width:105px;height:4px;background:var(--line)}.node.done:not(:last-child):after{background:var(--ok)}.dot{margin:auto;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:3px solid var(--line);background:var(--panel);font-size:22px;position:relative;z-index:1}.done .dot{border-color:var(--ok);box-shadow:0 0 0 6px rgba(57,217,138,.08)}.current .dot{border-color:var(--current);box-shadow:0 0 0 6px rgba(110,168,254,.1)}.node strong{display:block;margin-top:9px}.node small{color:var(--muted)}.current .node-label{color:var(--current)}.section{margin-top:32px}.section h2{font-size:26px}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow);transition:.2s}.card:hover{transform:translateY(-3px);border-color:#536789}.badge{display:inline-flex;gap:7px;align-items:center;padding:5px 10px;border-radius:999px;background:#22304b;color:var(--muted);font-size:12px;font-weight:700}.card.done{border-color:rgba(57,217,138,.45)}.card.current{border-color:rgba(110,168,254,.65)}.card h3{margin:12px 0 4px;font-size:21px}.gate{font-weight:700;color:var(--muted)}.meter{height:9px;background:#27334d;border-radius:999px;overflow:hidden;margin:14px 0}.meter span{display:block;height:100%;background:var(--ok);width:100%}.planned .meter span{width:0;background:var(--planned)}ul{padding-left:20px}li{margin:5px 0}.trace{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 11px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text);text-decoration:none}.timeline{border-left:3px solid var(--line);margin-left:15px;padding-left:22px}.event{position:relative;margin:0 0 22px}.event:before{content:"";position:absolute;left:-31px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--ok);border:3px solid var(--bg)}.event h4{margin:0}.footer{margin-top:40px;color:var(--muted);font-size:13px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.controls button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 13px;border-radius:10px}.controls button:hover{border-color:var(--current)}@media(max-width:800px){.wrap{padding:16px}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="badge">🚀 ROADMAP DASHBOARD · v0.1.0</div>
+<h1>SETA EXPRESO ECOSYSTEM</h1>
+<div class="subtitle">Recorrido vivo de ingeniería · A → O · Gates G0 → G13 · trazabilidad por evidencia</div>
+<div class="stats">
+<div class="stat"><b class="ok">1 / 15</b><span>Fases completadas</span></div>
+<div class="stat"><b class="ok">1 / 14</b><span>Gates cerrados</span></div>
+<div class="stat"><b class="blue">B</b><span>Próxima fase</span></div>
+<div class="stat"><b>2026-09-15</b><span>Último hito</span></div>
+</div>
+</section>
+
+<section class="section">
+<h2>🧭 El recorrido</h2>
+<div class="journey"><div class="track">
+<div class="node done"><div class="dot">🟢</div><strong>A</strong><small>Governance<br>G0 ✅</small></div>
+<div class="node current"><div class="dot">🚀</div><strong class="node-label">B</strong><small>Discovery<br>G1 ⏳</small></div>
+<div class="node"><div class="dot">⚪</div><strong>C</strong><small>Needs<br>G2</small></div>
+<div class="node"><div class="dot">⚪</div><strong>D</strong><small>Requirements<br>G3</small></div>
+<div class="node"><div class="dot">⚪</div><strong>E</strong><small>System Model<br>G4</small></div>
+<div class="node"><div class="dot">⚪</div><strong>F</strong><small>Architecture<br>G5</small></div>
+<div class="node"><div class="dot">⚪</div><strong>G</strong><small>Design<br>G6</small></div>
+<div class="node"><div class="dot">⚪</div><strong>H</strong><small>Build<br>G7</small></div>
+<div class="node"><div class="dot">⚪</div><strong>I</strong><small>Verification<br>G8</small></div>
+<div class="node"><div class="dot">⚪</div><strong>J</strong><small>Acceptance<br>G9</small></div>
+<div class="node"><div class="dot">⚪</div><strong>K</strong><small>Transition<br>G10</small></div>
+<div class="node"><div class="dot">⚪</div><strong>L</strong><small>Operations<br>G11</small></div>
+<div class="node"><div class="dot">🔵</div><strong>M</strong><small>Evolution<br>G12</small></div>
+<div class="node"><div class="dot">🔵</div><strong>N</strong><small>Improvement</small></div>
+<div class="node"><div class="dot">⚪</div><strong>O</strong><small>Retirement<br>G13</small></div>
+</div></div>
+</section>
+
+<section class="section">
+<h2>📍 Estamos aquí</h2>
+<div class="card current"><span class="badge">🚀 PRÓXIMA POSICIÓN</span><h3>Fase B — Descubrimiento del sistema y organización</h3><div class="gate">🚪 Gate G1 · Current-State Understanding</div><div class="meter"><span style="width:0;background:var(--current)"></span></div><p>La Fase A y G0 ya están cerrados. El siguiente recorrido es descubrir el sistema real antes de definir necesidades, requisitos o arquitectura.</p><p><strong>🎯 Fecha objetivo:</strong> 2026-09-24</p></div>
+</section>
+
+<section class="section">
+<h2>🟢 Lo que ya conquistamos</h2>
+<div class="cards"><article class="card done"><span class="badge">🟢 COMPLETADA · 15/09/2026</span><h3>A — Concepción y gobernanza</h3><div class="gate">🚪 G0 — Governance Ready</div><div class="meter"><span></span></div><ul><li>✅ Lifecycle A–O auditado y consolidado</li><li>✅ Gobernanza y control de cambios</li><li>✅ Governance Validation</li><li>✅ Quality Validation</li><li>✅ Security Validation</li><li>✅ Evidence Validation</li><li>⚠️ Limitación conocida de protección nativa de <code>main</code></li></ul><div class="trace"><a class="chip" href="https://github.com/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/issues/25">Issue #25</a><a class="chip" href="https://github.com/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/pull/26">PR #26</a><a class="chip" href="https://github.com/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/pull/27">PR #27</a></div></article></div>
+</section>
+
+<section class="section">
+<h2>🗺️ El camino que falta</h2>
+<div class="cards">
+<article class="card planned"><span class="badge">⚪ B · 24/09/2026</span><h3>B — Descubrimiento</h3><div class="gate">G1 — Current-State Understanding</div><p>Stakeholders · procesos · sistemas · datos · integraciones · restricciones.</p></article>
+<article class="card planned"><span class="badge">⚪ C · 01/10/2026</span><h3>C — Necesidades y objetivos</h3><div class="gate">G2 — Value & Scope</div><p>Problema · necesidades · objetivos · alcance · resultados · beneficios.</p></article>
+<article class="card planned"><span class="badge">⚪ D · 15/10/2026</span><h3>D — Ingeniería de requisitos</h3><div class="gate">G3 — Requirements Baseline</div><p>Requisitos verificables · calidad · interfaces · seguridad · datos · RTM.</p></article>
+<article class="card planned"><span class="badge">⚪ E · 29/10/2026</span><h3>E — Definición y modelado</h3><div class="gate">G4 — System Definition</div><p>Modelo objetivo del sistema y sus límites.</p></article>
+<article class="card planned"><span class="badge">⚪ F · 12/11/2026</span><h3>F — Arquitectura</h3><div class="gate">G5 — Architecture Baseline</div><p>Arquitectura · ADRs · vistas · decisiones y trade-offs.</p></article>
+<article class="card planned"><span class="badge">⚪ G · 26/11/2026</span><h3>G — Diseño</h3><div class="gate">G6 — Design Baseline</div><p>Diseño detallado preparado para construcción.</p></article>
+<article class="card planned"><span class="badge">⚪ H · 18/12/2026</span><h3>H — Implementación</h3><div class="gate">G7 — Build Integrity</div><p>Construcción, integración continua y baseline de build.</p></article>
+<article class="card planned"><span class="badge">⚪ I · 15/01/2027</span><h3>I — Integración y verificación</h3><div class="gate">G8 — Verification</div><p>Evidencia objetiva de integración y verificación.</p></article>
+<article class="card planned"><span class="badge">⚪ J · 29/01/2027</span><h3>J — Validación y aceptación</h3><div class="gate">G9 — Acceptance</div><p>Validación contra necesidades y criterios de aceptación.</p></article>
+<article class="card planned"><span class="badge">⚪ K · 12/02/2027</span><h3>K — Transición y despliegue</h3><div class="gate">G10 — Production Readiness</div><p>Release y transición controlada.</p></article>
+<article class="card planned"><span class="badge">⚪ L · 12/03/2027</span><h3>L — Operación y soporte</h3><div class="gate">G11 — Operational Readiness</div><p>Operación, observabilidad, soporte y baseline operacional.</p></article>
+<article class="card planned"><span class="badge">🔵 M · Desde K</span><h3>M — Mantenimiento y evolución</h3><div class="gate">G12 — Evolution Readiness</div><p>Correcciones, cambios y evolución durante la vida útil.</p></article>
+<article class="card planned"><span class="badge">🔵 N · Desde L</span><h3>N — Mejora y optimización</h3><div class="gate">📈 Improvement Evidence</div><p>Medición, aprendizaje y optimización continua.</p></article>
+<article class="card planned"><span class="badge">⚪ O · Según decisión</span><h3>O — Retirada / migración</h3><div class="gate">G13 — Retirement</div><p>Retirada, migración, conservación y cierre controlado.</p></article>
+</div>
+</section>
+
+<section class="section">
+<h2>🔬 Trazabilidad de ingeniería</h2>
+<div class="card"><p>Cada avance debe conservar el vínculo completo:</p><div class="trace"><span class="chip">📝 Roadmap</span><span>→</span><span class="chip">🎫 Issue</span><span>→</span><span class="chip">🌿 Branch</span><span>→</span><span class="chip">🔧 Change</span><span>→</span><span class="chip">🧪 Validations</span><span>→</span><span class="chip">📦 Evidence</span><span>→</span><span class="chip">🔀 PR</span><span>→</span><span class="chip">🚀 main</span></div><p class="muted">La vista visual no sustituye la evidencia documental: la presenta y navega hacia ella.</p></div>
+</section>
+
+<section class="section">
+<h2>📜 Historia reciente</h2>
+<div class="timeline">
+<div class="event"><h4>15/09/2026 · 🟢 G0 cerrado</h4><p>Gobernanza establecida y baseline ejecutable integrada. Decisión: <strong>PASS WITH KNOWN LIMITATIONS</strong>.</p></div>
+<div class="event"><h4>15/09/2026 · 🛡️ Evidence Validation integrada</h4><p>La cuarta capa transversal quedó integrada antes del cierre de G0.</p></div>
+<div class="event"><h4>15/09/2026 · 🔐 Security Validation integrada</h4><p>Controles de seguridad automatizados incorporados al flujo.</p></div>
+<div class="event"><h4>15/09/2026 · 🧪 Quality Validation integrada</h4><p>Controles de calidad automatizados incorporados al flujo.</p></div>
+<div class="event"><h4>15/09/2026 · 🏛️ Governance Enforcement integrado</h4><p>Controles compensatorios y detectivos para preservar la integridad de <code>main</code>.</p></div>
+</div>
+</section>
+
+<footer class="footer">Fuente canónica: <code>Docs/Governance/08-Software-Roadmap.md</code>. Este dashboard es una vista de presentación y navegación; cualquier dato operativo debe reconciliarse con la fuente canónica y su evidencia.</footer>
+</div>
+</body>
+</html>

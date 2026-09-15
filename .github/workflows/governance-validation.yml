@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   governance-validation:
@@ -18,17 +19,26 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
       - name: Validate Pull Request governance metadata
         if: github.event_name == 'pull_request'
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           PR_HEAD_REF: ${{ github.head_ref }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
           set -euo pipefail
 
           if [ "$PR_HEAD_REF" = "main" ]; then
             echo "ERROR: La branch de origen del Pull Request no puede ser main."
+            exit 1
+          fi
+
+          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then
+            echo "ERROR: El título del Pull Request debe cumplir: Módulo/Archivo: Acción a realizar."
             exit 1
           fi
 
@@ -42,6 +52,12 @@ jobs:
             exit 1
           fi
 
+          label_count=$(jq '.pull_request.labels | length' "$GITHUB_EVENT_PATH")
+          if [ "$label_count" -lt 1 ]; then
+            echo "ERROR: El Pull Request debe tener al menos un label pertinente."
+            exit 1
+          fi
+
           ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟢 \*\*LISTO PARA FUSIÓN\.\*\*$' || true)
           pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^🟡 \*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*$' || true)
 
@@ -50,21 +66,13 @@ jobs:
             exit 1
           fi
 
-          echo "OK: El Pull Request contiene los metadatos mínimos de gobernanza y un estado de integración único."
+          git fetch origin main --depth=1
+          if ! git merge-base --is-ancestor "origin/main" HEAD; then
+            echo "ERROR: La branch del Pull Request no contiene la línea base actual de main. Rebase o actualiza la branch antes de integrar."
+            exit 1
+          fi
 
-      - name: Detect update to main
-        if: github.event_name == 'push'
-        env:
-          COMMIT_SHA: ${{ github.sha }}
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-          PUSHER: ${{ github.actor }}
-        run: |
-          set -euo pipefail
-          echo "Se detectó una actualización de main."
-          echo "Commit: $COMMIT_SHA"
-          echo "Actor: $PUSHER"
-          echo "Mensaje: $COMMIT_MESSAGE"
-          echo "Este control es detectivo; no sustituye branch protection nativa."
+          echo "OK: Metadatos, título, labels y línea base del Pull Request conformes."
 
       - name: Repository governance baseline
         run: |
@@ -77,4 +85,38 @@ jobs:
           test -f Docs/Governance/07-Main-Protection-Strategy.md
           test -f Docs/Governance/08-Software-Roadmap.md
           test -f Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md
-          echo "OK: La línea base documental de gobernanza está presente."
+          test -f Docs/Governance/10-Governance-Enforcement-Architecture.md
+          test -f .github/workflows/governance-validation.yml
+          echo "OK: La línea base documental y automatizada de gobernanza está presente."
+
+      - name: Detect update to main
+        if: github.event_name == 'push'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          PUSHER: ${{ github.actor }}
+          REPOSITORY: ${{ github.repository }}
+          TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          echo "Se detectó una actualización de main."
+          echo "Commit: $COMMIT_SHA"
+          echo "Actor: $PUSHER"
+          echo "Mensaje: $COMMIT_MESSAGE"
+
+          pr_count=$(curl --fail-with-body --silent --show-error \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
+            "https://api.github.com/repos/$REPOSITORY/commits/$COMMIT_SHA/pulls" \
+            | jq 'length')
+
+          if [ "$pr_count" -eq 0 ]; then
+            echo "SUSPICIOUS_DIRECT_UPDATE: no se encontró un Pull Request asociado al commit que actualizó main."
+            echo "Este control es detectivo y requiere análisis del evento; no puede impedir ni revertir por sí mismo el cambio."
+            exit 1
+          fi
+
+          echo "OK: La actualización de main tiene al menos un Pull Request asociado."
+          echo "Este control confirma trazabilidad detectiva; no sustituye branch protection nativa."

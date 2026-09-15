@@ -1,0 +1,34 @@
+version: 0.1.0
+last_updated: '2026-09-15'
+owner: 'Governance'
+risks:
+  - risk_id: RISK-001
+    risk: 'Ausencia de enforcement nativo de branch protection/rulesets bajo repositorio privado y GitHub Free.'
+    category: governance
+    cause: 'Limitación de capacidades de la plataforma bajo las condiciones actuales del proyecto.'
+    event: 'Un actor con permisos de escritura modifica main sin pasar por el flujo Issue-Branch-PR-Merge.'
+    consequence: 'La línea base puede recibir cambios no controlados y perder parte de la trazabilidad procedimental esperada.'
+    probability: 3
+    impact: 4
+    exposure: 12
+    owner: 'Governance'
+    treatment: reduce
+    mitigation: 'Controles compensatorios de Governance, Quality, Security y Evidence Validation; detección post-merge; política explícita de cambio controlado; evidencia trazable.'
+    contingency: 'Analizar el cambio detectado, determinar impacto, registrar la desviación y ejecutar corrección controlada mediante Issue-Branch-PR.'
+    trigger: 'Push a main sin Pull Request asociado o evidencia de actualización fuera del flujo controlado.'
+    residual_probability: 2
+    residual_impact: 4
+    residual_exposure: 8
+    status: monitoring
+    review_date: '2026-10-15'
+    evidence:
+      - 'Docs/Governance/07-Main-Protection-Strategy.md'
+      - 'Docs/Governance/10-Governance-Enforcement-Architecture.md'
+      - 'Docs/Governance/11-Governance-Control-Matrix.md'
+      - 'Docs/Governance/15-G0-Governance-Readiness-Assessment.md'
+    related_artifacts:
+      - 'main'
+      - '.github/workflows/governance-validation.yml'
+      - '.github/workflows/quality-validation.yml'
+      - '.github/workflows/security-validation.yml'
+      - '.github/workflows/evidence-validation.yml'

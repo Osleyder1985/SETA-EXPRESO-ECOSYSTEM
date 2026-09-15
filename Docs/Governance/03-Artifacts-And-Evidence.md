@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.6.0  
+**Versión:** 0.7.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
@@ -111,11 +111,50 @@ Una ejecución de Evidence Validation deberá permitir identificar como mínimo:
 
 Un `EVIDENCE_VALIDATION=PASS` solo evidencia la conformidad con los controles de evidencia automatizados aplicables; no certifica suficiencia de evidencia ni la corrección del producto.
 
-## 10. Evidencia externa
+## 10. Evidencia de Quality Gate Governance
+
+Un Quality Gate deberá conservar un paquete de evidencia suficiente para justificar la decisión de avance, permanencia o rechazo. Como mínimo, cuando aplique, deberá identificar:
+
+- criterio o criterios del Gate evaluados;
+- artefactos y versiones utilizadas como entrada;
+- resultado de cada control aplicable;
+- validaciones automatizadas ejecutadas;
+- análisis de impacto asociado;
+- limitaciones y controles no disponibles;
+- riesgos residuales relevantes;
+- decisión formal del Gate;
+- Issue y Pull Request asociados;
+- commit integrado cuando la decisión dependa de la integración.
+
+Para el Gate G0, el paquete mínimo está compuesto por:
+
+```text
+15-G0-Governance-Readiness-Assessment.md
+        +
+16-G0-Impact-Analysis.md
+        +
+Governance Validation
+        +
+Quality Validation
+        +
+Security Validation
+        +
+Evidence Validation
+        +
+PR asociado
+        +
+resultado de integración
+```
+
+Los controles `GC-001` a `GC-004` de `11-Governance-Control-Matrix.md` definen los controles específicos de readiness, impacto, evidencia y riesgo residual del Gate G0.
+
+La existencia del paquete no implica por sí misma que el Gate haya sido aprobado: la decisión debe quedar registrada explícitamente.
+
+## 11. Evidencia externa
 
 Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confidencialidad, regulación o naturaleza del medio, el repositorio conservará metadatos suficientes para localizarla y verificar su integridad cuando sea apropiado.
 
-## 11. Control de cambios
+## 12. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
 
@@ -127,4 +166,4 @@ La cadena de evidencia deberá conservar, cuando aplique:
 Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidence Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md` y `Docs/Governance/14-Evidence-Validation-Architecture.md`.
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md` y `Docs/Governance/14-Evidence-Validation-Architecture.md`.

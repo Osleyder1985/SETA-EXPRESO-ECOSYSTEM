@@ -1,11 +1,11 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23
+**Issues relacionados:** #13, #20, #22, #23, #25
 
 ---
 
@@ -141,6 +141,8 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 - `12-Quality-Validation-Architecture.md`
 - `13-Security-Validation-Architecture.md`
 - `14-Evidence-Validation-Architecture.md`
+- `15-G0-Governance-Readiness-Assessment.md`
+- `16-G0-Impact-Analysis.md`
 - `.github/workflows/governance-validation.yml`
 - `.github/workflows/quality-validation.yml`
 - `.github/workflows/security-validation.yml`
@@ -148,13 +150,19 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 
 La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente.
 
-## 10. Residual risk
+## 10. Governance Gate Enforcement
+
+Los Quality Gates utilizan controles de readiness específicos definidos en `11-Governance-Control-Matrix.md`. Para G0, los controles `GC-001` a `GC-004` verifican respectivamente la evaluación formal de readiness, el análisis de impacto, la existencia del paquete de evidencia y la explicitación del riesgo residual.
+
+La arquitectura de enforcement no sustituye la decisión del Gate. Su función es garantizar que la decisión se apoye en evidencia localizable y que las limitaciones técnicas no se oculten.
+
+## 11. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-## 11. Métricas iniciales
+## 12. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente:
 
@@ -168,7 +176,7 @@ La arquitectura deberá permitir medir progresivamente:
 - `número de actualizaciones sospechosas de main`;
 - `número de fallos por control y capa`.
 
-## 12. Evolución hacia enforcement nativo
+## 13. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
@@ -180,7 +188,7 @@ Compensatorio + Detectivo + Gobernanza
 Compensatorio + Detectivo + Gobernanza + Preventivo
 ```
 
-## 13. Criterio de verdad
+## 14. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
@@ -188,6 +196,6 @@ La afirmación correcta durante la restricción actual es:
 
 > `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
 
-## 14. Evidencia de implementación
+## 15. Evidencia de implementación
 
 La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, resultados de validación, estado final de integración y documentación actualizada.

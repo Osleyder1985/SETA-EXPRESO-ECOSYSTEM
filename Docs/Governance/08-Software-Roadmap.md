@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.5.0  
+**Versión:** 0.6.0  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -42,7 +42,7 @@ Las fechas futuras son estimaciones de planificación. Las fechas reales de cump
 | N | Mejora y optimización | 🔵 | — | Desde L | L + evidencia | Improvement Evidence |
 | O | Retirada / migración | ⚪ | — | Según decisión | Evolución | Retirement Record + G13 |
 
-> **A todavía no está completada.** La documentación demuestra preparación, pero la fase requiere evidencia de salida de G0.
+> **A todavía no está completada.** La documentación demuestra preparación, pero la fase requiere evidencia de salida de G0. El cierre definitivo se registrará después de la decisión formal del Gate y de la integración del cambio correspondiente.
 
 ## Camino completo del Ecosistema
 
@@ -101,9 +101,9 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| #23 | Automatizar Evidence Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance (#13) + Quality (#20) + Security (#22) | En construcción |
+| #25 | Cerrar Gate G0 y establecer baseline ejecutable | 🟡 | 2026-09-15 | 2026-09-17 | Governance + Quality + Security + Evidence Validation | En preparación |
 
-La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria de Governance, Quality, Security y Evidence Validation.
+La actividad #23 ya no se registra como trabajo en curso: Evidence Validation inicial fue integrada mediante PR #24. Su evidencia queda en el registro histórico y en la documentación de Evidence Validation.
 
 ## Controles transversales de ingeniería
 
@@ -111,8 +111,8 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 |---|---|---|---|
 | Governance Validation | 🟢 | Workflow + PRs validados | Ampliación de controles |
 | Quality Validation | 🟢 | Workflow + PR #21 | Incorporación de controles sobre código y pruebas |
-| Security Validation | 🟢 | Workflow + PR #22 | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
-| Evidence Validation | 🟡 | Issue #23 + rama de implementación | Correlación de workflow runs, testing, releases y procedencia según aplicabilidad |
+| Security Validation | 🟢 | Workflow + PR #22 + ejecución post-merge de PR #24 | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
+| Evidence Validation | 🟢 | Issue #23 + PR #24 + workflow integrado | Correlación de workflow runs, testing, releases y procedencia según aplicabilidad |
 
 ## Seguimiento detallado A–D
 
@@ -128,7 +128,7 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 | A.6 | Establecer estrategia de protección de main | 🟢 | 2026-09-15 | — | `07-Main-Protection-Strategy.md` + workflow |
 | A.7 | Establecer Roadmap maestro | 🟢 | 2026-09-15 | — | PR #10 |
 | A.8 | Establecer política de labels | 🟢 | 2026-09-15 | — | PR #10 |
-| A.9 | Cerrar gobernanza / G0 | 🟡 | 2026-09-15 | 2026-09-17 | Gate G0 |
+| A.9 | Cerrar gobernanza / G0 | 🟡 | 2026-09-15 | 2026-09-17 | `15-G0-Governance-Readiness-Assessment.md` + `16-G0-Impact-Analysis.md` + cuatro validaciones + PR #25 |
 
 ### B — Descubrimiento
 
@@ -223,7 +223,8 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 | 2026-09-15 | Roadmap y política de labels | PR #10 |
 | 2026-09-15 | Quality Validation integrada | Issue #20 + PR #21 |
 | 2026-09-15 | Security Validation integrada | Issue #22 + PR #22 |
-| 2026-09-15 | Evidence Validation iniciada | Issue #23 |
+| 2026-09-15 | Evidence Validation integrada | Issue #23 + PR #24 |
+| 2026-09-15 | Preparación formal del Gate G0 | Issue #25 + `15-G0-Governance-Readiness-Assessment.md` + `16-G0-Impact-Analysis.md` |
 
 ## Trazabilidad con GitHub
 
@@ -257,7 +258,10 @@ El Roadmap se actualiza cuando una actividad comienza, termina con evidencia, ca
 
 - `00-Software-Lifecycle-Master.md`: define el ciclo de vida.
 - `08-Software-Roadmap.md`: calendariza y registra ejecución.
-- `04-Quality-Gates.md`: define criterios de decisión.
-- `03-Artifacts-And-Evidence.md`: define evidencia.
-- Issues / PRs: unidades trazables de trabajo e integración.
-- `main`: baseline integrada.
+- `04-Quality-Gates.md`: define criterios de los Gates.
+- `03-Artifacts-And-Evidence.md`: define evidencia y catálogo de artefactos.
+- `06-Change-Control-Workflow.md`: define el flujo obligatorio de cambios.
+- `10-Governance-Enforcement-Architecture.md`: define la arquitectura de enforcement.
+- `11-Governance-Control-Matrix.md`: define controles operacionales de gobernanza y Gate.
+- `15-G0-Governance-Readiness-Assessment.md`: documenta la evaluación formal de preparación G0.
+- `16-G0-Impact-Analysis.md`: documenta el análisis de impacto de cierre de G0.

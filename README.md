@@ -10,7 +10,7 @@ Este repositorio constituye la fuente controlada de código, documentación, dec
 
 ## Estado actual
 
-El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Decision Governance, Roadmap, Metrics Governance y mecanismos de evidencia.
+El proyecto se encuentra en la consolidación de su **fundación de ingeniería**: ciclo de vida maestro, gobernanza, trazabilidad, control de cambios, Decision Governance, Roadmap, Metrics Governance, AI Governance y mecanismos de evidencia.
 
 La construcción funcional no se inicia por defecto hasta que las fases precedentes del ciclo de vida proporcionen la definición y evidencia necesarias.
 
@@ -92,6 +92,7 @@ SETA-EXPRESO-ECOSYSTEM/
 ├── README.md
 ├── Docs/
 │   ├── Governance/
+│   │   ├── AI/
 │   │   ├── Metrics/
 │   │   └── Risk/
 │   ├── Business/
@@ -132,9 +133,38 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 - `Docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
 - `Docs/Governance/21-Engineering-Metrics-Governance.md` — política formal de métricas de ingeniería.
 - `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md` — matriz de controles de Metrics Governance.
+- `Docs/Governance/23-AI-Governance.md` — política formal de AI Governance.
+- `Docs/Governance/24-AI-Governance-Control-Matrix.md` — matriz de controles de AI Governance.
 - `Docs/Governance/Metrics/Metric-Catalog.yml` — catálogo canónico de métricas.
 - `Docs/Governance/Metrics/Engineering-Governance-Dashboard.md` — vista documental derivada del catálogo métrico.
 - `Docs/Governance/Metrics/Engineering-Governance-Dashboard.html` — Dashboard visual derivado del catálogo.
+
+## AI Governance
+
+El Ecosistema distingue tres contextos de uso de IA:
+
+1. **Build-time AI** — IA utilizada para construir, analizar, documentar o automatizar la ingeniería.
+2. **Product/runtime AI** — IA incorporada al producto o a procesos operativos.
+3. **Research AI** — IA utilizada para investigación y experimentación.
+
+La baseline de AI Governance está definida en `Docs/Governance/23-AI-Governance.md` y su matriz de controles en `Docs/Governance/24-AI-Governance-Control-Matrix.md`.
+
+Los registros controlados están bajo `Docs/Governance/AI/`:
+
+```text
+AI/
+├── README.md
+├── AI-Use-Inventory.yml
+├── Model-Inventory.yml
+├── Data-Provenance-Template.md
+├── Prompt-Record-Template.md
+├── Evaluation-Record-Template.md
+└── Incident-Record-Template.md
+```
+
+Los inventarios permanecen inicialmente sin casos/modelos registrados cuando no existe evidencia operacional. No se inventan adopciones, modelos ni evaluaciones.
+
+La gobernanza de IA integra riesgos, seguridad, privacidad, evaluación, supervisión humana, procedencia de datos, reproducibilidad e incident management con Risk Management, Decision Governance, Quality, Security, Evidence y Metrics Governance.
 
 ## Decision Governance
 

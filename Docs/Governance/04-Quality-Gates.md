@@ -1,7 +1,7 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.8.0  
+**Versión:** 0.9.0  
 **Estado:** Definición controlada en evolución  
 **Fecha:** 2026-09-15
 
@@ -130,7 +130,8 @@ Cada gate deberá considerar, según aplicabilidad:
 - responsables y aprobaciones;
 - control de cambios y estado del Pull Request cuando el gate implique una modificación controlada;
 - resultados de Governance Validation, Quality Validation, Security Validation y Evidence Validation cuando correspondan;
-- decisiones materiales de arquitectura e ingeniería y sus Decision Records cuando sean aplicables.
+- decisiones materiales de arquitectura e ingeniería y sus Decision Records cuando sean aplicables;
+- controles de AI Governance cuando exista un caso de uso de IA dentro del alcance del gate.
 
 ## 6. Decision Governance en Quality Gates
 
@@ -144,7 +145,28 @@ En particular:
 
 La ausencia de un Decision Record aplicable no se corregirá inventando una decisión histórica. Deberá registrarse la decisión cuando exista contexto y evidencia suficientes, o quedar como condición/pending work trazable.
 
-## 7. Métricas de ingeniería como evidencia de Gate
+## 7. AI Governance en Quality Gates
+
+Cuando un cambio, producto, proceso o investigación utilice IA de manera material, el gate deberá considerar la aplicabilidad de `Docs/Governance/23-AI-Governance.md`.
+
+Como mínimo, según criticidad y dominio, deberá comprobarse:
+
+- AI Use Inventory actualizado;
+- Model Inventory cuando corresponda;
+- clasificación `build-time`, `product-runtime` o `research`;
+- riesgos de IA relacionados con el Risk Register;
+- Decision Record cuando la IA implique una decisión material;
+- evaluación/TEVV proporcional al riesgo;
+- controles de seguridad y privacidad;
+- Human Oversight;
+- Data Provenance cuando se utilicen datasets relevantes;
+- evidencia de reproducibilidad para investigación;
+- incidentes abiertos o restricciones de uso;
+- criterios de aceptación y límites de uso.
+
+No se deberá aprobar una capacidad de IA únicamente porque el modelo produzca resultados plausibles o porque un proveedor la declare segura.
+
+## 8. Métricas de ingeniería como evidencia de Gate
 
 Las métricas definidas en `Docs/Governance/21-Engineering-Metrics-Governance.md` y `Docs/Governance/Metrics/Metric-Catalog.yml` constituyen una fuente formal de evidencia para evaluar la salud y evolución del proceso cuando exista una fuente operacional suficiente.
 
@@ -162,7 +184,7 @@ Cuando aplique, el paquete de evidencia del gate podrá incluir:
 
 Las métricas sirven como evidencia para decidir; no sustituyen la evaluación de requisitos, arquitectura, riesgos, pruebas, aceptación ni juicio de ingeniería.
 
-## 8. Regla de decisión
+## 9. Regla de decisión
 
 Un gate puede resultar:
 
@@ -175,7 +197,7 @@ Un gate puede resultar:
 
 Una excepción no debe ocultarse convirtiendo un `FAIL` automatizado en `PASS`. Debe registrarse como condición, excepción o decisión controlada según corresponda.
 
-## 9. Evidencia
+## 10. Evidencia
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
@@ -183,7 +205,7 @@ Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir
 
 Cuando aplique una validación automatizada, la evidencia deberá identificar el workflow run y los controles ejecutados.
 
-## 10. Evolución
+## 11. Evolución
 
 Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
 

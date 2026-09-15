@@ -1,0 +1,9 @@
+version: 0.1.0
+status: initial
+last_review: 2026-09-15
+models: []
+
+# No se registran modelos aprobados todavía.
+# Una entrada futura deberá conservar model_id, provider, model_name, version,
+# modality, purpose, license_or_terms, capabilities, limitations, evaluation,
+# environment, dependencies, owner, status, review_date y evidence.

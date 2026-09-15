@@ -1,0 +1,9 @@
+version: 0.1.0
+status: initial
+last_review: 2026-09-15
+uses: []
+
+# No se registran casos de uso reales todavía.
+# Cada entrada futura deberá incluir al menos:
+# id, domain, purpose, owner, provider, model_or_service, data_classification,
+# criticality, human_oversight, status, evaluation, risks, evidence, review_date.

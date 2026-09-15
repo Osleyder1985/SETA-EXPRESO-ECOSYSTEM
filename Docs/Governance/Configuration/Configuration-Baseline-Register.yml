@@ -2,26 +2,38 @@ version: 1.0.0
 status: proposed
 baselines:
   - baseline_id: BL-001
-    name: Governance Baseline
-    purpose: Controlled baseline of governance artifacts established through the governance gates.
-    status: ACTIVE
-    effective_date: 2026-09-15
-    configuration_items:
-      - CI-007
-    versions:
-      CI-007: null
-    approval: historical governance baseline; exact approval evidence remains linked to the corresponding Issues and PRs
-    evidence:
-      - Docs/Governance/15-G0-Governance-Readiness-Assessment.md
-      - Docs/Governance/16-G0-Impact-Analysis.md
-  - baseline_id: BL-002
     name: Requirements Baseline
-    purpose: Reserved baseline for the first approved requirements set.
+    purpose: First approved requirements configuration baseline.
     status: PROPOSED
     effective_date: null
-    configuration_items:
-      - CI-001
-    versions:
-      CI-001: null
+    configuration_items: [CI-001]
+    versions: {CI-001: null}
+    approval: null
+    evidence: []
+  - baseline_id: BL-002
+    name: Architecture Baseline
+    purpose: First approved architecture configuration baseline.
+    status: PROPOSED
+    effective_date: null
+    configuration_items: [CI-002]
+    versions: {CI-002: null}
+    approval: null
+    evidence: []
+  - baseline_id: BL-003
+    name: Security Baseline
+    purpose: First approved security configuration baseline.
+    status: PROPOSED
+    effective_date: null
+    configuration_items: [CI-005]
+    versions: {CI-005: null}
+    approval: null
+    evidence: []
+  - baseline_id: BL-004
+    name: Release Configuration Baseline
+    purpose: Controlled combination of source, tests, infrastructure and deployment configuration for a releasable state.
+    status: PROPOSED
+    effective_date: null
+    configuration_items: [CI-006, CI-007, CI-008, CI-009]
+    versions: {CI-006: null, CI-007: null, CI-008: null, CI-009: null}
     approval: null
     evidence: []

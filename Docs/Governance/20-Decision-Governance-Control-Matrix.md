@@ -1,7 +1,7 @@
 # Matriz de controles de Decision Governance
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
+**Versión:** 0.1.1  
 **Estado:** Matriz propuesta para revisión  
 **Fecha:** 2026-09-15  
 **Issue:** #33
@@ -59,3 +59,7 @@ Evidence
 ```
 
 La Decision Governance complementa Governance Enforcement, Risk Management, Quality, Security y Evidence Validation.
+
+## 5. Aplicación en Quality Gates
+
+Los controles DG son evidencia de gobernanza de decisiones y no sustituyen los Quality Gates. G5 y G6 deberán considerar Decision Records materiales cuando sean aplicables; G12 deberá considerar supersession o actualización de decisiones cuando una evolución modifique la baseline.

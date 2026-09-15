@@ -1,8 +1,8 @@
 # Matriz de alineación del ciclo de vida con estándares y referencias
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Matriz inicial  
+**Versión:** 0.2.0  
+**Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15
 
 ---
@@ -23,26 +23,28 @@ No constituye una declaración de conformidad normativa. La correspondencia se e
 | ISO/IEC/IEEE 42010:2022 | Descripción y gestión de arquitectura |
 | ISO/IEC 25010:2023 | Modelo de calidad del producto |
 | NIST SP 800-218 / SSDF 1.1 | Desarrollo seguro |
+| ISO 31000:2018 | Principios, marco y proceso general de gestión de riesgos |
+| IEC 31010:2019 | Técnicas de evaluación de riesgos cuando se requieran métodos específicos |
 
 ## 3. Matriz de aplicación
 
-| Área / fase | 15288 | 12207 | 29148 | 42010 | 25010 | SSDF |
-|---|---:|---:|---:|---:|---:|---:|
-| A. Concepción y gobernanza | ✓ | ✓ |  |  |  |  |
-| B. Descubrimiento | ✓ | ✓ |  |  |  |  |
-| C. Necesidades, problema y objetivos | ✓ | ✓ | ✓ |  | ✓ |  |
-| D. Ingeniería de requisitos | ✓ | ✓ | ✓ |  | ✓ | ✓ |
-| E. Definición y modelado del sistema | ✓ | ✓ | ✓ | ✓ | ✓ |  |
-| F. Arquitectura | ✓ | ✓ |  | ✓ | ✓ | ✓ |
-| G. Diseño | ✓ | ✓ |  | ✓ | ✓ | ✓ |
-| H. Implementación y construcción | ✓ | ✓ |  |  | ✓ | ✓ |
-| I. Integración y verificación | ✓ | ✓ |  |  | ✓ | ✓ |
-| J. Validación y aceptación | ✓ | ✓ | ✓ |  | ✓ | ✓ |
-| K. Transición y despliegue | ✓ | ✓ |  |  | ✓ | ✓ |
-| L. Operación y soporte | ✓ | ✓ |  |  | ✓ | ✓ |
-| M. Mantenimiento y evolución | ✓ | ✓ |  |  | ✓ | ✓ |
-| N. Mejora y optimización | ✓ | ✓ |  |  | ✓ | ✓ |
-| O. Retirada y migración | ✓ | ✓ |  |  | ✓ | ✓ |
+| Área / fase | 15288 | 12207 | 29148 | 42010 | 25010 | SSDF | ISO 31000 | IEC 31010 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| A. Concepción y gobernanza | ✓ | ✓ |  |  |  |  | ✓ | ✓ |
+| B. Descubrimiento | ✓ | ✓ |  |  |  |  | ✓ | ✓ |
+| C. Necesidades, problema y objetivos | ✓ | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |
+| D. Ingeniería de requisitos | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ |
+| E. Definición y modelado del sistema | ✓ | ✓ | ✓ | ✓ | ✓ |  | ✓ | ✓ |
+| F. Arquitectura | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ |
+| G. Diseño | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ | ✓ |
+| H. Implementación y construcción | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| I. Integración y verificación | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| J. Validación y aceptación | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ |
+| K. Transición y despliegue | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| L. Operación y soporte | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| M. Mantenimiento y evolución | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| N. Mejora y optimización | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| O. Retirada y migración | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
 
 ## 4. Interpretación
 
@@ -69,6 +71,14 @@ Se utiliza para seleccionar características de calidad pertinentes y convertirl
 ### NIST SP 800-218 / SSDF 1.1
 
 Se utiliza como referencia de prácticas de desarrollo seguro integradas en las fases y controles del ciclo de vida.
+
+### ISO 31000:2018
+
+Se utiliza como referencia principal para estructurar la gestión de riesgos del Ecosistema: contexto, identificación, análisis, evaluación, tratamiento, comunicación, seguimiento y revisión. ISO confirma que la edición 2018 permanece vigente mientras una nueva edición se encuentra en desarrollo.
+
+### IEC 31010:2019
+
+Se utiliza como referencia complementaria para seleccionar técnicas de evaluación de riesgos cuando el contexto requiera métodos más específicos que la escala cualitativa 1–5 adoptada inicialmente por el Risk Management System.
 
 ## 5. Regla de actualización
 

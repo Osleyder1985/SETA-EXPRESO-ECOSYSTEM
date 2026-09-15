@@ -1,0 +1,66 @@
+name: Governance Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  governance-validation:
+    name: Validate governance controls
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Pull Request governance metadata
+        if: github.event_name == 'pull_request'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set -euo pipefail
+
+          if [ "$PR_HEAD_REF" = "main" ]; then
+            echo "ERROR: La branch de origen del Pull Request no puede ser main."
+            exit 1
+          fi
+
+          for required_text in \
+            "Issue #" \
+            "Análisis de impacto" \
+            "LISTO PARA FUSIÓN" \
+            "NO FUSIONAR — TRABAJO PENDIENTE"; do
+            if [[ "$PR_BODY" != *"$required_text"* ]]; then
+              echo "ERROR: El Pull Request no contiene el elemento de gobernanza requerido: $required_text"
+              exit 1
+            fi
+          done
+
+          echo "OK: El Pull Request contiene los metadatos mínimos de gobernanza."
+
+      - name: Detect update to main
+        if: github.event_name == 'push'
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          set -euo pipefail
+          echo "Se detectó una actualización de main."
+          echo "Commit: $COMMIT_SHA"
+          echo "Mensaje: $COMMIT_MESSAGE"
+          echo "Este control es detectivo; no sustituye branch protection nativa."
+
+      - name: Repository governance baseline
+        run: |
+          set -euo pipefail
+          test -f Docs/Governance/00-Software-Lifecycle-Master.md
+          test -f Docs/Governance/03-Artifacts-And-Evidence.md
+          test -f Docs/Governance/04-Quality-Gates.md
+          test -f Docs/Governance/05-Repository-Naming-Convention.md
+          test -f Docs/Governance/06-Change-Control-Workflow.md
+          test -f Docs/Governance/07-Main-Protection-Strategy.md
+          echo "OK: La línea base documental de gobernanza está presente."

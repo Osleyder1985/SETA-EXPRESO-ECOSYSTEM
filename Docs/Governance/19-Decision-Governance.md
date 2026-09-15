@@ -1,7 +1,7 @@
 # Gobernanza de decisiones de arquitectura e ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
+**Versión:** 0.1.1  
 **Estado:** Baseline propuesta para revisión  
 **Fecha:** 2026-09-15  
 **Issue:** #33

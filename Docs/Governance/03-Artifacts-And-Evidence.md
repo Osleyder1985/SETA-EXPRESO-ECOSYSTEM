@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
@@ -52,24 +52,39 @@ Cuando un artefacto sea crítico, su evidencia debería permitir responder:
 
 ## 6. Evidencia de enforcement
 
-Los controles automatizados de gobernanza deberán conservar, cuando corresponda:
+Los controles automatizados de gobernanza y calidad deberán conservar, cuando corresponda:
 
 - nombre del workflow;
 - commit validado;
 - evento que lo disparó;
 - resultado del job;
-- regla evaluada;
+- regla o control evaluado;
 - mensaje de fallo o éxito;
 - actor/evento asociado;
-- clasificación del control: preventivo compensatorio, detectivo o gobernanza.
+- clasificación del control: preventivo compensatorio, detectivo o gobernanza;
+- estado global de Governance Validation y Quality Validation.
 
 Los workflows no se consideran evidencia suficiente por su mera existencia: debe existir una ejecución verificable o una justificación explícita.
 
-## 7. Evidencia externa
+## 7. Evidencia de Quality Validation
+
+Una ejecución de Quality Validation deberá permitir identificar como mínimo:
+
+- commit evaluado;
+- Pull Request, cuando aplique;
+- controles QV ejecutados;
+- resultado individual y global;
+- mensajes de fallo;
+- workflow run;
+- fecha/hora y contexto de ejecución.
+
+Un `QUALITY_VALIDATION=PASS` solo evidencia la conformidad con los controles automatizados aplicables; no constituye certificación de calidad integral del producto.
+
+## 8. Evidencia externa
 
 Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confidencialidad, regulación o naturaleza del medio, el repositorio conservará metadatos suficientes para localizarla y verificar su integridad cuando sea apropiado.
 
-## 8. Control de cambios
+## 9. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
 
@@ -78,7 +93,7 @@ Toda adición, modificación, actualización, movimiento, renombrado o eliminaci
 La cadena de evidencia deberá conservar, cuando aplique:
 
 ```text
-Necesidad / Problema → Issue → Branch → Cambio → Impacto → Validación → Evidencia → Pull Request → Revisión → Merge → main
+Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md` y `Docs/Governance/10-Governance-Enforcement-Architecture.md`.
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md` y `Docs/Governance/12-Quality-Validation-Architecture.md`.

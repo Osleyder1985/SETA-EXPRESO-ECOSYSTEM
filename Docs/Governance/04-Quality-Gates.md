@@ -1,8 +1,8 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.0  
-**Estado:** Definición inicial controlada  
+**Versión:** 0.3.0  
+**Estado:** Definición controlada en evolución  
 **Fecha:** 2026-09-15
 
 ---
@@ -32,7 +32,35 @@ Los gates no convierten el ciclo en cascada. Un gate puede requerir volver a una
 | G12 | Evolution Ready | M/N | Cambio o evolución evaluados |
 | G13 | Retirement Complete | O | Retirada/migración y preservación de evidencia completadas |
 
-## 3. Criterios comunes
+## 3. Quality Validation como evidencia transversal
+
+Quality Validation aporta una capa automatizada de comprobaciones técnicas objetivas. Su posición en los cambios controlados es:
+
+```text
+Issue
+  ↓
+Branch
+  ↓
+Pull Request
+  ↓
+Governance Validation
+  ↓
+Quality Validation
+  ↓
+Security Validation
+  ↓
+Evidence Validation
+  ↓
+Review / Approval
+  ↓
+Merge
+```
+
+Un `QUALITY_VALIDATION=PASS` es evidencia técnica de los controles QV aplicables, pero no equivale al resultado de un Quality Gate.
+
+Para una unidad de cambio, un fallo objetivo de Quality Validation implica que el cambio **no debe considerarse conforme** hasta que el defecto sea corregido o exista una decisión formal y trazable de excepción.
+
+## 4. Criterios comunes
 
 Cada gate deberá considerar, según aplicabilidad:
 
@@ -47,9 +75,10 @@ Cada gate deberá considerar, según aplicabilidad:
 - trazabilidad;
 - evidencia;
 - responsables y aprobaciones;
-- control de cambios y estado del Pull Request cuando el gate implique una modificación controlada.
+- control de cambios y estado del Pull Request cuando el gate implique una modificación controlada;
+- resultados de Governance Validation y Quality Validation cuando correspondan.
 
-## 4. Regla de decisión
+## 5. Regla de decisión
 
 Un gate puede resultar:
 
@@ -58,13 +87,17 @@ Un gate puede resultar:
 - **REWORK:** debe regresar a actividades anteriores.
 - **BLOCKED:** existe impedimento que requiere decisión o información externa.
 
-## 5. Evidencia
+Una excepción no debe ocultarse convirtiendo un `FAIL` automatizado en `PASS`. Debe registrarse como condición, excepción o decisión controlada según corresponda.
+
+## 6. Evidencia
 
 La evidencia del gate debe ser localizable desde GitHub mediante documentación, Issues, Pull Requests, commits, resultados de CI/CD, registros de pruebas u otras referencias controladas.
 
 Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir comprobar que el cambio fue propuesto mediante Issue, implementado en branch, sometido a análisis de impacto y presentado mediante Pull Request antes de su integración.
 
-## 6. Evolución
+Cuando aplique Quality Validation, la evidencia deberá identificar el workflow run y los controles QV ejecutados.
+
+## 7. Evolución
 
 Los criterios específicos de cada gate se detallarán conforme se conozca el contexto real del Ecosistema. No se inventarán criterios operativos antes de disponer de información suficiente.
 

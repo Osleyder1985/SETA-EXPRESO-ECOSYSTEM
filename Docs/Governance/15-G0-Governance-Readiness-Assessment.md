@@ -3,9 +3,10 @@
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Relacionado con:** Issue #25  
 **Gate:** G0 — Governance Ready  
-**Versión:** 1.0.0  
-**Estado:** Evaluación formal en curso  
-**Fecha:** 2026-09-15
+**Versión:** 1.1.0  
+**Estado:** `PASS WITH KNOWN LIMITATIONS`  
+**Fecha de evaluación:** 2026-09-15  
+**Fecha de integración:** 2026-09-15
 
 ---
 
@@ -45,7 +46,7 @@ Quedan fuera del alcance de G0 el descubrimiento del negocio, requisitos funcion
 | G0-004 | Convenciones del repositorio definidas | `05-Repository-Naming-Convention.md` | PASS |
 | G0-005 | Control de cambios definido | `06-Change-Control-Workflow.md` | PASS |
 | G0-006 | Estrategia de protección de `main` documentada sin sobreafirmaciones | `07-Main-Protection-Strategy.md` | PASS WITH KNOWN LIMITATIONS |
-| G0-007 | Roadmap maestro establecido | `08-Software-Roadmap.md` | PASS WITH KNOWN LIMITATIONS |
+| G0-007 | Roadmap maestro establecido y actualizado | `08-Software-Roadmap.md` | PASS |
 | G0-008 | Política de labels establecida | `09-Issue-And-Pull-Request-Labeling-Policy.md` | PASS |
 | G0-009 | Arquitectura de enforcement definida | `10-Governance-Enforcement-Architecture.md` | PASS |
 | G0-010 | Matriz de controles definida | `11-Governance-Control-Matrix.md` | PASS |
@@ -58,17 +59,14 @@ Quedan fuera del alcance de G0 el descubrimiento del negocio, requisitos funcion
 
 ## 4. Controles automatizados
 
-Los controles de cambio relevantes se validan mediante cuatro capas independientes:
+Los controles de cambio relevantes se validaron mediante cuatro capas independientes sobre el commit final del PR #26 (`b859ecf6659e0903c4795a52813165cae32d6bf0`):
 
-```text
-Governance Validation
-        ↓
-Quality Validation
-        ↓
-Security Validation
-        ↓
-Evidence Validation
-```
+| Capa | Resultado | Evidencia |
+|---|---|---|
+| Governance Validation | PASS | Workflow run #42 |
+| Quality Validation | PASS | Workflow run #25 |
+| Security Validation | PASS | Workflow run #7 |
+| Evidence Validation | PASS | Workflow run #4 |
 
 Un resultado `PASS` acredita únicamente los controles automatizados aplicables de la capa correspondiente. No equivale a certificación integral del producto ni elimina la necesidad de revisión de ingeniería.
 
@@ -80,36 +78,40 @@ La baseline utiliza controles compensatorios y detectivos mediante GitHub Action
 
 > `main` no se considera técnicamente protegido al nivel de una branch protection nativa mientras se mantengan estas restricciones.
 
-Este riesgo debe permanecer visible y no debe reinterpretarse como mitigación completa.
+Este riesgo permanece aceptado como limitación conocida de la baseline y debe seguir visible en la gobernanza del proyecto.
 
 ## 6. Evidencia de integración
 
-La decisión definitiva de G0 debe conservar:
+La integración controlada del cambio quedó registrada de la siguiente manera:
 
-- Issue #25;
-- branch de trabajo asociada;
-- Pull Request asociado;
-- cuatro validaciones aplicables;
-- revisión humana;
-- merge commit en `main`;
-- actualización posterior del Roadmap con la fecha real de integración.
+- Issue #25: cerrado con estado `completed`;
+- branch: `issue-25-g0-governance-baseline`;
+- Pull Request: #26;
+- commit de trabajo validado: `b859ecf6659e0903c4795a52813165cae32d6bf0`;
+- merge commit en `main`: `1bddd0b9da5d3f79d16eaef01fd5952e56dfeb2e`;
+- fecha de integración: `2026-09-15T17:32:02Z`;
+- cuatro validaciones automatizadas satisfactorias antes del merge.
 
-## 7. Resultado provisional
+La ejecución post-merge de Quality Validation sobre el merge commit también resultó satisfactoria (run #26).
 
-**Estado:** `PASS WITH KNOWN LIMITATIONS — PENDIENTE DE INTEGRACIÓN`
+## 7. Resultado definitivo del Gate
 
-La baseline de gobernanza satisface los criterios definidos para G0, con la limitación conocida de protección nativa de `main`. El cierre definitivo requiere la integración controlada del cambio y la conservación de su evidencia.
+**Decisión:** `PASS WITH KNOWN LIMITATIONS`
+
+La Fase A — Concepción y gobernanza — queda formalmente cerrada para efectos del ciclo de vida, con una limitación técnica conocida: la ausencia de protección nativa equivalente a branch protection/rulesets para `main` bajo GitHub Free + repositorio privado.
+
+La limitación no invalida G0 porque se encuentra explícitamente documentada y cubierta mediante controles compensatorios y detectivos; no obstante, estos controles no proporcionan la misma capacidad preventiva que la protección nativa.
 
 ## 8. Criterio para cierre definitivo
 
-G0 podrá registrarse como completado únicamente cuando:
+Los criterios de cierre definidos originalmente quedan satisfechos:
 
-1. los artefactos afectados estén sincronizados;
-2. las cuatro validaciones automatizadas aplicables estén en estado satisfactorio sobre el commit final del PR;
-3. exista revisión y decisión explícita;
-4. el cambio sea integrado en `main` mediante PR;
-5. exista evidencia del merge commit;
-6. el Roadmap registre la fecha real de cumplimiento.
+1. los artefactos afectados fueron sincronizados;
+2. las cuatro validaciones automatizadas aplicables resultaron satisfactorias sobre el commit final del PR #26;
+3. existió revisión y decisión explícita antes de la integración;
+4. el cambio fue integrado en `main` mediante PR;
+5. existe evidencia del merge commit;
+6. el Roadmap registra la fecha real de cumplimiento.
 
 ## 9. Referencias
 

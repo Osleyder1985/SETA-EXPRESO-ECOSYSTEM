@@ -25,12 +25,12 @@ jobs:
       - name: SV-001 Secret Material Scan
         run: |
           set -euo pipefail
-          if git grep -nE --cached -- '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!Docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
+          if git grep --cached -nE '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!Docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
             echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."
             exit 1
           fi
 
-          if git grep -nE --cached -- '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!Docs/Governance/13-Security-Validation-Architecture.md'; then
+          if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!Docs/Governance/13-Security-Validation-Architecture.md'; then
             echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."
             exit 1
           fi
@@ -73,7 +73,7 @@ jobs:
       - name: SV-003 Dangerous Workflow Trigger
         run: |
           set -euo pipefail
-          if git grep -nE -- '^[[:space:]]*pull_request_target:' -- '.github/workflows'; then
+          if git grep -nE '^[[:space:]]*pull_request_target:' -- '.github/workflows'; then
             echo "ERROR [SV-003]: Se detectó pull_request_target sin un mecanismo de excepción de seguridad formal."
             exit 1
           fi

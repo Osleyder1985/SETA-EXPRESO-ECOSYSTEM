@@ -1,32 +1,14 @@
 # Arquitectura de Quality Validation
 
-**Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Propuesta para aprobación mediante PR asociado al Issue #20  
-**Idioma documental:** Español  
-**Fecha:** 2026-09-15  
-**Issue:** #20
-
----
+> Documento controlado de gobernanza y calidad del Ecosistema SETA Expreso.
 
 ## 1. Propósito
 
-Definir una capa de **Quality Validation** que transforme criterios objetivos de calidad en controles ejecutables y evidencia reproducible antes de integrar cambios en `main`.
+Definir la primera capa automatizada de **Quality Validation (QV)** para detectar incumplimientos objetivos de calidad en el estado actual del repositorio, separándola de Governance Validation.
 
-Quality Validation no constituye una certificación de calidad del producto. Un resultado `PASS` significa únicamente que los controles definidos para la unidad de cambio y el contexto actual fueron satisfechos.
+Esta capa es deliberadamente incremental: valida propiedades estructurales y de integridad que pueden automatizarse con evidencia reproducible. No sustituye la ingeniería de requisitos, arquitectura, diseño, pruebas funcionales, seguridad, rendimiento ni validación de aceptación.
 
-## 2. Principios
-
-1. **Objetividad:** cada control debe tener una condición verificable.
-2. **Evidencia:** cada ejecución debe dejar un resultado observable en CI.
-3. **Aplicabilidad:** un control no aplicable debe identificarse como `NOT_APPLICABLE`, no disfrazarse como `PASS`.
-4. **Proporcionalidad:** los controles evolucionan con el riesgo y la naturaleza del sistema.
-5. **Independencia lógica:** Governance Validation, Quality Validation y Security Validation son capas diferenciadas.
-6. **No sobreafirmación:** pasar los checks no demuestra por sí solo ausencia de defectos.
-7. **Reproducibilidad:** las validaciones deben ejecutarse de forma determinista siempre que sea razonablemente posible.
-8. **Costo controlado:** en la fase actual se priorizan mecanismos gratuitos y mantenibles.
-
-## 3. Posición en el flujo
+## 2. Posición en la cadena de control
 
 ```text
 Issue
@@ -43,100 +25,73 @@ Security Validation
   ↓
 Evidence Validation
   ↓
-Review / Approval
+Review
   ↓
 Merge
   ↓
 main
 ```
 
-Quality Validation es una capa previa a la integración. No sustituye la revisión humana ni los gates del ciclo de vida.
+Quality Validation consume un cambio que ya satisface los controles de gobernanza aplicables y aporta una segunda barrera automatizada antes de la revisión/fusión.
 
-## 4. Controles iniciales
+## 3. Principios
 
-| ID | Control | Objetivo | Mecanismo | Evidencia | Limitación |
+1. **Objetividad:** cada control debe tener una condición verificable.
+2. **Reproducibilidad:** la validación se ejecuta automáticamente en GitHub Actions.
+3. **Separación de responsabilidades:** Governance Validation controla integridad del proceso; Quality Validation controla propiedades de calidad automatizables.
+4. **Evidencia:** cada ejecución constituye evidencia técnica del resultado del control.
+5. **No sobreafirmación:** un PASS de QV no equivale a certificación integral de calidad.
+6. **Evolución:** los controles se ampliarán cuando aparezcan código fuente, pruebas, infraestructura, datos y requisitos verificables.
+
+## 4. Controles actuales
+
+| ID | Control | Riesgo | Mecanismo | Evidencia | Limitación |
 |---|---|---|---|---|---|
-| QV-001 | Archivos Markdown no vacíos | Evitar artefactos documentales vacíos | Shell | Check run | No evalúa calidad semántica |
-| QV-002 | Encabezado Markdown válido | Mantener estructura mínima de documentos | Shell | Check run | No sustituye revisión editorial |
-| QV-003 | Sin trailing whitespace fuera de Markdown | Reducir ruido y variaciones innecesarias | Shell | Check run | Markdown puede usar espacios intencionales |
-| QV-004 | YAML válido | Detectar errores sintácticos en configuración YAML | Ruby/Psych | Check run | Sintaxis válida no implica configuración correcta |
-| QV-005 | Integridad de enlaces locales Markdown | Detectar referencias locales rotas | Python estándar | Check run | No valida enlaces externos ni semántica |
-| QV-006 | Archivos críticos presentes | Evitar pérdida accidental de artefactos esenciales | Shell | Check run | El inventario evolucionará con el proyecto |
+| QV-001 | Markdown no vacío | Artefactos documentales inválidos o vacíos | Script en GitHub Actions | Run del workflow | No evalúa contenido semántico |
+| QV-002 | H1 inicial | Documentos sin encabezado principal | Script en GitHub Actions | Run del workflow | No evalúa estructura completa |
+| QV-003 | Sin trailing whitespace fuera de Markdown | Ruido y defectos de formato en archivos técnicos | Script en GitHub Actions | Run del workflow | No es una revisión estilística completa |
+| QV-004 | YAML válido | Configuración CI/CD inválida | Parser YAML | Run del workflow | No valida semántica de cada plataforma |
+| QV-005 | Enlaces Markdown locales íntegros | Referencias rotas por cambios/movimientos | Resolución de rutas locales | Run del workflow | No verifica enlaces externos ni semántica documental |
+| QV-006 | Artefactos críticos presentes | Pérdida accidental de controles base | Lista de artefactos requeridos | Run del workflow | La lista debe evolucionar con el sistema |
 
-Los controles QV-001–QV-006 constituyen la línea base de calidad técnica del repositorio en su estado actual. No se establecen métricas de cobertura, complejidad o rendimiento porque todavía no existe código de aplicación suficiente para justificar umbrales.
+## 5. Workflow
 
-## 5. Estados
+El workflow `.github/workflows/quality-validation.yml` se ejecuta sobre cambios dirigidos a `main` y valida los controles aplicables al repositorio actual.
 
-- **PASS:** control ejecutado y satisfecho.
-- **FAIL:** control ejecutado y no satisfecho; la validación de la unidad de cambio falla.
-- **NOT_APPLICABLE:** el control no corresponde al cambio/contexto y la razón queda registrada.
+El workflow de Governance Validation permanece separado. En particular, la comprobación de labels pertenece a gobernanza y consulta el estado actual del Pull Request mediante la API de GitHub, evitando depender exclusivamente del snapshot del evento.
 
-El workflow debe preferir `FAIL` ante defectos objetivos y no utilizar `PASS` como sustituto de una evaluación no realizada.
+## 6. Evidencia
 
-## 6. Relación con ISO/IEC 25010:2023
+La evidencia mínima de una ejecución debe permitir identificar:
 
-La calidad del producto se evaluará progresivamente mediante las características y subcaracterísticas pertinentes del modelo de calidad adoptado. En esta etapa, los controles QV iniciales se consideran principalmente mecanismos de **mantenibilidad**, **fiabilidad del artefacto de ingeniería** y calidad del proceso/documentación; no se asignan equivalencias uno-a-uno cuando la evidencia disponible no las justifica.
-
-La selección futura de métricas y pruebas deberá derivarse de requisitos de calidad verificables, contexto operativo y riesgos del Ecosistema.
-
-## 7. Relación con Quality Gates
-
-Quality Validation proporciona evidencia técnica para los gates, pero no decide por sí sola el resultado de todos ellos.
-
-```text
-QV PASS
-  ↓
-Evidencia técnica disponible
-  ↓
-Evaluación del Gate correspondiente
-  ↓
-PASS / PASS WITH CONDITIONS / REWORK / BLOCKED
-```
-
-Un `PASS` de Quality Validation no equivale a `PASS` de un Quality Gate.
-
-## 8. Evolución prevista
-
-A medida que aparezcan código, pruebas, infraestructura y requisitos verificables, podrán incorporarse, con justificación y análisis de impacto:
-
-- pruebas unitarias;
-- pruebas de integración;
-- análisis estático;
-- cobertura de pruebas cuando exista base estadística y riesgo que justifique el umbral;
-- complejidad y mantenibilidad;
-- validaciones de contratos e interfaces;
-- pruebas de rendimiento;
-- pruebas de resiliencia;
-- controles de documentación técnica;
-- validaciones específicas por tecnología.
-
-Los controles de seguridad se mantendrán en una capa independiente para evitar mezclar objetivos y responsabilidades.
-
-## 9. Limitaciones y riesgo residual
-
-La validación automatizada puede producir falsos positivos y falsos negativos. Los checks iniciales son deliberadamente modestos porque el repositorio todavía se encuentra en una etapa documental y de definición del sistema.
-
-El riesgo residual incluye defectos semánticos, errores de diseño, requisitos incorrectos y problemas no detectables mediante las comprobaciones automatizadas. Estos riesgos requieren revisión de ingeniería, pruebas apropiadas y validación del sistema conforme avance el ciclo de vida.
-
-## 10. Evidencia requerida
-
-Cada ejecución de Quality Validation debe permitir identificar:
-
-- commit evaluado;
-- Pull Request, cuando aplique;
+- commit validado;
+- workflow;
+- ejecución;
 - controles ejecutados;
-- resultado por control;
-- mensajes de fallo;
-- contexto de ejecución;
-- fecha/hora de ejecución;
-- workflow run asociado.
+- resultado de cada control;
+- mensaje de fallo, si existe;
+- fecha/hora de ejecución.
 
-## 11. Criterio de verdad
+La existencia del archivo de workflow, por sí sola, no constituye evidencia de que el control haya sido ejecutado correctamente.
 
-La afirmación permitida es:
+## 7. Evolución prevista
 
-> `Quality Validation PASS` significa que los controles automatizados aplicables definidos para la versión actual del repositorio fueron satisfechos.
+Cuando el Ecosistema incorpore implementación real, Quality Validation deberá crecer progresivamente hacia:
 
-No se utilizará como sinónimo de:
+- compilación y análisis estático;
+- cobertura y pruebas automatizadas;
+- validación de contratos e interfaces;
+- análisis de complejidad y mantenibilidad;
+- validación de arquitectura;
+- pruebas de integración;
+- rendimiento y resiliencia;
+- validaciones de datos;
+- controles específicos por riesgo y atributo de calidad ISO/IEC 25010.
 
-> "el software es de alta calidad".
+Cada nuevo control deberá registrarse en la matriz de controles, definir su evidencia y documentar sus limitaciones.
+
+## 8. Estado
+
+**Versión:** 0.1.0  
+**Estado:** Baseline inicial de Quality Validation  
+**Última actualización:** 2026-09-15

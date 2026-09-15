@@ -1,7 +1,7 @@
 # Matriz de controles de Decision Governance
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.1  
+**Versión:** 0.1.2  
 **Estado:** Matriz propuesta para revisión  
 **Fecha:** 2026-09-15  
 **Issue:** #33
@@ -32,8 +32,8 @@ Definir controles verificables para evitar que las decisiones arquitectónicas y
 | DG-014 | Premature Decision Control | Tecnología elegida antes de contexto | Regla explícita durante B/C | G | Decision review | Implementado documentalmente |
 | DG-015 | Index Integrity | Decision Records no descubribles | Índice controlado | D futuro | Workflow futuro | No implementado |
 | DG-016 | Schema Validation | Record estructuralmente inválido | Validador futuro | D | Workflow futuro | No implementado |
-| DG-017 | Link Validation | Referencias rotas | Validador futuro | D | Workflow futuro | No implementado |
-| DG-018 | Supersession Consistency | Cadena histórica inconsistente | Validador futuro | D | Workflow futuro | No implementado |
+| DG-017 | Link Validation | Referencias rotas | Validación futura | P-Compensatorio/D | Check run futuro | No implementado |
+| DG-018 | Supersession Consistency | Cadena histórica inconsistente | Validación futura | D | Check run futuro | No implementado |
 | DG-019 | Decision Metrics | Falta de visibilidad | Métricas futuras | M | Dashboard futuro | No implementado |
 
 ## 3. Regla de madurez

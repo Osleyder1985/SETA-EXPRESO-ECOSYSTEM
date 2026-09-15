@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,14 +19,14 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Quality Validation Architecture, Security Validation Architecture, Risk Register, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs | Reviews, decisions |
 | Diseño | Detailed Design, API Specs, Data Models | Design reviews |
 | Construcción | Source Code, Config, Build Artifacts | Commits, CI results |
 | Testing | Test Plans, Cases, Results | Test runs, reports |
-| Seguridad | Threat Models, Security Requirements, Findings | Scans, reviews, remediation |
+| Seguridad | Threat Models, Security Requirements, Findings, Security Validation results | Scans, reviews, remediation |
 | DevOps | Pipelines, Releases, Deployment Plans | Pipeline logs, release records |
 | Operaciones | Runbooks, Incidents, Problems, Metrics | Operational records |
 | Datos | Data Models, Migration Plans, Quality Records | Validation and migration evidence |
@@ -52,7 +52,7 @@ Cuando un artefacto sea crítico, su evidencia debería permitir responder:
 
 ## 6. Evidencia de enforcement
 
-Los controles automatizados de gobernanza y calidad deberán conservar, cuando corresponda:
+Los controles automatizados de gobernanza, calidad y seguridad deberán conservar, cuando corresponda:
 
 - nombre del workflow;
 - commit validado;
@@ -62,7 +62,7 @@ Los controles automatizados de gobernanza y calidad deberán conservar, cuando c
 - mensaje de fallo o éxito;
 - actor/evento asociado;
 - clasificación del control: preventivo compensatorio, detectivo o gobernanza;
-- estado global de Governance Validation y Quality Validation.
+- estado global de Governance Validation, Quality Validation y Security Validation.
 
 Los workflows no se consideran evidencia suficiente por su mera existencia: debe existir una ejecución verificable o una justificación explícita.
 
@@ -80,11 +80,26 @@ Una ejecución de Quality Validation deberá permitir identificar como mínimo:
 
 Un `QUALITY_VALIDATION=PASS` solo evidencia la conformidad con los controles automatizados aplicables; no constituye certificación de calidad integral del producto.
 
-## 8. Evidencia externa
+## 8. Evidencia de Security Validation
+
+Una ejecución de Security Validation deberá permitir identificar como mínimo:
+
+- commit evaluado;
+- Pull Request, cuando aplique;
+- controles SV ejecutados;
+- resultado individual y global;
+- clasificación `NOT_APPLICABLE` o `NOT_IMPLEMENTED` cuando corresponda;
+- mensajes de fallo;
+- workflow run;
+- fecha/hora y contexto de ejecución.
+
+Un `SECURITY_VALIDATION=PASS` solo evidencia la conformidad con los controles de seguridad automatizados aplicables; no constituye certificación de seguridad ni ausencia de vulnerabilidades.
+
+## 9. Evidencia externa
 
 Si la evidencia no puede almacenarse directamente en GitHub por tamaño, confidencialidad, regulación o naturaleza del medio, el repositorio conservará metadatos suficientes para localizarla y verificar su integridad cuando sea apropiado.
 
-## 9. Control de cambios
+## 10. Control de cambios
 
 El catálogo evolucionará junto con el proyecto. Los nuevos artefactos deberán justificar su propósito y ubicación.
 
@@ -93,7 +108,7 @@ Toda adición, modificación, actualización, movimiento, renombrado o eliminaci
 La cadena de evidencia deberá conservar, cuando aplique:
 
 ```text
-Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Evidencia → Pull Request → Revisión → Merge → main
+Necesidad / Problema → Issue → Branch → Cambio → Impacto → Governance Validation → Quality Validation → Security Validation → Evidencia → Pull Request → Revisión → Merge → main
 ```
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md` y `Docs/Governance/12-Quality-Validation-Architecture.md`.
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/12-Quality-Validation-Architecture.md` y `Docs/Governance/13-Security-Validation-Architecture.md`.

@@ -1,7 +1,7 @@
 # Quality Gates del ciclo de vida
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Definición controlada en evolución  
 **Fecha:** 2026-09-15
 
@@ -32,9 +32,9 @@ Los gates no convierten el ciclo en cascada. Un gate puede requerir volver a una
 | G12 | Evolution Ready | M/N | Cambio o evolución evaluados |
 | G13 | Retirement Complete | O | Retirada/migración y preservación de evidencia completadas |
 
-## 3. Quality Validation como evidencia transversal
+## 3. Validaciones transversales de cambios
 
-Quality Validation aporta una capa automatizada de comprobaciones técnicas objetivas. Su posición en los cambios controlados es:
+Las validaciones automatizadas para una unidad de cambio siguen esta cadena:
 
 ```text
 Issue
@@ -56,9 +56,17 @@ Review / Approval
 Merge
 ```
 
-Un `QUALITY_VALIDATION=PASS` es evidencia técnica de los controles QV aplicables, pero no equivale al resultado de un Quality Gate.
+Un resultado `PASS` de una validación automatizada es evidencia técnica de los controles aplicables de esa capa; no equivale por sí mismo al resultado de un Quality Gate.
 
-Para una unidad de cambio, un fallo objetivo de Quality Validation implica que el cambio **no debe considerarse conforme** hasta que el defecto sea corregido o exista una decisión formal y trazable de excepción.
+### Quality Validation
+
+Quality Validation aporta comprobaciones técnicas objetivas. Un `QUALITY_VALIDATION=PASS` no certifica la calidad integral del producto.
+
+### Security Validation
+
+Security Validation aporta comprobaciones de seguridad objetivas. Un `SECURITY_VALIDATION=PASS` no certifica seguridad integral ni ausencia de vulnerabilidades.
+
+Para una unidad de cambio, un fallo objetivo de Quality o Security Validation implica que el cambio **no debe considerarse conforme** hasta que el defecto sea corregido o exista una decisión formal y trazable de excepción.
 
 ## 4. Criterios comunes
 
@@ -76,7 +84,7 @@ Cada gate deberá considerar, según aplicabilidad:
 - evidencia;
 - responsables y aprobaciones;
 - control de cambios y estado del Pull Request cuando el gate implique una modificación controlada;
-- resultados de Governance Validation y Quality Validation cuando correspondan.
+- resultados de Governance Validation, Quality Validation y Security Validation cuando correspondan.
 
 ## 5. Regla de decisión
 
@@ -95,7 +103,7 @@ La evidencia del gate debe ser localizable desde GitHub mediante documentación,
 
 Cuando el gate corresponda a una unidad de cambio, la evidencia deberá permitir comprobar que el cambio fue propuesto mediante Issue, implementado en branch, sometido a análisis de impacto y presentado mediante Pull Request antes de su integración.
 
-Cuando aplique Quality Validation, la evidencia deberá identificar el workflow run y los controles QV ejecutados.
+Cuando aplique Quality Validation o Security Validation, la evidencia deberá identificar el workflow run y los controles ejecutados.
 
 ## 7. Evolución
 

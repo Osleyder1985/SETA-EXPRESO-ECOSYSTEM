@@ -1,6 +1,6 @@
 # Roadmap Maestro de Ingeniería del Ecosistema
 
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Vigente como hoja de ruta ejecutable  
 **Fuente canónica:** `Docs/Governance/00-Software-Lifecycle-Master.md`  
 **Última actualización:** 2026-09-15
@@ -101,9 +101,18 @@ El macroflujo es el camino de control. Las actividades internas pueden ejecutars
 
 | Issue | Actividad | Estado | Fecha inicio | Fecha objetivo | Dependencia | PR |
 |---|---|---|---|---|---|---|
-| #20 | Automatizar Quality Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) | #21 |
+| #22 | Automatizar Security Validation inicial | 🟡 | 2026-09-15 | 2026-09-17 | Governance Enforcement (#13) + Quality Validation (#20) | En construcción |
 
-La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria del workflow.
+La actividad se considera completada únicamente cuando el PR asociado haya sido validado, integrado y exista evidencia de ejecución satisfactoria de Governance Validation, Quality Validation y Security Validation.
+
+## Controles transversales de ingeniería
+
+| Capacidad | Estado | Evidencia actual | Evolución |
+|---|---|---|---|
+| Governance Validation | 🟢 | Workflow + PRs validados | Ampliación de controles |
+| Quality Validation | 🟢 | Workflow + PR #21 | Incorporación de controles sobre código y pruebas |
+| Security Validation | 🟡 | Issue #22 + rama de implementación | SAST, SCA, secrets, IaC, containers, SBOM según aplicabilidad |
+| Evidence Validation | ⚪ | Arquitectura prevista | Implementación posterior |
 
 ## Seguimiento detallado A–D
 
@@ -211,13 +220,15 @@ La actividad se considera completada únicamente cuando el PR asociado haya sido
 | 2026-09-15 | Control de cambios | `06-Change-Control-Workflow.md` |
 | 2026-09-15 | Estrategia compensatoria de main | `07-Main-Protection-Strategy.md` |
 | 2026-09-15 | Roadmap y política de labels | PR #10 |
+| 2026-09-15 | Quality Validation integrada | Issue #20 + PR #21 |
+| 2026-09-15 | Security Validation iniciada | Issue #22 |
 
 ## Trazabilidad con GitHub
 
 ```text
 Roadmap Activity → Issue → Branch → Implementation → Impact Analysis
-→ Governance Validation → Quality Validation → Evidence / Tests
-→ Pull Request → Review → Merge → main Baseline
+→ Governance Validation → Quality Validation → Security Validation
+→ Evidence / Tests → Pull Request → Review → Merge → main Baseline
 ```
 
 ## Convención de títulos de Issues y Pull Requests

@@ -1,7 +1,7 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.9.0  
+**Versión:** 1.0.0  
 **Estado:** Catálogo controlado  
 **Fecha:** 2026-09-15
 
@@ -19,7 +19,7 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 
 | Área | Artefactos principales | Evidencia típica |
 |---|---|---|
-| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Decision Governance, Metrics Governance, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
+| Gobernanza | Project Charter, Governance Model, Governance Enforcement Architecture, Governance Control Matrix, Quality Validation Architecture, Security Validation Architecture, Evidence Validation Architecture, G0 Governance Readiness Assessment, G0 Impact Analysis, Risk Register, Decision Governance, Metrics Governance, AI Governance, Issues, Pull Requests | Aprobaciones, decisiones, validaciones automatizadas, revisiones, integración |
 | Negocio | Problem Statement, Process Models, Objectives | Entrevistas, observaciones |
 | Requisitos | Needs, Requirements, Acceptance Criteria | Revisiones, baselines |
 | Arquitectura | Architecture Description, Views, ADRs, Architecture Decision Log | Reviews, decisions |
@@ -28,9 +28,9 @@ Un artefacto debe existir porque cumple una función de ingeniería, gobernanza,
 | Testing | Test Plans, Cases, Results | Test runs, reports |
 | Seguridad | Threat Models, Security Requirements, Findings, Security Validation results | Scans, reviews, remediation |
 | DevOps | Pipelines, Releases, Deployment Plans | Pipeline logs, release records |
-| Operaciones | Runbooks, Incidents, Problems, Metrics, Metric Snapshots | Operational records, measurements |
-| Datos | Data Models, Migration Plans, Quality Records | Validation and migration evidence |
-| Investigación | Protocols, Datasets, Analysis, Results | Reproducible study evidence |
+| Operaciones | Runbooks, Incidents, Problems, Metrics, Metric Snapshots, AI Incidents | Operational records, measurements, incident records |
+| Datos | Data Models, Migration Plans, Quality Records, AI Data Provenance Records | Validation and migration evidence, provenance |
+| Investigación | Protocols, Datasets, Analysis, Results, AI Evaluation Records | Reproducible study evidence |
 
 ## 4. Reglas de identificación
 
@@ -211,6 +211,32 @@ La existencia de un Decision Record no implica que una alternativa haya sido sel
 
 Los registros se gestionarán bajo `Docs/Architecture/Decision-Records/` y se relacionarán con requisitos, arquitectura, diseño, riesgos, Issues, Pull Requests, Quality Gates y evidencia cuando corresponda.
 
-## 15. Referencias de gobernanza
+## 15. AI Governance y AI Evidence
 
-Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md`, `Docs/Governance/14-Evidence-Validation-Architecture.md`, `Docs/Governance/19-Decision-Governance.md`, `Docs/Governance/20-Decision-Governance-Control-Matrix.md`, `Docs/Governance/21-Engineering-Metrics-Governance.md` y `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md`.
+AI Governance añade artefactos específicos para registrar usos de IA, modelos, procedencia de datos, prompts relevantes, evaluaciones e incidentes. La estructura canónica está bajo `Docs/Governance/AI/` y la política en `Docs/Governance/23-AI-Governance.md`.
+
+La evidencia de IA deberá permitir, cuando corresponda, reconstruir:
+
+```text
+AI Use
+  ↓
+Model / Service
+  ↓
+Data Provenance
+  ↓
+Prompt / Configuration
+  ↓
+Evaluation / TEVV
+  ↓
+Human Oversight
+  ↓
+Output / Decision
+  ↓
+Evidence / Incident / Outcome
+```
+
+No se deberán crear inventarios ficticios ni presentar modelos, evaluaciones o usos como existentes cuando no haya evidencia operacional. Los inventarios iniciales pueden permanecer vacíos.
+
+## 16. Referencias de gobernanza
+
+Este catálogo se interpreta conjuntamente con `Docs/Governance/00-Software-Lifecycle-Master.md`, `Docs/Governance/04-Quality-Gates.md`, `Docs/Governance/06-Change-Control-Workflow.md`, `Docs/Governance/10-Governance-Enforcement-Architecture.md`, `Docs/Governance/11-Governance-Control-Matrix.md`, `Docs/Governance/12-Quality-Validation-Architecture.md`, `Docs/Governance/13-Security-Validation-Architecture.md`, `Docs/Governance/14-Evidence-Validation-Architecture.md`, `Docs/Governance/19-Decision-Governance.md`, `Docs/Governance/20-Decision-Governance-Control-Matrix.md`, `Docs/Governance/21-Engineering-Metrics-Governance.md`, `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md` y `Docs/Governance/23-AI-Governance.md`.

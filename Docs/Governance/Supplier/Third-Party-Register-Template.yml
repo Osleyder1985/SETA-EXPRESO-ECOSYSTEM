@@ -1,0 +1,17 @@
+third_party_id: "TP-NNN"
+provider_name: ""
+category: ""
+service_or_component: ""
+lifecycle_role: ""
+criticality: ""
+internal_owner: ""
+affected_systems: []
+data_access: []
+processing_regions: []
+contract_reference: ""
+status: "proposed"
+onboarding_date: ""
+review_date: ""
+related_risks: []
+dependencies: []
+evidence: []

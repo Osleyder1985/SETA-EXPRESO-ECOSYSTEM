@@ -76,11 +76,9 @@ jobs:
           from pathlib import Path
           import re
           import sys
-
           root = Path('.')
           pattern = re.compile(r'\[[^\]]*\]\(([^)]+)\)')
           failures = []
-
           for document in root.rglob('*.md'):
               if '.git' in document.parts:
                   continue
@@ -95,7 +93,6 @@ jobs:
                   candidate = (document.parent / target_path).resolve()
                   if not candidate.exists():
                       failures.append(f'{document}: enlace local inexistente: {target}')
-
           if failures:
               for failure in failures:
                   print(f'FAIL QV-005: {failure}')
@@ -119,8 +116,21 @@ jobs:
             Docs/Governance/10-Governance-Enforcement-Architecture.md
             Docs/Governance/11-Governance-Control-Matrix.md
             Docs/Governance/12-Quality-Validation-Architecture.md
+            Docs/Governance/13-Security-Validation-Architecture.md
+            Docs/Governance/14-Evidence-Validation-Architecture.md
+            Docs/Governance/17-Risk-Management-System.md
+            Docs/Governance/18-Risk-Management-Control-Matrix.md
+            Docs/Governance/19-Decision-Governance.md
+            Docs/Governance/20-Decision-Governance-Control-Matrix.md
+            Docs/Governance/21-Engineering-Metrics-Governance.md
+            Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
+            Docs/Governance/Metrics/Metric-Catalog.yml
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
+            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
             .github/workflows/governance-validation.yml
             .github/workflows/quality-validation.yml
+            .github/workflows/security-validation.yml
+            .github/workflows/evidence-validation.yml
           )
           for file in "${required[@]}"; do
             test -s "$file" || { echo "FAIL QV-006: artefacto crítico ausente o vacío: $file"; exit 1; }

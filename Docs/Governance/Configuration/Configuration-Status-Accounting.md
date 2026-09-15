@@ -28,19 +28,4 @@ Ningún CI deberá marcarse `BASELINED` hasta que exista evidencia de aprobació
 
 ## Accounting futuro
 
-Cada transición deberá registrar:
-
-```text
-CI
-→ versión anterior
-→ cambio
-→ Issue
-→ PR
-→ commit
-→ nueva versión
-→ nueva baseline, si corresponde
-→ aprobación
-→ evidencia
-```
-
-Los estados y valores `TBD` no representan datos operacionales inexistentes como si fueran hechos; representan explícitamente una capacidad pendiente de maduración.
+Cada transición deberá registrar CI, versión anterior, cambio, Issue, PR, commit, nueva versión, nueva baseline cuando corresponda, aprobación y evidencia.

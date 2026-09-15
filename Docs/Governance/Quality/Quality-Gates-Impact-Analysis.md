@@ -1,60 +1,59 @@
-# Análisis de impacto — Quality Gates Operationalization
+# Quality Gates — Análisis de impacto
 
 **Issue:** #43  
-**Branch:** `issue-43-quality-gates-operationalization`  
-**Estado:** Controlado en PR #44  
-**Fecha:** 2026-09-15
+**Estado:** En elaboración dentro de branch controlada  
 
 ## 1. Objetivo
 
-Evaluar el impacto de operacionalizar los Quality Gates G0–G13 y de introducir un catálogo machine-readable con criterios, checks, métricas, evidencia y decisiones.
+Evaluar el impacto de operacionalizar G0–G13 antes de integrar el cambio.
 
-## 2. Artefactos afectados
+## 2. Artefactos impactados
 
-| Área | Impacto | Acción |
+| Área | Artefacto | Impacto |
 |---|---|---|
-| Lifecycle | Alto | Gates asociados a fases A–O |
-| Governance | Alto | Criterios de avance y decisión operacionalizados |
-| Requirements | Alto | G3 incorpora checks objetivos y futuros automatizables |
-| Architecture | Medio | G5 exige evidencia y Decision Records aplicables |
-| Design | Medio | G6 exige trazabilidad de decisiones materiales |
-| Testing | Alto | G8 consume evidencia de verificación |
-| Security | Medio | Gates consideran evidencia de Security Validation |
-| Evidence | Alto | Cada gate define evidencia requerida |
-| Risk | Medio | Riesgos y condiciones forman parte de la decisión |
-| Decision Governance | Alto | Autoridad y Decision Records quedan integrados |
-| Metrics | Alto | Métricas pasan a ser evidencia formal cuando exista fuente confiable |
-| AI Governance | Medio | Aplicabilidad de controles de IA incorporada |
-| Data Governance | Medio | Se reserva integración conforme exista contexto de datos |
-| Supplier/Third-Party | Medio | Dependencias y proveedores se consideran en gates aplicables |
-| Quality Validation | Alto | QV queda explícitamente como fuente de evidencia, no como gate |
+| Governance | `04-Quality-Gates.md` | Alto: pasa de definición conceptual a definición operacional |
+| Quality | `12-Quality-Validation-Architecture.md` | Alto: QV pasa a ser fuente explícita de evidencia para gates |
+| Quality | `Quality/Quality-Gate-Catalog.yml` | Nuevo: catálogo machine-readable |
+| Requirements | Requisitos futuros | Alto: G3/G4 necesitarán fuentes estructuradas |
+| Architecture | Arquitectura futura | Medio/alto: G5 debe evaluar trazabilidad y decisiones |
+| Design | Diseño futuro | Medio: G6 requiere trazabilidad |
+| Testing | Pruebas futuras | Alto: G8 dependerá de evidencia de verificación |
+| Risk | Risk Register | Medio/alto: riesgos condicionan decisiones de gates |
+| Decision | ADR/EDR | Medio/alto: autoridades y decisiones materiales deben quedar trazables |
+| Security | Security Validation | Medio: evidencia de seguridad alimenta gates aplicables |
+| Evidence | Evidence Validation | Alto: evidencia pasa a ser insumo formal del gate |
+| Metrics | Metric Catalog | Alto: métricas de gate necesitan definiciones y fuentes |
+| AI | AI Governance | Medio: controles AI aplican cuando el alcance lo requiera |
+| Supplier | Third-Party Governance | Medio: dependencias externas pueden bloquear gates críticos |
+| Lifecycle | `00-Software-Lifecycle-Master.md` | Medio: gates formalizan decisiones de transición |
 
-## 3. Riesgos y mitigaciones
+## 3. Principio de integración
 
-- **Riesgo:** convertir criterios provisionales en resultados reales. **Mitigación:** no inventar valores; registrar estado y limitaciones.
-- **Riesgo:** confundir QV PASS con Gate PASS. **Mitigación:** separación explícita de responsabilidades.
-- **Riesgo:** automatizar juicio humano. **Mitigación:** clasificación AUTOMATED/HYBRID/HUMAN.
-- **Riesgo:** renumerar G3/G4 sin trazabilidad. **Mitigación:** conservar IDs vigentes y exigir Decision Record + análisis de impacto para una renumeración futura.
-- **Riesgo:** catálogo desactualizado respecto de los gates documentales. **Mitigación:** ambos artefactos forman parte de la unidad de cambio.
+No se pretende automatizar todo el juicio de ingeniería. La operacionalización separa:
 
-## 4. Trazabilidad
+- hechos comprobables por máquina;
+- comprobaciones híbridas;
+- decisiones que requieren autoridad humana.
 
-```text
-Issue #43
-  ↓
-PR #44
-  ↓
-04-Quality-Gates.md
-  ↓
-Quality-Gate-Catalog.yml
-  ↓
-12-Quality-Validation-Architecture.md
-  ↓
-Validation Evidence
-  ↓
-Quality Gate Decision
-```
+## 4. Riesgos del cambio
 
-## 5. Resultado
+- Falsos PASS por fuentes incompletas.
+- Falsos BLOCKED por datos todavía no disponibles.
+- Umbrales arbitrarios sin baseline.
+- Automatización de criterios que en realidad requieren juicio.
+- Duplicación entre Quality Validation y Quality Gate.
+- Desalineación entre métricas y fuentes operacionales.
 
-El impacto se considera controlado para esta unidad documental. La automatización completa queda condicionada a la existencia de fuentes estructuradas para requisitos, arquitectura, pruebas, datos, infraestructura y telemetría operacional.
+## 5. Mitigaciones
+
+- catálogo con clasificación de automatización;
+- evidencia obligatoria;
+- fuente y limitaciones para métricas;
+- separación QV vs Gate Decision;
+- autoridad explícita;
+- REOPEN ante cambios que invaliden evidencia;
+- prohibición de inventar datos o aceptación.
+
+## 6. Criterio de cierre
+
+El impacto se considera controlado cuando los artefactos afectados quedan actualizados o la dependencia futura queda registrada explícitamente, sin introducir afirmaciones no verificadas.

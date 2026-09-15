@@ -27,20 +27,7 @@ El objetivo no es documentar únicamente el resultado de una decisión. El regis
 
 ## 2. Alcance
 
-La gobernanza se aplica a decisiones relevantes de:
-
-- arquitectura del Ecosistema;
-- arquitectura de software;
-- datos e información;
-- integración e interfaces;
-- seguridad e identidad;
-- infraestructura y despliegue;
-- observabilidad y operación;
-- proveedores y servicios externos;
-- tecnología y dependencias estratégicas;
-- inteligencia artificial y modelos cuando corresponda;
-- diseño técnico cuando la decisión tenga consecuencias significativas;
-- investigación cuando una decisión metodológica pueda afectar resultados o reproducibilidad.
+La gobernanza se aplica a decisiones relevantes de arquitectura del Ecosistema, arquitectura de software, datos e información, integración e interfaces, seguridad e identidad, infraestructura y despliegue, observabilidad y operación, proveedores y servicios externos, tecnología y dependencias estratégicas, inteligencia artificial y modelos cuando corresponda, diseño técnico e investigación metodológica.
 
 No toda decisión cotidiana requiere un Decision Record. El criterio es la **materialidad de sus consecuencias, irreversibilidad, riesgo, coste, alcance o impacto futuro**.
 
@@ -48,15 +35,11 @@ No toda decisión cotidiana requiere un Decision Record. El criterio es la **mat
 
 ### 3.1 Architecture Decision Record — ADR
 
-Se utilizará para decisiones que definan o modifiquen aspectos estructurales de la arquitectura del sistema o del software.
-
-Identificador: `ADR-NNN`.
+Se utilizará para decisiones que definan o modifiquen aspectos estructurales de la arquitectura del sistema o del software. Identificador: `ADR-NNN`.
 
 ### 3.2 Engineering Decision Record — EDR
 
-Se utilizará para decisiones técnicas relevantes que no constituyan necesariamente una decisión arquitectónica, pero cuyo razonamiento deba conservarse como evidencia de ingeniería.
-
-Identificador: `EDR-NNN`.
+Se utilizará para decisiones técnicas relevantes que no constituyan necesariamente una decisión arquitectónica, pero cuyo razonamiento deba conservarse como evidencia de ingeniería. Identificador: `EDR-NNN`.
 
 Los dos tipos utilizan la misma estructura mínima y reglas de gobernanza.
 
@@ -81,9 +64,9 @@ Debe considerarse obligatorio cuando una decisión:
 9. presenta trade-offs relevantes entre calidad, coste, riesgo, tiempo o complejidad;
 10. es difícil o costosa de revertir;
 11. modifica una decisión previa;
-12. puede ser relevante para una auditoría, aceptación, investigación o explicación futura.
+12. puede ser relevante para auditoría, aceptación, investigación o explicación futura.
 
-Las decisiones reversibles y de bajo impacto pueden quedar registradas en otros mecanismos de trabajo cuando exista una justificación para no generar un record formal.
+Las decisiones reversibles y de bajo impacto pueden quedar registradas en otros mecanismos cuando exista una justificación para no generar un record formal.
 
 ## 6. Estructura obligatoria
 
@@ -110,104 +93,31 @@ Cuando corresponda también deberán registrarse `Owner`, `Review Date`, `Relate
 
 ## 7. Criterios de decisión
 
-Los criterios deberán derivarse del contexto real. Pueden incluir, según aplicabilidad:
-
-- adecuación funcional;
-- seguridad;
-- privacidad;
-- mantenibilidad;
-- disponibilidad;
-- rendimiento;
-- escalabilidad;
-- interoperabilidad;
-- observabilidad;
-- resiliencia;
-- coste total de propiedad;
-- complejidad operacional;
-- madurez tecnológica;
-- soporte y ciclo de vida;
-- dependencia de proveedor;
-- portabilidad;
-- licencia;
-- esfuerzo de implementación;
-- reversibilidad;
-- riesgo técnico;
-- impacto sobre requisitos;
-- reproducibilidad.
+Los criterios deberán derivarse del contexto real. Pueden incluir adecuación funcional, seguridad, privacidad, mantenibilidad, disponibilidad, rendimiento, escalabilidad, interoperabilidad, observabilidad, resiliencia, coste total de propiedad, complejidad operacional, madurez tecnológica, soporte y ciclo de vida, dependencia de proveedor, portabilidad, licencia, esfuerzo de implementación, reversibilidad, riesgo técnico, impacto sobre requisitos y reproducibilidad.
 
 No deberán inventarse pesos, métricas o datos cuantitativos cuando todavía no exista evidencia suficiente. Cuando se utilicen puntuaciones, debe explicarse la escala y su significado.
 
 ## 8. Alternativas
 
-El record debe conservar las alternativas materialmente relevantes que hayan sido consideradas.
-
-No es necesario listar opciones irrelevantes únicamente para aparentar exhaustividad. La exclusión de una alternativa significativa deberá poder explicarse.
-
-Cuando solo exista una opción técnicamente viable, el record debe indicar por qué las demás alternativas no son viables o no resultan aplicables.
+El record debe conservar las alternativas materialmente relevantes que hayan sido consideradas. No es necesario listar opciones irrelevantes únicamente para aparentar exhaustividad. Cuando solo exista una opción técnicamente viable, el record debe indicar por qué las demás alternativas no son viables o no resultan aplicables.
 
 ## 9. Trade-offs
 
-El análisis debe hacer visibles los compromisos aceptados. Por ejemplo:
-
-```text
-Menor coste inicial
-        ↕
-Mayor dependencia del proveedor
-```
-
-```text
-Mayor simplicidad operacional
-        ↕
-Menor capacidad de escalado futuro
-```
-
-Un Decision Record no debe presentar una alternativa como superior en todos los criterios si existe evidencia de compromisos reales.
+El análisis debe hacer visibles los compromisos aceptados. Un Decision Record no debe presentar una alternativa como superior en todos los criterios si existe evidencia de compromisos reales.
 
 ## 10. Riesgos
 
-Cada decisión deberá revisar si:
-
-- crea nuevos riesgos;
-- modifica la probabilidad o impacto de riesgos existentes;
-- reduce riesgos;
-- introduce dependencia de proveedor;
-- crea deuda técnica;
-- afecta controles de seguridad;
-- afecta continuidad u operación.
+Cada decisión deberá revisar si crea nuevos riesgos, modifica la probabilidad o impacto de riesgos existentes, reduce riesgos, introduce dependencia de proveedor, crea deuda técnica, afecta controles de seguridad o afecta continuidad u operación.
 
 Los riesgos relevantes deberán relacionarse con `Docs/Governance/Risk/Risk-Register.yml` cuando corresponda.
 
 ## 11. Evidence
 
-La evidencia puede incluir:
-
-- requisitos;
-- análisis comparativos;
-- pruebas de concepto;
-- benchmarks;
-- prototipos;
-- documentación técnica de proveedores;
-- resultados de pruebas;
-- análisis de seguridad;
-- análisis de costes;
-- experimentos;
-- datos operacionales;
-- evidencia científica;
-- Issues y Pull Requests;
-- referencias normativas o técnicas controladas.
-
-Una fuente externa debe conservar una referencia estable y suficiente para localizarla posteriormente cuando la naturaleza de la evidencia lo permita.
+La evidencia puede incluir requisitos, análisis comparativos, pruebas de concepto, benchmarks, prototipos, documentación técnica de proveedores, resultados de pruebas, análisis de seguridad, análisis de costes, experimentos, datos operacionales, evidencia científica, Issues, Pull Requests y referencias normativas o técnicas controladas.
 
 ## 12. Estados
 
-Estados controlados:
-
-- `proposed` — propuesta en análisis;
-- `accepted` — decisión adoptada como baseline;
-- `rejected` — alternativa/decisión propuesta y rechazada;
-- `superseded` — reemplazada por una decisión posterior;
-- `deprecated` — ya no recomendada, pero conservada como historia;
-- `withdrawn` — retirada antes de convertirse en baseline.
+Estados controlados: `proposed`, `accepted`, `rejected`, `superseded`, `deprecated`, `withdrawn`.
 
 Un Decision Record histórico no debe eliminarse para ocultar una decisión anterior. Cuando una decisión cambia, se crea o registra la nueva decisión y se establece la relación de supersession.
 
@@ -229,16 +139,7 @@ La historia no se reescribe: se extiende.
 
 ## 14. Relación con el ciclo de vida
 
-El Decision Governance es transversal al ciclo de vida y tiene especial relevancia en:
-
-- E — Definición y modelado del sistema;
-- F — Arquitectura;
-- G — Diseño;
-- H — Implementación y construcción;
-- I–J — cuando resultados de verificación/validación provoquen cambios de dirección;
-- K–L — decisiones de despliegue, operación y continuidad;
-- M–N — evolución y mejora;
-- O — decisiones de migración o retirada.
+El Decision Governance es transversal al ciclo de vida y tiene especial relevancia en E — Definición y modelado del sistema; F — Arquitectura; G — Diseño; H — Implementación y construcción; I–J cuando resultados provoquen cambios de dirección; K–L en decisiones de despliegue y operación; M–N en evolución y mejora; y O en migración o retirada.
 
 La Fase F incluye explícitamente **Architecture Decision Records** como artefacto y actividad arquitectónica.
 
@@ -276,30 +177,13 @@ Decision
 
 ## 16. Relación con Quality Gates
 
-Los gates deberán considerar Decision Records cuando una decisión relevante sea necesaria para demostrar la preparación o aceptación de una fase.
-
-En particular:
-
-- G4 puede requerir decisiones sobre límites y definición del sistema;
-- G5 requiere decisiones arquitectónicas relevantes y su evaluación;
-- G6 puede requerir decisiones de diseño materialmente significativas;
-- G7–G8 pueden requerir decisiones técnicas que afecten construcción y verificación;
-- G9–G11 pueden requerir decisiones de aceptación, despliegue u operación;
-- G12 requiere decisiones de evolución cuando cambie la baseline.
+Los gates deberán considerar Decision Records cuando una decisión relevante sea necesaria para demostrar la preparación o aceptación de una fase. G5 requiere decisiones arquitectónicas relevantes y su evaluación; G6 puede requerir decisiones de diseño materialmente significativas; G12 requiere decisiones de evolución cuando cambie la baseline.
 
 Un `PASS` de validaciones automatizadas no constituye aprobación de una decisión. La decisión debe ser evaluada según su autoridad, evidencia y contexto.
 
 ## 17. Gobernanza de aprobación
 
-La autoridad para aceptar una decisión dependerá de su alcance e impacto.
-
-Como regla inicial:
-
-- decisiones técnicas locales: revisión de ingeniería correspondiente;
-- decisiones de arquitectura: revisión arquitectónica;
-- decisiones con impacto de negocio: participación del responsable de negocio/stakeholder correspondiente;
-- decisiones con riesgos materiales: participación del Risk Owner y autoridad pertinente;
-- decisiones con impacto significativo de seguridad: revisión de seguridad cuando corresponda.
+La autoridad para aceptar una decisión dependerá de su alcance e impacto. Como regla inicial: decisiones técnicas locales requieren revisión de ingeniería correspondiente; decisiones de arquitectura, revisión arquitectónica; decisiones con impacto de negocio, participación del stakeholder correspondiente; decisiones con riesgos materiales, participación del Risk Owner y autoridad pertinente; decisiones con impacto significativo de seguridad, revisión de seguridad cuando corresponda.
 
 La gobernanza no inventará una jerarquía organizativa que todavía no haya sido descubierta. Los roles concretos se precisarán durante B y C.
 
@@ -311,18 +195,7 @@ Ejemplos como PostgreSQL, Kubernetes, REST, GraphQL, un proveedor concreto o una
 
 ## 19. Automatización futura
 
-La capacidad podrá evolucionar hacia:
-
-- validación de estructura de ADR/EDR;
-- validación de identificadores únicos;
-- detección de referencias rotas;
-- detección de `Status` inválido;
-- comprobación de relaciones `Supersedes` / `Superseded by`;
-- validación de links hacia Issues, requisitos y riesgos;
-- detección de Decision Records sin evidencia;
-- métricas de decisiones por estado, dominio y fase;
-- detección de decisiones potencialmente obsoletas;
-- generación de índices y grafos de trazabilidad.
+La capacidad podrá evolucionar hacia validación de estructura, identificadores únicos, referencias rotas, estados válidos, relaciones de supersession, links hacia Issues/requisitos/riesgos, Decision Records sin evidencia, métricas, detección de obsolescencia y generación de índices/grafos de trazabilidad.
 
 Ninguna automatización futura deberá declararse implementada antes de disponer de código/workflow y evidencia ejecutable.
 
@@ -330,15 +203,7 @@ Ninguna automatización futura deberá declararse implementada antes de disponer
 
 Esta baseline establece la **capacidad documental inicial de Decision Governance**. No implica que las decisiones futuras del Ecosistema ya estén tomadas ni que los ADR/EDR estén automatizados.
 
-La madurez aumentará mediante:
-
-1. uso real;
-2. decisiones efectivamente registradas;
-3. revisiones y aprobaciones trazables;
-4. relaciones con requisitos y riesgos;
-5. evidencia objetiva;
-6. supersession correctamente gestionada;
-7. automatización progresiva.
+La madurez aumentará mediante uso real, decisiones efectivamente registradas, revisiones y aprobaciones trazables, relaciones con requisitos y riesgos, evidencia objetiva, supersession correctamente gestionada y automatización progresiva.
 
 ## 21. Artefactos controlados
 

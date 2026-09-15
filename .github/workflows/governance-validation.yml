@@ -37,6 +37,17 @@ jobs:
             exit 1
           fi
 
+          if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(?:-[a-z0-9]+)*$'; then
+            echo "ERROR: La branch debe cumplir issue-<numero>-<slug-corto>."
+            exit 1
+          fi
+
+          issue_number=$(printf '%s\n' "$PR_HEAD_REF" | sed -E 's/^issue-([0-9]+)-.*/\1/')
+          if [[ "$PR_BODY" != *"#$issue_number"* ]]; then
+            echo "ERROR: La branch referencia Issue #$issue_number, pero el cuerpo del PR no contiene esa referencia."
+            exit 1
+          fi
+
           if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then
             echo "ERROR: El título del Pull Request debe cumplir: Módulo/Archivo: Acción a realizar."
             exit 1
@@ -72,7 +83,7 @@ jobs:
             exit 1
           fi
 
-          echo "OK: Metadatos, título, labels y línea base del Pull Request conformes."
+          echo "OK: Metadatos, título, labels, Issue/branch y línea base del Pull Request conformes."
 
       - name: Repository governance baseline
         run: |

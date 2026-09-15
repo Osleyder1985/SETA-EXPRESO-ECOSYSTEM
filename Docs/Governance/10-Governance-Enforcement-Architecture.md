@@ -1,17 +1,17 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.7.0  
+**Versión:** 0.8.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #37
 
 ---
 
 ## 1. Propósito
 
-Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia, Decision Governance y medición.
+Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia, Decision Governance, AI Governance y medición.
 
 Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
 
@@ -37,6 +37,11 @@ Issue → Work Branch → Pull Request
                      ├── Decision Governance
                      │       │
                      │       └── ADR / EDR
+                     │
+                     ├── AI Governance (when applicable)
+                     │       ├── AI Use / Model Inventory
+                     │       ├── Risk / Security / Privacy
+                     │       └── Evaluation / Human Oversight
                      ▼
              Quality Validation
                      │
@@ -67,7 +72,7 @@ Issue → Work Branch → Pull Request
              Interpretation / Action
 ```
 
-Governance, Decision Governance, Quality, Security, Evidence Validation y Metrics Governance son capacidades relacionadas pero distinguibles. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
+Governance, Decision Governance, AI Governance, Quality, Security, Evidence Validation y Metrics Governance son capacidades relacionadas pero distinguibles. `main` dispone de detección posterior al cambio, pero no de protección nativa bajo las restricciones actuales.
 
 ## 4. Niveles de control
 
@@ -78,6 +83,7 @@ Governance, Decision Governance, Quality, Security, Evidence Validation y Metric
 | D-Detectivo | Detecta incumplimiento después o durante la operación | Push a `main` sin PR asociado | Implementado |
 | G-Gobernanza | Política, evidencia y responsabilidad | Issue + PR + revisión | Vigente |
 | DG-Decisión | Conserva y controla decisiones materiales | ADR / EDR | Documental operativo inicial |
+| AI-Gobernanza | Controla usos, modelos, datos, evaluación e incidentes de IA | AI Inventory + TEVV + Oversight | Documental operativo inicial |
 | M-Métrico | Convierte controles y resultados en indicadores reproducibles | Catálogo + dashboard | Documental operativo inicial |
 
 La etiqueta `P-Compensatorio` nunca debe describirse como equivalente a branch protection nativa.
@@ -99,13 +105,14 @@ Todo PR nuevo destinado a `main` deberá poder verificarse automáticamente, com
 11. controles de Quality Validation aplicables satisfechos;
 12. controles de Security Validation aplicables satisfechos;
 13. controles de Evidence Validation aplicables satisfechos;
-14. Decision Records aplicables identificados y trazables cuando el cambio implique una decisión material.
+14. Decision Records aplicables identificados y trazables cuando el cambio implique una decisión material;
+15. AI Governance aplicable identificada cuando el cambio introduzca o modifique un uso material de IA.
 
 ## 6. Quality, Security y Evidence Validation
 
 Quality Validation comprueba propiedades objetivas de calidad del repositorio. Security Validation comprueba propiedades objetivas de seguridad aplicables. Evidence Validation comprueba que la unidad de cambio conserva evidencia mínima, trazable y verificable.
 
-Ninguna de las tres capas sustituye revisión humana, pruebas específicas, Quality Gates, Decision Governance o evaluación integral del producto.
+Ninguna de las tres capas sustituye revisión humana, pruebas específicas, Quality Gates, Decision Governance, AI Governance o evaluación integral del producto.
 
 ## 7. Decision Governance
 
@@ -113,34 +120,29 @@ Decision Governance constituye una capacidad transversal de control del razonami
 
 Los Decision Records no son un sustituto del control de cambios: complementan Issue, análisis de impacto, PR y evidencia, conservando el contexto, las alternativas, los criterios, los trade-offs, las consecuencias, los riesgos y la evidencia que justifican una decisión material.
 
-La automatización avanzada de índice, enlaces, esquema y supersession queda planificada y no se declara implementada hasta contar con controles reproducibles.
+## 8. AI Governance
 
-## 8. Evidence Validation
+AI Governance se define en `23-AI-Governance.md` y `24-AI-Governance-Control-Matrix.md`. Se activa cuando exista uso material de IA y distingue tres dominios:
+
+- `build-time`;
+- `product-runtime`;
+- `research`.
+
+Los controles incluyen inventario de usos/modelos, procedencia de datos, gobernanza de prompts, evaluación/TEVV, seguridad, privacidad, fairness, factualidad/alucinaciones, human oversight, reproducibilidad e incident management.
+
+La automatización futura de inventarios, evaluación, seguridad, drift y dashboard no se considera implementada hasta disponer de código y evidencia ejecutable.
+
+## 9. Evidence Validation
 
 La arquitectura de Evidence Validation se define en `14-Evidence-Validation-Architecture.md`.
 
-Sus controles iniciales EV-001..EV-005 comprueban:
+Sus controles iniciales EV-001..EV-005 comprueban estructura mínima de evidencia, relación Issue–PR, identidad determinista del commit evaluado, declaración de validaciones y baseline documental.
 
-- estructura mínima de evidencia en el PR;
-- relación Issue–PR;
-- identidad determinista del commit evaluado;
-- declaración de Governance, Quality, Security y Evidence Validation;
-- presencia de la baseline documental de evidencia.
+## 10. Controles sobre `main`
 
-EV-006..EV-009 quedan planificados o no aplicables hasta disponer de resultados de workflows correlacionables, pruebas, releases, despliegues y necesidades de integridad/procedencia más avanzadas.
+Ante cada `push` a `main`, la automatización deberá registrar SHA, actor y mensaje; identificar asociación con Pull Requests cuando sea posible; distinguir integración mediante PR de actualización sin PR; marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado; conservar evidencia detectiva y no afirmar que la automatización revirtió o impidió el cambio.
 
-## 9. Controles sobre `main`
-
-Ante cada `push` a `main`, la automatización deberá:
-
-1. registrar SHA, actor y mensaje;
-2. identificar si el commit está asociado a uno o más Pull Requests mediante la API cuando sea posible;
-3. distinguir integración mediante PR de actualización sin PR asociado;
-4. marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado;
-5. conservar el resultado como evidencia detectiva;
-6. no afirmar que la automatización revirtió o impidió el cambio.
-
-## 10. Línea base mínima
+## 11. Línea base mínima
 
 Los siguientes artefactos forman parte de la baseline de enforcement:
 
@@ -165,6 +167,8 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 - `20-Decision-Governance-Control-Matrix.md`
 - `21-Engineering-Metrics-Governance.md`
 - `22-Engineering-Metrics-Control-Matrix.md`
+- `23-AI-Governance.md`
+- `24-AI-Governance-Control-Matrix.md`
 - `Docs/Architecture/Decision-Records/README.md`
 - `Docs/Architecture/Decision-Records/ADR-Template.md`
 - `Docs/Architecture/Decision-Records/EDR-Template.md`
@@ -176,70 +180,32 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 
 La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente cuando el control sea aplicable.
 
-## 11. Governance Gate Enforcement
+## 12. Governance Gate Enforcement
 
 Los Quality Gates utilizan controles de readiness específicos definidos en `11-Governance-Control-Matrix.md`. Para G0, los controles `GC-001` a `GC-004` verifican respectivamente la evaluación formal de readiness, el análisis de impacto, la existencia del paquete de evidencia y la explicitación del riesgo residual.
 
-La arquitectura de enforcement no sustituye la decisión del Gate. Su función es garantizar que la decisión se apoye en evidencia localizable y que las limitaciones técnicas no se oculten.
-
-## 12. Metrics Governance
+## 13. Metrics Governance
 
 Metrics Governance convierte los resultados observables del proceso de ingeniería en indicadores definidos y reproducibles. Su política, catálogo y matriz de controles se encuentran en `21-Engineering-Metrics-Governance.md` y `22-Engineering-Metrics-Control-Matrix.md`.
 
-La capa métrica es principalmente de medición, diagnóstico y retroalimentación. No debe presentarse como enforcement preventivo ni como sustituto de los controles de Governance, Quality, Security o Evidence.
-
-El catálogo define la semántica de cada métrica; el Dashboard es una vista derivada. Una métrica sin fuente operacional suficiente permanece en estado `defined`, `provisional` o `blocked` y no debe convertirse artificialmente en cero ni en cumplimiento.
-
-La evolución prevista es:
-
-```text
-Sources → Collection → Calculation → Snapshots → Trends → Alerts → Actions → Outcomes
-```
-
-## 13. Residual risk
+## 14. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-## 14. Métricas iniciales
+## 15. Métricas iniciales
 
-La arquitectura deberá permitir medir progresivamente:
+La arquitectura deberá permitir medir progresivamente el cumplimiento de Governance, Quality, Security, Evidence, Decision Governance y AI Governance, además de actualizaciones sospechosas de `main` y disponibilidad/frescura de evidencia.
 
-- `% PR con Governance Validation PASS`;
-- `% PR con Quality Validation PASS`;
-- `% PR con Security Validation PASS`;
-- `% PR con Evidence Validation PASS`;
-- `% PR con Issue válida`;
-- `% PR con análisis de impacto`;
-- `% PR con Decision Record aplicable correctamente trazado`;
-- `% pushes a main asociados a PR`;
-- `número de actualizaciones sospechosas de main`;
-- `número de fallos por control y capa`;
-- disponibilidad y cobertura de las métricas definidas;
-- antigüedad de datos y frescura de snapshots;
-- métricas con evidencia insuficiente o estado bloqueado.
-
-## 15. Evolución hacia enforcement nativo
+## 16. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
-```text
-Compensatorio + Detectivo + Gobernanza
-              ↓
-       Enforcement nativo
-              ↓
-Compensatorio + Detectivo + Gobernanza + Preventivo
-```
-
-## 16. Criterio de verdad
+## 17. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
-La afirmación correcta durante la restricción actual es:
+## 18. Evidencia de implementación
 
-> `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
-
-## 17. Evidencia de implementación
-
-La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, resultados de validación, métricas y snapshots cuando existan, estado final de integración y documentación actualizada.
+La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, registros de AI Governance cuando existan usos reales, resultados de validación, métricas y snapshots cuando existan, estado final de integración y documentación actualizada.

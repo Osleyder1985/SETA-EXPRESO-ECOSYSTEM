@@ -105,7 +105,7 @@ jobs:
           ' <<< "$PR_BODY")
 
           if [[ -z "$metadata" ]]; then
-            echo "ERROR: missing ```yaml governance metadata block."
+            echo 'ERROR: missing YAML governance metadata block.'
             exit 1
           fi
 

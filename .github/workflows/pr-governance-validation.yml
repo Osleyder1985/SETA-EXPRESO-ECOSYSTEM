@@ -1,0 +1,105 @@
+name: PR Governance Validation
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-pr-governance:
+    name: Validate PR governance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate source branch naming
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$HEAD_REF" == "main" ]]; then
+            echo "ERROR: main cannot be used as the PR source branch."
+            exit 1
+          fi
+          if [[ ! "$HEAD_REF" =~ ^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+            echo "ERROR: invalid branch name: $HEAD_REF"
+            echo "Expected: issue-<numero>-<descripcion-corta>"
+            exit 1
+          fi
+          echo "Branch naming OK: $HEAD_REF"
+
+      - name: Validate PR body contract
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          body="$PR_BODY"
+
+          required_sections=(
+            "## Objetivo"
+            "## Cambios"
+            "## Análisis de impacto"
+            "## Evidencia esperada"
+            "## Relación"
+          )
+
+          for section in "${required_sections[@]}"; do
+            if ! grep -Fq "$section" <<< "$body"; then
+              echo "ERROR: missing required PR section: $section"
+              exit 1
+            fi
+          done
+
+          impact=$(awk '/^## Análisis de impacto[[:space:]]*$/{flag=1; next} /^## /{flag=0} flag' <<< "$body" | sed '/^[[:space:]]*$/d')
+          evidence=$(awk '/^## Evidencia esperada[[:space:]]*$/{flag=1; next} /^## /{flag=0} flag' <<< "$body" | sed '/^[[:space:]]*$/d')
+
+          if [[ -z "$impact" ]]; then
+            echo "ERROR: ## Análisis de impacto must contain content."
+            exit 1
+          fi
+
+          if [[ -z "$evidence" ]]; then
+            echo "ERROR: ## Evidencia esperada must contain content."
+            exit 1
+          fi
+
+          if ! grep -Eq '^## (Issue|Relación)' <<< "$body"; then
+            echo "ERROR: PR must declare an Issue relationship."
+            exit 1
+          fi
+
+          issue_ref=$(grep -Eio '(^|[^0-9])#([0-9]+)' <<< "$body" | grep -Eo '#[0-9]+' | head -n1 || true)
+          if [[ -z "$issue_ref" ]]; then
+            echo "ERROR: PR must contain a GitHub Issue reference such as #112."
+            exit 1
+          fi
+
+          if grep -Eq '^[[:space:]]*Issue:[[:space:]]*$' <<< "$body"; then
+            echo "ERROR: Issue field is empty."
+            exit 1
+          fi
+
+          if [[ -z "$PR_TITLE" ]]; then
+            echo "ERROR: PR title cannot be empty."
+            exit 1
+          fi
+
+          echo "PR body contract OK; Issue reference detected: $issue_ref"
+
+      - name: Validate PR does not target main from main
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          HEAD_REF: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$BASE_REF" == "main" && "$HEAD_REF" == "main" ]]; then
+            echo "ERROR: direct main-to-main integration is forbidden."
+            exit 1
+          fi
+          echo "PR integration path OK: $HEAD_REF -> $BASE_REF"

@@ -77,14 +77,14 @@ jobs:
         run: |
           set -euo pipefail
           required=(
-            Docs/Governance/03-Artifacts-And-Evidence.md
-            Docs/Governance/10-Governance-Enforcement-Architecture.md
-            Docs/Governance/14-Evidence-Validation-Architecture.md
-            Docs/Governance/21-Engineering-Metrics-Governance.md
-            Docs/Governance/22-Engineering-Metrics-Control-Matrix.md
-            Docs/Governance/Metrics/Metric-Catalog.yml
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.md
-            Docs/Governance/Metrics/Engineering-Governance-Dashboard.html
+            docs/Governance/03-Artifacts-And-Evidence.md
+            docs/Governance/10-Governance-Enforcement-Architecture.md
+            docs/Governance/14-Evidence-Validation-Architecture.md
+            docs/Governance/21-Engineering-Metrics-Governance.md
+            docs/Governance/22-Engineering-Metrics-Control-Matrix.md
+            docs/Governance/Metrics/Metric-Catalog.yml
+            docs/Governance/Metrics/Engineering-Governance-Dashboard.md
+            docs/Governance/Metrics/Engineering-Governance-Dashboard.html
             .github/workflows/governance-validation.yml
             .github/workflows/quality-validation.yml
             .github/workflows/security-validation.yml

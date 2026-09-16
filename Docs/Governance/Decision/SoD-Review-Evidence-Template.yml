@@ -1,0 +1,11 @@
+version: 1.0.0
+issue: 49
+change_id: CHG-XXX
+risk_id: RISK-XXX
+sod_status: NOT_APPLICABLE
+independence_required: false
+reviewer: ""
+approver: ""
+validator: ""
+evidence: []
+exception_id: null

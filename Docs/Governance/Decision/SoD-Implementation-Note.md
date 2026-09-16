@@ -1,12 +1,13 @@
 # Nota de implementación de SoD
 
 **Issue:** #49  
-**Estado:** En preparación controlada
+**Problema:** #11  
 
-## Desviación de proceso registrada
-Durante la preparación inicial de Issue #49 se realizaron accidentalmente escrituras sobre `main` antes de crear la rama dedicada. Esto contradice el flujo establecido Issue → Branch → PR.
+## Desviación histórica
+La preparación inicial de Issue #49 produjo accidentalmente escrituras directas sobre `main` antes de completar el flujo Issue → Branch → PR. Los commits históricos se conservan deliberadamente y no se reescribe la historia.
 
-Los commits afectados se conservan deliberadamente para mantener trazabilidad histórica. La corrección operativa consiste en continuar desde el estado actual, crear la rama de trabajo y retirar de `main` los artefactos de preparación mediante commits trazables, sin reescribir historia.
+## Continuación controlada
+La implementación controlada se continúa desde la rama `issue-49-sod-final`, derivada del estado actual de `main`. La desviación histórica no constituye una excepción normativa ni un precedente.
 
-## Principio
-La desviación no se considera una justificación para eliminar evidencia histórica. Debe quedar registrada y servir como entrada para la mejora del enforcement del flujo de cambios.
+## Criterio
+La segregación de funciones se implementa como capacidad de gobernanza documental/estructural y se validará sobre el HEAD final del PR. No se afirmará enforcement técnico inexistente.

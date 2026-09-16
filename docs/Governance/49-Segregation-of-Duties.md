@@ -1,8 +1,8 @@
 # Segregation of Duties (SoD)
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issue principal:** #52  
 **Issues relacionados:** #47, #66, #33
 
@@ -67,3 +67,7 @@ SoD se evalúa conjuntamente con Decision Governance, Decision Authority, Change
 ## 8. Madurez
 
 Esta política es un control documental y de proceso. No se afirma que GitHub impida automáticamente toda concentración de funciones hasta disponer de controles técnicos configurados y evidencia ejecutable.
+
+## 9. Estado de baseline
+
+La política está integrada en `main` como **baseline vigente** mediante el flujo controlado de Issue → Branch → Pull Request → validaciones → revisión/SoD → Merge. La vigencia documental no implica que todos los controles definidos estén técnicamente automatizados; cada control conserva su estado de implementación y debe respaldarse con evidencia verificable cuando aplique.

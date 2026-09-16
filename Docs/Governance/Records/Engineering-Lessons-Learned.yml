@@ -34,3 +34,36 @@ Lessons:
       - 81
     Related-Commits:
       - 33053c2669d4769dc642a5c1ea8358942200cab0
+
+  - Lesson-ID: LESSON-002
+    Date: 2026-09-15
+    Detected-In: PR-81
+    Category: QUALITY
+    Problem: "El nuevo .github/pull_request_template.md no comenzaba con un encabezado H1."
+    Failure-Symptom: "Quality Validation QV-002 falló porque el primer contenido del archivo no coincidía con el patrón de encabezado H1 requerido por el workflow."
+    Root-Cause: "Al crear un nuevo artefacto Markdown para resolver EV-001, no se verificaron los contratos de los demás validadores globales aplicables al repositorio."
+    Impact: "Bloqueó Quality Validation y añadió una iteración correctiva adicional al PR #81."
+    Detection-Mechanism: "GitHub Actions — Quality Validation / QV-002."
+    Resolution: "Agregar el encabezado H1 '# Pull Request Template' como primera línea del archivo y volver a ejecutar todas las validaciones aplicables."
+    Preventive-Control: "Antes de crear o modificar cualquier artefacto, revisar los contratos de todos los workflows aplicables; verificar físicamente el archivo corregido y validar el nuevo HEAD antes de considerar resuelto el incidente."
+    Automation-Candidate: WORKFLOW
+    Affected-Workflow:
+      - Quality Validation
+      - Governance Validation
+      - Security Validation
+      - Evidence Validation
+    Affected-Artifacts:
+      - .github/pull_request_template.md
+      - Docs/Governance/Records/Engineering-Lesson-Template.yml
+      - Docs/Governance/Records/Engineering-Lessons-Learned.yml
+    Verification: "Corrección aplicada en el commit 4ffcad63b495f103b7d00d71236ea5e2ce1d211b; pendiente de verificar la ejecución de todos los workflows sobre el nuevo HEAD."
+    Status: MITIGATED
+    Evidence:
+      - "Quality Validation QV-002 en PR #81"
+      - "Commit 4ffcad63b495f103b7d00d71236ea5e2ce1d211b"
+    Related-Issues:
+      - 80
+    Related-PRs:
+      - 81
+    Related-Commits:
+      - 4ffcad63b495f103b7d00d71236ea5e2ce1d211b

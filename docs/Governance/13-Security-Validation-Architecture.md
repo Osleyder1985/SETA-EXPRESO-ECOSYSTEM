@@ -11,7 +11,7 @@ Security Validation es una capa transversal para detectar condiciones objetivas 
 ## Cadena de control
 
 ```text
-Issue → Branch → Pull Request → Governance Validation → Quality Validation → Security Validation → Evidence Validation → Review → Merge → main
+Issue → Branch → Pull Request → Validate governance controls → Validate repository quality → Validate security controls → Validate engineering evidence → Review → Merge → main
 ```
 
 ## Controles iniciales

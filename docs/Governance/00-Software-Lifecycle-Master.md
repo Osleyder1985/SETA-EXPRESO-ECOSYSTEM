@@ -2,7 +2,7 @@
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Versión:** 0.3.0  
-**Estado:** Candidato a baseline controlada  
+**Estado:** Baseline controlada vigente  
 **Idioma documental:** Español  
 **Convención de nombres:** Inglés, Title Case por segmentos y palabras separadas por guiones  
 **Fecha:** 2026-09-15
@@ -635,4 +635,4 @@ Este documento es un artefacto controlado. Sus modificaciones deberán seguir el
 
 Las versiones del documento representan estados controlados del marco de ingeniería. La aprobación de una versión no impide su evolución posterior cuando nueva evidencia o cambios del contexto lo justifiquen.
 
-**Estado de esta versión:** Candidato a baseline controlada; requiere revisión mediante Pull Request y cumplimiento de los criterios de aceptación del Issue que originó el cambio.
+**Estado de esta versión:** Baseline controlada vigente; aprobada mediante cambio controlado asociado al Issue #100.

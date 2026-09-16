@@ -1,0 +1,16 @@
+version: 1.0.0
+status: proposed
+issue: 49
+functions:
+  - DEFINE
+  - EXECUTE
+  - APPROVE
+  - VERIFY
+  - VALIDATE
+  - BLOCK
+  - REVIEW
+risk_levels:
+  R1: "Acumulación permitida con autocontrol y evidencia mínima."
+  R2: "Revisión independiente según impacto y dominio."
+  R3: "Separación de aprobación y ejecución cuando sea viable."
+  R4: "Independencia reforzada; no concentración de definición, aprobación, ejecución y validación cuando exista alternativa viable."

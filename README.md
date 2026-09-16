@@ -14,6 +14,22 @@ El proyecto se encuentra en la consolidación de su **fundación de ingeniería*
 
 La construcción funcional no se inicia por defecto hasta que las fases precedentes del ciclo de vida proporcionen la definición y evidencia necesarias.
 
+## Contribuir
+
+Antes de realizar cualquier cambio consulte:
+
+- `CONTRIBUTING.md`
+- `docs/Governance/`
+- Pull Request Template
+
+Todos los cambios requieren:
+
+```text
+Issue → Branch → PR → Validación → Merge
+```
+
+Los cambios no deben realizarse directamente sobre `main`. Todo trabajo debe conservar trazabilidad mediante Issue, Branch, Pull Request, validaciones automáticas y evidencia asociada.
+
 ## 🧭 Roadmap de Ingeniería
 
 El trabajo del Ecosistema se gobierna mediante un **Roadmap maestro derivado directamente de las fases A–O** de `docs/Governance/00-Software-Lifecycle-Master.md`.
@@ -77,192 +93,3 @@ El Roadmap conecta cada tramo con **entregables, Quality Gates, Issues, Pull Req
 - **Code and technical identifiers:** English by default, with justified exceptions when required by an external technology or integration.
 - **Documentation root:** `docs/`.
 
-Example:
-
-```text
-01-Software-Lifecycle-Audit.md
-02-Standards-Lifecycle-Matrix.md
-03-Artifacts-And-Evidence.md
-```
-
-## Repository Structure
-
-```text
-SETA-EXPRESO-ECOSYSTEM/
-├── README.md
-├── docs/
-│   ├── Governance/
-│   │   ├── AI/
-│   │   ├── Metrics/
-│   │   └── Risk/
-│   ├── Business/
-│   ├── Requirements/
-│   ├── Architecture/
-│   │   └── Decision-Records/
-│   ├── Design/
-│   ├── Testing/
-│   ├── Security/
-│   ├── DevOps/
-│   ├── Operations/
-│   ├── Data/
-│   ├── Research/
-│   └── Standards/
-├── Source/
-├── Tests/
-├── Infrastructure/
-├── Configuration/
-├── Scripts/
-└── .github/
-```
-
-Git no almacena directorios vacíos; las carpetas se crearán conforme existan artefactos que deban gestionarse en ellas.
-
-## Governance Documents
-
-- `docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.3.0.
-- `docs/Governance/01-Software-Lifecycle-Audit.md` — auditoría metodológica inicial.
-- `docs/Governance/02-Standards-Lifecycle-Matrix.md` — alineación del ciclo con referencias normativas y técnicas.
-- `docs/Governance/03-Artifacts-And-Evidence.md` — catálogo de artefactos y evidencias.
-- `docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
-- `docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
-- `docs/Governance/06-Change-Control-Workflow.md` — flujo obligatorio de Issue → Branch → Pull Request → `main` y control de impacto.
-- `docs/Governance/07-Main-Protection-Strategy.md` — estrategia de protección compensatoria de `main` bajo GitHub Free + repositorio privado.
-- `docs/Governance/08-Software-Roadmap.md` — Roadmap maestro de ejecución del ciclo de vida A–O.
-- `docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
-- `docs/Governance/19-Decision-Governance.md` — política formal de Architecture y Engineering Decision Records.
-- `docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
-- `docs/Governance/21-Engineering-Metrics-Governance.md` — política formal de métricas de ingeniería.
-- `docs/Governance/22-Engineering-Metrics-Control-Matrix.md` — matriz de controles de Metrics Governance.
-- `docs/Governance/23-AI-Governance.md` — política formal de AI Governance.
-- `docs/Governance/24-AI-Governance-Control-Matrix.md` — matriz de controles de AI Governance.
-- `docs/Governance/Metrics/Metric-Catalog.yml` — catálogo canónico de métricas.
-- `docs/Governance/Metrics/Engineering-Governance-Dashboard.md` — vista documental derivada del catálogo métrico.
-- `docs/Governance/Metrics/Engineering-Governance-Dashboard.html` — Dashboard visual derivado del catálogo.
-
-## AI Governance
-
-El Ecosistema distingue tres contextos de uso de IA:
-
-1. **Build-time AI** — IA utilizada para construir, analizar, documentar o automatizar la ingeniería.
-2. **Product/runtime AI** — IA incorporada al producto o a procesos operativos.
-3. **Research AI** — IA utilizada para investigación y experimentación.
-
-La baseline de AI Governance está definida en `docs/Governance/23-AI-Governance.md` y su matriz de controles en `docs/Governance/24-AI-Governance-Control-Matrix.md`.
-
-Los registros controlados están bajo `docs/Governance/AI/`:
-
-```text
-AI/
-├── README.md
-├── AI-Use-Inventory.yml
-├── Model-Inventory.yml
-├── Data-Provenance-Template.md
-├── Prompt-Record-Template.md
-├── Evaluation-Record-Template.md
-└── Incident-Record-Template.md
-```
-
-Los inventarios permanecen inicialmente sin casos/modelos registrados cuando no existe evidencia operacional. No se inventan adopciones, modelos ni evaluaciones.
-
-La gobernanza de IA integra riesgos, seguridad, privacidad, evaluación, supervisión humana, procedencia de datos, reproducibilidad e incident management con Risk Management, Decision Governance, Quality, Security, Evidence y Metrics Governance.
-
-## Decision Governance
-
-Las decisiones materiales de arquitectura e ingeniería se gestionarán mediante **Architecture Decision Records (ADR)** y **Engineering Decision Records (EDR)** cuando corresponda. Un Decision Record debe conservar el contexto, decisión, alternativas, criterios, trade-offs, consecuencias, riesgos, evidencia, estado y relaciones de supersession, además de trazabilidad y aprobación según aplicabilidad.
-
-Los registros controlados se almacenan en:
-
-```text
-docs/Architecture/Decision-Records/
-├── README.md
-├── ADR-Template.md
-├── EDR-Template.md
-└── Decision-Record-Index.md
-```
-
-Los ejemplos de decisiones futuras —como PostgreSQL, arquitectura modular, REST/GraphQL, Kubernetes, proveedor, identidad o arquitectura de IA— son **temas potenciales**, no decisiones aprobadas. No se registrarán como decisiones hasta disponer del contexto y la evidencia necesarios.
-
-## Engineering Metrics Governance
-
-El Ecosistema mantiene un sistema formal para definir, medir, interpretar y evolucionar indicadores de ingeniería. La capacidad cubre **Delivery, Quality, Requirements, Architecture, Security y Governance**.
-
-La fuente canónica es `docs/Governance/Metrics/Metric-Catalog.yml`. El Dashboard es una representación derivada y no reemplaza al catálogo ni a la evidencia operacional.
-
-Cada métrica debe conservar, según aplicabilidad, definición, fórmula, población, unidad, fuente, método de colección, frecuencia, owner, baseline, target, thresholds, disponibilidad, evidencia y limitaciones. Cuando todavía no existe evidencia operacional suficiente, el estado permanece explícitamente `defined`, `provisional` o `blocked`; no se inventan valores.
-
-La trazabilidad métrica es:
-
-```text
-Metric Definition
-  ↓
-Source
-  ↓
-Collection
-  ↓
-Calculation
-  ↓
-Snapshot / Evidence
-  ↓
-Interpretation
-  ↓
-Decision / Action
-  ↓
-Outcome
-```
-
-👉 **[Engineering Governance Dashboard](docs/Governance/Metrics/Engineering-Governance-Dashboard.html)**  
-👉 **[Metric Catalog](docs/Governance/Metrics/Metric-Catalog.yml)**
-
-## Change Control
-
-Los cambios del repositorio siguen un flujo obligatorio:
-
-```text
-Issue
-  ↓
-Análisis y alcance
-  ↓
-Branch
-  ↓
-Implementación
-  ↓
-Análisis de impacto
-  ↓
-Actualización de artefactos afectados
-  ↓
-Decision Record cuando corresponda
-  ↓
-Pruebas / evidencia
-  ↓
-Pull Request
-  ↓
-Revisión y aprobación
-  ↓
-Merge
-  ↓
-main
-```
-
-**No se realizan cambios de trabajo directamente sobre `main`.** Un Issue puede resolverse mediante uno o varios Pull Requests. Todo Pull Request deberá documentar en español el cambio, su motivo, alcance, impacto, artefactos afectados, pruebas/evidencias y relación con el Issue.
-
-Los cambios en definiciones, fórmulas, fuentes, alcance, targets o thresholds de métricas también requieren control de cambios y análisis de impacto.
-
-## 🏷️ Labels
-
-Todo **Issue** y **Pull Request** debe tener al menos un label pertinente.
-
-Baseline de clasificación actual:
-
-- `governance` — gobierno, ciclo de vida, políticas, control y planificación.
-- `documentation` — documentación, registros y evidencia documental.
-- `architecture` — arquitectura de sistema/software y decisiones estructurales.
-
-La taxonomía crecerá cuando el proyecto necesite dominios estables adicionales. Los nuevos labels deberán justificarse y documentarse antes de convertirse en clasificación oficial.
-
-👉 **[Política de Labels](docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md)**
-
-La regla completa de control de cambios está definida en `docs/Governance/06-Change-Control-Workflow.md`.
-
-## Engineering Principle
-
-> **No solamente construiremos el Ecosistema; construiremos y conservaremos la evidencia de ingeniería que demuestra cómo y por qué fue construido.**

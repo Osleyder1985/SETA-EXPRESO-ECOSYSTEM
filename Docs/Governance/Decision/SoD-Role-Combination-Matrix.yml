@@ -1,0 +1,34 @@
+version: 1.0.0
+status: proposed
+issue: 49
+classification:
+  ALLOWED: "Permitida bajo las condiciones del nivel de riesgo."
+  RESTRICTED: "Requiere revisión, evidencia o condición adicional."
+  PROHIBITED: "No permitida para el nivel de riesgo indicado."
+R1:
+  DEFINE_EXECUTE: ALLOWED
+  DEFINE_APPROVE: ALLOWED
+  EXECUTE_APPROVE: ALLOWED
+  EXECUTE_VERIFY: ALLOWED
+  EXECUTE_VALIDATE: ALLOWED
+R2:
+  DEFINE_EXECUTE: ALLOWED
+  DEFINE_APPROVE: RESTRICTED
+  EXECUTE_APPROVE: RESTRICTED
+  EXECUTE_VERIFY: RESTRICTED
+  EXECUTE_VALIDATE: RESTRICTED
+R3:
+  DEFINE_EXECUTE: RESTRICTED
+  DEFINE_APPROVE: RESTRICTED
+  EXECUTE_APPROVE: PROHIBITED
+  EXECUTE_VERIFY: RESTRICTED
+  EXECUTE_VALIDATE: PROHIBITED
+R4:
+  DEFINE_EXECUTE: RESTRICTED
+  DEFINE_APPROVE: PROHIBITED
+  EXECUTE_APPROVE: PROHIBITED
+  EXECUTE_VERIFY: PROHIBITED
+  EXECUTE_VALIDATE: PROHIBITED
+exception_policy:
+  permitted: true
+  requirements: [documented_justification, affected_risk, compensating_control, residual_risk, evidence, reevaluation_condition]

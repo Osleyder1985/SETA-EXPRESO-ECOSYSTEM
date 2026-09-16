@@ -1,0 +1,11 @@
+# CODEOWNERS
+# Responsable principal: @Osleyder1985
+
+# Configuración GitHub, workflows y automatizaciones
+/.github/ @Osleyder1985
+
+# Documentación de gobernanza
+/docs/Governance/ @Osleyder1985
+
+# Investigación, reproducibilidad y evidencia
+/docs/Research/ @Osleyder1985

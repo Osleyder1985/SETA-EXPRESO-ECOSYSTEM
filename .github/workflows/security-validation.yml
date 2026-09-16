@@ -43,8 +43,16 @@ jobs:
           failed=0
           while IFS= read -r workflow; do
             if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
-            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+
+            if [[ "$workflow" == ".github/workflows/governance-validation.yml" ]]; then
+              if ! grep -Eq '^[[:space:]]+issues:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+              if grep -Eq '^[[:space:]]+pull-requests:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+              if ! grep -q 'Ensure PR governance label' "$workflow"; then failed=1; fi
+              if ! grep -q '/issues/$PR_NUMBER/labels' "$workflow"; then failed=1; fi
+            else
+              if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
+              if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+            fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"

@@ -25,11 +25,11 @@ jobs:
       - name: SV-001 Secret Material Scan
         run: |
           set -euo pipefail
-          if git grep --cached -nE '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
+          if git grep --cached -nE -e '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
             echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."
             exit 1
           fi
-          if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!docs/Governance/13-Security-Validation-Architecture.md'; then
+          if git grep --cached -nE -e '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!docs/Governance/13-Security-Validation-Architecture.md'; then
             echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."
             exit 1
           fi
@@ -42,9 +42,32 @@ jobs:
           if [ "$workflow_count" -eq 0 ]; then exit 1; fi
           failed=0
           while IFS= read -r workflow; do
-            if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
-            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+            if ! grep -Eq '^permissions:' "$workflow"; then
+              echo "FAIL SV-002: missing top-level permissions declaration: $workflow"
+              failed=1
+              continue
+            fi
+
+            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then
+              echo "FAIL SV-002: broad write permissions are forbidden: $workflow"
+              failed=1
+            fi
+
+            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then
+              if [[ "$workflow" != ".github/workflows/label-classification.yml" ]]; then
+                echo "FAIL SV-002: write permission is not authorized for this workflow: $workflow"
+                failed=1
+              else
+                if ! grep -Eq '^  pull-requests:[[:space:]]*write[[:space:]]*$' "$workflow"; then
+                  echo "FAIL SV-002: label classifier must declare pull-requests: write explicitly: $workflow"
+                  failed=1
+                fi
+                if grep -Eq '^  [A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow" | grep -v 'pull-requests' >/dev/null 2>&1; then
+                  echo "FAIL SV-002: label classifier has an unauthorized additional write permission: $workflow"
+                  failed=1
+                fi
+              fi
+            fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"

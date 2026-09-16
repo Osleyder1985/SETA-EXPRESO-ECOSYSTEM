@@ -1,0 +1,102 @@
+version: 1.0.0
+status: proposed
+issue: 47
+roles:
+  - id: ROLE-001
+    name: Product Owner
+  - id: ROLE-002
+    name: System Owner
+  - id: ROLE-003
+    name: Requirements Owner
+  - id: ROLE-004
+    name: System Architect
+  - id: ROLE-005
+    name: Software Architect
+  - id: ROLE-006
+    name: Security Owner
+  - id: ROLE-007
+    name: Data Owner
+  - id: ROLE-008
+    name: QA Owner
+  - id: ROLE-009
+    name: DevOps/Platform Owner
+  - id: ROLE-010
+    name: Operations Owner
+  - id: ROLE-011
+    name: Research Owner
+  - id: ROLE-012
+    name: Change Authority
+decisions:
+  - id: DEC-001
+    name: Value and priorities
+    accountable_role: ROLE-001
+    approval_role: ROLE-001
+    consulted_roles: [ROLE-002, ROLE-003]
+  - id: DEC-002
+    name: System scope and objectives
+    accountable_role: ROLE-002
+    approval_role: ROLE-002
+    consulted_roles: [ROLE-001, ROLE-004, ROLE-003]
+  - id: DEC-003
+    name: Requirements baseline
+    accountable_role: ROLE-003
+    approval_role: ROLE-003
+    consulted_roles: [ROLE-001, ROLE-002, ROLE-008]
+  - id: DEC-004
+    name: System architecture
+    accountable_role: ROLE-004
+    approval_role: ROLE-004
+    consulted_roles: [ROLE-002, ROLE-006, ROLE-007]
+  - id: DEC-005
+    name: Software architecture
+    accountable_role: ROLE-005
+    approval_role: ROLE-005
+    consulted_roles: [ROLE-004, ROLE-006, ROLE-008]
+  - id: DEC-006
+    name: Security
+    accountable_role: ROLE-006
+    approval_role: ROLE-006
+    blocking_role: ROLE-006
+    consulted_roles: [ROLE-004, ROLE-005, ROLE-007, ROLE-010]
+  - id: DEC-007
+    name: Data governance
+    accountable_role: ROLE-007
+    approval_role: ROLE-007
+    consulted_roles: [ROLE-003, ROLE-004, ROLE-006]
+  - id: DEC-008
+    name: Quality and gate evidence
+    accountable_role: ROLE-008
+    approval_role: ROLE-008
+    blocking_role: ROLE-008
+    consulted_roles: [ROLE-003, ROLE-004, ROLE-005, ROLE-006]
+  - id: DEC-009
+    name: Platform and CI/CD
+    accountable_role: ROLE-009
+    approval_role: ROLE-009
+    consulted_roles: [ROLE-006, ROLE-010]
+  - id: DEC-010
+    name: Operations and continuity
+    accountable_role: ROLE-010
+    approval_role: ROLE-010
+    consulted_roles: [ROLE-006, ROLE-009]
+  - id: DEC-011
+    name: Research methodology
+    accountable_role: ROLE-011
+    approval_role: ROLE-011
+    consulted_roles: [ROLE-003, ROLE-007]
+  - id: DEC-012
+    name: Controlled change
+    accountable_role: ROLE-012
+    approval_role: ROLE-012
+    consulted_roles: [ROLE-002, ROLE-004, ROLE-005, ROLE-006, ROLE-008]
+    required_evidence:
+      - impact_analysis
+      - validation_results
+      - decision_record
+      - configuration_status
+accumulation_policy:
+  initial_assignment: conceptual-only
+  people_assigned: false
+  segregation_of_duties: required_when_practicable
+  conflicts_must_be_recorded: true
+result_states: [PROPOSED, REVIEWED, ACCEPTED, REJECTED, SUPERSEDED, DEPRECATED]

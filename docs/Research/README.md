@@ -5,7 +5,7 @@ Esta carpeta contiene los artefactos de investigación gobernados del Ecosistema
 ## Estructura
 
 ```text
-Docs/Research/
+docs/Research/
 ├── README.md
 ├── Questions/
 ├── Datasets/

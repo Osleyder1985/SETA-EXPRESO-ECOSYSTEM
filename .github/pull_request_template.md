@@ -1,3 +1,5 @@
+# Pull Request Template
+
 ## Issue
 
 Closes #
@@ -52,5 +54,6 @@ Closes #
 - [ ] `## Relación` documenta la trazabilidad completa.
 - [ ] Se revisaron los requisitos de los workflows que validan el PR.
 - [ ] Se revisaron las lecciones de ingeniería aplicables antes de marcarlo listo.
+- [ ] Todo Markdown nuevo comienza con un encabezado H1 válido.
 - [ ] No se presenta como evidencia una aprobación o revisión que no exista.
 - [ ] No se mergea hasta que las validaciones y revisión requeridas estén satisfechas.

@@ -1,0 +1,52 @@
+name: Label Classification Automation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  classify-labels:
+    name: Resolve PR labels from governance metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate governance metadata and resolve labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          metadata=$(awk '
+            /^```yaml[[:space:]]*$/ { capture=1; next }
+            capture && /^```[[:space:]]*$/ { exit }
+            capture { print }
+          ' <<< "$PR_BODY")
+
+          if [[ -z "$metadata" ]]; then
+            echo "No governance metadata found. Labels cannot be resolved automatically."
+            exit 1
+          fi
+
+          echo "$metadata" > /tmp/governance.yml
+
+          domain=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["domain"]')
+          work_type=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["work_type"]')
+
+          if [[ -z "$domain" || -z "$work_type" ]]; then
+            echo "Missing required classification fields."
+            exit 1
+          fi
+
+          gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-label "$domain" --add-label "$work_type"
+
+          echo "PASS: labels resolved from governance metadata."
+          echo "Applied: $domain, $work_type"

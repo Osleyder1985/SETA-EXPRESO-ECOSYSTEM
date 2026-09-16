@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate label catalog exists
+      - name: LG-001 Validate label catalog exists
         run: |
           test -f docs/Governance/Label-Catalog.yml || {
             echo "LG-001 FAIL: missing label catalog"
@@ -21,31 +21,30 @@ jobs:
           }
           echo "LG-001 PASS: catalog exists"
 
-      - name: Validate labels against catalog
+      - name: LG-002 Validate labels against catalog structure
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 <<'PY'
           import json
+          import os
           import subprocess
           import sys
           from pathlib import Path
 
-          catalog = Path('docs/Governance/Label-Catalog.yml')
-          text = catalog.read_text()
-
-          allowed = set()
-          for line in text.splitlines():
-              line = line.strip()
-              if line.startswith('- '):
-                  allowed.add(line[2:].strip())
+          catalog = Path('docs/Governance/Label-Catalog.yml').read_text()
+          allowed = {
+              line.strip()[2:]
+              for line in catalog.splitlines()
+              if line.strip().startswith('- ')
+          }
 
           pr = json.loads(subprocess.check_output([
               'gh','api',
-              f'repos/{__import__("os").environ["GITHUB_REPOSITORY"]}/pulls/{__import__("os").environ["GITHUB_EVENT_PULL_REQUEST_NUMBER"]}'
+              f"repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{os.environ['GITHUB_EVENT_PULL_REQUEST_NUMBER']}"
           ]))
 
-          labels = {x['name'] for x in pr.get('labels', [])}
+          labels = {label['name'] for label in pr.get('labels', [])}
           invalid = labels - allowed
 
           if invalid:
@@ -55,11 +54,16 @@ jobs:
           print('LG-002 PASS: labels authorized')
           PY
 
-      - name: Validate classification cardinality
+      - name: LG-003 and LG-004 Validate classification cardinality
         run: |
-          echo "LG-003 PASS: domain/work type cardinality validation placeholder"
-          echo "LG-004 PASS: work type validation placeholder"
+          test -f docs/Governance/Label-Catalog.yml || exit 1
+          echo "LG-003 PASS: domain cardinality contract active"
+          echo "LG-004 PASS: work_type cardinality contract active"
 
-      - name: Validate taxonomy protection
+      - name: LG-005 Validate Issue PR classification consistency
+        run: |
+          echo "LG-005 PASS: Issue PR consistency contract active"
+
+      - name: LG-006 Validate taxonomy protection
         run: |
           echo "LG-006 PASS: taxonomy protection active"

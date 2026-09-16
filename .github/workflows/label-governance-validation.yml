@@ -1,6 +1,9 @@
 name: Label Governance Validation
 
 on:
+  push:
+    branches:
+      - 'issue-*'
   pull_request:
     types: [opened, synchronize, reopened, labeled, unlabeled]
 

@@ -1,0 +1,25 @@
+version: 1.0.0
+status: proposed
+issue: 49
+controls:
+  - id: SOD-001
+    control: "Clasificar riesgo antes de determinar independencia"
+    class: HYBRID
+  - id: SOD-002
+    control: "Evaluar combinación DEFINE/EXECUTE/APPROVE/VERIFY/VALIDATE"
+    class: HYBRID
+  - id: SOD-003
+    control: "Requerir revisión independiente cuando el nivel de riesgo lo determine"
+    class: HUMAN
+  - id: SOD-004
+    control: "Registrar excepciones y controles compensatorios"
+    class: HYBRID
+  - id: SOD-005
+    control: "Conservar evidencia de aprobación, verificación y validación"
+    class: HYBRID
+  - id: SOD-006
+    control: "Mantener autoridad de bloqueo separada de aprobación"
+    class: HYBRID
+  - id: SOD-007
+    control: "Medir excepciones y desviaciones cuando existan datos"
+    class: HYBRID

@@ -113,7 +113,7 @@ Todo PR deberá:
 
 ## 9. Automatización y control
 
-La automatización de clasificación se implementará después de formalizar este catálogo.
+La clasificación automática completa se implementará sobre este catálogo formalizado.
 
 Su contrato será:
 
@@ -133,7 +133,7 @@ Validación CI
 
 Si no existe una clasificación inequívoca dentro del catálogo, el sistema debe detener la integración y exigir clasificación explícita. No debe inventar una nueva categoría.
 
-El label `governance` utilizado como fallback técnico para evitar PR sin labels no sustituye la futura clasificación semántica. Una vez automatizada la clasificación completa, el fallback deberá respetar las reglas del catálogo y del Issue asociado.
+La automatización de contingencia que añade `governance` cuando un PR nace sin labels tiene como único propósito impedir la ausencia de clasificación mínima. No sustituye la clasificación semántica completa que deberá implementarse conforme a este catálogo.
 
 ## 10. Evolución de la taxonomía
 

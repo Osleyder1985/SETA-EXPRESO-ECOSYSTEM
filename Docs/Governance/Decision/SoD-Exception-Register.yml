@@ -1,0 +1,18 @@
+version: 1.0.0
+status: operational-template
+issue: 49
+records: []
+required_fields:
+  - exception_id
+  - decision_or_change
+  - risk_id
+  - risk_level
+  - restricted_combination
+  - justification
+  - compensating_control
+  - residual_risk
+  - accountable_role
+  - independent_review
+  - evidence
+  - reevaluation_condition
+  - status

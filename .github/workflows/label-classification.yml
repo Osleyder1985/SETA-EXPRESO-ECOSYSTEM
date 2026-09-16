@@ -19,11 +19,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Apply labels from governance metadata
+      - name: Resolve and validate governance classification
         env:
-          GH_TOKEN: ${{ github.token }}
           PR_BODY: ${{ github.event.pull_request.body }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
 
@@ -40,15 +38,53 @@ jobs:
 
           printf '%s\n' "$metadata" > /tmp/governance.yml
 
-          domain=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["domain"] rescue ""')
-          work_type=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["work_type"] rescue ""')
-          priority=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["priority"] rescue ""')
+          ruby -ryaml -e '
+            data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            governance = data["governance"]
+            abort "ERROR: governance metadata must be a mapping." unless governance.is_a?(Hash)
+            abort "ERROR: unsupported schema_version." unless governance["schema_version"] == "1"
+            classification = governance["classification"]
+            abort "ERROR: governance.classification must be a mapping." unless classification.is_a?(Hash)
+            %w[domain work_type priority].each do |key|
+              value = classification[key]
+              abort "ERROR: missing classification field: #{key}" unless value.is_a?(String) && !value.empty?
+            end
+          '
 
-          for label in "$domain" "$work_type" "$priority"; do
-            if [[ -n "$label" ]]; then
-              gh pr edit "$PR_NUMBER" --add-label "$label"
-              echo "Applied label: $label"
-            fi
+          echo "PASS: governance classification metadata is structurally valid."
+
+      - name: Validate classification against catalog
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            catalog = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            metadata = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            labels = catalog["labels"]
+            classification = metadata.dig("governance", "classification")
+            abort "ERROR: catalog labels mapping missing." unless labels.is_a?(Hash)
+            abort "ERROR: classification mapping missing." unless classification.is_a?(Hash)
+            %w[domain work_type priority].each do |key|
+              allowed = labels[key]
+              value = classification[key]
+              abort "ERROR: catalog category #{key} missing." unless allowed.is_a?(Array)
+              abort "ERROR: label #{value.inspect} is not authorized in catalog category #{key}." unless allowed.include?(value)
+            end
+            puts "PASS: classification is authorized by Label-Catalog.yml."
+          '
+
+      - name: Apply authorized labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            classification = data.dig("governance", "classification")
+            %w[domain work_type priority].each { |key| puts classification.fetch(key) }
+          ' | while IFS= read -r label; do
+            gh pr edit "$PR_NUMBER" --add-label "$label"
+            echo "Applied authorized label: $label"
           done
 
-          echo "PASS: governance label classification completed."
+          echo "PASS: governance labels applied successfully."

@@ -1,0 +1,25 @@
+schema_version: "1"
+
+labels:
+  domain:
+    - governance
+    - architecture
+    - quality
+    - security
+    - documentation
+    - automation
+
+  work_type:
+    - feature
+    - bug
+    - documentation
+    - refactor
+    - automation
+    - governance
+    - maintenance
+
+  priority:
+    - critical
+    - high
+    - medium
+    - low

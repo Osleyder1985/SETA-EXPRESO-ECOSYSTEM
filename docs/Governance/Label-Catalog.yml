@@ -1,0 +1,64 @@
+schema_version: "1"
+
+catalog:
+  governance:
+    description: "Gobierno, políticas, procesos, ciclo de vida, control de cambios, planificación y decisiones."
+    applies_to:
+      - issue
+      - pull_request
+    triggers:
+      - ".github/"
+      - "docs/Governance/"
+      - "docs/Research/"
+
+  documentation:
+    description: "Documentación, registros, evidencias documentales e índices."
+    applies_to:
+      - issue
+      - pull_request
+    triggers:
+      - "docs/"
+      - "README.md"
+      - "*.md"
+
+  architecture:
+    description: "Arquitectura de sistema/software, diseño estructural y decisiones arquitectónicas."
+    applies_to:
+      - issue
+      - pull_request
+    triggers:
+      - "docs/Architecture/"
+      - "architecture"
+
+future_domains:
+  requirements:
+    status: planned
+    rationale: "Se incorporará cuando el dominio de requisitos sea una unidad permanente del ciclo de vida."
+  testing:
+    status: planned
+    rationale: "Se incorporará cuando testing/verificación tenga artefactos y flujo propios."
+  security:
+    status: planned
+    rationale: "Se incorporará cuando seguridad constituya un dominio operativo permanente."
+  data:
+    status: planned
+    rationale: "Se incorporará cuando datos tenga gobernanza y artefactos propios."
+  devops:
+    status: planned
+    rationale: "Se incorporará cuando DevOps constituya un dominio permanente."
+  operations:
+    status: planned
+    rationale: "Se incorporará cuando operaciones constituya un dominio permanente."
+
+rules:
+  minimum_labels: 1
+  issue_primary_label: required
+  pull_request_primary_label: inherit_from_issue
+  secondary_labels: justified_only
+  unknown_labels: reject
+  standard_github_labels_are_official: false
+  label_meaning_may_overlap: false
+  label_is_phase: false
+  label_is_title: false
+  automation_may_create_only_catalog_labels: true
+  ambiguous_classification: fail_and_require_explicit_classification

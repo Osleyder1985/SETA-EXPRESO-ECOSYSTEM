@@ -1,0 +1,13 @@
+exception_id: EXC-XXX
+status: PROPOSED
+decision_or_change: ""
+risk_id: RISK-XXX
+risk_level: R1
+restricted_combination: ""
+justification: ""
+compensating_control: ""
+residual_risk: ""
+accountable_role: ""
+independent_review: ""
+evidence: []
+reevaluation_condition: ""

@@ -16,7 +16,7 @@ La construcción funcional no se inicia por defecto hasta que las fases preceden
 
 ## 🧭 Roadmap de Ingeniería
 
-El trabajo del Ecosistema se gobierna mediante un **Roadmap maestro derivado directamente de las fases A–O** de `Docs/Governance/00-Software-Lifecycle-Master.md`.
+El trabajo del Ecosistema se gobierna mediante un **Roadmap maestro derivado directamente de las fases A–O** de `docs/Governance/00-Software-Lifecycle-Master.md`.
 
 ### Engineering Flight Plan
 
@@ -53,8 +53,8 @@ El trabajo del Ecosistema se gobierna mediante un **Roadmap maestro derivado dir
 
 **Regla:** el estado del Roadmap se actualiza con evidencia. Tener documentos preliminares no equivale a completar una fase.
 
-👉 **[Roadmap Maestro completo](Docs/Governance/08-Software-Roadmap.md)**  
-👉 **[Ciclo de Vida Maestro A–O](Docs/Governance/00-Software-Lifecycle-Master.md)**
+👉 **[Roadmap Maestro completo](docs/Governance/08-Software-Roadmap.md)**  
+👉 **[Ciclo de Vida Maestro A–O](docs/Governance/00-Software-Lifecycle-Master.md)**
 
 ### Quality Gates
 
@@ -75,7 +75,7 @@ El Roadmap conecta cada tramo con **entregables, Quality Gates, Issues, Pull Req
 - **File names:** English, Title Case by word, separated with `-` when multi-word.
 - **Documentation content:** Spanish.
 - **Code and technical identifiers:** English by default, with justified exceptions when required by an external technology or integration.
-- **Documentation root:** `Docs/`.
+- **Documentation root:** `docs/`.
 
 Example:
 
@@ -90,7 +90,7 @@ Example:
 ```text
 SETA-EXPRESO-ECOSYSTEM/
 ├── README.md
-├── Docs/
+├── docs/
 │   ├── Governance/
 │   │   ├── AI/
 │   │   ├── Metrics/
@@ -119,25 +119,25 @@ Git no almacena directorios vacíos; las carpetas se crearán conforme existan a
 
 ## Governance Documents
 
-- `Docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.3.0.
-- `Docs/Governance/01-Software-Lifecycle-Audit.md` — auditoría metodológica inicial.
-- `Docs/Governance/02-Standards-Lifecycle-Matrix.md` — alineación del ciclo con referencias normativas y técnicas.
-- `Docs/Governance/03-Artifacts-And-Evidence.md` — catálogo de artefactos y evidencias.
-- `Docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
-- `Docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
-- `Docs/Governance/06-Change-Control-Workflow.md` — flujo obligatorio de Issue → Branch → Pull Request → `main` y control de impacto.
-- `Docs/Governance/07-Main-Protection-Strategy.md` — estrategia de protección compensatoria de `main` bajo GitHub Free + repositorio privado.
-- `Docs/Governance/08-Software-Roadmap.md` — Roadmap maestro de ejecución del ciclo de vida A–O.
-- `Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
-- `Docs/Governance/19-Decision-Governance.md` — política formal de Architecture y Engineering Decision Records.
-- `Docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
-- `Docs/Governance/21-Engineering-Metrics-Governance.md` — política formal de métricas de ingeniería.
-- `Docs/Governance/22-Engineering-Metrics-Control-Matrix.md` — matriz de controles de Metrics Governance.
-- `Docs/Governance/23-AI-Governance.md` — política formal de AI Governance.
-- `Docs/Governance/24-AI-Governance-Control-Matrix.md` — matriz de controles de AI Governance.
-- `Docs/Governance/Metrics/Metric-Catalog.yml` — catálogo canónico de métricas.
-- `Docs/Governance/Metrics/Engineering-Governance-Dashboard.md` — vista documental derivada del catálogo métrico.
-- `Docs/Governance/Metrics/Engineering-Governance-Dashboard.html` — Dashboard visual derivado del catálogo.
+- `docs/Governance/00-Software-Lifecycle-Master.md` — marco maestro consolidado v0.3.0.
+- `docs/Governance/01-Software-Lifecycle-Audit.md` — auditoría metodológica inicial.
+- `docs/Governance/02-Standards-Lifecycle-Matrix.md` — alineación del ciclo con referencias normativas y técnicas.
+- `docs/Governance/03-Artifacts-And-Evidence.md` — catálogo de artefactos y evidencias.
+- `docs/Governance/04-Quality-Gates.md` — gates del ciclo de vida.
+- `docs/Governance/05-Repository-Naming-Convention.md` — política de nomenclatura y estructura.
+- `docs/Governance/06-Change-Control-Workflow.md` — flujo obligatorio de Issue → Branch → Pull Request → `main` y control de impacto.
+- `docs/Governance/07-Main-Protection-Strategy.md` — estrategia de protección compensatoria de `main` bajo GitHub Free + repositorio privado.
+- `docs/Governance/08-Software-Roadmap.md` — Roadmap maestro de ejecución del ciclo de vida A–O.
+- `docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md` — política de clasificación de Issues y Pull Requests.
+- `docs/Governance/19-Decision-Governance.md` — política formal de Architecture y Engineering Decision Records.
+- `docs/Governance/20-Decision-Governance-Control-Matrix.md` — matriz de controles de Decision Governance.
+- `docs/Governance/21-Engineering-Metrics-Governance.md` — política formal de métricas de ingeniería.
+- `docs/Governance/22-Engineering-Metrics-Control-Matrix.md` — matriz de controles de Metrics Governance.
+- `docs/Governance/23-AI-Governance.md` — política formal de AI Governance.
+- `docs/Governance/24-AI-Governance-Control-Matrix.md` — matriz de controles de AI Governance.
+- `docs/Governance/Metrics/Metric-Catalog.yml` — catálogo canónico de métricas.
+- `docs/Governance/Metrics/Engineering-Governance-Dashboard.md` — vista documental derivada del catálogo métrico.
+- `docs/Governance/Metrics/Engineering-Governance-Dashboard.html` — Dashboard visual derivado del catálogo.
 
 ## AI Governance
 
@@ -147,9 +147,9 @@ El Ecosistema distingue tres contextos de uso de IA:
 2. **Product/runtime AI** — IA incorporada al producto o a procesos operativos.
 3. **Research AI** — IA utilizada para investigación y experimentación.
 
-La baseline de AI Governance está definida en `Docs/Governance/23-AI-Governance.md` y su matriz de controles en `Docs/Governance/24-AI-Governance-Control-Matrix.md`.
+La baseline de AI Governance está definida en `docs/Governance/23-AI-Governance.md` y su matriz de controles en `docs/Governance/24-AI-Governance-Control-Matrix.md`.
 
-Los registros controlados están bajo `Docs/Governance/AI/`:
+Los registros controlados están bajo `docs/Governance/AI/`:
 
 ```text
 AI/
@@ -173,7 +173,7 @@ Las decisiones materiales de arquitectura e ingeniería se gestionarán mediante
 Los registros controlados se almacenan en:
 
 ```text
-Docs/Architecture/Decision-Records/
+docs/Architecture/Decision-Records/
 ├── README.md
 ├── ADR-Template.md
 ├── EDR-Template.md
@@ -186,7 +186,7 @@ Los ejemplos de decisiones futuras —como PostgreSQL, arquitectura modular, RES
 
 El Ecosistema mantiene un sistema formal para definir, medir, interpretar y evolucionar indicadores de ingeniería. La capacidad cubre **Delivery, Quality, Requirements, Architecture, Security y Governance**.
 
-La fuente canónica es `Docs/Governance/Metrics/Metric-Catalog.yml`. El Dashboard es una representación derivada y no reemplaza al catálogo ni a la evidencia operacional.
+La fuente canónica es `docs/Governance/Metrics/Metric-Catalog.yml`. El Dashboard es una representación derivada y no reemplaza al catálogo ni a la evidencia operacional.
 
 Cada métrica debe conservar, según aplicabilidad, definición, fórmula, población, unidad, fuente, método de colección, frecuencia, owner, baseline, target, thresholds, disponibilidad, evidencia y limitaciones. Cuando todavía no existe evidencia operacional suficiente, el estado permanece explícitamente `defined`, `provisional` o `blocked`; no se inventan valores.
 
@@ -210,8 +210,8 @@ Decision / Action
 Outcome
 ```
 
-👉 **[Engineering Governance Dashboard](Docs/Governance/Metrics/Engineering-Governance-Dashboard.html)**  
-👉 **[Metric Catalog](Docs/Governance/Metrics/Metric-Catalog.yml)**
+👉 **[Engineering Governance Dashboard](docs/Governance/Metrics/Engineering-Governance-Dashboard.html)**  
+👉 **[Metric Catalog](docs/Governance/Metrics/Metric-Catalog.yml)**
 
 ## Change Control
 
@@ -259,9 +259,9 @@ Baseline de clasificación actual:
 
 La taxonomía crecerá cuando el proyecto necesite dominios estables adicionales. Los nuevos labels deberán justificarse y documentarse antes de convertirse en clasificación oficial.
 
-👉 **[Política de Labels](Docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md)**
+👉 **[Política de Labels](docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md)**
 
-La regla completa de control de cambios está definida en `Docs/Governance/06-Change-Control-Workflow.md`.
+La regla completa de control de cambios está definida en `docs/Governance/06-Change-Control-Workflow.md`.
 
 ## Engineering Principle
 

@@ -1,0 +1,20 @@
+Lesson-ID: LESSON-NNN
+Date: YYYY-MM-DD
+Detected-In: PR-XXX|Issue-XXX|Workflow-XXX|Other
+Category: GOVERNANCE|QUALITY|SECURITY|EVIDENCE|RESEARCH|CI-CD|PROCESS|ARCHITECTURE|OTHER
+Problem:
+Failure-Symptom:
+Root-Cause:
+Impact:
+Detection-Mechanism:
+Resolution:
+Preventive-Control:
+Automation-Candidate: NONE|CHECKLIST|WORKFLOW|TEST|POLICY|OTHER
+Affected-Workflow: []
+Affected-Artifacts: []
+Verification:
+Status: OPEN|MITIGATED|PREVENTED|CLOSED
+Evidence: []
+Related-Issues: []
+Related-PRs: []
+Related-Commits: []

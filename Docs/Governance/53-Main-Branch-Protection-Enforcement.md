@@ -2,14 +2,15 @@
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Issue de origen:** #80  
-**Estado:** Especificación y evaluación de capacidad  
+**Actualización de auditoría de integración:** #82  
+**Estado:** Especificación, evaluación de capacidad y limitación de integración documentada  
 **Fecha:** 2026-09-15  
 
 ---
 
 ## 1. Propósito
 
-Definir el perfil técnico que deberá aplicarse a `main` cuando la capacidad de protección nativa de GitHub sea compatible con la configuración del repositorio, y dejar evidencia explícita de qué controles están actualmente disponibles, cuáles están configurados y cuáles permanecen pendientes por una restricción de plataforma.
+Definir el perfil técnico que deberá aplicarse a `main` cuando la capacidad de protección nativa de GitHub sea compatible con la configuración del repositorio, y dejar evidencia explícita de qué controles están actualmente disponibles, cuáles están configurados y cuáles permanecen pendientes por una restricción de plataforma o de acceso de la integración.
 
 La política operativa no cambia:
 
@@ -21,13 +22,40 @@ Review → Merge → main
 
 Ningún workflow, documento o excepción autoriza una modificación directa de `main`.
 
-## 2. Estado verificado de la plataforma
+## 2. Estado verificado de la plataforma y de la integración
 
 El repositorio `Osleyder1985/SETA-EXPRESO-ECOSYSTEM` es actualmente **privado** y tiene `main` como rama por defecto.
 
-La documentación oficial vigente de GitHub indica que las protected branches están disponibles en repositorios privados con GitHub Pro, Team, Enterprise Cloud o Enterprise Server, mientras que GitHub Free limita esta capacidad a repositorios públicos. Los rulesets presentan la misma distinción para repositorios privados. Por tanto, bajo el estado actual del repositorio privado en GitHub Free, no se considera disponible el enforcement nativo requerido para `main`.
+La auditoría de permisos realizada sobre la integración GitHub demostró dos hechos que deben mantenerse separados:
 
-Fuente normativa externa:
+1. La cuenta GitHub `Osleyder1985` posee permiso **`admin`** sobre el repositorio.
+2. La integración GitHub utilizada en este entorno **no puede acceder al endpoint administrativo de Branch Protection** ni consultar Rulesets para este repositorio bajo las condiciones actuales de acceso.
+
+Evidencia de integración:
+
+```text
+Repository permissions:
+admin = true
+maintain = true
+push = true
+triage = true
+pull = true
+
+Collaborator permission:
+Osleyder1985 = admin
+
+GET /repos/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/branches/main/protection
+→ HTTP 403: Resource not accessible by integration
+
+GET /repos/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/rulesets
+→ HTTP 403 bajo las condiciones actuales de acceso al repositorio privado
+```
+
+La conclusión **no** es que la cuenta carezca de privilegios administrativos. La conclusión es que la autorización/capacidad efectiva expuesta por la integración no permite utilizar esos endpoints administrativos desde este entorno.
+
+Además, la documentación oficial vigente de GitHub indica que la disponibilidad de protected branches y rulesets depende del plan y de la visibilidad del repositorio. Mientras el repositorio privado permanezca bajo una configuración sin capacidad compatible de enforcement nativo, no se considerará disponible el enforcement requerido.
+
+Fuentes normativas externas:
 
 - GitHub Docs — Managing protected branches: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches
 - GitHub Docs — About rulesets: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
@@ -68,7 +96,7 @@ La selección definitiva de checks deberá hacerse sobre ejecuciones reales del 
 
 ## 5. Enforcement actual
 
-Mientras la protección nativa no esté disponible:
+Mientras la protección nativa no esté disponible o no pueda ser verificada mediante la integración:
 
 ### Preventivo/compensatorio
 
@@ -90,7 +118,7 @@ Este control **no bloquea físicamente** una escritura permitida por GitHub y no
 
 ## 6. Protocolo de activación futura
 
-Cuando cambie la capacidad de la plataforma o el plan del repositorio:
+Cuando cambie la capacidad de la plataforma o el plan del repositorio, o cuando exista una integración con acceso administrativo verificable:
 
 1. Abrir una Issue específica para la activación.
 2. Crear branch desde el `main` vigente.
@@ -117,11 +145,16 @@ No constituyen evidencia suficiente:
 - un check verde;
 - una promesa de configuración;
 - una captura sin contexto verificable;
-- la ausencia de incidentes.
+- la ausencia de incidentes;
+- que la cuenta GitHub tenga permiso `admin` si la integración no puede verificar la configuración efectiva.
 
-## 8. Limitación de Issue #80
+## 8. Limitación de Issue #80 y auditoría #82
 
-Con el estado actual del repositorio privado bajo GitHub Free, Issue #80 puede completar documentalmente el perfil de enforcement, los checks candidatos, el protocolo de activación y los controles compensatorios, pero **no debe declararse completada la protección técnica nativa** hasta que la plataforma permita configurarla y la configuración sea verificada.
+Issue #80 completó el perfil documental de enforcement, los checks candidatos, el protocolo de activación y los controles compensatorios, pero no puede declarar completada la protección técnica nativa sin evidencia verificable.
+
+La auditoría #82 añade una precisión de arquitectura de integración: **la cuenta `Osleyder1985` sí tiene permiso `admin`, pero la integración utilizada por ChatGPT no puede consultar el endpoint administrativo de Branch Protection ni Rulesets bajo las condiciones actuales**.
+
+Por ello, la ausencia de una lectura exitosa del endpoint no debe interpretarse como evidencia de que `main` está desprotegida. Debe registrarse como **limitación de observabilidad administrativa de la integración** hasta disponer de una vía de verificación compatible.
 
 ## 9. Evidencia requerida para cierre técnico
 
@@ -139,7 +172,8 @@ El cierre completo de la capacidad deberá conservar como mínimo:
 - resultado de PR de prueba;
 - workflow runs correspondientes;
 - análisis de impacto;
-- riesgo residual actualizado.
+- riesgo residual actualizado;
+- evidencia de la vía administrativa utilizada para verificar la configuración cuando la integración estándar no pueda leerla.
 
 ## 10. Relación con Governance Core
 

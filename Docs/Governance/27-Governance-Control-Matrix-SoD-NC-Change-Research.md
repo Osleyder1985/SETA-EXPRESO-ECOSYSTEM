@@ -24,9 +24,9 @@
 | RES-001 | Research | Research question identity | RQ record | G | Not every engineering observation is research |
 | RES-002 | Research | Dataset provenance | Dataset register | G/D | Restricted data may limit sharing |
 | RES-003 | Research | Experiment specification | Experiment record | G | Method quality requires research review |
-| RES-004 | Research | Experimental run traceability | Run record | G/D | Environment capture may be incomplete |
+| RES-004 | Research | Experimental run traceability | `Runs/Experimental-Run-Template.yml` | G/D | Environment capture may be incomplete |
 | RES-005 | Research | Result integrity | Result record + source data | G | Interpretation remains methodological |
-| RES-006 | Research | Reproducibility package | Reproducibility record | G/D | Legal/privacy constraints may limit reproduction |
+| RES-006 | Research | Reproducibility package | `Reproducibility/Reproducibility-Template.yml` | G/D | Legal/privacy constraints may limit reproduction |
 | RES-007 | Research | Threats to validity | Validity section | G | Cannot be reduced to a binary pass/fail |
 | RES-008 | Research | Publication provenance | Output → Result → Dataset → Evidence | G | Publication review remains human |
 
@@ -46,7 +46,7 @@ Implementation
 Gate / Validation
   ├── PASS → Evidence
   └── FAIL → Non-Conformance → RCA → Actions → Verification → Evidence
-                                      
+
 Engineering Evidence
   ↓
 Research Evidence
@@ -54,6 +54,8 @@ Research Evidence
 Dataset
   ↓
 Experiment
+  ↓
+Run
   ↓
 Result
   ↓

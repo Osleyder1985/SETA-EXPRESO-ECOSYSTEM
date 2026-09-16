@@ -1,36 +1,70 @@
 # Auditoría y consolidación del ciclo de vida maestro de Ingeniería de Software
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.2.0  
-**Estado:** Auditoría consolidada — pendiente de integración controlada  
-**Issue:** #1  
-**Fecha:** 2026-09-15  
-**Baseline evaluada:** `main` @ `c2a0e5c3fc91bd959c30623a9783f1888da5d212`
+**Versión:** 0.3.0  
+**Estado actual:** Auditoría consolidada e integrada — Issue #1 cerrado  
+**Issue de origen:** #1  
+**PR de integración:** #94  
+**Fecha de auditoría original:** 2026-09-15  
+**Baseline evaluada originalmente:** `main` @ `c2a0e5c3fc91bd959c30623a9783f1888da5d212`  
+**Estado histórico de la auditoría:** consolidación propuesta, pendiente de integración controlada  
+**Estado posterior a PR #94:** integrada, validada y cerrada
+
+---
+
+## 0. Distinción entre estado histórico y estado actual
+
+Este documento conserva deliberadamente la evidencia histórica de la auditoría realizada el 2026-09-15, pero ya no debe interpretarse como si aquella situación siguiera siendo el estado actual del repositorio.
+
+### Estado histórico — momento de la auditoría v0.2.0
+
+En la auditoría original se evaluó `main` en el commit `c2a0e5c3fc91bd959c30623a9783f1888da5d212`. En ese momento, la auditoría consolidada estaba pendiente de integración controlada. El cierre del Issue #1 estaba condicionado a completar el Pull Request, ejecutar las validaciones y verificar el resultado final.
+
+Ese estado histórico se conserva porque forma parte de la trazabilidad de la decisión y permite demostrar qué se sabía, qué se propuso y qué controles faltaban en aquel punto del ciclo.
+
+### Estado actual — después de PR #94
+
+La auditoría fue integrada mediante **PR #94**, cuya fusión produjo el commit `e6fab75018ecf14a23c304cf0eba887b24d86781`. El HEAD validado antes de la fusión fue `8bb1517589e4f584e094713da0ea2a663a37be96`.
+
+Las cuatro validaciones automatizadas requeridas para la integración fueron satisfactorias sobre el HEAD final del cambio:
+
+- Governance Validation — PASS
+- Quality Validation — PASS
+- Security Validation — PASS
+- Evidence Validation — PASS
+
+Posteriormente, el **Issue #1 fue cerrado explícitamente como completado**.
+
+Por tanto, las expresiones históricas como **“pendiente de integración controlada”**, **“el cierre del Issue queda condicionado”** o equivalentes deben entenderse exclusivamente como condiciones existentes antes de PR #94, no como el estado operativo actual.
+
+> **Regla de interpretación:** este documento es una auditoría histórica con estado actual explícitamente actualizado. La evidencia histórica no se reescribe; se contextualiza y se separa del estado posterior a la integración.
 
 ---
 
 ## 1. Objetivo
 
-Auditar y consolidar el ciclo de vida maestro de Ingeniería de Software y del Ecosistema antes de declararlo baseline oficial. Esta revisión no parte de cero: evalúa los artefactos ya presentes en el repositorio, identifica brechas e inconsistencias y establece la trazabilidad entre los hallazgos del Issue #1 y el ciclo consolidado actualmente documentado.
+Auditar y consolidar el ciclo de vida maestro de Ingeniería de Software y del Ecosistema. La revisión no parte de cero: evalúa los artefactos presentes en el repositorio, identifica brechas e inconsistencias y establece trazabilidad entre los hallazgos del Issue #1 y el ciclo consolidado.
 
-El resultado debe permitir demostrar, criterio por criterio, que el ciclo distingue adecuadamente el nivel sistema/ecosistema del nivel software, separa fases de procesos transversales, relaciona actividades con artefactos y evidencia y utiliza GitHub como mecanismo de control del cambio.
+El resultado permite demostrar, criterio por criterio, que el ciclo distingue adecuadamente el nivel sistema/ecosistema del nivel software, separa fases de procesos transversales, relaciona actividades con artefactos y evidencia y utiliza GitHub como mecanismo de control del cambio.
 
 ---
 
 ## 2. Evidencia documental evaluada
 
-| ID | Artefacto | Estado observado | Función en la consolidación |
+| ID | Artefacto | Estado histórico observado | Función |
 |---|---|---|---|
-| E-01 | `Docs/Governance/00-Software-Lifecycle-Master.md` | v0.3.0, candidato a baseline | Artefacto rector del ciclo A–O |
-| E-02 | `Docs/Governance/01-Software-Lifecycle-Audit.md` | v0.1.0 antes de esta revisión | Auditoría y propuesta inicial |
-| E-03 | `Docs/Governance/02-Standards-Lifecycle-Matrix.md` | v0.4.0 | Alineación metodológica |
-| E-04 | `Docs/Governance/03-Artifacts-And-Evidence.md` | v1.0.0 | Catálogo de artefactos y evidencia |
-| E-05 | `Docs/Governance/04-Quality-Gates.md` | Controlado | Gates del ciclo |
-| E-06 | `Docs/Governance/06-Change-Control-Workflow.md` | Controlado | Flujo Issue → Branch → PR → Merge |
-| E-07 | `Docs/Governance/10-Governance-Enforcement-Architecture.md` | Controlado | Enforcement y validaciones |
+| E-01 | `docs/Governance/00-Software-Lifecycle-Master.md` | v0.3.0, candidato a baseline | Artefacto rector del ciclo A–O |
+| E-02 | `docs/Governance/01-Software-Lifecycle-Audit.md` | v0.1.0 antes de la consolidación | Auditoría y propuesta inicial |
+| E-03 | `docs/Governance/02-Standards-Lifecycle-Matrix.md` | v0.4.0 | Alineación metodológica |
+| E-04 | `docs/Governance/03-Artifacts-And-Evidence.md` | v1.0.0 | Catálogo de artefactos y evidencia |
+| E-05 | `docs/Governance/04-Quality-Gates.md` | Controlado | Gates del ciclo |
+| E-06 | `docs/Governance/06-Change-Control-Workflow.md` | Controlado | Flujo Issue → Branch → PR → Merge |
+| E-07 | `docs/Governance/10-Governance-Enforcement-Architecture.md` | Controlado | Enforcement y validaciones |
 | E-08 | `.github/workflows/*-validation.yml` | Operativo | Governance, Quality, Security y Evidence Validation |
 
 La existencia de estos artefactos no se interpreta como evidencia automática de que todos los controles estén satisfechos; la auditoría evalúa su coherencia y trazabilidad.
+
+**Corrección documental:** todas las rutas internas anteriores que utilizaban `Docs/Governance/...` se normalizan conceptualmente a la estructura vigente `docs/Governance/...`, preservando el significado histórico de los artefactos.
 
 ---
 
@@ -47,25 +81,15 @@ La evaluación utiliza las siguientes referencias como marcos de alineación, no
 
 La selección es coherente con el alcance del Ecosistema: 15288 aporta la perspectiva de sistema, 12207 la de software, 29148 requisitos, 42010 arquitectura, 25010 calidad y SSDF seguridad integrada.
 
-### 3.1 Verificación de vigencia de referencias
+### 3.1 Verificación de vigencia realizada durante la auditoría
 
-A fecha de esta auditoría, ISO registra **ISO/IEC/IEEE 12207:2026** como edición publicada en abril de 2026 y como reemplazo de 12207:2017. ISO describe su aplicación a adquisición, suministro, desarrollo, operación, mantenimiento y disposición, incluyendo aplicación concurrente, iterativa, recursiva e incremental.  
-Fuente oficial: https://www.iso.org/standard/90219.html
+A fecha de la auditoría, ISO registraba **ISO/IEC/IEEE 12207:2026** como edición publicada en abril de 2026 y reemplazo de 12207:2017. ISO describe su aplicación a adquisición, suministro, desarrollo, operación, mantenimiento y disposición, incluyendo aplicación concurrente, iterativa, recursiva e incremental.
 
-ISO registra **ISO/IEC/IEEE 15288:2023** como edición publicada vigente para procesos de ciclo de vida de sistemas, incluyendo concepción, desarrollo, producción, utilización, soporte, retirada, adquisición y suministro, con aplicación iterativa, concurrente y recursiva.  
-Fuente oficial: https://www.iso.org/standard/81702.html
+ISO registraba **ISO/IEC/IEEE 15288:2023** como edición publicada vigente para procesos de ciclo de vida de sistemas, incluyendo concepción, desarrollo, producción, utilización, soporte, retirada, adquisición y suministro.
 
-ISO indica que **ISO/IEC/IEEE 29148:2018** fue revisada y confirmada en 2024, por lo que permanece vigente mientras avanza su reemplazo.  
-Fuente oficial: https://www.iso.org/standard/72089.html
+ISO indicaba que **ISO/IEC/IEEE 29148:2018** había sido revisada y confirmada en 2024. ISO registraba **ISO/IEC/IEEE 42010:2022** como edición vigente para requisitos de estructura y expresión de descripciones de arquitectura, e **ISO/IEC 25010:2023** como modelo de calidad de producto. NIST mantenía **SP 800-218 / SSDF 1.1** como marco de prácticas de desarrollo seguro integrable en modelos SDLC existentes.
 
-ISO registra **ISO/IEC/IEEE 42010:2022** como edición vigente para requisitos de estructura y expresión de descripciones de arquitectura; no prescribe un método concreto de arquitectura.  
-Fuente oficial: https://www.iso.org/standard/74393.html
-
-ISO registra **ISO/IEC 25010:2023** como modelo de calidad de producto con nueve características y subcaracterísticas para especificación, medición y evaluación.  
-Fuente oficial: https://www.iso.org/standard/78176.html
-
-NIST mantiene **SP 800-218 / SSDF 1.1** como marco de prácticas de desarrollo seguro que debe integrarse en los modelos SDLC existentes.  
-Fuente oficial: https://csrc.nist.gov/pubs/sp/800/218/final
+Estas referencias fueron usadas como marcos de alineación durante la auditoría y no como evidencia de certificación.
 
 ---
 
@@ -97,16 +121,18 @@ Bases de datos · Configuración · Pipelines · Pruebas
 | Criterio | Evidencia | Resultado | Determinación |
 |---|---|---|---|
 | Identificar procesos/fases/subfases faltantes | E-01, E-02, E-03 | PASS | El ciclo consolidado contiene A–O y subfases; adquisición/suministro y disciplinas transversales quedan explícitos. |
-| Identificar duplicidades o responsabilidades mal ubicadas | E-02, E-03 | PASS | Seguridad, calidad, riesgos, configuración, cambios, trazabilidad, observabilidad y DevSecOps se clasifican como transversales/habilitadores, no como fases adicionales. |
+| Identificar duplicidades o responsabilidades mal ubicadas | E-02, E-03 | PASS | Seguridad, calidad, riesgos, configuración, cambios, trazabilidad, observabilidad y DevSecOps se clasifican como transversales/habilitadores. |
 | Separar fases y procesos transversales | E-01, E-02 | PASS | Las fases A–O se distinguen de los procesos/controles transversales. |
 | Incorporar explícitamente sistema/ecosistema además de software | E-01, E-02 | PASS | El alcance declara ambos niveles y el modelo de doble nivel. |
 | Definir relación ciclo–artefactos–evidencia–GitHub | E-01, E-04, E-06, E-07 | PASS | Existe cadena de trazabilidad y control de cambios Issue → Branch → PR → validaciones → revisión → merge → main. |
 | Proponer estructura revisada para v0.2 | E-02 | PASS | La auditoría inicial propuso las 15 fases A–O; el artefacto rector evolucionó posteriormente a v0.3.0. |
-| Mantener trazabilidad entre hallazgos y modificaciones posteriores | E-01, E-02, esta versión 0.2.0 | PASS CONDICIONADO | Esta revisión consolida explícitamente la relación; el cierre del Issue queda condicionado a integrar esta evidencia mediante PR. |
+| Mantener trazabilidad entre hallazgos y modificaciones posteriores | E-01, E-02, PR #94 | PASS | La auditoría fue integrada mediante PR #94, validada y posteriormente el Issue #1 fue cerrado. |
 
 ### Resultado de la matriz
 
-**7/7 criterios con evidencia identificada.** El último criterio requiere integración controlada de esta auditoría y verificación de la versión resultante; por tanto, no autoriza el cierre del Issue antes del merge y validación final.
+**7/7 criterios con evidencia identificada y cierre completado mediante PR #94.**
+
+El último criterio ya no es condicional: la integración, validación y cierre requeridos fueron ejecutados después de la auditoría original.
 
 ---
 
@@ -246,11 +272,13 @@ Estos puntos son **controles de mantenimiento**, no bloqueadores conceptuales de
 
 ## 11. Decisión de consolidación
 
-La auditoría inicial produjo una propuesta de ciclo de 15 fases. El repositorio posteriormente evolucionó el artefacto rector a `00-Software-Lifecycle-Master.md` **v0.3.0**, por lo que la referencia a una futura v0.2.0 en la auditoría histórica queda interpretada como una etapa intermedia de evolución, no como una versión que deba crearse retroactivamente.
+La auditoría inicial produjo una propuesta de ciclo de 15 fases. El repositorio posteriormente evolucionó el artefacto rector a `docs/Governance/00-Software-Lifecycle-Master.md` **v0.3.0**, por lo que la referencia a una futura v0.2.0 en la auditoría histórica queda interpretada como una etapa intermedia de evolución, no como una versión que deba crearse retroactivamente.
 
-La versión actualmente evaluada debe tratarse como **candidato a baseline controlada**, sujeto al flujo de integración del Issue #1.
+La auditoría v0.2.0 fue integrada mediante **PR #94** y dejó de ser un cambio pendiente. La presente v0.3.0 no altera retroactivamente la evidencia histórica; añade el contexto necesario para distinguir la situación observada durante la auditoría de la situación posterior a la integración.
 
-No se declara todavía una versión oficial 1.0.0 porque el presente documento debe integrarse mediante Pull Request y las validaciones automatizadas deben ejecutarse sobre el HEAD final de ese cambio.
+**Estado actual de la consolidación:** integrada y cerrada.
+
+No se utiliza esta auditoría para declarar certificación o conformidad normativa. Su función es conservar la evidencia de evaluación, las decisiones de ingeniería y la trazabilidad de la consolidación.
 
 ---
 
@@ -269,35 +297,74 @@ Propuesta de 15 fases + disciplinas transversales
   ↓
 03-Artifacts-And-Evidence.md v1.0.0
   ↓
-Esta auditoría consolidada v0.2.0
+01-Software-Lifecycle-Audit.md v0.2.0
   ↓
-PR de resolución del Issue #1
+PR #94
   ↓
-Validaciones Governance + Quality + Security + Evidence
+Governance Validation — PASS
+Quality Validation — PASS
+Security Validation — PASS
+Evidence Validation — PASS
   ↓
-Revisión / SoD
-  ↓
-Merge
+Merge commit e6fab75018ecf14a23c304cf0eba887b24d86781
   ↓
 Verificación final
   ↓
 Cierre del Issue #1
 ```
 
+### 12.1 Interpretación temporal de la trazabilidad
+
+La secuencia anterior debe leerse como una cadena histórica de ingeniería. Los elementos anteriores a PR #94 representan el estado y las decisiones durante la resolución del Issue. Los elementos posteriores representan la evidencia de integración y cierre.
+
+La existencia de una frase histórica como “pendiente de integración controlada” no contradice el cierre posterior del Issue: pertenece a un punto temporal anterior de la misma cadena de trazabilidad.
+
 ---
 
-## 13. Criterio de cierre
+## 13. Criterio de cierre — estado histórico y resultado final
 
-El Issue #1 podrá cerrarse únicamente cuando el Pull Request asociado demuestre:
+### 13.1 Criterio definido originalmente
 
-- esta auditoría consolidada integrada;
+En la versión v0.2.0, el Issue #1 podía cerrarse únicamente cuando el Pull Request asociado demostrara:
+
+- la auditoría consolidada integrada;
 - coherencia entre el ciclo maestro, la matriz de estándares y el catálogo de artefactos/evidencias;
 - los cuatro workflows de validación en PASS sobre el HEAD final;
-- revisión/SoD conforme al nivel de riesgo o excepción formal cuando corresponda;
-- trazabilidad explícita Issue → Branch → Commits → PR → Validaciones → Revisión → Merge;
-- ausencia de afirmaciones de conformidad normativa no sustentadas;
-- verificación post-merge de los artefactos resultantes.
+- revisión/SoD conforme al nivel de riesgo o excepción formal cuando correspondiera;
+- trazabilidad explícita Issue → Branch → Commits → PR → Validaciones → Merge.
 
-**Estado actual del Issue #1:** abierto y en proceso de resolución controlada.
+Este texto representa el **criterio histórico de cierre**, no una condición actualmente pendiente.
 
-**Conclusión de auditoría:** el modelo A–O es metodológicamente consolidable y cubre los criterios sustantivos del Issue #1; la resolución formal depende ahora de integrar esta evidencia y verificarla mediante el flujo de gobernanza del repositorio.
+### 13.2 Resultado posterior a PR #94
+
+El criterio histórico fue satisfecho mediante el flujo controlado de integración. El cambio fue validado sobre el HEAD final, fusionado mediante PR #94 y el Issue #1 fue cerrado explícitamente como completado.
+
+**Resultado actual: CERRADO / COMPLETADO.**
+
+---
+
+## 14. Regla de mantenimiento futuro
+
+Cualquier modificación futura del ciclo maestro, de esta auditoría o de sus artefactos relacionados debe conservar la separación entre:
+
+1. **evidencia histórica**, que no debe falsificarse ni reescribirse para aparentar un estado que no existía;
+2. **estado actual**, que debe reflejar el repositorio y los controles vigentes;
+3. **cambio propuesto**, que debe pasar por Issue → Branch → Commits → Pull Request → Validaciones → Revisión/SoD → Merge.
+
+Cuando un estado histórico deje de ser actual, debe contextualizarse mediante una sección temporal, versión o registro de cambio; no debe eliminarse silenciosamente.
+
+La documentación debe utilizar las rutas vigentes del repositorio, actualmente bajo `docs/`, salvo cuando una referencia histórica deba conservar explícitamente la ruta anterior como evidencia de contexto.
+
+---
+
+## 15. Conclusión
+
+La auditoría conserva su valor como evidencia de la consolidación del ciclo de vida, pero su interpretación queda ahora temporalmente delimitada.
+
+**Estado histórico:** auditoría v0.2.0 pendiente de integración controlada.  
+**Evento de transición:** PR #94.  
+**Resultado de integración:** cuatro validaciones PASS y merge controlado.  
+**Estado posterior:** Issue #1 cerrado/completado.  
+**Estado documental actual:** auditoría consolidada e integrada, con distinción explícita entre evidencia histórica y estado actual.
+
+La estructura A–O, la separación entre sistema/ecosistema y software, las disciplinas transversales, los Quality Gates y la cadena Issue → Branch → Commit → PR → Validación → Revisión/SoD → Merge permanecen como decisiones documentadas del ciclo consolidado.

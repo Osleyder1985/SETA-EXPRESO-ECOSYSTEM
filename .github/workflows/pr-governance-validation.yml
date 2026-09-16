@@ -91,7 +91,44 @@ jobs:
 
           echo "PR body contract OK; Issue reference detected: $issue_ref"
 
-      - name: Validate PR does not target main from main
+      - name: Validate structured governance metadata
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          metadata=$(awk '
+            /^```yaml[[:space:]]*$/ { capture=1; next }
+            capture && /^```[[:space:]]*$/ { exit }
+            capture { print }
+          ' <<< "$PR_BODY")
+
+          if [[ -z "$metadata" ]]; then
+            echo "ERROR: missing ```yaml governance metadata block."
+            exit 1
+          fi
+
+          METADATA="$metadata" ruby -ryaml -e '
+            data = YAML.safe_load(ENV.fetch("METADATA"), permitted_classes: [], aliases: false) || {}
+            governance = data["governance"]
+            abort "ERROR: governance metadata must be a mapping." unless governance.is_a?(Hash)
+            abort "ERROR: unsupported schema_version." unless governance["schema_version"] == "1"
+            validation = governance["validation"]
+            abort "ERROR: governance.validation must be a mapping." unless validation.is_a?(Hash)
+
+            required = %w[evidence governance quality security]
+            missing = required.reject { |key| validation[key] == "required" }
+            abort "ERROR: missing required validation declarations: #{missing.join(", ")}" unless missing.empty?
+
+            unexpected = validation.keys - required
+            abort "ERROR: unsupported validation keys: #{unexpected.join(", ")}" unless unexpected.empty?
+
+            puts "PASS: structured governance metadata is valid."
+            puts "Declared required validations: #{required.join(", ")}"
+          '
+
+      - name: Validate PR integration path
         env:
           BASE_REF: ${{ github.base_ref }}
           HEAD_REF: ${{ github.head_ref }}

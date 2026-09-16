@@ -1,8 +1,8 @@
 # Research Governance
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issue canónico:** #71  
 **Relacionado:** #67, #69, #74
 
@@ -89,3 +89,7 @@ Cuando exista evidencia suficiente pueden estudiarse arquitectura, procesos, Dev
 ## 13. Integración
 
 Research Governance se integra con Decision, Risk, Data, AI, Security, Quality, Evidence, Metrics, Change, Configuration y Lifecycle Governance. Los cambios materiales siguen Change Control y SoD.
+
+## 14. Estado de baseline
+
+Research Governance está integrada en `main` como **baseline vigente**. La vigencia establece el marco de gobierno para investigación y evidencia científica; no implica que existan investigaciones, datasets, experimentos, runs o resultados activos. Cada artefacto de investigación conserva su propio estado y evidencia, sin convertir una especificación en ejecución ni una métrica operacional en conclusión científica.

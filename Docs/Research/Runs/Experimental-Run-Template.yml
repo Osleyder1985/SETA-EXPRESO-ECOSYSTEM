@@ -1,0 +1,19 @@
+Run-ID: RUN-NNN
+Experiment-ID:
+Experiment-Version:
+RQ-ID:
+Dataset-Version:
+Code-or-Artifact-Version:
+Environment:
+Parameters: []
+Execution-Date: YYYY-MM-DD
+Procedure-Reference:
+Generated-Artifacts: []
+Observed-Outputs: []
+Execution-Notes:
+Deviations: []
+Reproducibility-Record:
+Threats-to-Validity: []
+Limitations: []
+Evidence: []
+Status: PLANNED|RUNNING|COMPLETED|FAILED|INVALIDATED|REVIEWED

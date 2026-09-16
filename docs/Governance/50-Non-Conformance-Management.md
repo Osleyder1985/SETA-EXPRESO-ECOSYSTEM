@@ -1,8 +1,8 @@
 # Non-Conformance Management
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issue principal:** #62  
 **Issue relacionado:** #51 (antecedente de formalización)
 
@@ -84,3 +84,7 @@ Una excepción formal no convierte un FAIL en PASS; si se autoriza avance con ri
 ## 10. Integración
 
 La NC se integra con Risk, Change, Decision, Quality, Security, Evidence, Configuration, Data, AI y Research Governance.
+
+## 11. Estado de baseline
+
+El proceso de Non-Conformance Management está integrado en `main` como **baseline vigente**. Su vigencia establece el proceso y sus registros mínimos; no implica que toda detección, análisis causal o verificación de eficacia esté automatizada. Cada no conformidad debe conservar evidencia proporcional a su clasificación y estado.

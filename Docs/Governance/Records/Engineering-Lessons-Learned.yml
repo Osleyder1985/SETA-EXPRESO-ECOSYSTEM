@@ -22,7 +22,7 @@ Lessons:
     Affected-Artifacts:
       - .github/pull_request_template.md
       - .github/workflows/evidence-validation.yml
-      - Docs/Governance/Records/Engineering- Lesson-Template.yml
+      - Docs/Governance/Records/Engineering-Lesson-Template.yml
     Verification: "Pendiente de verificar mediante una nueva ejecución del PR #81 después de corregir su cuerpo."
     Status: MITIGATED
     Evidence:

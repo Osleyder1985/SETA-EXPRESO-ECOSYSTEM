@@ -1,0 +1,36 @@
+# Registro acumulativo de errores y lecciones de ingeniería.
+# Cada entrada debe conservar problema, causa raíz, solución y control preventivo.
+
+Lessons:
+  - Lesson-ID: LESSON-001
+    Date: 2026-09-15
+    Detected-In: PR-81
+    Category: EVIDENCE
+    Problem: "El PR #81 fue creado sin las secciones obligatorias ## Evidencia esperada y ## Relación."
+    Failure-Symptom: "Evidence Validation EV-001 falló porque la estructura mínima exigida por el workflow no estaba presente en el cuerpo del PR."
+    Root-Cause: "La preparación del PR no contrastó el cuerpo requerido contra el contrato ejecutable del workflow Evidence Validation antes de considerar el PR listo."
+    Impact: "Bloqueó la validación de evidencia y generó una iteración correctiva innecesaria."
+    Detection-Mechanism: "GitHub Actions — Evidence Validation / EV-001."
+    Resolution: "Actualizar el cuerpo del PR con las secciones obligatorias y volver a ejecutar las validaciones aplicables."
+    Preventive-Control: "Usar una plantilla estándar de PR con la estructura mínima y conservar Evidence Validation como gate ejecutable."
+    Automation-Candidate: WORKFLOW
+    Affected-Workflow:
+      - Evidence Validation
+      - Governance Validation
+      - Quality Validation
+      - Security Validation
+    Affected-Artifacts:
+      - .github/pull_request_template.md
+      - .github/workflows/evidence-validation.yml
+      - Docs/Governance/Records/Engineering- Lesson-Template.yml
+    Verification: "Pendiente de verificar mediante una nueva ejecución del PR #81 después de corregir su cuerpo."
+    Status: MITIGATED
+    Evidence:
+      - "Evidence Validation EV-001 en PR #81"
+      - "PR #81"
+    Related-Issues:
+      - 80
+    Related-PRs:
+      - 81
+    Related-Commits:
+      - 33053c2669d4769dc642a5c1ea8358942200cab0

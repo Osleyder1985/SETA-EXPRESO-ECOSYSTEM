@@ -1,19 +1,19 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.8.0  
+**Versión:** 0.9.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #37
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #37, #80
 
 ---
 
 ## 1. Propósito
 
-Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades gratuitas disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia, Decision Governance, AI Governance y medición.
+Definir una arquitectura de controles que reduzca la dependencia del comportamiento humano para preservar la integridad de `main`, maximice las capacidades disponibles y mantenga una separación verificable entre política, enforcement técnico, detección, calidad, seguridad, evidencia, Decision Governance, AI Governance y medición.
 
-Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets no se consideran disponibles para este propósito. Esta restricción queda registrada como riesgo residual.
+Mientras el repositorio sea privado bajo GitHub Free, los controles nativos de protección de ramas/rulesets requeridos para este nivel de enforcement no se consideran disponibles. Esta restricción queda registrada como riesgo residual y está especificada en `53-Main-Branch-Protection-Enforcement.md`.
 
 ## 2. Principio rector
 
@@ -78,7 +78,7 @@ Governance, Decision Governance, AI Governance, Quality, Security, Evidence Vali
 
 | Nivel | Definición | Ejemplo | Estado |
 |---|---|---|---|
-| P-Nativo | La plataforma impide la operación | Branch protection | No disponible bajo restricción actual |
+| P-Nativo | La plataforma impide la operación | Branch protection / ruleset | No disponible bajo restricción actual |
 | P-Compensatorio | Automatización que bloquea el paso lógico del proceso, pero no la capacidad de GitHub de escribir | Validaciones de PR | Parcial |
 | D-Detectivo | Detecta incumplimiento después o durante la operación | Push a `main` sin PR asociado | Implementado |
 | G-Gobernanza | Política, evidencia y responsabilidad | Issue + PR + revisión | Vigente |
@@ -142,7 +142,24 @@ Sus controles iniciales EV-001..EV-005 comprueban estructura mínima de evidenci
 
 Ante cada `push` a `main`, la automatización deberá registrar SHA, actor y mensaje; identificar asociación con Pull Requests cuando sea posible; distinguir integración mediante PR de actualización sin PR; marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado; conservar evidencia detectiva y no afirmar que la automatización revirtió o impidió el cambio.
 
-## 11. Línea base mínima
+La protección nativa futura deberá complementar, no sustituir, esta detección.
+
+## 11. Perfil de enforcement nativo futuro
+
+Cuando la plataforma lo permita, `main` deberá adoptar el perfil definido en `53-Main-Branch-Protection-Enforcement.md`, incluyendo como mínimo:
+
+- Pull Request obligatorio;
+- reviews requeridas según SoD/riesgo;
+- required status checks de Governance, Quality, Security y Evidence;
+- resolución de conversaciones;
+- bloqueo de force push;
+- bloqueo de eliminación;
+- bypasses mínimos, explícitos y documentados;
+- protección administrativa cuando sea compatible.
+
+La configuración deberá probarse mediante un PR real y no se considerará efectiva por mera declaración documental.
+
+## 12. Línea base mínima
 
 Los siguientes artefactos forman parte de la baseline de enforcement:
 
@@ -180,32 +197,34 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 
 La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente cuando el control sea aplicable.
 
-## 12. Governance Gate Enforcement
+## 13. Governance Gate Enforcement
 
 Los Quality Gates utilizan controles de readiness específicos definidos en `11-Governance-Control-Matrix.md`. Para G0, los controles `GC-001` a `GC-004` verifican respectivamente la evaluación formal de readiness, el análisis de impacto, la existencia del paquete de evidencia y la explicitación del riesgo residual.
 
-## 13. Metrics Governance
+## 14. Metrics Governance
 
 Metrics Governance convierte los resultados observables del proceso de ingeniería en indicadores definidos y reproducibles. Su política, catálogo y matriz de controles se encuentran en `21-Engineering-Metrics-Governance.md` y `22-Engineering-Metrics-Control-Matrix.md`.
 
-## 14. Residual risk
+## 15. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
-La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de plan de pago, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
+La aceptación del riesgo es temporal y está condicionada a repositorio privado, GitHub Free, ausencia de capacidad nativa compatible, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma.
 
-## 15. Métricas iniciales
+## 16. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente el cumplimiento de Governance, Quality, Security, Evidence, Decision Governance y AI Governance, además de actualizaciones sospechosas de `main` y disponibilidad/frescura de evidencia.
 
-## 16. Evolución hacia enforcement nativo
+## 17. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
-## 17. Criterio de verdad
+La activación será una unidad de cambio controlada y deberá conservar Issue, branch, commits, PR, configuración efectiva, pruebas y evidencia de los controles.
+
+## 18. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes.
 
-## 18. Evidencia de implementación
+## 19. Evidencia de implementación
 
 La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, registros de AI Governance cuando existan usos reales, resultados de validación, métricas y snapshots cuando existan, estado final de integración y documentación actualizada.

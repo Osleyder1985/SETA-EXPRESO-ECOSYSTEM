@@ -53,7 +53,8 @@ jobs:
               failed=1
             fi
 
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then
+            write_lines=$(grep -E '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow" || true)
+            if [[ -n "$write_lines" ]]; then
               if [[ "$workflow" != ".github/workflows/label-classification.yml" ]]; then
                 echo "FAIL SV-002: write permission is not authorized for this workflow: $workflow"
                 failed=1
@@ -62,7 +63,8 @@ jobs:
                   echo "FAIL SV-002: label classifier must declare pull-requests: write explicitly: $workflow"
                   failed=1
                 fi
-                if grep -Eq '^  [A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow" | grep -v 'pull-requests' >/dev/null 2>&1; then
+                unauthorized=$(printf '%s\n' "$write_lines" | grep -Ev '^  pull-requests:[[:space:]]*write[[:space:]]*$' || true)
+                if [[ -n "$unauthorized" ]]; then
                   echo "FAIL SV-002: label classifier has an unauthorized additional write permission: $workflow"
                   failed=1
                 fi

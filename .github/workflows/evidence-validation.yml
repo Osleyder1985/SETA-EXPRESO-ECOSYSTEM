@@ -59,19 +59,44 @@ jobs:
           test "$actual_sha" = "$EXPECTED_SHA" || { echo "FAIL EV-003: HEAD ($actual_sha) no coincide con el commit evaluado ($EXPECTED_SHA)."; exit 1; }
           echo "PASS EV-003: commit evaluado identificado de forma determinista: $actual_sha"
 
-      - name: EV-004 - Validate declared validation evidence
+      - name: EV-004 - Validate declared validation metadata
         if: github.event_name == 'pull_request'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
+
           PR_BODY="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.body // ""')"
-          printf '%s\n' "$PR_BODY" | grep -Fq 'Validate governance controls' || { echo "FAIL EV-004: no se declaró Validate governance controls en la evidencia esperada."; exit 1; }
-          printf '%s\n' "$PR_BODY" | grep -Fq 'Validate repository quality' || { echo "FAIL EV-004: no se declaró Validate repository quality en la evidencia esperada."; exit 1; }
-          printf '%s\n' "$PR_BODY" | grep -Fq 'Validate security controls' || { echo "FAIL EV-004: no se declaró Validate security controls en la evidencia esperada."; exit 1; }
-          printf '%s\n' "$PR_BODY" | grep -Fq 'Validate engineering evidence' || { echo "FAIL EV-004: no se declaró Validate engineering evidence en la evidencia esperada."; exit 1; }
-          echo "PASS EV-004: validaciones requeridas declaradas."
+
+          metadata=$(awk '
+            /^```yaml[[:space:]]*$/ { capture=1; next }
+            capture && /^```[[:space:]]*$/ { exit }
+            capture { print }
+          ' <<< "$PR_BODY")
+
+          if [[ -z "$metadata" ]]; then
+            echo "FAIL EV-004: falta el bloque YAML de metadata de gobernanza."
+            exit 1
+          fi
+
+          METADATA="$metadata" ruby -ryaml -e '
+            data = YAML.safe_load(ENV.fetch("METADATA"), permitted_classes: [], aliases: false) || {}
+            governance = data["governance"]
+            abort "FAIL EV-004: governance metadata must be a mapping." unless governance.is_a?(Hash)
+            abort "FAIL EV-004: unsupported schema_version." unless governance["schema_version"] == "1"
+            validation = governance["validation"]
+            abort "FAIL EV-004: governance.validation must be a mapping." unless validation.is_a?(Hash)
+
+            required = %w[evidence governance quality security]
+            missing = required.reject { |key| validation[key] == "required" }
+            abort "FAIL EV-004: missing required validation declarations: #{missing.join(", ")}" unless missing.empty?
+
+            unexpected = validation.keys - required
+            abort "FAIL EV-004: unsupported validation keys: #{unexpected.join(", ")}" unless unexpected.empty?
+
+            puts "PASS EV-004: structured validation metadata declares all required controls."
+          '
 
       - name: EV-005 - Validate evidence baseline artifacts
         run: |

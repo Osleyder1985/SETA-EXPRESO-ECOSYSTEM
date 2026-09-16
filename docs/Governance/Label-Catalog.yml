@@ -1,64 +1,150 @@
-schema_version: "1"
+schema_version: "2"
 
-catalog:
-  governance:
-    description: "Gobierno, políticas, procesos, ciclo de vida, control de cambios, planificación y decisiones."
-    applies_to:
-      - issue
-      - pull_request
-    triggers:
-      - ".github/"
-      - "docs/Governance/"
-      - "docs/Research/"
+# Taxonomía controlada de clasificación del trabajo.
+# Cada Issue/PR debe tener exactamente un label de dominio primario
+# y exactamente un label de tipo de trabajo.
 
-  documentation:
-    description: "Documentación, registros, evidencias documentales e índices."
-    applies_to:
-      - issue
-      - pull_request
-    triggers:
-      - "docs/"
-      - "README.md"
-      - "*.md"
+taxonomy:
+  domain:
+    required: true
+    cardinality: exactly_one_primary
+    labels:
+      governance:
+        status: active
+        description: "Gobierno, políticas, procesos de gobernanza, ciclo de vida y control de cambios."
+        examples:
+          - ".github/"
+          - "docs/Governance/"
+          - "políticas del proyecto"
+      research:
+        status: active
+        description: "Investigación, revisión de literatura, experimentación científica y evidencia de investigación."
+        examples:
+          - "docs/Research/"
+          - "papers"
+          - "experimentos"
+      documentation:
+        status: active
+        description: "Documentación técnica, registros, índices y evidencias documentales."
+        examples:
+          - "README.md"
+          - "docs/"
+          - "registros documentales"
+      requirements:
+        status: active
+        description: "Descubrimiento, especificación, análisis, trazabilidad y validación de requisitos."
+        examples:
+          - "requisitos funcionales"
+          - "requisitos no funcionales"
+          - "baselines de requisitos"
+      architecture:
+        status: active
+        description: "Arquitectura de sistema/software, diseño estructural y decisiones arquitectónicas."
+        examples:
+          - "docs/Architecture/"
+          - "diagramas arquitectónicos"
+          - "decisiones de arquitectura"
+      implementation:
+        status: active
+        description: "Construcción o modificación del producto, componentes y código ejecutable."
+        examples:
+          - "src/"
+          - "servicios"
+          - "componentes"
+      testing:
+        status: active
+        description: "Verificación, validación, pruebas y estrategia de calidad técnica."
+        examples:
+          - "tests/"
+          - "planes de prueba"
+          - "validaciones"
+      security:
+        status: active
+        description: "Seguridad, controles, amenazas, vulnerabilidades y protección de activos."
+        examples:
+          - "controles de seguridad"
+          - "threat modeling"
+          - "hardening"
+      data:
+        status: active
+        description: "Datos, modelos de datos, esquemas, calidad, gobierno y flujos de información."
+        examples:
+          - "schemas"
+          - "data governance"
+          - "pipelines de datos"
+      devops:
+        status: active
+        description: "Integración, entrega, automatización de infraestructura y toolchain de ingeniería."
+        examples:
+          - ".github/workflows/"
+          - "CI/CD"
+          - "automatización de entrega"
+      operations:
+        status: active
+        description: "Operación, observabilidad, despliegue, soporte y continuidad del sistema."
+        examples:
+          - "monitorización"
+          - "runbooks"
+          - "operación en producción"
 
-  architecture:
-    description: "Arquitectura de sistema/software, diseño estructural y decisiones arquitectónicas."
-    applies_to:
-      - issue
-      - pull_request
-    triggers:
-      - "docs/Architecture/"
-      - "architecture"
-
-future_domains:
-  requirements:
-    status: planned
-    rationale: "Se incorporará cuando el dominio de requisitos sea una unidad permanente del ciclo de vida."
-  testing:
-    status: planned
-    rationale: "Se incorporará cuando testing/verificación tenga artefactos y flujo propios."
-  security:
-    status: planned
-    rationale: "Se incorporará cuando seguridad constituya un dominio operativo permanente."
-  data:
-    status: planned
-    rationale: "Se incorporará cuando datos tenga gobernanza y artefactos propios."
-  devops:
-    status: planned
-    rationale: "Se incorporará cuando DevOps constituya un dominio permanente."
-  operations:
-    status: planned
-    rationale: "Se incorporará cuando operaciones constituya un dominio permanente."
+  work_type:
+    required: true
+    cardinality: exactly_one
+    labels:
+      feature:
+        description: "Incorporación de capacidad o comportamiento nuevo."
+      bug:
+        description: "Corrección de comportamiento incorrecto o fallo existente."
+      refactor:
+        description: "Cambio estructural sin alterar el comportamiento funcional esperado."
+      configuration:
+        description: "Ajuste de configuración, políticas declarativas o parámetros operativos."
+      automation:
+        description: "Automatización de un proceso manual o repetitivo."
+      decision:
+        description: "Formalización de una decisión técnica, arquitectónica o de proceso."
+      baseline:
+        description: "Creación, actualización o control de una baseline formal."
+      process:
+        description: "Definición, mejora o corrección de un proceso de ingeniería."
+      investigation:
+        description: "Investigación acotada para reducir incertidumbre antes de decidir o ejecutar."
+      maintenance:
+        description: "Mantenimiento preventivo o correctivo sin nueva capacidad ni cambio estructural relevante."
 
 rules:
-  minimum_labels: 1
-  issue_primary_label: required
-  pull_request_primary_label: inherit_from_issue
-  secondary_labels: justified_only
+  minimum_labels: 2
+  primary_domain_required: true
+  work_type_required: true
+  secondary_domain_labels: allowed_when_justified
+  secondary_work_type_labels: forbidden
+  pull_request_inherits_issue_domain: true
+  pull_request_inherits_issue_work_type: true
+  classification_change_requires_issue_update: true
   unknown_labels: reject
+  labels_outside_catalog: reject
   standard_github_labels_are_official: false
-  label_meaning_may_overlap: false
+  domain_meaning_may_overlap: false
+  work_type_meaning_may_overlap: false
   label_is_phase: false
   label_is_title: false
+  label_is_status: false
+  label_is_priority: false
   automation_may_create_only_catalog_labels: true
+  automation_may_infer_only_from_declared_rules: true
   ambiguous_classification: fail_and_require_explicit_classification
+
+automation_contract:
+  source_of_truth: "docs/Governance/Label-Catalog.yml"
+  issue_classification_precedes_pr: true
+  pr_classification_must_match_issue: true
+  candidate_labels_must_exist_in_catalog: true
+  new_label_creation_requires_governance_change: true
+  no_inferred_taxonomy_expansion: true
+
+migration:
+  historical_items_are_not_rewritten_automatically: true
+  existing_labels_may_be_regularized_when_traceability_is_preserved: true
+  enforcement_mode: "progressive"
+  current_contingency_label: governance
+  contingency_is_not_semantic_classification: true

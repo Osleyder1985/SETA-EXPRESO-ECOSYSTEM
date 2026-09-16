@@ -29,54 +29,30 @@ jobs:
             echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."
             exit 1
           fi
-
           if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!docs/Governance/13-Security-Validation-Architecture.md'; then
             echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."
             exit 1
           fi
-
           echo "SV-001=PASS"
 
       - name: SV-002 Workflow Least Privilege
         run: |
           set -euo pipefail
           workflow_count=$(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | wc -l)
-          if [ "$workflow_count" -eq 0 ]; then
-            echo "ERROR [SV-002]: No existen workflows que validar."
-            exit 1
-          fi
-
+          if [ "$workflow_count" -eq 0 ]; then exit 1; fi
           failed=0
           while IFS= read -r workflow; do
-            if ! grep -Eq '^permissions:' "$workflow"; then
-              echo "ERROR [SV-002]: $workflow no declara permissions explícitos."
-              failed=1
-              continue
-            fi
-
-            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then
-              echo "ERROR [SV-002]: $workflow solicita permisos globales de escritura."
-              failed=1
-            fi
-
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then
-              echo "ERROR [SV-002]: $workflow contiene un permiso write explícito no permitido por el baseline inicial."
-              failed=1
-            fi
+            if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
+            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
+            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
-
-          if [ "$failed" -ne 0 ]; then
-            exit 1
-          fi
+          if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"
 
       - name: SV-003 Dangerous Workflow Trigger
         run: |
           set -euo pipefail
-          if git grep -nE '^[[:space:]]*pull_request_target:' -- '.github/workflows'; then
-            echo "ERROR [SV-003]: Se detectó pull_request_target sin un mecanismo de excepción de seguridad formal."
-            exit 1
-          fi
+          if git grep -nE '^[[:space:]]*pull_request_target:' -- '.github/workflows'; then exit 1; fi
           echo "SV-003=PASS"
 
       - name: SV-004 Security Workflow Integrity
@@ -84,26 +60,20 @@ jobs:
           set -euo pipefail
           workflow='.github/workflows/security-validation.yml'
           architecture='docs/Governance/13-Security-Validation-Architecture.md'
-
           test -f "$workflow"
           test -f "$architecture"
-
           for control in SV-001 SV-002 SV-003 SV-004; do
-            grep -q "$control" "$workflow" || {
-              echo "ERROR [SV-004]: Falta el control $control en el workflow de Security Validation."
-              exit 1
-            }
+            grep -q "$control" "$workflow" || exit 1
           done
-
-          grep -q 'Security Validation' "$architecture"
+          grep -q 'Validate security controls' "$architecture"
           echo "SV-004=PASS"
 
       - name: Security applicability report
         run: |
           set -euo pipefail
-          echo "SV-005=NOT_APPLICABLE: no se identifican manifiestos de dependencias de aplicación en el baseline actual."
-          echo "SV-006=NOT_APPLICABLE: no existe código de aplicación en el baseline actual."
-          echo "SV-007=NOT_APPLICABLE: no existe infraestructura declarativa del producto en el baseline actual."
-          echo "SV-008=NOT_APPLICABLE: no existen imágenes de contenedor del producto en el baseline actual."
-          echo "SV-009=NOT_IMPLEMENTED: SBOM se incorporará cuando exista software/dependencias reales."
+          echo "SV-005=NOT_APPLICABLE"
+          echo "SV-006=NOT_APPLICABLE"
+          echo "SV-007=NOT_APPLICABLE"
+          echo "SV-008=NOT_APPLICABLE"
+          echo "SV-009=NOT_IMPLEMENTED"
           echo "SECURITY_VALIDATION=PASS"

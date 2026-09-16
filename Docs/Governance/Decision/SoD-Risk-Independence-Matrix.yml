@@ -1,0 +1,22 @@
+version: 1.0.0
+status: proposed
+issue: 49
+levels:
+  R1:
+    independence: "Acumulación permitida con autocontrol y evidencia mínima."
+  R2:
+    independence: "Revisión independiente según impacto y dominio."
+  R3:
+    independence: "Separación entre aprobación y ejecución cuando sea viable."
+  R4:
+    independence: "Independencia reforzada entre definición, aprobación, ejecución y validación; bloqueo independiente cuando corresponda."
+criteria:
+  - probability
+  - impact
+  - exposure
+  - criticality
+  - data_sensitivity
+  - reversibility
+  - security_consequence
+  - operational_consequence
+  - materiality

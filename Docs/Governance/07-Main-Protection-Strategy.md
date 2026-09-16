@@ -1,26 +1,30 @@
 # Estrategia de protección de `main`
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.3.0  
+**Versión:** 0.4.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
 **Issue de origen:** #7  
-**Actualización de enforcement:** #13, #80
+**Actualización de enforcement:** #13, #80, #82
 
 ---
 
 ## 1. Propósito
 
-Definir cómo se protege la integridad de `main` mientras el repositorio permanezca privado bajo GitHub Free y no se utilicen capacidades de pago compatibles con protección nativa.
+Definir cómo se protege la integridad de `main` mientras el repositorio permanezca privado y no se utilicen capacidades de pago compatibles con protección nativa, distinguiendo además las capacidades de la cuenta GitHub de las capacidades efectivamente expuestas por la integración.
 
-La estrategia distingue explícitamente entre **protección técnica nativa**, **controles compensatorios automatizados**, **detección** y **gobernanza**.
+La estrategia distingue explícitamente entre **protección técnica nativa**, **controles compensatorios automatizados**, **detección**, **gobernanza** y **observabilidad administrativa**.
 
 El perfil técnico objetivo de protección está definido en `53-Main-Branch-Protection-Enforcement.md`.
 
 ## 2. Restricción conocida
 
-El repositorio es privado y GitHub Free no permite aplicar de forma efectiva las capacidades de branch protection/rulesets requeridas para este nivel de enforcement. La documentación oficial vigente de GitHub confirma que protected branches y rulesets para repositorios privados requieren GitHub Pro, Team o Enterprise. Por tanto, no se afirmará que `main` está técnicamente protegida mientras esa capacidad no esté disponible y verificada.
+El repositorio es privado y, bajo la configuración actual, las capacidades de branch protection/rulesets requeridas para este nivel de enforcement no están disponibles o no pueden ser verificadas mediante la integración GitHub conectada a este entorno.
+
+La auditoría de #82 demostró que la cuenta `Osleyder1985` posee permiso `admin` sobre el repositorio. Sin embargo, la integración no puede consultar el endpoint administrativo de Branch Protection y devuelve `HTTP 403: Resource not accessible by integration`; la consulta de Rulesets también devuelve `HTTP 403` bajo las condiciones actuales de acceso al repositorio privado.
+
+Por tanto, **no debe confundirse la ausencia de acceso administrativo de la integración con la ausencia de permisos administrativos de la cuenta GitHub**, ni debe afirmarse que `main` está técnicamente protegida sin evidencia de configuración y prueba efectiva.
 
 Esta restricción no modifica la política de ingeniería: los cambios de trabajo deberán continuar siguiendo `Issue → Branch → Pull Request → Review → Merge → main`.
 
@@ -39,12 +43,12 @@ Esta restricción no modifica la política de ingeniería: los cambios de trabaj
 | Validar línea base de main | Governance Validation | D | Implementado |
 | Validar baseline documental | Governance Validation | D | Implementado |
 | Detectar push a main sin PR asociado | Governance Validation | D | Implementado |
-| Impedir push directo técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
-| Impedir force push técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
-| Exigir approvals técnicamente | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
-| Exigir status checks para merge | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
-| Bloquear eliminación de main | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
-| Reducir bypass administrativo | Branch protection/ruleset | P-Nativo | No disponible bajo restricción actual |
+| Impedir push directo técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
+| Impedir force push técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
+| Exigir approvals técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
+| Exigir status checks para merge | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
+| Bloquear eliminación de main | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
+| Reducir bypass administrativo | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
 
 ## 4. Governance Enforcement
 
@@ -120,7 +124,7 @@ Una desaparición accidental o modificación estructural no acompañada por la e
 - **G-Gobernanza:** política, responsabilidades, revisión y evidencia.
 - **M-Métrico:** convierte el cumplimiento en indicadores.
 
-Actualmente `main` dispone de **G + P-Compensatorio + D + M en construcción**. El nivel P-Nativo permanece no disponible bajo la restricción actual.
+Actualmente `main` dispone de **G + P-Compensatorio + D + M en construcción**. El nivel P-Nativo permanece no disponible o no verificable bajo la configuración/capacidad actual.
 
 ## 7. Riesgo residual
 
@@ -131,8 +135,8 @@ La estrategia reduce la probabilidad de incumplimiento accidental y mejora su de
 El riesgo se acepta temporalmente bajo estas condiciones:
 
 - repositorio privado;
-- GitHub Free;
-- ausencia de capacidad de protección nativa compatible;
+- configuración/plataforma actual sin enforcement nativo verificable;
+- integración sin acceso al endpoint administrativo de Branch Protection;
 - mantenimiento de controles compensatorios;
 - revisión periódica de capacidades de GitHub;
 - conservación de evidencia de los eventos sobre `main`.
@@ -154,7 +158,7 @@ Se comenzarán a medir progresivamente:
 
 ## 9. Evolución prevista
 
-Cuando exista capacidad compatible de branch protection/rulesets, se deberán activar progresivamente conforme al perfil definido en `53-Main-Branch-Protection-Enforcement.md`:
+Cuando exista capacidad compatible de branch protection/rulesets o una vía administrativa verificable, se deberán activar progresivamente conforme al perfil definido en `53-Main-Branch-Protection-Enforcement.md`:
 
 1. Pull Request obligatorio.
 2. Aprobación requerida según SoD/riesgo.
@@ -190,4 +194,6 @@ La afirmación **“`main` está técnicamente protegida”** solo podrá utiliz
 
 La afirmación operacional válida mientras dure la restricción es:
 
-> `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia de enforcement nativo.
+> `main` está gobernada mediante controles procedimentales, automatizados y detectivos, con riesgo residual documentado por ausencia o falta de verificabilidad del enforcement nativo.
+
+La auditoría de #82 debe interpretarse como una **limitación de observabilidad administrativa de la integración**, no como evidencia de que la cuenta GitHub carezca de permisos administrativos.

@@ -1,0 +1,23 @@
+Change-ID: CHG-NNN
+Related-Issue:
+Requested-Date: YYYY-MM-DD
+Requester:
+Description:
+Reason:
+Classification: C0|C1|C2|C3
+Affected-Components: []
+Affected-Artifacts: []
+Impact-Analysis:
+Risk:
+Decision-Record:
+Required-Authority:
+SoD-Level: I0|I1|I2|I3
+Approval:
+Implementation-PR:
+Validation-Evidence: []
+Rollback-or-Recovery:
+Residual-Risk:
+Urgency: NORMAL|URGENT
+Urgent-Justification:
+Closure:
+Status: PROPOSED|ASSESSED|APPROVED|IMPLEMENTING|VERIFYING|CLOSED|REJECTED

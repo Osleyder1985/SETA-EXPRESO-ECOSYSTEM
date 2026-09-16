@@ -1,0 +1,23 @@
+NC-ID: NC-NNN
+Detected-Date: YYYY-MM-DD
+Detected-By:
+Source: GATE|GOVERNANCE|QUALITY|SECURITY|EVIDENCE|AUDIT|INCIDENT|OTHER
+Related-Issue:
+Related-PR:
+Related-Gate:
+Classification: NC-L|NC-M|NC-H|NC-C
+Description:
+Impact:
+Containment:
+Root-Cause:
+Root-Cause-Method: 5-WHYS|ISHIKAWA|CAUSAL|PROCESS|OTHER
+Corrective-Action:
+Preventive-Action:
+Verification:
+Residual-Risk:
+Risk-Acceptance:
+Evidence: []
+Owner:
+Approver:
+Status: OPEN|CONTAINED|ANALYZING|ACTION_REQUIRED|VERIFYING|CLOSED
+Closure-Date:

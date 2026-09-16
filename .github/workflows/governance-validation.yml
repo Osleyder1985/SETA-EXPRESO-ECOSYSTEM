@@ -32,20 +32,47 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          PR_BODY="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.body // ""')"
-          PR_TITLE="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq -r '.title // ""')"
-          if [ "$PR_HEAD_REF" = "main" ]; then exit 1; fi
-          if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then exit 1; fi
+          PR_JSON="$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER")"
+          PR_BODY="$(printf '%s' "$PR_JSON" | jq -r '.body // ""')"
+          PR_TITLE="$(printf '%s' "$PR_JSON" | jq -r '.title // ""')"
+          LABEL_COUNT="$(printf '%s' "$PR_JSON" | jq '.labels | length')"
+
+          echo "HEAD_REF=[$PR_HEAD_REF]"
+          echo "PR_TITLE=[$PR_TITLE]"
+          echo "LABEL_COUNT=[$LABEL_COUNT]"
+
+          if [ "$PR_HEAD_REF" = "main" ]; then
+            echo "FAIL: PR head cannot be main."; exit 1
+          fi
+          if ! printf '%s\n' "$PR_HEAD_REF" | grep -Eq '^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$'; then
+            echo "FAIL: invalid issue branch naming."; exit 1
+          fi
+
           issue_number=$(printf '%s\n' "$PR_HEAD_REF" | sed -E 's/^issue-([0-9]+)-.*/\1/')
-          if [[ "$PR_BODY" != *"#$issue_number"* ]]; then exit 1; fi
-          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then exit 1; fi
-          if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then exit 1; fi
-          if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then exit 1; fi
-          label_count=$(curl --fail-with-body --silent --show-error -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2026-03-10" "https://api.github.com/repos/$REPOSITORY/pulls/$PR_NUMBER" | jq '.labels | length')
-          if [ "$label_count" -lt 1 ]; then exit 1; fi
+          echo "ISSUE_NUMBER=[$issue_number]"
+
+          if [[ "$PR_BODY" != *"#$issue_number"* ]]; then
+            echo "FAIL: PR body does not reference issue #$issue_number."; exit 1
+          fi
+          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then
+            echo "FAIL: PR title does not conform."; exit 1
+          fi
+          if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then
+            echo "FAIL: explicit issue relation missing."; exit 1
+          fi
+          if [[ "$PR_BODY" != *"Análisis de impacto"* ]]; then
+            echo "FAIL: impact analysis section missing."; exit 1
+          fi
+          if [ "$LABEL_COUNT" -lt 1 ]; then
+            echo "FAIL: PR requires at least one label."; exit 1
+          fi
+
           ready_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^[[:space:]]*🟢[[:space:]]+\*\*LISTO PARA FUSIÓN\.\*\*[[:space:]]*$' || true)
           pending_count=$(printf '%s\n' "$PR_BODY" | grep -Ec '^[[:space:]]*🟡[[:space:]]+\*\*NO FUSIONAR — TRABAJO PENDIENTE\.\*\*[[:space:]]*$' || true)
-          if [ $((ready_count + pending_count)) -ne 1 ]; then exit 1; fi
+          echo "READY_COUNT=[$ready_count] PENDING_COUNT=[$pending_count]"
+          if [ $((ready_count + pending_count)) -ne 1 ]; then
+            echo "FAIL: integration status must contain exactly one recognized formal state."; exit 1
+          fi
           echo "OK: Governance metadata conforms."
 
       - name: Repository governance baseline
@@ -77,6 +104,15 @@ jobs:
             Docs/Governance/26-Data-Governance-Control-Matrix.md
             Docs/Governance/35-Configuration-Management.md
             Docs/Governance/41-Configuration-Management-Control-Matrix.md
+            Docs/Governance/48-Decision-Authority-Governance.md
+            Docs/Governance/Decision/README.md
+            Docs/Governance/Decision/Role-Register.yml
+            Docs/Governance/Decision/Decision-Authority-Matrix.yml
+            Docs/Governance/Decision/Decision-Authority-Register.md
+            Docs/Governance/Decision/Decision-Authority-Control-Matrix.md
+            Docs/Governance/Decision/Decision-Authority-Impact-Analysis.md
+            Docs/Governance/Decision/Decision-Authority-Escalation.md
+            Docs/Governance/Decision/Role-Assignment-Policy.md
             Docs/Governance/Configuration/README.md
             Docs/Governance/Configuration/Configuration-Item-Register.yml
             Docs/Governance/Configuration/Configuration-Baseline-Register.yml

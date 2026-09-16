@@ -25,12 +25,12 @@ jobs:
       - name: SV-001 Secret Material Scan
         run: |
           set -euo pipefail
-          if git grep --cached -nE '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!Docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
+          if git grep --cached -nE '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
             echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."
             exit 1
           fi
 
-          if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!Docs/Governance/13-Security-Validation-Architecture.md'; then
+          if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!docs/Governance/13-Security-Validation-Architecture.md'; then
             echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."
             exit 1
           fi
@@ -83,7 +83,7 @@ jobs:
         run: |
           set -euo pipefail
           workflow='.github/workflows/security-validation.yml'
-          architecture='Docs/Governance/13-Security-Validation-Architecture.md'
+          architecture='docs/Governance/13-Security-Validation-Architecture.md'
 
           test -f "$workflow"
           test -f "$architecture"

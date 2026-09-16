@@ -1,0 +1,50 @@
+version: 1.0.0
+status: proposed
+issue: 49
+purpose: "Clasificar combinaciones de funciones de definición, ejecución, aprobación y validación según el riesgo."
+classification:
+  ALLOWED: "La acumulación es permitida bajo las condiciones definidas."
+  RESTRICTED: "La acumulación requiere revisión, evidencia o condición adicional."
+  PROHIBITED: "La combinación no debe utilizarse para el nivel de riesgo indicado."
+function_pairs:
+  R1:
+    DEFINE_EXECUTE: ALLOWED
+    DEFINE_APPROVE: ALLOWED
+    EXECUTE_APPROVE: ALLOWED
+    EXECUTE_VERIFY: ALLOWED
+    EXECUTE_VALIDATE: ALLOWED
+    APPROVE_VALIDATE: RESTRICTED
+  R2:
+    DEFINE_EXECUTE: ALLOWED
+    DEFINE_APPROVE: RESTRICTED
+    EXECUTE_APPROVE: RESTRICTED
+    EXECUTE_VERIFY: RESTRICTED
+    EXECUTE_VALIDATE: RESTRICTED
+    APPROVE_VALIDATE: RESTRICTED
+  R3:
+    DEFINE_EXECUTE: RESTRICTED
+    DEFINE_APPROVE: RESTRICTED
+    EXECUTE_APPROVE: PROHIBITED
+    EXECUTE_VERIFY: RESTRICTED
+    EXECUTE_VALIDATE: PROHIBITED
+    APPROVE_VALIDATE: RESTRICTED
+  R4:
+    DEFINE_EXECUTE: RESTRICTED
+    DEFINE_APPROVE: PROHIBITED
+    EXECUTE_APPROVE: PROHIBITED
+    EXECUTE_VERIFY: PROHIBITED
+    EXECUTE_VALIDATE: PROHIBITED
+    APPROVE_VALIDATE: PROHIBITED
+exception_policy:
+  permitted: true
+  requirements:
+    - documented_justification
+    - affected_risk
+    - compensating_control
+    - residual_risk
+    - evidence
+    - reevaluation_condition
+notes:
+  - "La matriz clasifica funciones en una decisión/cambio concreto; no exige personas distintas para todos los roles conceptuales."
+  - "Las combinaciones deben interpretarse junto con el análisis de riesgo y el dominio afectado."
+  - "Los controles técnicos solo se afirmarán cuando exista enforcement verificable."

@@ -1,0 +1,52 @@
+version: 1.0.0
+status: proposed
+issue: 47
+roles:
+  - id: ROLE-001
+    name: Product Owner
+    domain: value
+    responsibility: Define product value, priorities and outcomes.
+  - id: ROLE-002
+    name: System Owner
+    domain: system
+    responsibility: Account for system scope, objectives and system-level outcomes.
+  - id: ROLE-003
+    name: Requirements Owner
+    domain: requirements
+    responsibility: Account for requirements quality, baseline and traceability.
+  - id: ROLE-004
+    name: System Architect
+    domain: system-architecture
+    responsibility: Account for system architecture and architectural integrity.
+  - id: ROLE-005
+    name: Software Architect
+    domain: software-architecture
+    responsibility: Account for software architecture and design coherence.
+  - id: ROLE-006
+    name: Security Owner
+    domain: security
+    responsibility: Account for security posture and security risk decisions.
+  - id: ROLE-007
+    name: Data Owner
+    domain: data
+    responsibility: Account for data governance and data-domain decisions.
+  - id: ROLE-008
+    name: QA Owner
+    domain: quality
+    responsibility: Account for quality evidence, verification and gate evidence.
+  - id: ROLE-009
+    name: DevOps/Platform Owner
+    domain: platform
+    responsibility: Account for platform, CI/CD and technical infrastructure.
+  - id: ROLE-010
+    name: Operations Owner
+    domain: operations
+    responsibility: Account for operational readiness, support and continuity.
+  - id: ROLE-011
+    name: Research Owner
+    domain: research
+    responsibility: Account for research method, rigor and reproducibility.
+  - id: ROLE-012
+    name: Change Authority
+    domain: change
+    responsibility: Account for authorization of controlled changes.

@@ -24,20 +24,16 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           set -euo pipefail
-
           metadata=$(awk '
             /^```yaml[[:space:]]*$/ { capture=1; next }
             capture && /^```[[:space:]]*$/ { exit }
             capture { print }
           ' <<< "$PR_BODY")
-
           if [[ -z "$metadata" ]]; then
             echo "ERROR: missing governance metadata YAML."
             exit 1
           fi
-
           printf '%s\n' "$metadata" > /tmp/governance.yml
-
           ruby -ryaml -e '
             data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
             governance = data["governance"]
@@ -50,7 +46,6 @@ jobs:
               abort "ERROR: missing classification field: #{key}" unless value.is_a?(String) && !value.empty?
             end
           '
-
           echo "PASS: governance classification metadata is structurally valid."
 
       - name: Validate classification against catalog
@@ -86,5 +81,4 @@ jobs:
             gh pr edit "$PR_NUMBER" --add-label "$label"
             echo "Applied authorized label: $label"
           done
-
           echo "PASS: governance labels applied successfully."

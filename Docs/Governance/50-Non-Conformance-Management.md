@@ -3,7 +3,8 @@
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
 **Versión:** 1.0.0  
 **Estado:** Baseline propuesta para revisión  
-**Issues:** #62, #51
+**Issue principal:** #62  
+**Issue relacionado:** #51 (antecedente de formalización)
 
 ## 1. Propósito
 

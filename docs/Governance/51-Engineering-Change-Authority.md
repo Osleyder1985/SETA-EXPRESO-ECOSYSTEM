@@ -1,8 +1,8 @@
 # Engineering Change Authority
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issue:** #66
 
 ## 1. Propósito
@@ -77,3 +77,7 @@ C2/C3 aplican las restricciones de SoD. Si la independencia no es viable, debe u
 ## 8. Regla de main
 
 Ninguna clase de cambio autoriza escritura directa sobre `main`. Toda integración utiliza Pull Request y los controles correspondientes.
+
+## 9. Estado de baseline
+
+Engineering Change Authority está integrado en `main` como **baseline vigente**. La vigencia establece la clasificación, autoridad y flujo de control de cambios; no implica que todas las decisiones de autoridad estén automatizadas. La evidencia y la asignación de autoridad deben conservarse de forma proporcional a la clase C0–C3.

@@ -1,8 +1,8 @@
 # Research Governance
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issue canónico:** #71  
 **Relacionado:** #67, #69, #74
 
@@ -58,7 +58,7 @@ Debe conservar RQ, hipótesis cuando aplique, objetivo, diseño, variables, data
 
 Cada ejecución conserva versión del experimento, RQ, dataset, código/artefactos, entorno, parámetros, fecha, procedimiento, outputs observados, desviaciones, evidencia y relación con el registro de reproducibilidad. Los resultados observados nunca se sustituyen por resultados esperados.
 
-El registro formal de ejecución se basa en `Docs/Research/Runs/Experimental-Run-Template.yml`. Un experimento especificado no implica que haya sido ejecutado; cada ejecución debe tener su propio `Run-ID` y estado.
+El registro formal de ejecución se basa en `docs/Research/Runs/Experimental-Run-Template.yml`. Un experimento especificado no implica que haya sido ejecutado; cada ejecución debe tener su propio `Run-ID` y estado.
 
 ## 8. Results
 
@@ -68,7 +68,7 @@ Los resultados distinguen observación, análisis, interpretación, conclusión 
 
 Según el estudio, el paquete debe conservar código, datos o procedimiento de obtención, configuración, entorno, parámetros, versiones de herramientas/modelos, procedimiento, artefactos, análisis y limitaciones. Restricciones de privacidad/licencia deben quedar registradas.
 
-El registro formal se basa en `Docs/Research/Reproducibility/Reproducibility-Template.yml` y debe enlazar, cuando existan, RQ, experimento, ejecución y resultado. La existencia del registro no implica que la reproducción haya sido exitosa: el estado de reproducción debe reflejar la evidencia disponible.
+El registro formal se basa en `docs/Research/Reproducibility/Reproducibility-Template.yml` y debe enlazar, cuando existan, RQ, experimento, ejecución y resultado. La existencia del registro no implica que la reproducción haya sido exitosa: el estado de reproducción debe reflejar la evidencia disponible.
 
 ## 10. Threats to Validity
 
@@ -89,3 +89,7 @@ Cuando exista evidencia suficiente pueden estudiarse arquitectura, procesos, Dev
 ## 13. Integración
 
 Research Governance se integra con Decision, Risk, Data, AI, Security, Quality, Evidence, Metrics, Change, Configuration y Lifecycle Governance. Los cambios materiales siguen Change Control y SoD.
+
+## 14. Estado de baseline
+
+Research Governance está integrada en `main` como **baseline vigente**. La vigencia establece el marco de gobierno para investigación y evidencia científica; no implica que existan investigaciones, datasets, experimentos, runs o resultados activos. Cada artefacto de investigación conserva su propio estado y evidencia, sin convertir una especificación en ejecución ni una métrica operacional en conclusión científica.

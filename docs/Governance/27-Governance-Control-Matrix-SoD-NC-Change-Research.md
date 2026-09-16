@@ -1,8 +1,8 @@
 # Governance Control Matrix — SoD, Non-Conformance, Change Authority & Research
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
-**Estado:** Baseline propuesta para revisión  
+**Versión:** 1.0.1  
+**Estado:** Baseline vigente  
 **Issues:** #52, #62, #66, #71
 
 | ID | Capability | Control | Evidence | Nature | Limitation |
@@ -66,4 +66,22 @@ Research Output
 
 ## Governance status
 
-These controls are baselineados documentalmente por esta PR. No se deben declarar como controles técnicos totalmente automatizados hasta disponer de implementación ejecutable y evidencia de workflow.
+Los controles de esta matriz constituyen una **baseline documental vigente** integrada en `main`. La matriz no declara controles técnicos como totalmente automatizados por el solo hecho de estar definidos: cada control conserva su naturaleza, limitación y evidencia requerida. Los controles técnicos solo podrán declararse automatizados cuando exista implementación ejecutable y evidencia verificable del workflow correspondiente.
+
+## Baseline lifecycle states
+
+Los estados oficiales de baseline documental son:
+
+```text
+Baseline propuesta
+        ↓
+Baseline en revisión
+        ↓
+Baseline controlada
+        ↓
+Baseline vigente
+        ↓
+Retirada / superseded
+```
+
+Este documento y las políticas relacionadas de SoD, Non-Conformance, Engineering Change Authority y Research Governance se encuentran actualmente en **Baseline vigente**. La transición de estado debe conservar trazabilidad, evidencia y control de cambios.

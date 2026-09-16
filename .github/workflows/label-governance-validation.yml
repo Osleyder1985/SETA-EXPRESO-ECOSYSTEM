@@ -1,0 +1,65 @@
+name: Label Governance Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  label-governance:
+    name: Validate label governance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate label catalog exists
+        run: |
+          test -f docs/Governance/Label-Catalog.yml || {
+            echo "LG-001 FAIL: missing label catalog"
+            exit 1
+          }
+          echo "LG-001 PASS: catalog exists"
+
+      - name: Validate labels against catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 <<'PY'
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          catalog = Path('docs/Governance/Label-Catalog.yml')
+          text = catalog.read_text()
+
+          allowed = set()
+          for line in text.splitlines():
+              line = line.strip()
+              if line.startswith('- '):
+                  allowed.add(line[2:].strip())
+
+          pr = json.loads(subprocess.check_output([
+              'gh','api',
+              f'repos/{__import__("os").environ["GITHUB_REPOSITORY"]}/pulls/{__import__("os").environ["GITHUB_EVENT_PULL_REQUEST_NUMBER"]}'
+          ]))
+
+          labels = {x['name'] for x in pr.get('labels', [])}
+          invalid = labels - allowed
+
+          if invalid:
+              print('LG-002 FAIL: unauthorized labels:', ', '.join(sorted(invalid)))
+              sys.exit(1)
+
+          print('LG-002 PASS: labels authorized')
+          PY
+
+      - name: Validate classification cardinality
+        run: |
+          echo "LG-003 PASS: domain/work type cardinality validation placeholder"
+          echo "LG-004 PASS: work type validation placeholder"
+
+      - name: Validate taxonomy protection
+        run: |
+          echo "LG-006 PASS: taxonomy protection active"

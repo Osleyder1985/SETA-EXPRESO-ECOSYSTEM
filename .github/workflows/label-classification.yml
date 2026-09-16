@@ -19,10 +19,36 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Read governance metadata and apply labels
+      - name: Apply labels from governance metadata
         env:
           GH_TOKEN: ${{ github.token }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
-          echo "Governance label classification placeholder initialized."
-          echo "Future implementation will map YAML metadata against docs/Governance/Label-Catalog.yml."
+
+          metadata=$(awk '
+            /^```yaml[[:space:]]*$/ { capture=1; next }
+            capture && /^```[[:space:]]*$/ { exit }
+            capture { print }
+          ' <<< "$PR_BODY")
+
+          if [[ -z "$metadata" ]]; then
+            echo "ERROR: missing governance metadata YAML."
+            exit 1
+          fi
+
+          printf '%s\n' "$metadata" > /tmp/governance.yml
+
+          domain=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["domain"] rescue ""')
+          work_type=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["work_type"] rescue ""')
+          priority=$(ruby -ryaml -e 'puts YAML.load_file("/tmp/governance.yml")["governance"]["classification"]["priority"] rescue ""')
+
+          for label in "$domain" "$work_type" "$priority"; do
+            if [[ -n "$label" ]]; then
+              gh pr edit "$PR_NUMBER" --add-label "$label"
+              echo "Applied label: $label"
+            fi
+          done
+
+          echo "PASS: governance label classification completed."

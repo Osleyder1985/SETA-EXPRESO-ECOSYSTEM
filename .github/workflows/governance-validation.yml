@@ -54,7 +54,7 @@ jobs:
           if [[ "$PR_BODY" != *"#$issue_number"* ]]; then
             echo "FAIL: PR body does not reference issue #$issue_number."; exit 1
           fi
-          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+/.+: .+\.$'; then
+          if ! printf '%s\n' "$PR_TITLE" | grep -Eq '^.+\([^()]+\): .+\.$'; then
             echo "FAIL: PR title does not conform."; exit 1
           fi
           if [[ "$PR_BODY" != *"Issue #"* && "$PR_BODY" != *"Closes #"* && "$PR_BODY" != *"Fixes #"* && "$PR_BODY" != *"Resolves #"* ]]; then

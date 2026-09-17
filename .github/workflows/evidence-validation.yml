@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   push:
     branches:
       - main
+  workflow_dispatch:
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -66,20 +70,9 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           set -euo pipefail
-
           PR_BODY="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.body // ""')"
-
-          metadata=$(awk '
-            /^```yaml[[:space:]]*$/ { capture=1; next }
-            capture && /^```[[:space:]]*$/ { exit }
-            capture { print }
-          ' <<< "$PR_BODY")
-
-          if [[ -z "$metadata" ]]; then
-            echo "FAIL EV-004: falta el bloque YAML de metadata de gobernanza."
-            exit 1
-          fi
-
+          metadata=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
+          if [[ -z "$metadata" ]]; then echo "FAIL EV-004: falta el bloque YAML de metadata de gobernanza."; exit 1; fi
           METADATA="$metadata" ruby -ryaml -e '
             data = YAML.safe_load(ENV.fetch("METADATA"), permitted_classes: [], aliases: false) || {}
             governance = data["governance"]
@@ -87,14 +80,11 @@ jobs:
             abort "FAIL EV-004: unsupported schema_version." unless governance["schema_version"] == "1"
             validation = governance["validation"]
             abort "FAIL EV-004: governance.validation must be a mapping." unless validation.is_a?(Hash)
-
             required = %w[evidence governance quality security]
             missing = required.reject { |key| validation[key] == "required" }
             abort "FAIL EV-004: missing required validation declarations: #{missing.join(", ")}" unless missing.empty?
-
             unexpected = validation.keys - required
             abort "FAIL EV-004: unsupported validation keys: #{unexpected.join(", ")}" unless unexpected.empty?
-
             puts "PASS EV-004: structured validation metadata declares all required controls."
           '
 
@@ -115,9 +105,7 @@ jobs:
             .github/workflows/security-validation.yml
             .github/workflows/evidence-validation.yml
           )
-          for file in "${required[@]}"; do
-            test -s "$file" || { echo "FAIL EV-005: artefacto de evidencia ausente o vacío: $file"; exit 1; }
-          done
+          for file in "${required[@]}"; do test -s "$file" || { echo "FAIL EV-005: artefacto de evidencia ausente o vacío: $file"; exit 1; }; done
           echo "PASS EV-005: baseline de evidencia presente."
 
       - name: Evidence Validation result

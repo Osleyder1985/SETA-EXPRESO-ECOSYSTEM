@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   push:
     branches:
       - main
+  workflow_dispatch:
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read

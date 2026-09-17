@@ -2,7 +2,7 @@ name: Label Classification Automation
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
 
 permissions:
   contents: read
@@ -98,10 +98,7 @@ jobs:
           [[ -n "$issue_number" ]] || { echo "LG-005 FAIL: no Issue reference found in PR body"; exit 1; }
           issue_body=$(gh issue view "$issue_number" --repo "$REPOSITORY" --json body --jq '.body')
           issue_meta=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$issue_body")
-          if [[ -z "$issue_meta" ]]; then
-            echo "LG-005 PASS: Issue has no classification metadata"
-            exit 0
-          fi
+          if [[ -z "$issue_meta" ]]; then echo "LG-005 PASS: Issue has no classification metadata"; exit 0; fi
           pr_meta=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
           PR_META="$pr_meta" ISSUE_META="$issue_meta" ruby -ryaml -e '
             pr=YAML.safe_load(ENV.fetch("PR_META"), permitted_classes: [], aliases: false) || {}

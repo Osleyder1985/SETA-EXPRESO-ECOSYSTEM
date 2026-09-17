@@ -3,6 +3,14 @@ name: Label Classification Automation
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR a validar
+        required: false
+        type: string
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -17,11 +25,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.pr_number || github.event.client_payload.pr_number || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.body // ""' > /tmp/pr-body
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.head.sha' > /tmp/pr-sha
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            : > /tmp/pr-body
+            printf '%s' "$GITHUB_SHA" > /tmp/pr-sha
+          fi
+
       - name: Validate metadata and catalog authorization
+        if: env.TARGET_PR_NUMBER != ''
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           set -euo pipefail
+          PR_BODY="$(cat /tmp/pr-body)"
           metadata=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
           [[ -n "$metadata" ]] || { echo "FAIL LG-007: governance metadata YAML is missing."; exit 1; }
           printf '%s\n' "$metadata" > /tmp/governance.yml
@@ -42,9 +69,10 @@ jobs:
           '
 
       - name: Apply authorized labels
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -58,6 +86,7 @@ jobs:
           done
 
       - name: LG-001 to LG-004 Validate catalog and applied labels
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -88,6 +117,7 @@ jobs:
           echo "LG-001..LG-004 PASS"
 
       - name: LG-005 Validate Issue/PR classification consistency
+        if: env.TARGET_PR_NUMBER != ''
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
           GH_TOKEN: ${{ github.token }}
@@ -113,6 +143,7 @@ jobs:
           '
 
       - name: LG-006 Protect taxonomy
+        if: env.TARGET_PR_NUMBER != ''
         shell: bash
         run: |
           set -euo pipefail

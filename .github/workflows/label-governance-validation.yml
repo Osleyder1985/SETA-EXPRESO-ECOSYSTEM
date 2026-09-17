@@ -43,10 +43,10 @@ jobs:
             File.write("/tmp/catalog-labels", c.fetch("labels").values.flat_map(&:keys).uniq.sort.join("\n") + "\n")
           '
           mapfile -t labels < <(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" --json labels --jq '.labels[].name' | sort -u)
-          while IFS= read -r label; do
+          for label in "${labels[@]}"; do
             [[ -z "$label" ]] && continue
             grep -Fxq "$label" /tmp/catalog-labels || { echo "LG-002 FAIL: unauthorized label: $label"; exit 1; }
-          done <<< "${labels[*]}"
+          done
           echo "LG-002 PASS: all PR labels are catalog-authorized"
 
           mapfile -t domains < <(ruby -ryaml -e 'c=YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false); puts c["labels"]["domain"].keys')

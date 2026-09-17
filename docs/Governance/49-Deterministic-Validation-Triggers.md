@@ -27,3 +27,11 @@ Toda ejecución relevante debe conservar su workflow, evento, commit evaluado, r
 
 ## Estado
 🟡 **TRABAJO EN CURSO — ISSUE #156.**
+
+## Validación dirigida por PR
+
+Los eventos `workflow_dispatch` y `repository_dispatch` permiten validar una PR concreta sin depender de eventos secundarios. Para una PR objetivo se proporciona su número mediante `workflow_dispatch.pr_number` o `repository_dispatch.client_payload.pr_number`; el workflow resuelve la referencia y SHA actuales de la PR antes de ejecutar los controles específicos.
+
+Cuando no se proporciona una PR objetivo, los controles que requieren contexto de PR se consideran **NOT_APPLICABLE**; no se presentan como una validación integral de una PR.
+
+La evidencia debe conservar al menos: workflow, evento, PR objetivo cuando exista, SHA evaluado y resultado global. El mecanismo evita crear dependencias en eventos recursivos generados por `GITHUB_TOKEN`.

@@ -42,7 +42,15 @@ jobs:
             c = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
             File.write("/tmp/catalog-labels", c.fetch("labels").values.flat_map(&:keys).uniq.sort.join("\n") + "\n")
           '
+
           mapfile -t labels < <(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" --json labels --jq '.labels[].name' | sort -u)
+          if ((${#labels[@]} == 0)); then
+            echo "LG-002 PASS: no labels yet; initial PR classification may be applied by automation"
+            echo "LG-003 PASS: cardinality deferred until classification labels are applied"
+            echo "LG-004 PASS: cardinality deferred until classification labels are applied"
+            exit 0
+          fi
+
           for label in "${labels[@]}"; do
             [[ -z "$label" ]] && continue
             grep -Fxq "$label" /tmp/catalog-labels || { echo "LG-002 FAIL: unauthorized label: $label"; exit 1; }

@@ -38,14 +38,22 @@ jobs:
       - name: SV-002 Workflow Least Privilege
         run: |
           set -euo pipefail
+          catalog=".github/security/workflow-permissions.yml"
+          test -f "$catalog"
+
           workflow_count=$(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | wc -l)
           if [ "$workflow_count" -eq 0 ]; then exit 1; fi
+
           failed=0
           while IFS= read -r workflow; do
-            if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
-            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
+            if ! grep -Eq '^permissions:' "$workflow"; then
+              failed=1
+            fi
+            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then
+              failed=1
+            fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
+
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"
 

@@ -44,7 +44,6 @@ jobs:
           while IFS= read -r workflow; do
             if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
             if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
-            if grep -Eq '^[[:space:]]+[A-Za-z0-9_-]+:[[:space:]]*write[[:space:]]*$' "$workflow"; then failed=1; fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"

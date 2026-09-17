@@ -1,0 +1,96 @@
+name: Label Classification Automation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  classify-labels:
+    name: Resolve PR labels from governance metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate metadata and catalog authorization
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+
+          metadata=$(awk '
+            /^```yaml[[:space:]]*$/ { capture=1; next }
+            capture && /^```[[:space:]]*$/ { exit }
+            capture { print }
+          ' <<< "$PR_BODY")
+
+          if [[ -z "$metadata" ]]; then
+            echo "FAIL LG-007: governance metadata YAML is missing."
+            exit 1
+          fi
+
+          printf '%s\n' "$metadata" > /tmp/governance.yml
+
+          ruby -ryaml -e '
+            metadata = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            catalog = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            classification = metadata.dig("governance", "classification")
+            labels = catalog["labels"]
+
+            abort "FAIL LG-007: governance.classification must be a mapping." unless classification.is_a?(Hash)
+            abort "FAIL LG-007: catalog labels section is missing." unless labels.is_a?(Hash)
+
+            %w[domain work_type].each do |dimension|
+              value = classification[dimension]
+              abort "FAIL LG-007: missing classification field #{dimension}." unless value.is_a?(String) && !value.empty?
+              entries = labels[dimension]
+              abort "FAIL LG-007: catalog dimension #{dimension} is missing." unless entries.is_a?(Hash)
+              abort "FAIL LG-007: #{dimension}=#{value.inspect} is not authorized by Label-Catalog.yml." unless entries.key?(value)
+            end
+
+            puts "PASS LG-007: classification authorized by Label-Catalog.yml."
+          '
+
+      - name: Apply authorized labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            classification = data.dig("governance", "classification") || {}
+            puts classification.fetch("domain")
+            puts classification.fetch("work_type")
+          ' | while IFS= read -r label; do
+            gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-label "$label"
+            echo "Applied authorized label: $label"
+          done
+
+      - name: Verify applied labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            classification = data.dig("governance", "classification") || {}
+            File.write("/tmp/expected-labels", [classification.fetch("domain"), classification.fetch("work_type")].join("\n") + "\n")
+          '
+
+          mapfile -t actual < <(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" --json labels --jq '.labels[].name')
+          for expected in $(cat /tmp/expected-labels); do
+            if ! printf '%s\n' "${actual[@]}" | grep -Fxq "$expected"; then
+              echo "FAIL LG-008: required label not present: $expected"
+              exit 1
+            fi
+          done
+
+          echo "PASS LG-008: required governance labels are present."

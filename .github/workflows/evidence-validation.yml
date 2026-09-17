@@ -9,6 +9,11 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR a validar
+        required: false
+        type: string
   repository_dispatch:
     types: [validation-requested]
 
@@ -21,17 +26,33 @@ jobs:
     name: Validate engineering evidence
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.pr_number || github.event.client_payload.pr_number || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then
+            pr_json="$(gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER")"
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ env.TARGET_PR_SHA }}
 
       - name: EV-001 - Validate minimum PR evidence structure
-        if: github.event_name == 'pull_request'
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
         run: |
           set -euo pipefail
           PR_BODY="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.body // ""')"
@@ -41,10 +62,10 @@ jobs:
           echo "PASS EV-001: estructura mínima de evidencia presente en el PR."
 
       - name: EV-002 - Validate Issue to PR traceability
-        if: github.event_name == 'pull_request'
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
         run: |
           set -euo pipefail
           PR_DATA="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")"
@@ -56,7 +77,7 @@ jobs:
 
       - name: EV-003 - Validate evaluated commit identity
         env:
-          EXPECTED_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          EXPECTED_SHA: ${{ env.TARGET_PR_SHA }}
         run: |
           set -euo pipefail
           actual_sha=$(git rev-parse HEAD)
@@ -64,10 +85,10 @@ jobs:
           echo "PASS EV-003: commit evaluado identificado de forma determinista: $actual_sha"
 
       - name: EV-004 - Validate declared validation metadata
-        if: github.event_name == 'pull_request'
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
         run: |
           set -euo pipefail
           PR_BODY="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.body // ""')"

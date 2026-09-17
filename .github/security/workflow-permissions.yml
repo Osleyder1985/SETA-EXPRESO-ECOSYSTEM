@@ -3,8 +3,11 @@ schema_version: "1"
 workflows:
   label-classification.yml:
     permissions:
+      contents: read
+      issues: read
       pull-requests: write
     justification:
-      reason: "Automatic label management"
+      reason: "Automatic label management and Issue/PR classification consistency validation"
       control_reference:
+        - LG-005
         - LG-008

@@ -28,6 +28,7 @@ Convertir las capas de Governance Enforcement, Decision Governance, Quality Vali
 | GE-010 | PR asociado a push | Cambio fuera del flujo | GitHub API | D | Push workflow | No revierte el cambio |
 | GE-011 | Residual risk | Falsa sensación de protección | Política explícita | G | Documento controlado | Depende de lectura/revisión |
 | GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard | Métricas iniciales |
+| GE-013 | Trigger determinista | Validación omitida tras cambios de estado | Triggers explícitos + dispatch dirigido | P-Compensatorio/D | Check run + evento + PR objetivo | No sustituye protección nativa de main |
 
 ## 3. Matriz de Governance Gate Controls
 
@@ -136,6 +137,7 @@ Los controles EM gobiernan la definición, medición, interpretación y evoluci�
 | EV-004 | Declaración de validaciones | Evidencia incompleta | Sección de evidencia esperada | P-Compensatorio/D | Check run + PR | Declaración no sustituye ejecución |
 | EV-005 | Baseline de evidencia presente | Pérdida de infraestructura documental | Existencia de artefactos | P-Compensatorio/D | Check run | No valida suficiencia semántica |
 | EV-006 | Resultados de validaciones previas | Evidencia CI incompleta | Consulta de workflow runs | D | Workflow runs | Planificado |
+| EV-010 | Contexto de ejecución determinista | Ejecución manual/automatizada sin PR objetivo verificable | `workflow_dispatch.pr_number` / `repository_dispatch.client_payload.pr_number` | D | Evento + PR + SHA | PR opcional; controles PR-específicos quedan N/A sin objetivo |
 | EV-007 | Integridad histórica | Alteración/pérdida de evidencia | Hashes/procedencia | D | Evidencia versionada | NOT_IMPLEMENTED |
 | EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
 | EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |

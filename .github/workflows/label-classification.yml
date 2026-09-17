@@ -33,12 +33,12 @@ jobs:
         run: |
           set -euo pipefail
           if [[ -n "$EVENT_PR_NUMBER" ]]; then
-            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
-            echo "TARGET_PR_SHA=$(cat /tmp/pr-sha)" >> "$GITHUB_ENV"
-            echo "TARGET_PR_BASE_SHA=$(cat /tmp/pr-base-sha)" >> "$GITHUB_ENV"
             gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.body // ""' > /tmp/pr-body
             gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.head.sha' > /tmp/pr-sha
             gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.base.sha' > /tmp/pr-base-sha
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(cat /tmp/pr-sha)" >> "$GITHUB_ENV"
+            echo "TARGET_PR_BASE_SHA=$(cat /tmp/pr-base-sha)" >> "$GITHUB_ENV"
           else
             echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
             echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
@@ -95,7 +95,7 @@ jobs:
         if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail

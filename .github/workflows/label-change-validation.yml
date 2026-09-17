@@ -1,0 +1,52 @@
+name: Label Change Validation
+
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+  workflow_dispatch:
+  repository_dispatch:
+    types: [validation-requested]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-label-change:
+    name: Validate label governance after label changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Validate label catalog
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            c = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            abort "FAIL LG-009: invalid catalog schema_version." unless c["schema_version"] == "1"
+            abort "FAIL LG-009: labels catalog missing." unless c["labels"].is_a?(Hash)
+            labels = c["labels"].values.flat_map { |value| value.is_a?(Hash) ? value.keys : [] }.uniq
+            File.write("/tmp/catalog-labels", labels.sort.join("\n") + "\n")
+          '
+          mapfile -t labels < <(gh pr view "$PR_NUMBER" --repo "$REPOSITORY" --json labels --jq '.labels[].name' | sort -u)
+          for label in "${labels[@]}"; do
+            [[ -z "$label" ]] && continue
+            grep -Fxq "$label" /tmp/catalog-labels || { echo "FAIL LG-009: unauthorized label: $label"; exit 1; }
+          done
+          echo "PASS LG-009: all current PR labels are authorized by the catalog."
+
+      - name: Manual or dispatch validation
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          test -s docs/Governance/Label-Catalog.yml
+          echo "PASS LG-009: label catalog is present for manual/dispatch validation."

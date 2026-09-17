@@ -34,12 +34,18 @@ jobs:
           set -euo pipefail
           if [[ -n "$EVENT_PR_NUMBER" ]]; then
             echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(cat /tmp/pr-sha)" >> "$GITHUB_ENV"
+            echo "TARGET_PR_BASE_SHA=$(cat /tmp/pr-base-sha)" >> "$GITHUB_ENV"
             gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.body // ""' > /tmp/pr-body
             gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.head.sha' > /tmp/pr-sha
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.base.sha' > /tmp/pr-base-sha
           else
             echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+            echo "TARGET_PR_BASE_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
             : > /tmp/pr-body
             printf '%s' "$GITHUB_SHA" > /tmp/pr-sha
+            printf '%s' "$GITHUB_SHA" > /tmp/pr-base-sha
           fi
 
       - name: Validate metadata and catalog authorization
@@ -119,11 +125,12 @@ jobs:
       - name: LG-005 Validate Issue/PR classification consistency
         if: env.TARGET_PR_NUMBER != ''
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_BODY: ""
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          PR_BODY="$(cat /tmp/pr-body)"
           issue_number=$(grep -Eo '#[0-9]+' <<< "$PR_BODY" | head -n1 | tr -d '#' || true)
           [[ -n "$issue_number" ]] || { echo "LG-005 FAIL: no Issue reference found in PR body"; exit 1; }
           issue_body=$(gh issue view "$issue_number" --repo "$REPOSITORY" --json body --jq '.body')
@@ -147,7 +154,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" | grep -Fxq 'docs/Governance/Label-Catalog.yml'; then
+          if git diff --name-only "$TARGET_PR_BASE_SHA" "$TARGET_PR_SHA" | grep -Fxq 'docs/Governance/Label-Catalog.yml'; then
             echo "LG-006 FAIL: taxonomy changes require explicit governance work"; exit 1
           fi
           echo "LG-006 PASS: taxonomy protection active"
+
+      - name: Dispatch validation result
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          if [[ -n "$TARGET_PR_NUMBER" ]]; then
+            echo "LABEL_VALIDATION_TARGET=PR#$TARGET_PR_NUMBER"
+            echo "LABEL_VALIDATION=PASS"
+          else
+            echo "LABEL_VALIDATION_TARGET=repository"
+            echo "LABEL_VALIDATION=PASS"
+          fi

@@ -1,0 +1,71 @@
+schema_version: "1"
+
+labels:
+  domain:
+    governance:
+      description: "Gobierno, políticas, procesos, ciclo de vida y control del proyecto."
+    documentation:
+      description: "Documentación, registros, evidencias e índices."
+    architecture:
+      description: "Arquitectura y diseño estructural del sistema."
+    research:
+      description: "Investigación, experimentación y análisis técnico o científico."
+    requirements:
+      description: "Requisitos, alcance y necesidades del producto."
+    testing:
+      description: "Pruebas, verificación y validación."
+    security:
+      description: "Seguridad, riesgos y controles de protección."
+    data:
+      description: "Datos, modelos de datos y gobierno de información."
+    devops:
+      description: "Integración, entrega, automatización y tooling de ingeniería."
+    operations:
+      description: "Operación, despliegue, observabilidad y mantenimiento operativo."
+
+  work_type:
+    feature:
+      description: "Incorporación de capacidad nueva."
+    bug:
+      description: "Corrección de comportamiento defectuoso."
+    refactor:
+      description: "Reestructuración sin cambio intencional de comportamiento."
+    configuration:
+      description: "Cambio de configuración o parámetros del sistema/proyecto."
+    automation:
+      description: "Automatización de una actividad o control repetible."
+    process:
+      description: "Cambio o formalización de un proceso."
+    baseline:
+      description: "Creación o actualización controlada de una baseline."
+    decision:
+      description: "Formalización de una decisión técnica o de proceso."
+    enhancement:
+      description: "Mejora de una capacidad existente sin constituir una nueva funcionalidad principal."
+    maintenance:
+      description: "Mantenimiento preventivo o correctivo sin nueva capacidad principal."
+    technical-debt:
+      description: "Reducción explícita de deuda técnica identificada."
+    investigation:
+      description: "Investigación destinada a reducir una incertidumbre."
+
+rules:
+  minimum_labels: 2
+  required_dimensions:
+    - domain
+    - work_type
+  primary_label: domain
+  secondary_label: work_type
+  pull_request_classification_source: governance_metadata
+  issue_classification_source: governance_metadata
+  unknown_labels: reject
+  unknown_classification_values: reject
+  labels_must_not_encode_phase: true
+  labels_must_not_duplicate_title: true
+  automation_may_create_only_catalog_labels: true
+  priority_is_metadata_not_label: true
+  ambiguous_classification: fail
+
+future_domains:
+  status: planned
+  note: "El catálogo puede evolucionar mediante Issue + PR; no se crean labels fuera de este catálogo."

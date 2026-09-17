@@ -2,7 +2,15 @@ name: Label Classification Automation
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR a validar
+        required: false
+        type: string
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -16,12 +24,39 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || (github.event_name == 'workflow_dispatch' && inputs.pr_number != '' && format('refs/pull/{0}/head', inputs.pr_number) || (github.event_name == 'repository_dispatch' && github.event.client_payload.pr_number != '' && format('refs/pull/{0}/head', github.event.client_payload.pr_number) || github.sha)) }}
+
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.pr_number || github.event.client_payload.pr_number || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.body // ""' > /tmp/pr-body
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.head.sha' > /tmp/pr-sha
+            gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER" --jq '.base.sha' > /tmp/pr-base-sha
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(cat /tmp/pr-sha)" >> "$GITHUB_ENV"
+            echo "TARGET_PR_BASE_SHA=$(cat /tmp/pr-base-sha)" >> "$GITHUB_ENV"
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+            echo "TARGET_PR_BASE_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+            : > /tmp/pr-body
+            printf '%s' "$GITHUB_SHA" > /tmp/pr-sha
+            printf '%s' "$GITHUB_SHA" > /tmp/pr-base-sha
+          fi
 
       - name: Validate metadata and catalog authorization
+        if: env.TARGET_PR_NUMBER != ''
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           set -euo pipefail
+          PR_BODY="$(cat /tmp/pr-body)"
           metadata=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
           [[ -n "$metadata" ]] || { echo "FAIL LG-007: governance metadata YAML is missing."; exit 1; }
           printf '%s\n' "$metadata" > /tmp/governance.yml
@@ -42,9 +77,10 @@ jobs:
           '
 
       - name: Apply authorized labels
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -58,9 +94,10 @@ jobs:
           done
 
       - name: LG-001 to LG-004 Validate catalog and applied labels
+        if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -88,20 +125,19 @@ jobs:
           echo "LG-001..LG-004 PASS"
 
       - name: LG-005 Validate Issue/PR classification consistency
+        if: env.TARGET_PR_NUMBER != ''
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_BODY: ""
           GH_TOKEN: ${{ github.token }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          PR_BODY="$(cat /tmp/pr-body)"
           issue_number=$(grep -Eo '#[0-9]+' <<< "$PR_BODY" | head -n1 | tr -d '#' || true)
           [[ -n "$issue_number" ]] || { echo "LG-005 FAIL: no Issue reference found in PR body"; exit 1; }
           issue_body=$(gh issue view "$issue_number" --repo "$REPOSITORY" --json body --jq '.body')
           issue_meta=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$issue_body")
-          if [[ -z "$issue_meta" ]]; then
-            echo "LG-005 PASS: Issue has no classification metadata"
-            exit 0
-          fi
+          if [[ -z "$issue_meta" ]]; then echo "LG-005 PASS: Issue has no classification metadata"; exit 0; fi
           pr_meta=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^```[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
           PR_META="$pr_meta" ISSUE_META="$issue_meta" ruby -ryaml -e '
             pr=YAML.safe_load(ENV.fetch("PR_META"), permitted_classes: [], aliases: false) || {}
@@ -116,10 +152,23 @@ jobs:
           '
 
       - name: LG-006 Protect taxonomy
+        if: env.TARGET_PR_NUMBER != ''
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" | grep -Fxq 'docs/Governance/Label-Catalog.yml'; then
+          if git diff --name-only "$TARGET_PR_BASE_SHA" "$TARGET_PR_SHA" | grep -Fxq 'docs/Governance/Label-Catalog.yml'; then
             echo "LG-006 FAIL: taxonomy changes require explicit governance work"; exit 1
           fi
           echo "LG-006 PASS: taxonomy protection active"
+
+      - name: Dispatch validation result
+        if: github.event_name != 'pull_request'
+        run: |
+          set -euo pipefail
+          if [[ -n "$TARGET_PR_NUMBER" ]]; then
+            echo "LABEL_VALIDATION_TARGET=PR#$TARGET_PR_NUMBER"
+            echo "LABEL_VALIDATION=PASS"
+          else
+            echo "LABEL_VALIDATION_TARGET=repository"
+            echo "LABEL_VALIDATION=PASS"
+          fi

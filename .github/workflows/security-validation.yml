@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   push:
     branches:
       - main
+  workflow_dispatch:
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -26,12 +30,10 @@ jobs:
         run: |
           set -euo pipefail
           if git grep --cached -nE '-----BEGIN (RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----' -- ':!docs/Governance/13-Security-Validation-Architecture.md' ':!.github/workflows/security-validation.yml'; then
-            echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."
-            exit 1
+            echo "ERROR [SV-001]: Se detectó material de clave privada en archivos versionados."; exit 1
           fi
           if git grep --cached -nE '(gh[pousr]_[A-Za-z0-9]{36}|AKIA[0-9A-Z]{16})' -- ':!docs/Governance/13-Security-Validation-Architecture.md'; then
-            echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."
-            exit 1
+            echo "ERROR [SV-001]: Se detectó un patrón de credencial crítica conocido."; exit 1
           fi
           echo "SV-001=PASS"
 
@@ -40,20 +42,13 @@ jobs:
           set -euo pipefail
           catalog=".github/security/workflow-permissions.yml"
           test -f "$catalog"
-
           workflow_count=$(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | wc -l)
           if [ "$workflow_count" -eq 0 ]; then exit 1; fi
-
           failed=0
           while IFS= read -r workflow; do
-            if ! grep -Eq '^permissions:' "$workflow"; then
-              failed=1
-            fi
-            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then
-              failed=1
-            fi
+            if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
+            if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
-
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "SV-002=PASS"
 
@@ -70,9 +65,7 @@ jobs:
           architecture='docs/Governance/13-Security-Validation-Architecture.md'
           test -f "$workflow"
           test -f "$architecture"
-          for control in SV-001 SV-002 SV-003 SV-004; do
-            grep -q "$control" "$workflow" || exit 1
-          done
+          for control in SV-001 SV-002 SV-003 SV-004; do grep -q "$control" "$workflow" || exit 1; done
           grep -q 'Validate security controls' "$architecture"
           echo "SV-004=PASS"
 

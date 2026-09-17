@@ -4,9 +4,13 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   push:
     branches:
       - main
+  workflow_dispatch:
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -29,15 +33,8 @@ jobs:
           test -n "$files"
           failed=0
           while IFS= read -r file; do
-            if [ ! -s "$file" ]; then
-              echo "FAIL QV-001: archivo Markdown vacío: $file"
-              failed=1
-              continue
-            fi
-            if ! head -n 1 "$file" | grep -Eq '^# .+'; then
-              echo "FAIL QV-002: el Markdown debe comenzar con un encabezado H1: $file"
-              failed=1
-            fi
+            if [ ! -s "$file" ]; then echo "FAIL QV-001: archivo Markdown vacío: $file"; failed=1; continue; fi
+            if ! head -n 1 "$file" | grep -Eq '^# .+'; then echo "FAIL QV-002: el Markdown debe comenzar con un encabezado H1: $file"; failed=1; fi
           done <<< "$files"
           if [ "$failed" -ne 0 ]; then exit 1; fi
           echo "PASS QV-001: archivos Markdown no vacíos."
@@ -47,10 +44,7 @@ jobs:
         run: |
           set -euo pipefail
           files=$(find . -type f -not -path './.git/*' -not -name '*.md' -not -name '*.png' -not -name '*.jpg' -not -name '*.jpeg' -not -name '*.gif' -print)
-          if [ -n "$files" ] && grep -nH '[[:blank:]]$' $files; then
-            echo "FAIL QV-003: se detectó whitespace al final de una línea en un artefacto no Markdown."
-            exit 1
-          fi
+          if [ -n "$files" ] && grep -nH '[[:blank:]]$' $files; then echo "FAIL QV-003: se detectó whitespace al final de una línea en un artefacto no Markdown."; exit 1; fi
           echo "PASS QV-003: no se detectó trailing whitespace en artefactos no Markdown."
 
       - name: QV-004 - Validate YAML syntax
@@ -80,22 +74,17 @@ jobs:
           pattern = re.compile(r'\[[^\]]*\]\(([^)]+)\)')
           failures = []
           for document in root.rglob('*.md'):
-              if '.git' in document.parts:
-                  continue
+              if '.git' in document.parts: continue
               text = document.read_text(encoding='utf-8')
               for target in pattern.findall(text):
                   target = target.strip().split()[0]
-                  if target.startswith(('http://', 'https://', 'mailto:', '#')):
-                      continue
+                  if target.startswith(('http://', 'https://', 'mailto:', '#')): continue
                   target_path = target.split('#', 1)[0]
-                  if not target_path:
-                      continue
+                  if not target_path: continue
                   candidate = (document.parent / target_path).resolve()
-                  if not candidate.exists():
-                      failures.append(f'{document}: enlace local inexistente: {target}')
+                  if not candidate.exists(): failures.append(f'{document}: enlace local inexistente: {target}')
           if failures:
-              for failure in failures:
-                  print(f'FAIL QV-005: {failure}')
+              for failure in failures: print(f'FAIL QV-005: {failure}')
               sys.exit(1)
           print('PASS QV-005: no se detectaron enlaces locales Markdown rotos.')
           PY
@@ -132,9 +121,7 @@ jobs:
             .github/workflows/security-validation.yml
             .github/workflows/evidence-validation.yml
           )
-          for file in "${required[@]}"; do
-            test -s "$file" || { echo "FAIL QV-006: artefacto crítico ausente o vacío: $file"; exit 1; }
-          done
+          for file in "${required[@]}"; do test -s "$file" || { echo "FAIL QV-006: artefacto crítico ausente o vacío: $file"; exit 1; }; done
           echo "PASS QV-006: artefactos críticos presentes y no vacíos."
 
       - name: Quality Validation result

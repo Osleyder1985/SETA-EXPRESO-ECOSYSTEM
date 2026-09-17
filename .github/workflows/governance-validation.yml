@@ -4,9 +4,18 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR a validar
+        required: false
+        type: string
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -17,18 +26,36 @@ jobs:
     name: Validate governance controls
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.pr_number || github.event.client_payload.pr_number || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then
+            pr_json="$(gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER")"
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+            echo "TARGET_PR_REF=$(printf '%s' "$pr_json" | jq -r '.head.ref')" >> "$GITHUB_ENV"
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+            echo "TARGET_PR_REF=" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ env.TARGET_PR_SHA }}
 
       - name: Validate Pull Request governance metadata
-        if: github.event_name == 'pull_request'
+        if: env.TARGET_PR_NUMBER != ''
         env:
-          PR_HEAD_REF: ${{ github.head_ref }}
+          PR_HEAD_REF: ${{ env.TARGET_PR_REF }}
           REPOSITORY: ${{ github.repository }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail

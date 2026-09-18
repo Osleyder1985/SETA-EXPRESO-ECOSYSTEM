@@ -167,3 +167,20 @@ No se declara implementada ninguna automatización que todavía no exista.
 ## 14. Madurez
 
 **Problema #4 no se considera resuelto únicamente por crear este documento.** La capacidad inicial queda establecida documentalmente; la madurez aumentará cuando existan fuentes reales, baselines, series históricas, controles automatizados y decisiones de mejora basadas en evidencia.
+
+
+## 15. Semantic and synchronization boundary
+
+This document is the **normative metrics governance model**: it defines lifecycle, principles, measurement rules, interpretation, ownership and governance constraints.
+
+`Metrics/Metric-Catalog.yml` is the **structured definition catalog** for individual metric records. It must conform to this policy and must not redefine its normative governance semantics.
+
+Dashboards and other reports are **derived views** from the catalog and/or measured evidence. They are never a source of truth for metric definitions or historical values.
+
+**Precedence:** this policy prevails for governance semantics. The catalog is authoritative for the structured fields of metric definitions within that policy boundary. Measured values require separate dated evidence from their declared source.
+
+**Synchronization:** changes to Metric IDs, definitions, formulas, units, scope, sources, collection methods, frequency, owners or status require coordinated catalog/policy impact review when the shared semantics change. Dashboard changes must be derived from the current catalog/evidence rather than becoming an independent metric definition.
+
+**Anti-drift:** semantic drift between policy and catalog is a governance finding. A dashboard value without reproducible source/evidence is not an operational measurement merely because it is displayed.
+
+**Measurement status:** `defined`, `available`, `provisional`, `blocked`, `deprecated` and `TBD` describe availability/evidence state; a catalog definition is not a measured result and does not demonstrate effectiveness.

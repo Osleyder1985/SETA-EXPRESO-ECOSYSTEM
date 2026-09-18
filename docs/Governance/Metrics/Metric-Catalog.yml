@@ -433,3 +433,13 @@ metrics:
     evidence: Artifact catalog
     status: defined
     limitations: Applicability and ownership model must be kept current.
+
+
+synchronization_contract:
+  normative_policy: "docs/Governance/21-Engineering-Metrics-Governance.md"
+  structured_metric_definition_catalog: "docs/Governance/Metrics/Metric-Catalog.yml"
+  derived_views: "Engineering Metrics dashboards/reports"
+  precedence: "Policy prevails for governance semantics; YAML owns structured metric-definition fields within that boundary."
+  synchronization: "Shared metric semantics require coordinated controlled change and impact review; derived dashboards follow current catalog and measured evidence."
+  drift_rule: "Semantic drift is a governance finding; displayed values without reproducible source/evidence are not operational measurements."
+  measurement_rule: "Metric definitions do not constitute measured values, effectiveness, baseline, target achievement or trend evidence."

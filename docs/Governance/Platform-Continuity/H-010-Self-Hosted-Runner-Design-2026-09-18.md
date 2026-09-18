@@ -1,144 +1,53 @@
-# H-010 — Diseño de runner propio y continuidad CI/CD $0
+# H-010 — Evaluación de runner propio y decisión de no adopción
 
-## Estado
-
-**Issue:** #192  
-**Unidad:** 4 — Runner propio  
-**Fecha:** 2026-09-18  
-**Autoridad actual:** GitHub  
-**Objetivo económico:** reducir dependencia de minutos alojados sin introducir infraestructura de pago.
+## Control
+- Issue: #192
+- Unidad: 4 — evaluación de ejecución CI alternativa
+- Fecha: 2026-09-18
+- Autoridad del repositorio: GitHub
+- Estado: **EVALUADO Y DESCARTADO**
 
 ## Objetivo
 
-Definir la arquitectura de un runner administrado por el proyecto para ejecutar validaciones sin consumir minutos alojados de GitHub Actions cuando la plataforma y la topología lo permitan.
+Evaluar si un self-hosted runner puede reducir el consumo de GitHub Actions manteniendo el objetivo económico de $0.
 
-## Decisión de diseño
+## Decisión
 
-El runner propio se tratará como **capacidad de ejecución**, no como autoridad del repositorio.
+La variante de **runner propio queda descartada para este proyecto**.
 
-La secuencia será:
+La razón es de arquitectura y coste operativo: requiere disponer, dedicar o mantener hardware, además de asumir red, almacenamiento, actualizaciones, seguridad y administración. El proyecto no incorporará una PC ni otro equipo dedicado o administrado para ejecutar CI.
 
-1. GitHub continúa como autoridad.
-2. Las validaciones deterministas se ejecutan localmente primero.
-3. El runner propio se prueba en aislamiento.
-4. Solo después se estudia su integración con una forja alternativa.
-5. Ningún cambio de autoridad se deriva de esta unidad.
+Esta decisión no invalida la utilidad técnica del concepto; únicamente establece que **no forma parte de la arquitectura operativa adoptada**.
 
-## Hallazgos técnicos
+## Consecuencias
 
-Forgejo Actions requiere que exista un runner disponible para ejecutar workflows. citeturn0search3
+- No se instalará un self-hosted runner.
+- No se registrará ningún runner en GitHub.
+- No se reservará hardware para CI.
+- No se modificarán workflows para utilizar `self-hosted`.
+- No se crearán credenciales de registro.
+- H-011 deja de ser un procedimiento operativo y se conserva únicamente como registro histórico de la evaluación.
+- H-012 se conserva como evidencia del gate de seguridad aplicado antes de cualquier posible registro.
 
-Gitea utiliza `act_runner` como programa independiente para ejecutar Gitea Actions. Su documentación contempla ejecución directamente en host, mediante Docker y mediante Docker-in-Docker; Docker es el modo recomendado en la documentación actual. citeturn0search0turn0search5
+## Alternativa adoptada
 
-Por tanto, un runner propio es técnicamente viable, pero **no es por sí mismo una solución $0 completa**: todavía se necesita una máquina encendida, almacenamiento, red y mantenimiento. El costo monetario puede ser $0 si se utiliza hardware ya disponible y software libre, pero esto debe verificarse en la prueba real.
+La continuidad a $0 se concentra en:
 
-## Arquitectura propuesta
+1. validación local reproducible;
+2. Git como núcleo portable;
+3. mirror/recuperación Git sin cambio de autoridad;
+4. reducción de ejecuciones innecesarias de Actions;
+5. evaluación de plataformas alternativas que no exijan infraestructura propia;
+6. separación estricta entre capacidades esenciales y servicios sujetos a cuota.
 
-### Capa A — Validación local
+## Límites
 
-Primera línea:
+Esta unidad no autoriza migración de plataforma ni cambio de autoridad. GitHub continúa siendo la autoridad actual.
 
-- scripts reproducibles;
-- sin GitHub Actions;
-- sin proveedor CI;
-- sin secretos;
-- ejecución sobre checkout local.
+## Estado final
 
-### Capa B — Runner propio
+**VERIFICADO:** la alternativa fue evaluada y la decisión de no adoptar infraestructura propia quedó establecida.
 
-Segunda línea:
+**NO APLICABLE:** instalación, registro, pruebas de runner y preflight sobre hardware.
 
-- máquina/hardware existente;
-- usuario sin privilegios innecesarios;
-- ejecución aislada;
-- almacenamiento local;
-- logs conservados como evidencia;
-- sin secretos persistentes innecesarios.
-
-### Capa C — Forja
-
-Tercera línea:
-
-- GitHub actualmente;
-- Forgejo/Gitea únicamente durante pruebas controladas;
-- autoridad independiente del runner.
-
-## Seguridad
-
-La ejecución de workflows equivale a ejecutar código del repositorio con los privilegios del runner. Por ello:
-
-- no se utilizará un runner compartido con proyectos no confiables;
-- no se concederán privilegios administrativos al runner;
-- no se almacenarán PAT ni claves privadas en el repositorio;
-- el runner deberá estar aislado de información ajena al proyecto;
-- Docker socket solo se utilizará después de una revisión específica de riesgo.
-
-La documentación de Gitea advierte explícitamente sobre los riesgos de confianza asociados a runners y sobre la exposición potencial al montar el socket de Docker. citeturn0search8turn0search0
-
-## Estrategia $0
-
-### Ruta primaria
-
-Usar un equipo ya disponible:
-
-`hardware existente + Linux + Git + runner open source`
-
-sin contratar infraestructura adicional.
-
-### Ruta de contingencia
-
-Si no existe hardware disponible:
-
-- no contratar inmediatamente;
-- mantener validación local;
-- conservar Git mirror;
-- evaluar posteriormente alternativas gratuitas concretas;
-- registrar cualquier límite antes de depender de ellas.
-
-## Compatibilidad
-
-No se declara que los workflows actuales de GitHub sean directamente ejecutables en Forgejo/Gitea.
-
-El inventario H-008 identificó acoplamientos con GitHub API, `gh`, metadatos de PR/Issue y permisos específicos. Por ello, el runner propio debe probarse primero con una carga mínima y determinista, especialmente Quality Validation.
-
-## Unidad de prueba propuesta
-
-Primera prueba:
-
-**Quality Validation local → runner propio → resultado reproducible**
-
-Criterios:
-
-- mismo checkout/commit;
-- mismo conjunto de controles QV-001..QV-006;
-- resultado PASS/FAIL equivalente;
-- logs conservados;
-- cero consumo de GitHub Actions durante la prueba.
-
-Después:
-
-**runner → workflow compatible → Forgejo/Gitea**, únicamente en una unidad posterior.
-
-## Criterios de aceptación
-
-- [x] Arquitectura del runner definida.
-- [x] Separación runner/autoridad definida.
-- [x] Ruta $0 documentada.
-- [x] Riesgos de seguridad documentados.
-- [x] Compatibilidad no sobredeclarada.
-- [ ] Hardware real seleccionado.
-- [ ] Runner instalado.
-- [ ] Runner registrado.
-- [ ] Prueba QV reproducible.
-- [ ] Evidencia de costo operativo $0 verificada.
-- [ ] Prueba en Forgejo/Gitea.
-
-## Estado
-
-**VERIFICADO:** diseño y límites técnicos.  
-**PENDIENTE:** instalación y prueba sobre hardware real.  
-**NO VERIFICADO:** costo operativo real $0, rendimiento, aislamiento y equivalencia CI/CD.
-
-## Límite
-
-Esta unidad no instala un runner, no registra credenciales y no cambia la plataforma de autoridad. La instalación real requiere identificar primero el hardware donde se ejecutará.
+**CONSERVAR:** este documento permanece como registro de decisión y trazabilidad de la alternativa descartada.

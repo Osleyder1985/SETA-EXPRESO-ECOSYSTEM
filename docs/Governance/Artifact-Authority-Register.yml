@@ -2562,3 +2562,146 @@ security_enforcement_integrity_analysis:
     - "MC-001 → main-integrity-monitor workflow"
     - "Non-Conformance → Risk / Change / Decision / Quality / Security / Evidence / Configuration / Data / AI / Research"
     - "Engineering Change Authority → Risk / Decision / SoD / validation / Merge"
+
+sot_resolution_analysis:
+  verified_pairs:
+    - pair:
+        structured: "docs/Governance/Risk/Risk-Register.yml"
+        human_readable: "docs/Governance/Risk/Risk-Register.md"
+      resolution: "Risk-Register.yml is the structured SoT; Risk-Register.md is a derived human-readable projection."
+      evidence:
+        - "Risk-Register.md explicitly declares Risk-Register.yml as its structured source."
+        - "The YAML contains the authoritative structured fields for RISK-001."
+      action: "Future updates to risk records must originate in YAML; MD should be regenerated/updated as a derived view."
+    - pair:
+        structured: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+        human_readable: "docs/Governance/Decision/Decision-Authority-Register.md"
+      resolution: "Decision-Authority-Matrix.yml is the current canonical candidate for structured decision authority; the MD register is derived/readable representation."
+      evidence:
+        - "YAML defines ROLE-001..012 and DEC-001..012 with accountable, approval, blocking and consulted roles."
+        - "The MD explicitly states that authority derives from the vigente authority register, not commit/PR authorship."
+      caveat: "The repository should formalize the mirror rule in a future remediation change; #172 does not authorize editing the pair itself."
+    - pair:
+        policy: "docs/Governance/04-Quality-Gates.md"
+        structured: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      resolution: "Semantic split, not a single-source conflict: 04-Quality-Gates.md remains the normative policy; Quality-Gate-Catalog.yml is the structured operational specification."
+      evidence:
+        - "The YAML declares 04-Quality-Gates.md as source."
+        - "The MD states that each gate has an operational specification."
+      caveat: "Synchronization/version coupling should be formalized before treating either representation as independently authoritative."
+    - pair:
+        policy: "docs/Governance/21-Engineering-Metrics-Governance.md"
+        structured: "docs/Governance/Metrics/Metric-Catalog.yml"
+      resolution: "Semantic split: 21 defines the metric governance model; Metric-Catalog.yml is the candidate SoT for individual metric definitions."
+      evidence:
+        - "21 defines the required metric schema and lifecycle states."
+        - "Metric-Catalog.yml contains the structured EM-* definitions and evidence/limitation fields."
+      caveat: "Operational measurement remains incomplete for several metrics; definition authority must not be confused with measurement effectiveness."
+    - pair:
+        policy: "docs/Governance/Configuration/Configuration-Item-Register.yml"
+        human_readable: null
+      resolution: "Configuration-Item-Register.yml explicitly declares itself as its own source_of_truth."
+      evidence:
+        - "source_of_truth field points to the same canonical path."
+      caveat: "The register is proposed and contains proposed/active items; it is a configuration identity baseline, not proof that every configuration item is operationally baselined."
+  structured_empty_registries:
+    - "docs/Governance/AI/AI-Use-Inventory.yml"
+    - "docs/Governance/AI/Model-Inventory.yml"
+    - "docs/Governance/Supplier/Third-Party-Register.yml"
+  finding: "Empty structured registries are valid controlled baselines/templates when explicitly marked initial or controlled-empty-baseline; emptiness must not be interpreted as evidence that no real-world usage/provider/model exists unless the scope of the registry is verified."
+
+authority_conflict_register:
+  status: "initial-verified"
+  conflicts:
+    - id: "AUTH-CONFLICT-001"
+      artifacts: ["docs/Governance/Decision/Decision-Authority-Matrix.yml", "docs/Governance/Decision/Decision-Authority-Register.md"]
+      type: "semantic-duplication"
+      current_assessment: "YAML structurally authoritative; MD derived candidate."
+      required_resolution: "Formalize one-way mirror rule and synchronization evidence."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-002"
+      artifacts: ["docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"]
+      type: "overlapping-policy-scope"
+      current_assessment: "Different abstraction levels are plausible, but their normative boundary is not yet explicit enough."
+      required_resolution: "Define function-level rules versus role-combination rules and establish precedence."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-003"
+      artifacts: ["docs/Governance/Decision/SoD-Integration-Register.md", "docs/Governance/Decision/SoD-Integration-Register-2.md"]
+      type: "duplicate-or-complementary-record"
+      current_assessment: "Both describe pending cross-domain SoD operationalization; second is a likely complementary traceability note."
+      required_resolution: "Compare full contents and establish one canonical integration record or explicit complementary roles."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-004"
+      artifacts: ["docs/Governance/04-Quality-Gates.md", "docs/Governance/Quality/Quality-Gate-Catalog.yml"]
+      type: "dual-representation"
+      current_assessment: "Normative policy plus structured operational specification; not inherently contradictory."
+      required_resolution: "Formalize synchronization/version coupling and precedence."
+      authorized_by_issue_172: false
+
+sot_conflict_register:
+  status: "initial-verified"
+  findings:
+    - id: "SOT-CONFLICT-001"
+      pair: "Risk-Register.md ↔ Risk-Register.yml"
+      state: "resolved-by-explicit-source-declaration"
+      canonical: "docs/Governance/Risk/Risk-Register.yml"
+      derived: "docs/Governance/Risk/Risk-Register.md"
+    - id: "SOT-CONFLICT-002"
+      pair: "Decision-Authority-Register.md ↔ Decision-Authority-Matrix.yml"
+      state: "provisionally-resolved"
+      canonical_candidate: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+      derived_candidate: "docs/Governance/Decision/Decision-Authority-Register.md"
+      pending: "formal mirror rule"
+    - id: "SOT-CONFLICT-003"
+      pair: "04-Quality-Gates.md ↔ Quality-Gate-Catalog.yml"
+      state: "semantic-split"
+      normative: "docs/Governance/04-Quality-Gates.md"
+      structured_operational: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      pending: "formal precedence/synchronization rule"
+    - id: "SOT-CONFLICT-004"
+      pair: "21-Engineering-Metrics-Governance.md ↔ Metric-Catalog.yml"
+      state: "semantic-split"
+      normative: "docs/Governance/21-Engineering-Metrics-Governance.md"
+      structured_definition_sot_candidate: "docs/Governance/Metrics/Metric-Catalog.yml"
+      pending: "formal precedence/synchronization rule"
+
+overlap_register:
+  confirmed_or_high_confidence:
+    - id: "OVERLAP-001"
+      artifacts: ["docs/Governance/Decision/SoD-Integration-Register.md", "docs/Governance/Decision/SoD-Integration-Register-2.md"]
+      risk: high
+      disposition: "CONSOLIDATE_OR_EXPLICITLY_SEPARATE"
+      note: "Do not delete until full semantic comparison and remediation Issue."
+    - id: "OVERLAP-002"
+      artifacts: ["docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"]
+      risk: high
+      disposition: "CLARIFY_SCOPE_AND_PRECEDENCE"
+      note: "Potentially valid as function-level versus role-combination layers; authority boundary is currently insufficiently explicit."
+    - id: "OVERLAP-003"
+      artifacts: ["docs/Governance/04-Quality-Gates.md", "docs/Governance/Quality/Quality-Gate-Catalog.yml"]
+      risk: medium
+      disposition: "KEEP_WITH_EXPLICIT_SEMANTIC_SPLIT"
+      note: "Normative policy and structured operational representation should remain synchronized."
+    - id: "OVERLAP-004"
+      artifacts: ["docs/Governance/Risk/Risk-Register.md", "docs/Governance/Risk/Risk-Register.yml"]
+      risk: medium
+      disposition: "KEEP_AS_SOT_PLUS_DERIVED_VIEW"
+      note: "Not a duplication defect once the YAML→MD relationship is explicit and maintained."
+
+stable_artifact_identity:
+  status: "design-required"
+  current_finding: "No repository-wide Artifact ID namespace was verified in the sampled Governance artifacts. Existing control, risk, decision, metric and configuration IDs are domain identifiers, not a universal Artifact ID."
+  rule: "Do not retroactively use RISK-*, DEC-*, EM-*, CI-*, GC-*, SV-* or MC-* as universal artifact identities."
+  proposed_namespace: "GOV-A####"
+  proposed_format: "GOV-A0001, GOV-A0002, ..."
+  proposed_scope: "One stable identity per governed artifact record; filename/path remains a locator, not identity."
+  status_constraint: "Proposal only; assignment to all 181 artifacts requires a separate controlled register update after collision and lifecycle review."
+  no_rename_implication: "Introducing stable IDs does not authorize file renames."
+
+next_consolidation_block:
+  - "Complete full-content comparison of all high-risk overlap candidates in Decision/."
+  - "Verify consumers/references for every structured SoT candidate."
+  - "Identify true orphan artifacts versus records referenced indirectly by indexes/workflows."
+  - "Assign GOV-A#### identifiers only after namespace review."
+  - "Produce Dependency Graph v1 with verified edges and explicit unresolved edges."
+  - "Open separate remediation Issues for consolidation, mirror synchronization, and authority-boundary changes."

@@ -1,0 +1,3111 @@
+schema_version: "1"
+register_status: "baseline-under-audit"
+generated_from: "main"
+master_issue: 171
+construction_issue: 172
+artifact_count: 182
+authority_model:
+  canonical: "Normative or structured source of truth."
+  supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
+  derived_or_record: "Status, evidence, audit, impact, implementation, or historical record."
+  template: "Controlled structure for future records; not evidence itself."
+  canonical_candidate: "Provisional SoT candidate pending cross-reference validation."
+rules:
+  - "Artifact ID is the stable identity; path and filename are locators."
+  - "Artifact IDs are immutable, unique within the Governance register, and never reused."
+  - "Historical, status, evidence, impact and template artifacts receive identities without gaining normative authority."
+  - "Do not infer authority from filename numbering alone."
+  - "A summary/status artifact cannot override its canonical source."
+  - "For MD/YAML pairs, exactly one source must become SoT before operational use."
+  - "This register does not authorize deletion, rename, or consolidation."
+canonical_map:
+  entry_point: "docs/Governance/README-Governance.md"
+  constitutional_principles: "docs/Governance/GOVERNANCE-FOUNDATION.md"
+  lifecycle: "docs/Governance/00-Software-Lifecycle-Master.md"
+  standards: "docs/Governance/02-Standards-Lifecycle-Matrix.md"
+  evidence_model: "docs/Governance/03-Artifacts-And-Evidence.md"
+  quality_policy: "docs/Governance/04-Quality-Gates.md"
+  change_control: "docs/Governance/06-Change-Control-Workflow.md"
+  main_protection_policy: "docs/Governance/07-Main-Protection-Strategy.md"
+  label_policy: "docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
+  enforcement_architecture: "docs/Governance/10-Governance-Enforcement-Architecture.md"
+  control_registry_candidate: "docs/Governance/11-Governance-Control-Matrix.md"
+  risk_governance: "docs/Governance/17-Risk-Management-System.md"
+  decision_governance: "docs/Governance/19-Decision-Governance.md"
+  metrics_governance: "docs/Governance/21-Engineering-Metrics-Governance.md"
+  ai_governance: "docs/Governance/23-AI-Governance.md"
+  data_governance: "docs/Governance/25-Data-Governance.md"
+  supplier_governance: "docs/Governance/29-Supplier-Third-Party-Governance.md"
+  configuration_governance: "docs/Governance/35-Configuration-Management.md"
+  research_governance: "docs/Governance/52-Research-Governance.md"
+  main_enforcement: "docs/Governance/53-Main-Branch-Protection-Enforcement.md"
+  mc001_control: "docs/Governance/54-Main-Integrity-MC-001.md"
+  label_sot: "docs/Governance/Label-Catalog.yml"
+  metric_sot: "docs/Governance/Metrics/Metric-Catalog.yml"
+  quality_gate_sot: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+  risk_register_sot: "docs/Governance/Risk/Risk-Register.yml"
+  decision_authority_sot: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+  sod_control_sot: "docs/Governance/Decision/SoD-Control-Matrix.yml"
+artifacts:
+  - path: "docs/Governance/00-Software-Lifecycle-Master.md"
+    artifact_id: "GOV-A0001"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: lifecycle
+    confidence: high
+    depends_on: ["docs/Governance/06-Change-Control-Workflow.md", "docs/Governance/02-Standards-Lifecycle-Matrix.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/01-Software-Lifecycle-Audit.md"
+    artifact_id: "GOV-A0002"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/06-Change-Control-Workflow.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/02-Standards-Lifecycle-Matrix.md"
+    artifact_id: "GOV-A0003"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: standards
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/03-Artifacts-And-Evidence.md"
+    artifact_id: "GOV-A0004"
+    type: validation_evidence
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: evidence_model
+    confidence: high
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/06-Change-Control-Workflow.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/04-Quality-Gates.md"
+    artifact_id: "GOV-A0005"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: quality_policy
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/05-Repository-Naming-Convention.md"
+    artifact_id: "GOV-A0006"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/06-Change-Control-Workflow.md"
+    artifact_id: "GOV-A0007"
+    type: control
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: change_control
+    confidence: high
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/07-Main-Protection-Strategy.md", "docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/07-Main-Protection-Strategy.md"
+    artifact_id: "GOV-A0008"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: main_protection_policy
+    confidence: high
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/06-Change-Control-Workflow.md", "docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/08-Software-Roadmap.md"
+    artifact_id: "GOV-A0009"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
+    artifact_id: "GOV-A0010"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: label_policy
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/10-Governance-Enforcement-Architecture.md"
+    artifact_id: "GOV-A0011"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: enforcement_architecture
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/11-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0012"
+    type: control
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: control_registry_candidate
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/12-Quality-Validation-Architecture.md"
+    artifact_id: "GOV-A0013"
+    type: architecture
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/Quality/Quality-Gate-Catalog.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/13-Security-Validation-Architecture.md"
+    artifact_id: "GOV-A0014"
+    type: architecture
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/14-Evidence-Validation-Architecture.md"
+    artifact_id: "GOV-A0015"
+    type: architecture
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/15-G0-Governance-Readiness-Assessment.md"
+    artifact_id: "GOV-A0016"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/16-G0-Impact-Analysis.md"
+    artifact_id: "GOV-A0017"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/17-Risk-Management-System.md"
+    artifact_id: "GOV-A0018"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: risk_governance
+    confidence: high
+    depends_on: ["docs/Governance/Risk/Risk-Register.yml", "docs/Governance/Risk/Risk-Register.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/18-Risk-Management-Control-Matrix.md"
+    artifact_id: "GOV-A0019"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/19-Decision-Governance.md"
+    artifact_id: "GOV-A0020"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: decision_governance
+    confidence: high
+    depends_on: ["docs/Governance/Risk/Risk-Register.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/20-Decision-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0021"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/19-Decision-Governance.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/21-Engineering-Metrics-Governance.md"
+    artifact_id: "GOV-A0022"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: metrics_governance
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/22-Engineering-Metrics-Control-Matrix.md"
+    artifact_id: "GOV-A0023"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/21-Engineering-Metrics-Governance.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/23-AI-Governance.md"
+    artifact_id: "GOV-A0024"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: ai_governance
+    confidence: high
+    depends_on: ["docs/Governance/AI/README.md", "docs/Governance/AI/AI-Use-Inventory.yml", "docs/Governance/AI/Model-Inventory.yml", "docs/Governance/AI/Data-Provenance-Template.md", "docs/Governance/AI/Prompt-Record-Template.md", "docs/Governance/AI/Evaluation-Record-Template.md", "docs/Governance/AI/Incident-Record-Template.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/24-AI-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0025"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/25-Data-Governance.md"
+    artifact_id: "GOV-A0026"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: data_governance
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/26-Data-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0027"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/25-Data-Governance.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/27-Data-Governance-Impact-And-Closure.md"
+    artifact_id: "GOV-A0028"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/06-Change-Control-Workflow.md", "docs/Governance/10-Governance-Enforcement-Architecture.md", "docs/Governance/11-Governance-Control-Matrix.md", "docs/Governance/17-Risk-Management-System.md", "docs/Governance/18-Risk-Management-Control-Matrix.md", "docs/Governance/19-Decision-Governance.md", "docs/Governance/20-Decision-Governance-Control-Matrix.md", "docs/Governance/21-Engineering-Metrics-Governance.md", "docs/Governance/22-Engineering-Metrics-Control-Matrix.md", "docs/Governance/23-AI-Governance.md", "docs/Governance/24-AI-Governance-Control-Matrix.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/27-Governance-Control-Matrix-SoD-NC-Change-Research.md"
+    artifact_id: "GOV-A0029"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/28-Problems-11-14-Impact-Analysis.md"
+    artifact_id: "GOV-A0030"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/29-Supplier-Third-Party-Governance.md"
+    artifact_id: "GOV-A0031"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: supplier_governance
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/30-Supplier-Third-Party-Control-Matrix.md"
+    artifact_id: "GOV-A0032"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/29-Supplier-Third-Party-Governance.md", "docs/Governance/Supplier/Third-Party-Register.yml", "docs/Governance/Supplier/Vendor-Risk-Register.yml", "docs/Governance/Supplier/SLA-Contractual-Control-Register.yml", "docs/Governance/Supplier/Security-Assessment-Register.yml", "docs/Governance/Supplier/License-Register.yml", "docs/Governance/Supplier/Dependency-Register.yml", "docs/Governance/Supplier/Exit-Strategy-Register.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/31-Supplier-Third-Party-Impact-Analysis.md"
+    artifact_id: "GOV-A0033"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/32-Supplier-Third-Party-Integration-Map.md"
+    artifact_id: "GOV-A0034"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/33-Supplier-Third-Party-Decision-Integration.md"
+    artifact_id: "GOV-A0035"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/34-Supplier-Third-Party-Baseline-Summary.md"
+    artifact_id: "GOV-A0036"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/35-Configuration-Management.md"
+    artifact_id: "GOV-A0037"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: configuration_governance
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/41-Configuration-Management-Control-Matrix.md"
+    artifact_id: "GOV-A0038"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/43-Quality-Gates-Operationalization.md"
+    artifact_id: "GOV-A0039"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/48-Decision-Authority-Governance.md"
+    artifact_id: "GOV-A0040"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/49-Deterministic-Validation-Triggers.md"
+    artifact_id: "GOV-A0041"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/49-Segregation-of-Duties-Governance.md"
+    artifact_id: "GOV-A0042"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/49-Segregation-of-Duties.md"
+    artifact_id: "GOV-A0043"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/50-Non-Conformance-Management.md"
+    artifact_id: "GOV-A0044"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/51-Engineering-Change-Authority.md"
+    artifact_id: "GOV-A0045"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/52-Research-Governance.md"
+    artifact_id: "GOV-A0046"
+    type: policy_or_governance
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: research_governance
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/53-Main-Branch-Protection-Enforcement.md"
+    artifact_id: "GOV-A0047"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: main_enforcement
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/54-Main-Integrity-MC-001.md"
+    artifact_id: "GOV-A0048"
+    type: control
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: mc001_control
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/54-Operation-Idempotency-Control.md"
+    artifact_id: "GOV-A0049"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/AI-Use-Inventory.yml"
+    artifact_id: "GOV-A0050"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/Data-Provenance-Template.md"
+    artifact_id: "GOV-A0051"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/Evaluation-Record-Template.md"
+    artifact_id: "GOV-A0052"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/Incident-Record-Template.md"
+    artifact_id: "GOV-A0053"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/Model-Inventory.yml"
+    artifact_id: "GOV-A0054"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/Prompt-Record-Template.md"
+    artifact_id: "GOV-A0055"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/AI/README.md"
+    artifact_id: "GOV-A0056"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/Configuration-Audit-Checklist.md"
+    artifact_id: "GOV-A0057"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/Configuration-Baseline-Register.yml"
+    artifact_id: "GOV-A0058"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/Configuration-Impact-Analysis.md"
+    artifact_id: "GOV-A0059"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/Configuration-Item-Register.yml"
+    artifact_id: "GOV-A0060"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/Configuration-Status-Accounting.md"
+    artifact_id: "GOV-A0061"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Configuration/README.md"
+    artifact_id: "GOV-A0062"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/00-Data-Governance-README.md"
+    artifact_id: "GOV-A0063"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/01-Data-Governance-Scope.md"
+    artifact_id: "GOV-A0064"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Access-Matrix.yml"
+    artifact_id: "GOV-A0065"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Backup-Recovery-Register.yml"
+    artifact_id: "GOV-A0066"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Governance-Baseline.md"
+    artifact_id: "GOV-A0067"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Governance-Status.md"
+    artifact_id: "GOV-A0068"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Inventory-Template.yml"
+    artifact_id: "GOV-A0069"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Lineage-Register.yml"
+    artifact_id: "GOV-A0070"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Ownership-Register.yml"
+    artifact_id: "GOV-A0071"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Data-Quality-Rule-Catalog.yml"
+    artifact_id: "GOV-A0072"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/README.md"
+    artifact_id: "GOV-A0073"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Data/Retention-Schedule.yml"
+    artifact_id: "GOV-A0074"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Control-Matrix.md"
+    artifact_id: "GOV-A0075"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Escalation.md"
+    artifact_id: "GOV-A0076"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Governance-Status.md"
+    artifact_id: "GOV-A0077"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Impact-Analysis.md"
+    artifact_id: "GOV-A0078"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Implementation-Note.md"
+    artifact_id: "GOV-A0079"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+    artifact_id: "GOV-A0080"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-Authority-Register.md"
+    artifact_id: "GOV-A0081"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/README.md"
+    artifact_id: "GOV-A0082"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/48-Decision-Authority-Governance.md", "docs/Governance/Decision/Role-Register.yml", "docs/Governance/Decision/Decision-Authority-Matrix.yml", "docs/Governance/Decision/Decision-Authority-Control-Matrix.md", "docs/Governance/Decision/Decision-Authority-Impact-Analysis.md", "docs/Governance/Decision/Decision-Authority-Escalation.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Role-Assignment-Policy.md"
+    artifact_id: "GOV-A0083"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Role-Register.yml"
+    artifact_id: "GOV-A0084"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Approval-Record-Template.md"
+    artifact_id: "GOV-A0085"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Baseline-Criteria.md"
+    artifact_id: "GOV-A0086"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Baseline-Readiness.md"
+    artifact_id: "GOV-A0087"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Change-Assessment-Template.yml"
+    artifact_id: "GOV-A0088"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Change-Assessment.md"
+    artifact_id: "GOV-A0089"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Change-Control-Integration.md"
+    artifact_id: "GOV-A0090"
+    type: control
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Configuration-Supplier-Integration.md"
+    artifact_id: "GOV-A0091"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Control-Matrix.yml"
+    artifact_id: "GOV-A0092"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Data-AI-Integration.md"
+    artifact_id: "GOV-A0093"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Decision-Authority-Integration.md"
+    artifact_id: "GOV-A0094"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Decision-Checklist.md"
+    artifact_id: "GOV-A0095"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+    artifact_id: "GOV-A0096"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Decision-Record-Template.md"
+    artifact_id: "GOV-A0097"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Evidence-Model.md"
+    artifact_id: "GOV-A0098"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Exception-Register.yml"
+    artifact_id: "GOV-A0099"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Exception-Template.yml"
+    artifact_id: "GOV-A0100"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Final-Readiness.md"
+    artifact_id: "GOV-A0101"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Gate-Checklist.md"
+    artifact_id: "GOV-A0102"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Governance-Status.md"
+    artifact_id: "GOV-A0103"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Impact-Analysis.md"
+    artifact_id: "GOV-A0104"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Implementation-Completion.md"
+    artifact_id: "GOV-A0105"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Implementation-Note.md"
+    artifact_id: "GOV-A0106"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Implementation-Status.md"
+    artifact_id: "GOV-A0107"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Integration-Register-2.md"
+    artifact_id: "GOV-A0108"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Integration-Register.md"
+    artifact_id: "GOV-A0109"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Lifecycle-Integration.md"
+    artifact_id: "GOV-A0110"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Metrics-Integration.md"
+    artifact_id: "GOV-A0111"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Operational-Status.md"
+    artifact_id: "GOV-A0112"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Operationalization-Backlog.md"
+    artifact_id: "GOV-A0113"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-PR-Validation-Status.md"
+    artifact_id: "GOV-A0114"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Policy-Applicability.md"
+    artifact_id: "GOV-A0115"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Policy-Index.md"
+    artifact_id: "GOV-A0116"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Quality-Integration.md"
+    artifact_id: "GOV-A0117"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-README.md"
+    artifact_id: "GOV-A0118"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Ready.md"
+    artifact_id: "GOV-A0119"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Responsibility-Model.md"
+    artifact_id: "GOV-A0120"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Approval.md"
+    artifact_id: "GOV-A0121"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Checklist.md"
+    artifact_id: "GOV-A0122"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Evidence-Template.yml"
+    artifact_id: "GOV-A0123"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Protocol-Status.md"
+    artifact_id: "GOV-A0124"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Protocol.md"
+    artifact_id: "GOV-A0125"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Review-Record-Template.yml"
+    artifact_id: "GOV-A0126"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Risk-Decision-Flow.md"
+    artifact_id: "GOV-A0127"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Risk-Exception-Policy.md"
+    artifact_id: "GOV-A0128"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Risk-Independence-Matrix.yml"
+    artifact_id: "GOV-A0129"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Risk-Integration.md"
+    artifact_id: "GOV-A0130"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Role-Assignment-Policy.md"
+    artifact_id: "GOV-A0131"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+    artifact_id: "GOV-A0132"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Security-Integration.md"
+    artifact_id: "GOV-A0133"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Status-Log.md"
+    artifact_id: "GOV-A0134"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Traceability-Matrix.md"
+    artifact_id: "GOV-A0135"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Validation-Note.md"
+    artifact_id: "GOV-A0136"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Validation-Rerun-Trigger.md"
+    artifact_id: "GOV-A0137"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Validation-Status.md"
+    artifact_id: "GOV-A0138"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Verification-Checklist.md"
+    artifact_id: "GOV-A0139"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: high
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/GOVERNANCE-FOUNDATION.md"
+    artifact_id: "GOV-A0140"
+    type: document
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: constitutional_principles
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/LABEL-AUTOMATION-CONTRACT.md"
+    artifact_id: "GOV-A0141"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/LABEL-CLASSIFICATION-PRECEDENCE.md"
+    artifact_id: "GOV-A0142"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Label-Catalog.yml"
+    artifact_id: "GOV-A0143"
+    type: registry
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: label_sot
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Metrics/Engineering-Governance-Dashboard.html"
+    artifact_id: "GOV-A0144"
+    type: dashboard
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Metrics/Engineering-Governance-Dashboard.md"
+    artifact_id: "GOV-A0145"
+    type: dashboard
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Metrics/Metric-Catalog.yml"
+    artifact_id: "GOV-A0146"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/PHASE-TRANSITION-CRITERIA.md"
+    artifact_id: "GOV-A0147"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/PROJECT-STATUS.md"
+    artifact_id: "GOV-A0148"
+    type: status
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+    artifact_id: "GOV-A0149"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/04-Quality-Gates.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Quality/Quality-Gates-Impact-Analysis.md"
+    artifact_id: "GOV-A0150"
+    type: document
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/README-Governance.md"
+    artifact_id: "GOV-A0151"
+    type: index
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: entry_point
+    confidence: high
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Records/Change-Request-Template.yml"
+    artifact_id: "GOV-A0152"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Records/Engineering-Lesson-Template.yml"
+    artifact_id: "GOV-A0153"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Records/Engineering-Lessons-Learned.yml"
+    artifact_id: "GOV-A0154"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Records/Non-Conformance-Template.yml"
+    artifact_id: "GOV-A0155"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Risk/Risk-Register.md"
+    artifact_id: "GOV-A0156"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Risk/Risk-Register.yml"
+    artifact_id: "GOV-A0157"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Roadmap/README.md"
+    artifact_id: "GOV-A0158"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Roadmap/Roadmap-Dashboard.html"
+    artifact_id: "GOV-A0159"
+    type: dashboard
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Roadmap/Roadmap-Dashboard.md"
+    artifact_id: "GOV-A0160"
+    type: dashboard
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/SV-002-MINIMUM-PRIVILEGE.md"
+    artifact_id: "GOV-A0161"
+    type: document
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Dependency-Register.md"
+    artifact_id: "GOV-A0162"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Dependency-Register.yml"
+    artifact_id: "GOV-A0163"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Exit-Strategy-Register.md"
+    artifact_id: "GOV-A0164"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Exit-Strategy-Register.yml"
+    artifact_id: "GOV-A0165"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/License-Register.md"
+    artifact_id: "GOV-A0166"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/License-Register.yml"
+    artifact_id: "GOV-A0167"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/README.md"
+    artifact_id: "GOV-A0168"
+    type: index
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/SLA-Contractual-Control-Register.md"
+    artifact_id: "GOV-A0169"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/SLA-Contractual-Control-Register.yml"
+    artifact_id: "GOV-A0170"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Security-Assessment-Register.md"
+    artifact_id: "GOV-A0171"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Security-Assessment-Register.yml"
+    artifact_id: "GOV-A0172"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Supplier-Governance-Evidence-Checklist.md"
+    artifact_id: "GOV-A0173"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Supplier-Governance-Record-Template.md"
+    artifact_id: "GOV-A0174"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Third-Party-Governance-Evidence-Index.md"
+    artifact_id: "GOV-A0175"
+    type: policy_or_governance
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Third-Party-Governance-Status.md"
+    artifact_id: "GOV-A0176"
+    type: status
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Third-Party-Register-Template.yml"
+    artifact_id: "GOV-A0177"
+    type: template
+    authority: template
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Third-Party-Register.md"
+    artifact_id: "GOV-A0178"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Third-Party-Register.yml"
+    artifact_id: "GOV-A0179"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Vendor-Risk-Register.md"
+    artifact_id: "GOV-A0180"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Supplier/Vendor-Risk-Register.yml"
+    artifact_id: "GOV-A0181"
+    type: registry
+    authority: supporting
+    source_of_truth: false
+    confidence: medium
+    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "TO_BE_VERIFIED"
+    duplicate_risk: medium
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Artifact-Authority-Register.yml"
+    artifact_id: "GOV-A0182"
+    type: governance_registry
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: artifact_authority_register
+    confidence: high
+    depends_on: ["docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/README-Governance.md"]
+    referenced_by: ["docs/Governance/README-Governance.md"]
+    implementation: "register-controlled"
+    evidence: "Git commit history, PR review and register validation"
+    lifecycle_status: "baseline-under-audit"
+    duplicate_risk: low
+    disposition: "KEEP"
+
+reference_analysis:
+  verified_edges_batch_001:
+    - "docs/Governance/00-Software-Lifecycle-Master.md -> docs/Governance/06-Change-Control-Workflow.md"
+    - "docs/Governance/00-Software-Lifecycle-Master.md -> docs/Governance/02-Standards-Lifecycle-Matrix.md"
+    - "docs/Governance/01-Software-Lifecycle-Audit.md -> docs/Governance/00-Software-Lifecycle-Master.md"
+    - "docs/Governance/01-Software-Lifecycle-Audit.md -> docs/Governance/02-Standards-Lifecycle-Matrix.md"
+    - "docs/Governance/01-Software-Lifecycle-Audit.md -> docs/Governance/03-Artifacts-And-Evidence.md"
+    - "docs/Governance/01-Software-Lifecycle-Audit.md -> docs/Governance/04-Quality-Gates.md"
+    - "docs/Governance/01-Software-Lifecycle-Audit.md -> docs/Governance/06-Change-Control-Workflow.md"
+    - "docs/Governance/03-Artifacts-And-Evidence.md -> docs/Governance/00-Software-Lifecycle-Master.md"
+    - "docs/Governance/03-Artifacts-And-Evidence.md -> docs/Governance/04-Quality-Gates.md"
+    - "docs/Governance/03-Artifacts-And-Evidence.md -> docs/Governance/06-Change-Control-Workflow.md"
+    - "docs/Governance/06-Change-Control-Workflow.md -> docs/Governance/00-Software-Lifecycle-Master.md"
+    - "docs/Governance/06-Change-Control-Workflow.md -> docs/Governance/03-Artifacts-And-Evidence.md"
+    - "docs/Governance/06-Change-Control-Workflow.md -> docs/Governance/04-Quality-Gates.md"
+    - "docs/Governance/06-Change-Control-Workflow.md -> docs/Governance/07-Main-Protection-Strategy.md"
+    - "docs/Governance/06-Change-Control-Workflow.md -> docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
+    - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/00-Software-Lifecycle-Master.md"
+    - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/03-Artifacts-And-Evidence.md"
+    - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/04-Quality-Gates.md"
+    - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/06-Change-Control-Workflow.md"
+    - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
+  verification_scope: "30 core/domain artifacts analyzed across batches; additional batches pending."
+next_analysis:
+  - "Assign stable Artifact IDs and owners."
+  - "Extract and validate all cross-references."
+  - "Resolve MD/YAML Source-of-Truth pairs."
+  - "Resolve authority conflicts and promote supported candidates."
+  - "Build the verified directed dependency graph."
+
+
+decision_sod_authority_analysis:
+  verified:
+    - artifact: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+      classification: "registry"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 47
+      note: "Structured decision authority matrix; candidate SoT for decision accountability/approval/blocking roles."
+    - artifact: "docs/Governance/Decision/Role-Register.yml"
+      classification: "registry"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 47
+      note: "Conceptual role definitions; referenced by role-assignment policy and decision authority controls."
+    - artifact: "docs/Governance/Decision/Decision-Authority-Register.md"
+      classification: "registry-derived"
+      authority: "derived_or_record"
+      note: "Human-readable decision table mirrors Decision-Authority-Matrix.yml; MD/YAML SoT relationship requires formal resolution."
+    - artifact: "docs/Governance/Decision/Decision-Authority-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "Defines DA controls and evidence references; does not establish decision authority itself."
+    - artifact: "docs/Governance/Decision/Role-Assignment-Policy.md"
+      classification: "policy"
+      authority: "supporting"
+      note: "Governs conceptual role assignment and accumulation."
+    - artifact: "docs/Governance/Decision/SoD-Role-Assignment-Policy.md"
+      classification: "policy"
+      authority: "supporting"
+      note: "Specializes role accumulation and segregation-of-duties behavior."
+    - artifact: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      classification: "control_registry"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 49
+      note: "Structured classification of function combinations by risk; candidate SoT for combination rules."
+    - artifact: "docs/Governance/Decision/SoD-Traceability-Matrix.md"
+      classification: "traceability"
+      authority: "derived_or_record"
+      note: "Maps risk, roles, function combinations, exceptions, evidence and validation."
+    - artifact: "docs/Governance/Decision/SoD-Status-Log.md"
+      classification: "status"
+      authority: "derived_or_record"
+      note: "Explicitly reports PENDING VALIDATION; not normative authority."
+    - artifact: "docs/Governance/Decision/SoD-Verification-Checklist.md"
+      classification: "validation_evidence"
+      authority: "derived_or_record"
+      note: "Validation checklist; explicitly does not establish technical enforcement."
+  authority_conflicts:
+    - "Decision-Authority-Matrix.yml vs Decision-Authority-Register.md: semantic duplication; YAML appears structurally authoritative, but SoT must be formally declared."
+    - "Role-Register.yml vs role assignment policies: role definitions and assignment rules are distinct concerns; no direct authority conflict found in sampled content."
+  sod_observation: "SoD is highly fragmented into policy, matrices, assessments, exceptions, integration, validation and status artifacts. Fragmentation is confirmed; consolidation/deletion requires separate remediation issue and is not authorized by #172."
+
+
+sod_operationalization_analysis:
+  verified:
+    - artifact: "docs/Governance/Decision/SoD-Control-Matrix.yml"
+      classification: "control_registry"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 49
+      note: "Structured SoD control definitions; distinct from function-combination rules and risk-independence criteria."
+    - artifact: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+      classification: "policy_matrix"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 49
+      note: "Defines functions and risk-level separation rules; overlaps conceptually with SoD-Role-Combination-Matrix.yml but has a different abstraction level that must be reconciled."
+    - artifact: "docs/Governance/Decision/SoD-Risk-Independence-Matrix.yml"
+      classification: "policy_matrix"
+      authority: "canonical_candidate"
+      status: "proposed"
+      issue: 49
+      note: "Maps risk levels R1-R4 to independence requirements and criteria."
+    - artifact: "docs/Governance/Decision/SoD-Exception-Register.yml"
+      classification: "registry"
+      authority: "canonical_candidate"
+      status: "operational-template"
+      issue: 49
+      note: "Structured exception record model; empty records means it is not evidence of executed exceptions."
+    - artifact: "docs/Governance/Decision/SoD-Integration-Register.md"
+      classification: "integration/status"
+      authority: "derived_or_record"
+      note: "Explicitly marks cross-domain operationalization as pending; must not be treated as proof of enforcement."
+    - artifact: "docs/Governance/Decision/SoD-Integration-Register-2.md"
+      classification: "integration/status"
+      authority: "derived_or_record"
+      note: "Complementary narrative to SoD-Integration-Register.md; duplicate/overlap candidate."
+    - artifact: "docs/Governance/Decision/SoD-Operationalization-Backlog.md"
+      classification: "status/backlog"
+      authority: "derived_or_record"
+      note: "Tracks future operationalization work; does not itself establish implementation."
+    - artifact: "docs/Governance/Decision/SoD-Implementation-Status.md"
+      classification: "status"
+      authority: "derived_or_record"
+      note: "Explicitly PENDING VALIDATION; not baseline evidence."
+    - artifact: "docs/Governance/Decision/SoD-Validation-Status.md"
+      classification: "status"
+      authority: "derived_or_record"
+      note: "Explicitly PENDING VALIDATION."
+    - artifact: "docs/Governance/Decision/SoD-Governance-Status.md"
+      classification: "status"
+      authority: "derived_or_record"
+      note: "Confirms documentary/structural state and explicitly denies unverified technical enforcement."
+  duplicate_overlap_candidates:
+    - "SoD-Decision-Function-Matrix.yml ↔ SoD-Role-Combination-Matrix.yml: overlapping separation rules at different abstraction levels; requires semantic reconciliation before declaring separate SoT authorities."
+    - "SoD-Integration-Register.md ↔ SoD-Integration-Register-2.md: direct duplication/complementarity candidate."
+  operationalization_finding: "The repository distinguishes documented structure from actual enforcement and explicitly marks cross-domain operationalization pending. This is a positive control-design property, but effectiveness remains unverified."
+
+
+metrics_quality_evidence_analysis:
+  verified:
+    - artifact: "docs/Governance/Metrics/Metric-Catalog.yml"
+      classification: "registry"
+      authority: "canonical_candidate"
+      status: "controlled-baseline"
+      note: "Explicitly structured as the metric source; individual metrics remain mostly defined rather than operationally measured."
+    - artifact: "docs/Governance/Metrics/Engineering-Governance-Dashboard.md"
+      classification: "dashboard"
+      authority: "derived_or_record"
+      note: "Explicitly derived; states that it does not replace catalog or evidence and must be reconstructible."
+    - artifact: "docs/Governance/22-Engineering-Metrics-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "Separates documented implementation from future real-data/automation capabilities."
+    - artifact: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      classification: "control_registry"
+      authority: "canonical_candidate"
+      status: "controlled operational baseline"
+      note: "Machine-readable operational gate specification; explicitly sources 04-Quality-Gates.md."
+    - artifact: "docs/Governance/04-Quality-Gates.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "controlled operational"
+      note: "Normative gate definition; introduces operational specification and decision-by-evidence model."
+    - artifact: "docs/Governance/43-Quality-Gates-Operationalization.md"
+      classification: "operationalization"
+      authority: "derived_or_record"
+      note: "Problem #8 implementation/operationalization design; not itself the gate source of truth."
+    - artifact: "docs/Governance/Quality/Quality-Gates-Impact-Analysis.md"
+      classification: "impact_analysis"
+      authority: "derived_or_record"
+      note: "Explicit impact analysis; identifies duplication risk between Quality Validation and Quality Gate."
+    - artifact: "docs/Governance/03-Artifacts-And-Evidence.md"
+      classification: "catalog/policy"
+      authority: "canonical_candidate"
+      status: "controlled catalog"
+      note: "Defines artifact/evidence classes and traceability principles; should not become a competing source for individual evidence records."
+    - artifact: "docs/Governance/14-Evidence-Validation-Architecture.md"
+      classification: "architecture/control"
+      authority: "canonical_candidate"
+      note: "Defines Evidence Validation as a distinct enforcement layer and explicitly separates it from Governance, Quality and Security validation."
+  authority_conflicts:
+    - "04-Quality-Gates.md ↔ Quality/Quality-Gate-Catalog.yml: complementary normative/structured representations; catalog declares source but formal MD/YAML synchronization rule still needs verification."
+    - "21-Engineering-Metrics-Governance.md ↔ Metrics/Metric-Catalog.yml: policy vs structured metric definitions; no direct conflict, but catalog should remain SoT for individual metric definitions."
+  effectiveness_findings:
+    - "Metrics system is principally defined, not yet measurement-operational for several DORA-style indicators; catalog uses TBD and explicit limitations."
+    - "Quality Gates have a structured operational catalog, but effectiveness still depends on actual validation/evidence execution."
+    - "Evidence Validation is explicitly separated from Quality Gate decision and does not certify product correctness."
+  dependency_chain_verified:
+    - "Quality Gates → Metric Catalog"
+    - "Quality Gates → Evidence Validation"
+    - "Quality Gates → Decision Governance"
+    - "Quality Gates → Risk Register"
+    - "Quality Gates → AI/Supplier governance when applicable"
+    - "Evidence Validation → Lifecycle / Change Control / Governance Control Matrix"
+
+
+ai_data_supplier_configuration_analysis:
+  verified:
+    - artifact: "docs/Governance/23-AI-Governance.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "baseline-documental-inicial"
+      note: "Cross-domain AI governance policy; explicitly distinguishes build-time, product-runtime and research and requires human accountability and traceability."
+    - artifact: "docs/Governance/24-AI-Governance-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "Control matrix AI-001 onward; sampled statuses are predominantly documentary, so it does not by itself prove operational enforcement."
+    - artifact: "docs/Governance/25-Data-Governance.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "baseline-documental-inicial"
+      note: "Defines transversal data governance; explicitly defers real owners, taxonomy, retention, RPO/RTO, lineage and access matrices until evidence exists."
+    - artifact: "docs/Governance/26-Data-Governance-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "Separates implemented conceptually/documentally from pending operational assignments and technical evidence."
+    - artifact: "docs/Governance/27-Data-Governance-Impact-And-Closure.md"
+      classification: "impact_analysis"
+      authority: "derived_or_record"
+      note: "Records transversal dependencies and explicitly lists operational details not yet implemented."
+    - artifact: "docs/Governance/29-Supplier-Third-Party-Governance.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "baseline-documental-inicial"
+      note: "Defines third-party governance without inventing providers or contractual values."
+    - artifact: "docs/Governance/30-Supplier-Third-Party-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "SP controls map to structured supplier registers; many controls remain prepared/pending population."
+    - artifact: "docs/Governance/31-Supplier-Third-Party-Impact-Analysis.md"
+      classification: "impact_analysis"
+      authority: "derived_or_record"
+      note: "Documents transversal impact and explicitly distinguishes future execution from integration design."
+    - artifact: "docs/Governance/32-Supplier-Third-Party-Integration-Map.md"
+      classification: "integration"
+      authority: "supporting"
+      note: "Defines cross-domain relationships but explicitly does not demonstrate real suppliers, contracts or technical controls."
+    - artifact: "docs/Governance/35-Configuration-Management.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "baseline-propuesta-pendiente-integracion"
+      note: "Defines CM as broader than Git version control and identifies CI/baseline/status-accounting concepts."
+    - artifact: "docs/Governance/41-Configuration-Management-Control-Matrix.md"
+      classification: "control"
+      authority: "supporting"
+      note: "CM controls distinguish AUTOMATED, HYBRID and FUTURE; explicitly avoids claiming nonexistent automation."
+  structured_sot_candidates:
+    - "AI/AI-Use-Inventory.yml and AI/Model-Inventory.yml are candidate structured registries for AI use/model identity; exact authority requires inspection of their schemas and consumers."
+    - "Supplier/Third-Party-Register.yml and associated supplier registers are candidate SoTs for supplier facts; exact authority requires schema/consumer verification."
+    - "Configuration/Configuration-Item-Register.yml is a candidate SoT for configuration-item identity; baseline/status accounting authority still requires cross-reference verification."
+  operationalization_findings:
+    - "AI, Data, Supplier and Configuration governance consistently distinguish documentary design from real operational evidence; this is a positive anti-overclaim property."
+    - "The current evidence supports governance relationships and control definitions, but does not establish effectiveness of the underlying operational controls."
+  dependency_chain_verified:
+    - "AI Governance → Data Governance / Risk / Decision / Evidence"
+    - "Data Governance → Risk / Decision / AI / Security / Quality / Evidence / Metrics"
+    - "Supplier Governance → Risk / Decision / Security / Data / AI / Quality / Evidence / Metrics / Architecture / Change / Lifecycle"
+    - "Configuration Management → Lifecycle / Change Control / baselines / evidence / audit"
+  authority_risks:
+    - "Cross-domain integration maps can be mistaken for evidence; their own text explicitly limits them to governance relationships."
+    - "Control matrices use 'implemented' language in some rows while qualifying it as documentary/conceptual; the register should preserve this distinction when assessing effectiveness."
+
+
+security_enforcement_integrity_analysis:
+  verified:
+    - artifact: "docs/Governance/10-Governance-Enforcement-Architecture.md"
+      classification: "architecture"
+      authority: "canonical_candidate"
+      note: "Defines separation between policy, technical enforcement, detection, validation, evidence, decision and metrics; explicitly states that workflows are not equivalent to native preventive branch protection."
+    - artifact: "docs/Governance/11-Governance-Control-Matrix.md"
+      classification: "control_registry"
+      authority: "canonical_candidate"
+      note: "Central control matrix for Governance/Quality/Security/Evidence; records mechanism, nature, evidence and residual limitation."
+    - artifact: "docs/Governance/13-Security-Validation-Architecture.md"
+      classification: "architecture/control"
+      authority: "canonical_candidate"
+      note: "Defines active security validation controls SV-001..SV-004 and explicitly marks future/not-applicable application-security controls."
+    - artifact: "docs/Governance/53-Main-Branch-Protection-Enforcement.md"
+      classification: "enforcement_policy"
+      authority: "canonical_candidate"
+      note: "Defines target native protection profile and records the current integration limitation; it explicitly does not treat admin permission as proof of effective branch protection."
+    - artifact: "docs/Governance/54-Main-Integrity-MC-001.md"
+      classification: "detective_control"
+      authority: "canonical_candidate"
+      status: "implemented-detective"
+      note: "Documents MC-001 as a post-push detective/compensatory control with reproducible workflow artifacts; it does not prevent or reverse direct writes."
+    - artifact: "docs/Governance/49-Deterministic-Validation-Triggers.md"
+      classification: "control_policy"
+      authority: "supporting"
+      note: "Defines validation trigger semantics and explicitly avoids recursive GITHUB_TOKEN assumptions; status remains work in progress."
+    - artifact: "docs/Governance/50-Non-Conformance-Management.md"
+      classification: "policy"
+      authority: "canonical_candidate"
+      status: "baseline-vigente"
+      note: "Defines detection → NC → RCA → corrective/preventive action → effectiveness verification → closure."
+    - artifact: "docs/Governance/51-Engineering-Change-Authority.md"
+      classification: "authority_policy"
+      authority: "canonical_candidate"
+      status: "baseline-vigente"
+      note: "Defines C0-C3 change classes and authority requirements; explicitly preserves Issue/Branch/PR controls for main."
+  control_effectiveness_model:
+    - "Preventive native branch protection: not verified as available through the current integration; remains residual risk/target state."
+    - "Detective MC-001: documented as implemented and operationally verified non-destructively in its source artifact; effectiveness is detective, not preventive."
+    - "Governance/Quality/Security/Evidence workflows: active control mechanisms are documented, but workflow execution evidence must be assessed per current PR/run before declaring effectiveness."
+    - "Security SV-001..SV-004: source states Implemented; this establishes documented/implemented control state, not universal security assurance."
+  authority_separation:
+    - "07-Main-Protection-Strategy.md = normative repository/main policy."
+    - "53-Main-Branch-Protection-Enforcement.md = technical enforcement capability/profile and limitation record."
+    - "54-Main-Integrity-MC-001.md = detective/compensatory integrity control."
+    - "10-Governance-Enforcement-Architecture.md = architectural composition of these layers."
+  anomaly:
+    - "49-Deterministic-Validation-Triggers.md references Issue #156 and remains work in progress; it must not be represented as a fully baselined enforcement control."
+    - "Duplicate numeric prefix 54 exists across MC-001 and Operation Idempotency; filename numbering cannot serve as artifact identity."
+  dependency_chain_verified:
+    - "Governance Enforcement Architecture → Governance Control Matrix"
+    - "Governance Enforcement Architecture → validation workflows"
+    - "Security Validation → Evidence Validation / Governance Enforcement"
+    - "Main Protection Strategy → Change Control / Lifecycle / Evidence / Quality / Label policy"
+    - "MC-001 → main-integrity-monitor workflow"
+    - "Non-Conformance → Risk / Change / Decision / Quality / Security / Evidence / Configuration / Data / AI / Research"
+    - "Engineering Change Authority → Risk / Decision / SoD / validation / Merge"
+
+sot_resolution_analysis:
+  verified_pairs:
+    - pair:
+        structured: "docs/Governance/Risk/Risk-Register.yml"
+        human_readable: "docs/Governance/Risk/Risk-Register.md"
+      resolution: "Risk-Register.yml is the structured SoT; Risk-Register.md is a derived human-readable projection."
+      evidence:
+        - "Risk-Register.md explicitly declares Risk-Register.yml as its structured source."
+        - "The YAML contains the authoritative structured fields for RISK-001."
+      action: "Future updates to risk records must originate in YAML; MD should be regenerated/updated as a derived view."
+    - pair:
+        structured: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+        human_readable: "docs/Governance/Decision/Decision-Authority-Register.md"
+      resolution: "Decision-Authority-Matrix.yml is the current canonical candidate for structured decision authority; the MD register is derived/readable representation."
+      evidence:
+        - "YAML defines ROLE-001..012 and DEC-001..012 with accountable, approval, blocking and consulted roles."
+        - "The MD explicitly states that authority derives from the vigente authority register, not commit/PR authorship."
+      caveat: "The repository should formalize the mirror rule in a future remediation change; #172 does not authorize editing the pair itself."
+    - pair:
+        policy: "docs/Governance/04-Quality-Gates.md"
+        structured: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      resolution: "Semantic split, not a single-source conflict: 04-Quality-Gates.md remains the normative policy; Quality-Gate-Catalog.yml is the structured operational specification."
+      evidence:
+        - "The YAML declares 04-Quality-Gates.md as source."
+        - "The MD states that each gate has an operational specification."
+      caveat: "Synchronization/version coupling should be formalized before treating either representation as independently authoritative."
+    - pair:
+        policy: "docs/Governance/21-Engineering-Metrics-Governance.md"
+        structured: "docs/Governance/Metrics/Metric-Catalog.yml"
+      resolution: "Semantic split: 21 defines the metric governance model; Metric-Catalog.yml is the candidate SoT for individual metric definitions."
+      evidence:
+        - "21 defines the required metric schema and lifecycle states."
+        - "Metric-Catalog.yml contains the structured EM-* definitions and evidence/limitation fields."
+      caveat: "Operational measurement remains incomplete for several metrics; definition authority must not be confused with measurement effectiveness."
+    - pair:
+        policy: "docs/Governance/Configuration/Configuration-Item-Register.yml"
+        human_readable: null
+      resolution: "Configuration-Item-Register.yml explicitly declares itself as its own source_of_truth."
+      evidence:
+        - "source_of_truth field points to the same canonical path."
+      caveat: "The register is proposed and contains proposed/active items; it is a configuration identity baseline, not proof that every configuration item is operationally baselined."
+  structured_empty_registries:
+    - "docs/Governance/AI/AI-Use-Inventory.yml"
+    - "docs/Governance/AI/Model-Inventory.yml"
+    - "docs/Governance/Supplier/Third-Party-Register.yml"
+  finding: "Empty structured registries are valid controlled baselines/templates when explicitly marked initial or controlled-empty-baseline; emptiness must not be interpreted as evidence that no real-world usage/provider/model exists unless the scope of the registry is verified."
+
+authority_conflict_register:
+  status: "initial-verified"
+  conflicts:
+    - id: "AUTH-CONFLICT-001"
+      artifacts: ["docs/Governance/Decision/Decision-Authority-Matrix.yml", "docs/Governance/Decision/Decision-Authority-Register.md"]
+      type: "semantic-duplication"
+      current_assessment: "YAML structurally authoritative; MD derived candidate."
+      required_resolution: "Formalize one-way mirror rule and synchronization evidence."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-002"
+      artifacts: ["docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"]
+      type: "overlapping-policy-scope"
+      current_assessment: "Different abstraction levels are plausible, but their normative boundary is not yet explicit enough."
+      required_resolution: "Define function-level rules versus role-combination rules and establish precedence."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-003"
+      artifacts: ["docs/Governance/Decision/SoD-Integration-Register.md", "docs/Governance/Decision/SoD-Integration-Register-2.md"]
+      type: "duplicate-or-complementary-record"
+      current_assessment: "Both describe pending cross-domain SoD operationalization; second is a likely complementary traceability note."
+      required_resolution: "Compare full contents and establish one canonical integration record or explicit complementary roles."
+      authorized_by_issue_172: false
+    - id: "AUTH-CONFLICT-004"
+      artifacts: ["docs/Governance/04-Quality-Gates.md", "docs/Governance/Quality/Quality-Gate-Catalog.yml"]
+      type: "dual-representation"
+      current_assessment: "Normative policy plus structured operational specification; not inherently contradictory."
+      required_resolution: "Formalize synchronization/version coupling and precedence."
+      authorized_by_issue_172: false
+
+sot_conflict_register:
+  status: "initial-verified"
+  findings:
+    - id: "SOT-CONFLICT-001"
+      pair: "Risk-Register.md ↔ Risk-Register.yml"
+      state: "resolved-by-explicit-source-declaration"
+      canonical: "docs/Governance/Risk/Risk-Register.yml"
+      derived: "docs/Governance/Risk/Risk-Register.md"
+    - id: "SOT-CONFLICT-002"
+      pair: "Decision-Authority-Register.md ↔ Decision-Authority-Matrix.yml"
+      state: "provisionally-resolved"
+      canonical_candidate: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+      derived_candidate: "docs/Governance/Decision/Decision-Authority-Register.md"
+      pending: "formal mirror rule"
+    - id: "SOT-CONFLICT-003"
+      pair: "04-Quality-Gates.md ↔ Quality-Gate-Catalog.yml"
+      state: "semantic-split"
+      normative: "docs/Governance/04-Quality-Gates.md"
+      structured_operational: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      pending: "formal precedence/synchronization rule"
+    - id: "SOT-CONFLICT-004"
+      pair: "21-Engineering-Metrics-Governance.md ↔ Metric-Catalog.yml"
+      state: "semantic-split"
+      normative: "docs/Governance/21-Engineering-Metrics-Governance.md"
+      structured_definition_sot_candidate: "docs/Governance/Metrics/Metric-Catalog.yml"
+      pending: "formal precedence/synchronization rule"
+
+overlap_register:
+  confirmed_or_high_confidence:
+    - id: "OVERLAP-001"
+      artifacts: ["docs/Governance/Decision/SoD-Integration-Register.md", "docs/Governance/Decision/SoD-Integration-Register-2.md"]
+      risk: high
+      disposition: "CONSOLIDATE_OR_EXPLICITLY_SEPARATE"
+      note: "Do not delete until full semantic comparison and remediation Issue."
+    - id: "OVERLAP-002"
+      artifacts: ["docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"]
+      risk: high
+      disposition: "CLARIFY_SCOPE_AND_PRECEDENCE"
+      note: "Potentially valid as function-level versus role-combination layers; authority boundary is currently insufficiently explicit."
+    - id: "OVERLAP-003"
+      artifacts: ["docs/Governance/04-Quality-Gates.md", "docs/Governance/Quality/Quality-Gate-Catalog.yml"]
+      risk: medium
+      disposition: "KEEP_WITH_EXPLICIT_SEMANTIC_SPLIT"
+      note: "Normative policy and structured operational representation should remain synchronized."
+    - id: "OVERLAP-004"
+      artifacts: ["docs/Governance/Risk/Risk-Register.md", "docs/Governance/Risk/Risk-Register.yml"]
+      risk: medium
+      disposition: "KEEP_AS_SOT_PLUS_DERIVED_VIEW"
+      note: "Not a duplication defect once the YAML→MD relationship is explicit and maintained."
+
+stable_artifact_identity:
+  status: "assigned-controlled-baseline"
+  assignment_method: "Initial sequential assignment to the 181 previously registered artifacts, followed by GOV-A0182 for the Artifact Authority Register itself."
+  stability_rule: "Once assigned, an Artifact ID is immutable, must not be reused, and remains stable across file rename or path relocation."
+  new_artifact_rule: "New governed artifacts receive the next available GOV-A#### identifier through controlled Issue/Branch/PR change."
+  current_finding: "No repository-wide Artifact ID namespace was verified in the sampled Governance artifacts. Existing control, risk, decision, metric and configuration IDs are domain identifiers, not a universal Artifact ID."
+  rule: "Do not retroactively use RISK-*, DEC-*, EM-*, CI-*, GC-*, SV-* or MC-* as universal artifact identities."
+  proposed_namespace: "GOV-A####"
+  proposed_format: "GOV-A0001, GOV-A0002, ..."
+  proposed_scope: "One stable identity per governed artifact record; filename/path remains a locator, not identity."
+  status_constraint: "Namespace reviewed in Issue #172; assignment is now recorded as a controlled baseline for all 182 Governance blobs present on this branch."
+  no_rename_implication: "Introducing stable IDs does not authorize file renames."
+
+next_consolidation_block:
+  - "Complete full-content comparison of all high-risk overlap candidates in Decision/."
+  - "Verify consumers/references for every structured SoT candidate."
+  - "Identify true orphan artifacts versus records referenced indirectly by indexes/workflows."
+  - "Assign GOV-A#### identifiers only after namespace review."
+  - "Produce Dependency Graph v1 with verified edges and explicit unresolved edges."
+  - "Open separate remediation Issues for consolidation, mirror synchronization, and authority-boundary changes."
+
+dependency_graph_v1:
+  status: "verified-partial"
+  scope: "Governance Core and principal cross-domain registries"
+  graph:
+    - "README-Governance.md → 06-Change-Control-Workflow.md"
+    - "GOVERNANCE-FOUNDATION.md → README-Governance.md"
+    - "00-Software-Lifecycle-Master.md → 02-Standards-Lifecycle-Matrix.md"
+    - "00-Software-Lifecycle-Master.md → 06-Change-Control-Workflow.md"
+    - "06-Change-Control-Workflow.md → 03-Artifacts-And-Evidence.md"
+    - "06-Change-Control-Workflow.md → 04-Quality-Gates.md"
+    - "06-Change-Control-Workflow.md → 07-Main-Protection-Strategy.md"
+    - "10-Governance-Enforcement-Architecture.md → 11-Governance-Control-Matrix.md"
+    - "10-Governance-Enforcement-Architecture.md → validation workflows"
+    - "11-Governance-Control-Matrix.md → Governance/Quality/Security/Evidence controls"
+    - "04-Quality-Gates.md → Quality/Quality-Gate-Catalog.yml"
+    - "Quality/Quality-Gate-Catalog.yml → Risk/Risk-Register.yml"
+    - "Quality/Quality-Gate-Catalog.yml → Decision Governance"
+    - "Quality/Quality-Gate-Catalog.yml → Evidence Validation"
+    - "19-Decision-Governance.md → Risk/Risk-Register.yml"
+    - "Decision/Decision-Authority-Matrix.yml → Decision/Role-Register.yml"
+    - "Decision/Decision-Authority-Matrix.yml → Decision/Decision-Authority-Register.md"
+    - "Decision/SoD-Decision-Function-Matrix.yml → Decision/SoD-Role-Combination-Matrix.yml"
+    - "Decision/SoD-Risk-Independence-Matrix.yml → Decision/SoD-Role-Combination-Matrix.yml"
+    - "Decision/SoD-Control-Matrix.yml → Decision/SoD-Exception-Register.yml"
+    - "23-AI-Governance.md → AI/AI-Use-Inventory.yml"
+    - "23-AI-Governance.md → AI/Model-Inventory.yml"
+    - "25-Data-Governance.md → Data governance registers"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Third-Party-Register.yml"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Vendor-Risk-Register.yml"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Dependency-Register.yml"
+    - "35-Configuration-Management.md → Configuration/Configuration-Item-Register.yml"
+    - "35-Configuration-Management.md → Configuration/Configuration-Baseline-Register.yml"
+    - "21-Engineering-Metrics-Governance.md → Metrics/Metric-Catalog.yml"
+    - "50-Non-Conformance-Management.md → Risk / Change / Decision / Quality / Security / Evidence / Configuration / Data / AI / Research"
+    - "51-Engineering-Change-Authority.md → Risk / Decision / SoD / validation / Merge"
+    - "53-Main-Branch-Protection-Enforcement.md → main-integrity-monitor workflow"
+    - "54-Main-Integrity-MC-001.md → main-integrity-monitor workflow"
+  unresolved_edges:
+    - "README-Governance.md → all domain entry points: index completeness not yet exhaustively verified."
+    - "Data governance parent policy → each Data YAML registry: exact consumer graph pending."
+    - "Supplier parent policy → all seven supplier registers: exact consumer graph pending."
+    - "Decision/SoD policy → all 30+ SoD supporting artifacts: exact dependency graph pending."
+    - "Metrics catalog → dashboard MD/HTML: derivation mechanism needs verification."
+  graph_rule: "Edges are recorded only as verified or explicitly marked unresolved; absence of a verified edge is not proof of orphan status."
+
+orphan_screening_v1:
+  status: "screening-not-proof"
+  method:
+    - "Compare repository tree against known Governance entry points, domain READMEs and verified dependency anchors."
+    - "Treat absence from an index as an orphan candidate, not as an orphan finding."
+    - "Do not classify a historical record, template or status artifact as orphan solely because it has no inbound normative dependency."
+  candidate_groups:
+    - group: "Decision/SoD"
+      examples:
+        - "SoD-Implementation-Note.md"
+        - "SoD-Validation-Note.md"
+        - "SoD-Operational-Status.md"
+        - "SoD-Review-Protocol-Status.md"
+        - "SoD-PR-Validation-Status.md"
+        - "SoD-Final-Readiness.md"
+      finding: "Likely status/record artifacts; require provenance/consumer verification before disposition."
+    - group: "Supplier"
+      examples:
+        - "Third-Party-Governance-Evidence-Index.md"
+        - "Third-Party-Governance-Status.md"
+        - "Supplier-Governance-Record-Template.md"
+      finding: "Supporting/status/template artifacts; not orphan by default because the Supplier README establishes a controlled ecosystem."
+    - group: "Configuration"
+      examples:
+        - "Configuration-Impact-Analysis.md"
+        - "Configuration-Status-Accounting.md"
+        - "Configuration-Audit-Checklist.md"
+      finding: "Explicitly named by Configuration README or policy; not orphan."
+    - group: "AI"
+      examples:
+        - "Data-Provenance-Template.md"
+        - "Prompt-Record-Template.md"
+        - "Evaluation-Record-Template.md"
+        - "Incident-Record-Template.md"
+      finding: "Explicitly indexed as templates; not orphan."
+  confirmed_orphans: []
+  conclusion: "No artifact can be safely declared a confirmed orphan from the current evidence set. A full consumer search is still required."
+
+dependency_graph_debt:
+  - id: "DG-DEBT-001"
+    issue: "Need exhaustive inbound/outbound cross-reference extraction for 182 current Governance blobs."
+    severity: high
+    status: open
+  - id: "DG-DEBT-002"
+    issue: "Need explicit generated-view relationships for MD/HTML dashboards and structured registries."
+    severity: medium
+    status: open
+  - id: "DG-DEBT-003"
+    issue: "Need complete SoD dependency graph before consolidation decisions."
+    severity: high
+    status: open
+
+authority_vs_status_screening_v1:
+  status: "verified-sample"
+  principle: "Status, readiness, validation, implementation, audit, impact and evidence-index artifacts record or explain state; they do not override normative or structured sources of truth."
+  verified_findings:
+    - artifact: "docs/Governance/Decision/SoD-Implementation-Note.md"
+      authority: "derived_or_record"
+      reason: "Historical implementation record; explicitly states the historical deviation is not a normative exception."
+    - artifact: "docs/Governance/Decision/SoD-Validation-Note.md"
+      authority: "derived_or_record"
+      reason: "Defines validation criteria and explicitly does not declare PASS."
+    - artifact: "docs/Governance/Decision/SoD-Operational-Status.md"
+      authority: "derived_or_record"
+      reason: "Reports operational status and explicitly withholds PASS/enforcement claims pending evidence."
+    - artifact: "docs/Governance/Decision/SoD-Review-Protocol-Status.md"
+      authority: "derived_or_record"
+      reason: "Records review readiness; baseline decision remains with governance review."
+    - artifact: "docs/Governance/Decision/SoD-PR-Validation-Status.md"
+      authority: "derived_or_record"
+      reason: "Explicitly identifies itself as informational and requires validation on the exact PR HEAD."
+    - artifact: "docs/Governance/Decision/SoD-Final-Readiness.md"
+      authority: "derived_or_record"
+      reason: "Reports readiness for formal validation and explicitly withholds baseline status."
+    - artifact: "docs/Governance/Supplier/Third-Party-Governance-Status.md"
+      authority: "derived_or_record"
+      reason: "Reports baseline/documentary and operational maturity status; explicitly states that it does not replace real technical or contractual controls."
+    - artifact: "docs/Governance/Supplier/Third-Party-Governance-Evidence-Index.md"
+      authority: "supporting"
+      reason: "Indexes policy, matrices, status and structured registers; it does not declare itself the source of those records."
+    - artifact: "docs/Governance/Configuration/Configuration-Status-Accounting.md"
+      authority: "derived_or_record"
+      reason: "Records CI state transitions and explicitly prevents BASELINED status without approval evidence."
+  confirmed_authority_overrides: []
+  confirmed_status_artifacts_misused_as_normative_authority: []
+  remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."
+
+dependency_graph_v1_1:
+  status: "verified-conflict-scope"
+  verified_consumers_and_boundaries:
+    - source: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      boundary: "Function taxonomy and risk-level independence rules feed role-combination classification; both remain proposed and neither is independently baselined."
+    - source: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/SoD-Control-Matrix.yml"
+        - "docs/Governance/Decision/SoD-Exception-Register.yml"
+      boundary: "Combination classifications provide control/exception context; they do not establish actual person assignments."
+    - source: "docs/Governance/Decision/SoD-Integration-Register.md"
+      consumers:
+        - "docs/Governance/Decision/SoD-Integration-Register-2.md"
+      boundary: "Both describe cross-domain operationalization; semantic overlap is confirmed and normative precedence remains unresolved."
+    - source: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/Decision-Authority-Register.md"
+        - "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+      boundary: "YAML is the structured authority candidate; MD is a readable mirror candidate. Authority must not be inferred from authorship."
+    - source: "docs/Governance/04-Quality-Gates.md"
+      consumers:
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+        - "docs/Governance/03-Artifacts-And-Evidence.md"
+      boundary: "MD is normative gate policy; YAML is structured operational specification."
+    - source: "docs/Governance/Metrics/Metric-Catalog.yml"
+      consumers:
+        - "docs/Governance/21-Engineering-Metrics-Governance.md"
+        - "derived dashboards"
+      boundary: "Catalog defines metric records; governance policy defines lifecycle/model; dashboard is derived and not a source of truth."
+    - source: "docs/Governance/Risk/Risk-Register.yml"
+      consumers:
+        - "docs/Governance/Risk/Risk-Register.md"
+        - "docs/Governance/19-Decision-Governance.md"
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      boundary: "YAML is structured risk SoT; MD is derived view."
+  confirmed_overlap_findings:
+    - id: "OVERLAP-001"
+      artifacts:
+        - "docs/Governance/Decision/SoD-Integration-Register.md"
+        - "docs/Governance/Decision/SoD-Integration-Register-2.md"
+      finding: "High semantic overlap confirmed by content comparison; both describe the same pending cross-domain SoD operationalization."
+      action: "Open separate remediation Issue before consolidation; no deletion/rename performed under #172."
+    - id: "OVERLAP-002"
+      artifacts:
+        - "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+        - "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      finding: "Not a proven duplicate. First defines function/risk semantics; second classifies function pairs."
+      action: "Keep both pending explicit normative boundary and precedence."
+    - id: "SOT-002"
+      artifacts:
+        - "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+        - "docs/Governance/Decision/Decision-Authority-Register.md"
+      finding: "Structured YAML and human-readable MD contain materially equivalent authority records."
+      action: "Treat YAML as candidate structured SoT and MD as derived candidate pending formal mirror rule."
+    - id: "SOT-003"
+      artifacts:
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+        - "docs/Governance/04-Quality-Gates.md"
+      finding: "Complementary semantic layers, not duplicate authority."
+      action: "Formalize synchronization/version coupling in a separate remediation Issue."
+    - id: "SOT-004"
+      artifacts:
+        - "docs/Governance/Metrics/Metric-Catalog.yml"
+        - "docs/Governance/21-Engineering-Metrics-Governance.md"
+      finding: "Complementary definition/governance layers."
+      action: "Keep split; operational measurement effectiveness remains separately evidenced."
+  decision_rule: "No consolidation decision is authorized by this graph update; only evidence-backed boundary classification is recorded."

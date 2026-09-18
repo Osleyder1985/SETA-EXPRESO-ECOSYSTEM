@@ -4,6 +4,11 @@ on:
   pull_request:
     types: [labeled, unlabeled]
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR a validar
+        required: false
+        type: string
   repository_dispatch:
     types: [validation-requested]
 
@@ -22,11 +27,29 @@ jobs:
           fetch-depth: 1
           ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
 
-      - name: Validate label catalog
-        if: github.event_name == 'pull_request'
+      - name: Resolve validation target
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_PR_NUMBER: ${{ github.event_name == 'pull_request' && github.event.pull_request.number || inputs.pr_number || github.event.client_payload.pr_number || '' }}
+        run: |
+          set -euo pipefail
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then
+            pr_json="$(gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER")"
+            echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"
+          fi
+          echo "EVENT_NAME=$GITHUB_EVENT_NAME" >> "$GITHUB_ENV"
+          echo "EVENT_ACTOR=$GITHUB_ACTOR" >> "$GITHUB_ENV"
+
+      - name: Validate label catalog
+        if: env.TARGET_PR_NUMBER != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
@@ -44,9 +67,11 @@ jobs:
           done
           echo "PASS LG-009: all current PR labels are authorized by the catalog."
 
-      - name: Manual or dispatch validation
+      - name: Record dispatch context
         if: github.event_name != 'pull_request'
         run: |
           set -euo pipefail
+          jq -n --arg event "$EVENT_NAME" --arg actor "$EVENT_ACTOR" --arg pr "${TARGET_PR_NUMBER:-}" --arg sha "${TARGET_PR_SHA:-$GITHUB_SHA}" --arg repository "$GITHUB_REPOSITORY" --arg run_id "$GITHUB_RUN_ID" '{repository:$repository,event_name:$event,actor:$actor,target_pr_number:(if $pr == "" then null else ($pr|tonumber) end),target_sha:$sha,workflow_run_id:$run_id}' > label-governance-dispatch-context.json
           test -s docs/Governance/Label-Catalog.yml
-          echo "PASS LG-009: label catalog is present for manual/dispatch validation."
+          cat label-governance-dispatch-context.json
+          if [[ -n "${TARGET_PR_NUMBER:-}" ]]; then echo "PASS LG-009: targeted PR label validation context resolved."; else echo "NOT_APPLICABLE LG-009: no PR target supplied."; fi

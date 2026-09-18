@@ -1,0 +1,9 @@
+# H-014 controlled external CI probe.
+# This workflow is intentionally minimal and does not replace GitHub authority.
+steps:
+  quality-validation:
+    image: python:3.12-slim
+    commands:
+      - python --version
+      - python -m pip install --disable-pip-version-check --no-cache-dir PyYAML
+      - python scripts/validation/local-quality-validation.py

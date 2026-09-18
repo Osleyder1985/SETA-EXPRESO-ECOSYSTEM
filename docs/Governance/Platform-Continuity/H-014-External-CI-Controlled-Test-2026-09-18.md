@@ -125,7 +125,7 @@ H-014 podrá marcarse como **VERIFICADO** solamente si existe evidencia de todos
 
 El archivo `.woodpecker.yml` ejecuta únicamente el validador local de calidad ya existente. El pipeline instala PyYAML dentro del contenedor y ejecuta `scripts/validation/local-quality-validation.py`. Esto permite probar la misma validación determinista sin depender de GitHub Actions. La configuración es una preparación para H-014, no evidencia de que el pipeline externo ya haya sido ejecutado.
 
-La documentación oficial de Codeberg indica que el servicio alojado utiliza Woodpecker, requiere aprobación manual y admite la habilitación del repositorio mediante `ci.codeberg.org/repos/add`. citeturn1search1
+La documentación oficial de Codeberg indica que el servicio alojado utiliza Woodpecker, requiere aprobación manual y admite la habilitación del repositorio mediante `ci.codeberg.org/repos/add`.
 
 ## Límite de evidencia actual
 

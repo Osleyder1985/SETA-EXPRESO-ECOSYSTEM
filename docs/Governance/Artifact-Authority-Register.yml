@@ -1460,29 +1460,32 @@ artifacts:
   - path: "docs/Governance/Decision/SoD-Integration-Register-2.md"
     artifact_id: "GOV-A0108"
     type: registry
-    authority: supporting
+    authority: derived_or_record
     source_of_truth: false
-    confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    implementation: "TO_BE_VERIFIED"
-    evidence: "TO_BE_VERIFIED"
-    lifecycle_status: "TO_BE_VERIFIED"
-    duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    confidence: high
+    depends_on: ["docs/Governance/Decision/SoD-Integration-Register.md"]
+    referenced_by: ["docs/Governance/Decision/SoD-README.md"]
+    implementation: "TRACEABILITY_ONLY"
+    evidence: "NONE"
+    lifecycle_status: "CONTROLLED_BASELINE"
+    duplicate_risk: low
+    disposition: "REDIRECT"
+
   - path: "docs/Governance/Decision/SoD-Integration-Register.md"
     artifact_id: "GOV-A0109"
     type: registry
-    authority: supporting
-    source_of_truth: false
-    confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    implementation: "TO_BE_VERIFIED"
-    evidence: "TO_BE_VERIFIED"
-    lifecycle_status: "TO_BE_VERIFIED"
-    duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: sod_integration_register
+    confidence: high
+    depends_on: ["docs/Governance/49-Segregation-of-Duties-Governance.md", "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Risk-Independence-Matrix.yml"]
+    referenced_by: ["docs/Governance/Decision/SoD-Integration-Register-2.md", "docs/Governance/Decision/SoD-README.md"]
+    implementation: "PENDING_OPERATIONALIZATION"
+    evidence: "STATUS_REGISTER_ONLY"
+    lifecycle_status: "CONTROLLED_BASELINE"
+    duplicate_risk: medium
+    disposition: "CONSERVE"
+
   - path: "docs/Governance/Decision/SoD-Lifecycle-Integration.md"
     artifact_id: "GOV-A0110"
     type: document
@@ -3039,6 +3042,17 @@ authority_vs_status_screening_v1:
   confirmed_authority_overrides: []
   confirmed_status_artifacts_misused_as_normative_authority: []
   remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."
+
+sod_integration_register_resolution:
+  status: "resolved-by-controlled-boundary"
+  issue: 173
+  canonical: "docs/Governance/Decision/SoD-Integration-Register.md"
+  complementary: "docs/Governance/Decision/SoD-Integration-Register-2.md"
+  rule: "The canonical register is the sole authority for SoD integration scope and operationalization status. Register-2 is traceability/context only and must not maintain competing values."
+  evidence: "Full content comparison confirmed that both artifacts previously described the same pending cross-domain operationalization; the remediation establishes an explicit one-way authority boundary."
+  disposition: "CONSERVE_CANONICAL_PLUS_REDIRECT_COMPLEMENTARY"
+  no_deletion: true
+
 
 dependency_graph_v1_1:
   status: "verified-conflict-scope"

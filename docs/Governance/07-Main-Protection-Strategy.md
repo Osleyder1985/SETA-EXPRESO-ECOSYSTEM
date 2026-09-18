@@ -1,12 +1,12 @@
 # Estrategia de protección de `main`
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.4.0  
+**Versión:** 0.5.0  
 **Estado:** Política vigente  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
 **Issue de origen:** #7  
-**Actualización de enforcement:** #13, #80, #82
+**Actualización de enforcement:** #13, #80, #82, #152
 
 ---
 
@@ -42,7 +42,7 @@ Esta restricción no modifica la política de ingeniería: los cambios de trabaj
 | Validar branch distinta de main | Governance Validation | P-Compensatorio + D | Implementado |
 | Validar línea base de main | Governance Validation | D | Implementado |
 | Validar baseline documental | Governance Validation | D | Implementado |
-| Detectar push a main sin PR asociado | Governance Validation | D | Implementado |
+| Detectar push a main sin PR asociado | Governance Validation + MC-001 | D | Implementado |
 | Impedir push directo técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
 | Impedir force push técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |
 | Exigir approvals técnicamente | Branch protection/ruleset | P-Nativo | No verificable/disponible bajo restricción actual |

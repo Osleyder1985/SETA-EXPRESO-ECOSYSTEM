@@ -28,11 +28,19 @@ La prueba no pretende demostrar equivalencia funcional entre Codeberg/Woodpecker
 
 ## Resultado documental de la investigación
 
-La documentación oficial de Codeberg confirma que ofrece una instancia de Woodpecker CI en `ci.codeberg.org`. El acceso requiere una solicitud manual y revisión por un voluntario; después, el repositorio debe habilitarse específicamente en Woodpecker. Codeberg advierte que el servicio se ofrece bajo disponibilidad limitada, con posibles interrupciones, y que el uso de recursos debe ser razonable. citeturn0search2
+La documentación oficial de Codeberg confirma que ofrece una instancia de Woodpecker CI en `ci.codeberg.org`. El acceso requiere una solicitud manual y revisión por un voluntario; después, el repositorio debe habilitarse específicamente en Woodpecker. Codeberg advierte que el servicio se ofrece bajo disponibilidad limitada, con posibles interrupciones, y que el uso de recursos debe ser razonable.
 
-La documentación también confirma que Codeberg dispone de Forgejo Actions alojado solamente de forma limitada y recomienda Woodpecker cuando se desea CI alojado. Esto evita asumir que Forgejo Actions sea una sustitución estable o equivalente de GitHub Actions. citeturn0search0
+La documentación también confirma que Codeberg dispone de Forgejo Actions alojado solamente de forma limitada y recomienda Woodpecker cuando se desea CI alojado. Esto evita asumir que Forgejo Actions sea una sustitución estable o equivalente de GitHub Actions.
 
-Codeberg se presenta como un servicio gratuito para proyectos compatibles con su misión, pero sus recursos de CI son compartidos y sujetos a condiciones de uso razonable. Por tanto, **$0 no significa capacidad ilimitada ni disponibilidad contractual garantizada**. citeturn0search5
+Codeberg se presenta como un servicio gratuito para proyectos compatibles con su misión, pero sus recursos de CI son compartidos y sujetos a condiciones de uso razonable. Por tanto, **$0 no significa capacidad ilimitada ni disponibilidad contractual garantizada**.
+
+## Fuentes externas verificadas
+
+- Codeberg Documentation — **Working with Codeberg's CI**: https://docs.codeberg.org/ci/
+- Codeberg Documentation — **Using Forgejo Actions (Self-hosted)**: https://docs.codeberg.org/ci/actions/
+- Codeberg Documentation — **Frequently Asked Questions**: https://docs.codeberg.org/getting-started/faq/
+- GitLab Docs — **Compute minutes**: https://docs.gitlab.com/ci/pipelines/compute_minutes/
+- GitLab Pricing — **Free tier**: https://about.gitlab.com/pricing/
 
 ## Por qué se selecciona Codeberg/Woodpecker para H-014
 
@@ -116,7 +124,7 @@ H-014 podrá marcarse como **VERIFICADO** solamente si existe evidencia de todos
 
 La unidad **no declara que la prueba práctica ya fue ejecutada**.
 
-La documentación externa demuestra que la ruta existe y cómo se solicita, pero no demuestra que este proyecto concreto ya tenga acceso, que el pipeline ya haya corrido ni que su disponibilidad futura esté garantizada. La ejecución requiere una acción explícita sobre una cuenta externa y aprobación del servicio. citeturn0search2
+La documentación externa demuestra que la ruta existe y cómo se solicita, pero no demuestra que este proyecto concreto ya tenga acceso, que el pipeline ya haya corrido ni que su disponibilidad futura esté garantizada. La ejecución requiere una acción explícita sobre una cuenta externa y aprobación del servicio.
 
 Por ello:
 
@@ -124,7 +132,7 @@ Por ello:
 
 ## Comparación de control
 
-GitLab.com Free también dispone de CI/CD alojado sin infraestructura propia, pero su nivel Free tiene una cuota base de 400 compute minutes por mes y permite adquirir minutos adicionales. Para el requisito estricto de evitar cualquier ruta de facturación, esto obliga a un control adicional sobre la cuota y los mecanismos de compra. citeturn0search3turn0search6turn0search10
+GitLab.com Free también dispone de CI/CD alojado sin infraestructura propia, pero su nivel Free tiene una cuota base de 400 compute minutes por mes y permite adquirir minutos adicionales. Para el requisito estricto de evitar cualquier ruta de facturación, esto obliga a un control adicional sobre la cuota y los mecanismos de compra.
 
 No se selecciona GitLab para la primera prueba; queda como candidato alternativo documentado.
 

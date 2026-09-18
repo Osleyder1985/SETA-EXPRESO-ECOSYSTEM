@@ -3397,3 +3397,16 @@ audit:
     lifecycle_status: "implementation-controlled"
     duplicate_risk: low
     disposition: "CONSERVE"
+
+  - path: "docs/Governance/Platform-Continuity/H-012-Self-Hosted-Runner-Security-and-Admission-Gate-2026-09-18.md"
+    artifact_id: "GOV-A0199"
+    type: governance_security_gate
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #192", "H-010", "H-011"]
+    implementation: "Implemented in Issue #192 branch; merge pending."
+    evidence: "Controlled PR #193"
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"

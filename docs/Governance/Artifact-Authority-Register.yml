@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 192
+artifact_count: 193
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -2588,6 +2588,21 @@ artifacts:
     lifecycle_status: "controlled-first-layer"
     duplicate_risk: low
     disposition: "ACTIVE_AUDIT_RECORD"
+
+  - path: "docs/Governance/Standards/Normative-Traceability-Matrix-H007.md"
+    artifact_id: "GOV-A0193"
+    type: traceability_matrix
+    authority: derived_or_record
+    source_of_truth: false
+    canonical_role: "H-007 normative traceability"
+    confidence: medium
+    depends_on: ["docs/Governance/Standards/Normative-Standard-Registry.yml", "docs/Governance/Standards/H-007-Normative-Consumer-Inventory-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "controlled-first-layer"
+    evidence: "traceability-matrix"
+    lifecycle_status: "controlled-first-layer"
+    duplicate_risk: low
+    disposition: "ACTIVE_CONTROL"
 
 reference_analysis:
   verified_edges_batch_001:

@@ -1252,16 +1252,19 @@ artifacts:
   - path: "docs/Governance/Decision/SoD-Control-Matrix.yml"
     artifact_id: "GOV-A0092"
     type: registry
-    authority: supporting
-    source_of_truth: false
+    authority: canonical_candidate
+    source_of_truth: true
     confidence: medium
     depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
     lifecycle_status: "TO_BE_VERIFIED"
-    duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    duplicate_risk: medium
+    disposition: "CONSERVE"
+    canonical_role: sod_control_and_exception_response
+    authority_scope: "Control definitions that operationalize or compensate for combination classifications; does not redefine function taxonomy or pair classification."
+
   - path: "docs/Governance/Decision/SoD-Data-AI-Integration.md"
     artifact_id: "GOV-A0093"
     type: document
@@ -1304,16 +1307,19 @@ artifacts:
   - path: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
     artifact_id: "GOV-A0096"
     type: registry
-    authority: supporting
-    source_of_truth: false
+    authority: canonical_candidate
+    source_of_truth: true
     confidence: medium
     depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
     lifecycle_status: "TO_BE_VERIFIED"
-    duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    duplicate_risk: medium
+    disposition: "CONSERVE"
+    canonical_role: sod_function_and_risk_taxonomy
+    authority_scope: "Function vocabulary and R1-R4 independence semantics; no pair classification or person assignment."
+
   - path: "docs/Governance/Decision/SoD-Decision-Record-Template.md"
     artifact_id: "GOV-A0097"
     type: template
@@ -1775,16 +1781,19 @@ artifacts:
   - path: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
     artifact_id: "GOV-A0132"
     type: registry
-    authority: supporting
-    source_of_truth: false
+    authority: canonical_candidate
+    source_of_truth: true
     confidence: medium
     depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
     lifecycle_status: "TO_BE_VERIFIED"
-    duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    duplicate_risk: medium
+    disposition: "CONSERVE"
+    canonical_role: sod_function_combination_classification
+    authority_scope: "Pair classification by risk and exception requirements; depends on function/risk taxonomy and does not assign persons."
+
   - path: "docs/Governance/Decision/SoD-Security-Integration.md"
     artifact_id: "GOV-A0133"
     type: document
@@ -3042,6 +3051,22 @@ authority_vs_status_screening_v1:
   confirmed_authority_overrides: []
   confirmed_status_artifacts_misused_as_normative_authority: []
   remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."
+
+sod_function_combination_authority_resolution:
+  status: "resolved-by-explicit-layering"
+  issue: 174
+  layers:
+    function_and_risk_taxonomy: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+    function_combination_classification: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+    control_and_exception_response: "docs/Governance/Decision/SoD-Control-Matrix.yml"
+  precedence:
+    function_vocabulary_and_risk_semantics: "SoD-Decision-Function-Matrix.yml"
+    pair_classification: "SoD-Role-Combination-Matrix.yml"
+    controls_and_exception_response: "SoD-Control-Matrix.yml"
+  rule: "No layer may redefine the authority scope of another layer. Actual person/role assignments require separate role/assignment artifacts and are not established by these matrices."
+  status_constraint: "The three artifacts remain proposed/controlled definitions as applicable; this boundary resolution does not assert operational effectiveness."
+  no_consolidation: true
+
 
 sod_integration_register_resolution:
   status: "resolved-by-controlled-boundary"

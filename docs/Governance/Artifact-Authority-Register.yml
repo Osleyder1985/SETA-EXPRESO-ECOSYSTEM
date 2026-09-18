@@ -3002,6 +3002,20 @@ sot_conflict_register:
     duplicate_risk: low
     disposition: "CONSERVE"
 
+  - path: "docs/Governance/Platform-Continuity/H-015-GitHub-Public-Visibility-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0202"
+    type: governance_validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #194", "docs/Governance/Platform-Continuity/Zero-Cost-Portability-Strategy-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "Prepared in Issue #194 branch; visibility change pending review and controlled execution."
+    evidence: "Issue #194 controlled branch; static public-exposure audit recorded."
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"
+
 overlap_register:
   confirmed_or_high_confidence:
     - id: "OVERLAP-001"

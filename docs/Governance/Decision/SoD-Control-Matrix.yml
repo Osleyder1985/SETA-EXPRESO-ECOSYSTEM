@@ -23,3 +23,14 @@ controls:
   - id: SOD-007
     control: "Medir excepciones y desviaciones cuando existan datos"
     class: HYBRID
+
+
+authority_boundary:
+  role: "control_and_exception_response"
+  source_of_truth: true
+  authority_scope: "Defines the controlled SoD controls and exception handling that operationalize or compensate for combination classifications."
+  depends_on:
+    - "SoD-Decision-Function-Matrix.yml"
+    - "SoD-Role-Combination-Matrix.yml"
+  does_not_define: "It does not redefine function taxonomy or pair classification."
+  status_constraint: "Control definitions are not evidence of execution or effectiveness."

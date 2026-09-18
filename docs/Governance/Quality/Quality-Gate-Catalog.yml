@@ -353,3 +353,13 @@ gates:
     blocked: "Critical migration, data or closure prerequisite is unavailable."
     reopen: "Post-retirement dependency, data or compliance obligation is discovered."
     exit_criteria: "System/service retirement formally closed."
+
+
+synchronization_contract:
+  normative_policy: "docs/Governance/04-Quality-Gates.md"
+  structured_operational_specification: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+  normative_precedence: "04-Quality-Gates.md prevails for policy meaning and gate semantics."
+  structured_scope: "YAML owns machine-readable gate records, checks, classes, metrics, evidence references and operational criteria within the normative policy boundary."
+  synchronization: "Changes to shared gate semantics require coordinated update and impact analysis in the same controlled change."
+  drift_rule: "Semantic drift between policy and catalog is a governance finding; affected gates are not conforming until resolved."
+  execution_rule: "Catalog definitions are not evidence of gate execution, PASS, effectiveness or acceptance."

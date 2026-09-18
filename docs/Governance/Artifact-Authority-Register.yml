@@ -1096,8 +1096,8 @@ artifacts:
   - path: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
     artifact_id: "GOV-A0080"
     type: registry
-    authority: supporting
-    source_of_truth: false
+    authority: canonical_candidate
+    source_of_truth: true
     confidence: medium
     depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
@@ -1105,11 +1105,13 @@ artifacts:
     evidence: "TO_BE_VERIFIED"
     lifecycle_status: "TO_BE_VERIFIED"
     duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    disposition: "CONSERVE"
+    canonical_role: decision_authority_structured_sot
+    synchronization_rule: "YAML canonical source; MD derived mirror; YAML prevails on conflict."
   - path: "docs/Governance/Decision/Decision-Authority-Register.md"
     artifact_id: "GOV-A0081"
     type: registry
-    authority: supporting
+    authority: derived_or_record
     source_of_truth: false
     confidence: medium
     depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
@@ -1118,7 +1120,9 @@ artifacts:
     evidence: "TO_BE_VERIFIED"
     lifecycle_status: "TO_BE_VERIFIED"
     duplicate_risk: high
-    disposition: "AUDIT_PENDING"
+    disposition: "CONSERVE"
+    canonical_role: decision_authority_derived_mirror
+    synchronization_rule: "YAML canonical source; MD derived mirror; YAML prevails on conflict."
   - path: "docs/Governance/Decision/README.md"
     artifact_id: "GOV-A0082"
     type: index
@@ -3051,6 +3055,18 @@ authority_vs_status_screening_v1:
   confirmed_authority_overrides: []
   confirmed_status_artifacts_misused_as_normative_authority: []
   remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."
+
+decision_authority_mirror_resolution:
+  status: "resolved-by-canonical-plus-derived-mirror"
+  issue: 175
+  canonical: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+  derived_mirror: "docs/Governance/Decision/Decision-Authority-Register.md"
+  precedence: "YAML prevails on conflict."
+  synchronization: "Authority-data changes update YAML first and synchronize the MD mirror in the same controlled change."
+  validation: "Decision IDs and authority-role/evidence fields must remain semantically equivalent; drift is a non-conformance."
+  no_person_assignment: true
+  no_operational_baseline_claim: true
+
 
 sod_function_combination_authority_resolution:
   status: "resolved-by-explicit-layering"

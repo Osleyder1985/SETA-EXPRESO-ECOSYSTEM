@@ -3004,3 +3004,38 @@ dependency_graph_debt:
     issue: "Need complete SoD dependency graph before consolidation decisions."
     severity: high
     status: open
+
+authority_vs_status_screening_v1:
+  status: "verified-sample"
+  principle: "Status, readiness, validation, implementation, audit, impact and evidence-index artifacts record or explain state; they do not override normative or structured sources of truth."
+  verified_findings:
+    - artifact: "docs/Governance/Decision/SoD-Implementation-Note.md"
+      authority: "derived_or_record"
+      reason: "Historical implementation record; explicitly states the historical deviation is not a normative exception."
+    - artifact: "docs/Governance/Decision/SoD-Validation-Note.md"
+      authority: "derived_or_record"
+      reason: "Defines validation criteria and explicitly does not declare PASS."
+    - artifact: "docs/Governance/Decision/SoD-Operational-Status.md"
+      authority: "derived_or_record"
+      reason: "Reports operational status and explicitly withholds PASS/enforcement claims pending evidence."
+    - artifact: "docs/Governance/Decision/SoD-Review-Protocol-Status.md"
+      authority: "derived_or_record"
+      reason: "Records review readiness; baseline decision remains with governance review."
+    - artifact: "docs/Governance/Decision/SoD-PR-Validation-Status.md"
+      authority: "derived_or_record"
+      reason: "Explicitly identifies itself as informational and requires validation on the exact PR HEAD."
+    - artifact: "docs/Governance/Decision/SoD-Final-Readiness.md"
+      authority: "derived_or_record"
+      reason: "Reports readiness for formal validation and explicitly withholds baseline status."
+    - artifact: "docs/Governance/Supplier/Third-Party-Governance-Status.md"
+      authority: "derived_or_record"
+      reason: "Reports baseline/documentary and operational maturity status; explicitly states that it does not replace real technical or contractual controls."
+    - artifact: "docs/Governance/Supplier/Third-Party-Governance-Evidence-Index.md"
+      authority: "supporting"
+      reason: "Indexes policy, matrices, status and structured registers; it does not declare itself the source of those records."
+    - artifact: "docs/Governance/Configuration/Configuration-Status-Accounting.md"
+      authority: "derived_or_record"
+      reason: "Records CI state transitions and explicitly prevents BASELINED status without approval evidence."
+  confirmed_authority_overrides: []
+  confirmed_status_artifacts_misused_as_normative_authority: []
+  remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."

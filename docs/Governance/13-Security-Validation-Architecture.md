@@ -39,7 +39,7 @@ Las referencias `uses:` de GitHub Actions son dependencias de automatización y 
 | SV-004 | Security Workflow Integrity | Aplicable | Presencia, integridad y autoconsistencia básica | PASS | Run de `Security Validation` | Reevaluar ante cambios del control |
 | SV-005 | Dependency Security | No aplicable al producto actual | Sin manifiestos/lockfiles de aplicación; no se declara SCA | NOT_APPLICABLE | Inventario reproducible | Al introducir manifest/lockfile o dependencia de producto |
 | SV-006 | SAST de producto | No aplicable al producto actual | No existe código de aplicación analizable | NOT_APPLICABLE | Inventario reproducible | Al introducir código de aplicación soportado |
-| SV-006A | SAST de workflows | Aplicable | GitHub CodeQL para GitHub Actions | IMPLEMENTED | Workflow `CodeQL` + run | Mantener mientras existan workflows |
+| SV-006A | SAST especializado de workflows | Potencialmente aplicable; capacidad no verificable | GitHub CodeQL para GitHub Actions | NOT_VERIFIED | Run #2 terminó con configuration error: Code scanning no está habilitado y la integración no puede acceder al endpoint requerido | Revaluar cuando Code Scanning/CodeQL sea habilitable y verificable |
 | SV-007 | IaC Security | No aplicable | No existe IaC del producto | NOT_APPLICABLE | Inventario reproducible | Al introducir Terraform, cloud/IaC u otra infraestructura declarativa |
 | SV-008 | Container Security | No aplicable | No existen Dockerfiles/imágenes del producto | NOT_APPLICABLE | Inventario reproducible | Al introducir Dockerfile, imagen o pipeline de contenedor |
 | SV-009 | SBOM | No aplicable al producto actual | No existe composición de producto que genere un SBOM significativo | NOT_APPLICABLE | Inventario reproducible | Al introducir software/dependencias/componentes de producto |
@@ -54,7 +54,10 @@ La política aplicable es:
 2. evitar `pull_request_target` salvo excepción justificada;
 3. revisar cambios de acciones dentro de PR;
 4. preferir referencias mantenidas y versiones controladas;
-5. reevaluar Dependabot/dependency review cuando la capacidad del repositorio lo permita.
+5. reevaluar Dependabot/dependency review cuando la capacidad del repositorio lo permita;
+6. tratar CodeQL como capacidad no verificada mientras el repositorio no permita una ejecución y publicación de resultados reproducible.
+
+En la ejecución #2 de `Security — CodeQL Workflows`, CodeQL analizó 10/10 workflows y produjo SARIF, pero terminó con `configuration error` al no poder acceder a los endpoints requeridos y al indicar que Code Scanning no está habilitado. Por tanto, ese run **no constituye evidencia PASS ni IMPLEMENTED** para SV-006A.
 
 La documentación de GitHub indica que Dependency Review analiza cambios de dependencias en pull requests y que la acción puede usarse como gate cuando el repositorio dispone de las capacidades requeridas. No se afirma que esa capacidad esté habilitada aquí. 
 
@@ -63,7 +66,7 @@ La documentación de GitHub indica que Dependency Review analiza cambios de depe
 Los estados `PASS`, `NOT_APPLICABLE`, `NOT_VERIFIED` e `IMPLEMENTED` tienen semántica distinta:
 
 - `PASS`: el mecanismo aplicable se ejecutó y satisfizo el criterio definido.
-- `IMPLEMENTED`: el mecanismo está integrado; su ejecución concreta debe conservar evidencia.
+- `IMPLEMENTED`: el mecanismo está integrado y existe evidencia verificable de su ejecución satisfactoria.
 - `NOT_APPLICABLE`: el inventario actual demuestra que el objeto del control no existe; debe existir condición explícita de reevaluación.
 - `NOT_VERIFIED`: la capacidad puede ser pertinente, pero la integración disponible no permite verificarla; no equivale a PASS ni a NOT_APPLICABLE.
 
@@ -81,7 +84,7 @@ La evidencia de esta evaluación se integra con:
 
 ## Criterio de verdad
 
-Nunca se afirmará que el Ecosistema está «seguro» únicamente porque Security Validation haya pasado. La afirmación permitida es que los controles automatizados aplicables ejecutados en esa revisión fueron satisfechos.
+Nunca se afirmará que el Ecosistema está «seguro» únicamente porque Security Validation haya pasado. La afirmación permitida es que los controles automatizados aplicables ejecutados en esa revisión fueron satisfechos. Un mecanismo que termina con error de configuración no puede registrarse como control implementado o PASS.
 
 La existencia de esta matriz tampoco demuestra eficacia de controles futuros. Cada control debe conservar evidencia de ejecución o una justificación verificable de no aplicabilidad.
 

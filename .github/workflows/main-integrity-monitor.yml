@@ -1,0 +1,202 @@
+name: Main Integrity Monitor
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  mc-001:
+    name: MC-001 - Detect main integrity anomalies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Collect and classify main update
+        id: inspect
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          ACTOR: ${{ github.actor }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_FORCED: ${{ github.event.forced }}
+          EVENT_CREATED: ${{ github.event.created }}
+          EVENT_DELETED: ${{ github.event.deleted }}
+          COMMIT_TIMESTAMP: ${{ github.event.head_commit.timestamp }}
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          SERVER_URL: ${{ github.server_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p mc-001-evidence
+          before_sha="$BEFORE_SHA"
+          commit_timestamp="$COMMIT_TIMESTAMP"
+          commit_message="$COMMIT_MESSAGE"
+          observed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          if [[ "$EVENT_NAME" = "workflow_dispatch" ]]; then
+            anomaly="MANUAL_EXECUTION"
+            before_sha=""
+            changed_files_json='[]'
+            commit_timestamp="$observed_at"
+            commit_message="workflow_dispatch"
+          elif [[ "$EVENT_DELETED" = "true" || "$EVENT_CREATED" = "true" || "$EVENT_FORCED" = "true" ]]; then
+            anomaly="SUSPICIOUS_PUSH_STATE"
+            changed_files_json="$(git diff --name-status --find-renames "$before_sha" "$COMMIT_SHA" 2>/dev/null | jq -R -s 'split("\n") | map(select(length > 0) | split("\t") | {status: .[0], path: .[1], previous_path: (.[2] // null)})')"
+          elif [[ -z "$before_sha" || "$before_sha" = "0000000000000000000000000000000000000000" ]]; then
+            anomaly="SUSPICIOUS_NO_PARENT"
+            changed_files_json="$(git diff-tree --no-commit-id --name-status --find-renames -r "$COMMIT_SHA" | jq -R -s 'split("\n") | map(select(length > 0) | split("\t") | {status: .[0], path: .[1], previous_path: (.[2] // null)})')"
+          else
+            anomaly="UNCLASSIFIED"
+            changed_files_json="$(git diff --name-status --find-renames "$before_sha" "$COMMIT_SHA" | jq -R -s 'split("\n") | map(select(length > 0) | split("\t") | {status: .[0], path: .[1], previous_path: (.[2] // null)})')"
+          fi
+
+          pr_json="$(gh api "repos/$REPOSITORY/commits/$COMMIT_SHA/pulls" 2>/dev/null || printf '[]')"
+          associated_prs="$(printf '%s' "$pr_json" | jq -c '[.[] | {number, html_url, state, merged_at, merge_commit_sha, title, head_ref: .head.ref, base_ref: .base.ref}]')"
+          merged_pr_count="$(printf '%s' "$associated_prs" | jq '[.[] | select(.merged_at != null and .base_ref == "main")] | length')"
+
+          if [[ "$EVENT_NAME" = "push" && "$merged_pr_count" -gt 0 && "$anomaly" = "UNCLASSIFIED" ]]; then
+            classification="EXPECTED_PR_INTEGRATION"
+          elif [[ "$EVENT_NAME" = "push" ]]; then
+            classification="ANOMALY"
+          else
+            classification="MANUAL_OBSERVATION"
+          fi
+
+          if [[ "$classification" = "ANOMALY" ]]; then
+            incident_required="true"
+          else
+            incident_required="false"
+          fi
+
+          jq -n             --arg control "MC-001"             --arg event "$EVENT_NAME"             --arg actor "$ACTOR"             --arg observed_at "$observed_at"             --arg timestamp "$commit_timestamp"             --arg sha "$COMMIT_SHA"             --arg previous_sha "$before_sha"             --arg message "$commit_message"             --arg forced "$EVENT_FORCED"             --arg created "$EVENT_CREATED"             --arg deleted "$EVENT_DELETED"             --arg repository "$REPOSITORY"             --arg run_id "$RUN_ID"             --arg run_attempt "$RUN_ATTEMPT"             --arg run_url "$SERVER_URL/$REPOSITORY/actions/runs/$RUN_ID"             --argjson changed_files "$changed_files_json"             --argjson pull_requests "$associated_prs"             --arg classification "$classification"             --arg anomaly "$anomaly"             --argjson incident_required "$incident_required"             '{
+              control:$control,
+              repository:$repository,
+              event:$event,
+              actor:$actor,
+              observed_at:$observed_at,
+              commit_timestamp:$timestamp,
+              main_sha:$sha,
+              previous_sha:(if $previous_sha == "" then null else $previous_sha end),
+              commit_message:$message,
+              push_state:{forced:($forced == "true"),created:($created == "true"),deleted:($deleted == "true")},
+              changed_files:$changed_files,
+              associated_pull_requests:$pull_requests,
+              classification:$classification,
+              anomaly_type:$anomaly,
+              incident_required:$incident_required,
+              workflow_run:{id:($run_id|tonumber),attempt:($run_attempt|tonumber),url:$run_url}
+            }' > mc-001-evidence/main-integrity-event.json
+
+          cat mc-001-evidence/main-integrity-event.json
+          echo "CLASSIFICATION=$classification" >> "$GITHUB_OUTPUT"
+          echo "INCIDENT_REQUIRED=$incident_required" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update incident Issue
+        id: incident
+        if: steps.inspect.outputs.INCIDENT_REQUIRED == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          COMMIT_SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+          RUN_ID: ${{ github.run_id }}
+          SERVER_URL: ${{ github.server_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title="Gobernanza/main: Registrar incidente de integridad de main."
+          existing="$(gh issue list --repo "$REPOSITORY" --state open --search '"Gobernanza/main: Registrar incidente de integridad de main."' --json number --jq '.[0].number // empty')"
+          body="$(cat <<EOF
+          ## Objetivo
+
+          Registrar el incidente detectado por MC-001 sobre una actualización de main que no pudo acreditarse como integración normal mediante Pull Request.
+
+          ## Cambios
+
+          MC-001 detectó una actualización/anomalía en main.
+
+          ## Análisis de impacto
+
+          El cambio ya alcanzó main. MC-001 es detectivo y no realiza auto-revert. El impacto debe analizarse mediante este Issue y la evidencia reproducible del workflow.
+
+          ## Evidencia esperada
+
+          - SHA: $COMMIT_SHA
+          - Actor: $ACTOR
+          - Workflow run: $SERVER_URL/$REPOSITORY/actions/runs/$RUN_ID
+          - Artifact: evidencia MC-001 del mismo workflow
+          - Archivos afectados y PR asociado, si existe, dentro del artifact.
+
+          ## Relación
+
+          Incidente generado/actualizado por MC-001 como consecuencia de la implementación de Issue #152.
+
+          ```yaml
+          governance:
+            classification:
+              domain: governance
+              work_type: process
+          ```
+          EOF
+          )"
+
+          if [[ -n "$existing" ]]; then
+            gh issue comment "$existing" --repo "$REPOSITORY" --body "$body"
+            incident_number="$existing"
+            echo "Updated existing incident Issue #$existing."
+          else
+            incident_url="$(gh issue create --repo "$REPOSITORY" --title "$title" --body "$body" --label governance --label process)"
+            incident_number="$(printf '%s' "$incident_url" | sed -E 's#.*/issues/([0-9]+)$#\1#')"
+            echo "Created incident Issue #$incident_number."
+          fi
+
+          echo "INCIDENT_NUMBER=$incident_number" >> "$GITHUB_OUTPUT"
+
+      - name: Finalize structured MC-001 evidence
+        env:
+          INCIDENT_NUMBER: ${{ steps.incident.outputs.INCIDENT_NUMBER }}
+          INCIDENT_URL_BASE: ${{ github.server_url }}/${{ github.repository }}/issues
+        shell: bash
+        run: |
+          set -euo pipefail
+          incident_json="null"
+          if [[ -n "${INCIDENT_NUMBER:-}" ]]; then
+            incident_json="$(jq -n --arg number "$INCIDENT_NUMBER" --arg url "$INCIDENT_URL_BASE/$INCIDENT_NUMBER" '{number:($number|tonumber),url:$url}')"
+          fi
+          tmp="$(mktemp)"
+          jq --argjson incident "$incident_json" '. + {incident_issue:$incident}' mc-001-evidence/main-integrity-event.json > "$tmp"
+          mv "$tmp" mc-001-evidence/main-integrity-event.json
+          jq -r '.changed_files[] | [(.status // ""), (.path // ""), (.previous_path // "")] | @tsv' mc-001-evidence/main-integrity-event.json > mc-001-evidence/changed-files.txt
+          echo "Final MC-001 evidence:"
+          cat mc-001-evidence/main-integrity-event.json
+
+      - name: Upload MC-001 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: mc-001-main-integrity-${{ github.run_id }}-${{ github.run_attempt }}
+          path: mc-001-evidence/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: MC-001 result
+        env:
+          CLASSIFICATION: ${{ steps.inspect.outputs.CLASSIFICATION }}
+        run: |
+          echo "MC-001 classification: $CLASSIFICATION"
+          echo "Evidence artifact generated."
+          echo "No automatic revert is performed by this control."

@@ -1,11 +1,11 @@
 # Arquitectura de Governance Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.10.0  
+**Versión:** 0.11.0  
 **Estado:** Arquitectura de enforcement en evolución  
 **Idioma documental:** Español  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #37, #80, #82
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #37, #80, #82, #152
 
 ---
 
@@ -146,7 +146,9 @@ Sus controles iniciales EV-001..EV-005 comprueban estructura mínima de evidenci
 
 ## 10. Controles sobre `main`
 
-Ante cada `push` a `main`, la automatización deberá registrar SHA, actor y mensaje; identificar asociación con Pull Requests cuando sea posible; distinguir integración mediante PR de actualización sin PR; marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado; conservar evidencia detectiva y no afirmar que la automatización revirtió o impidió el cambio.
+Ante cada `push` a `main`, el control MC-001 ejecuta un monitor dedicado que registra el evento, actor, fecha/hora del commit y de observación, SHA actual, SHA anterior cuando está disponible, mensaje, estado del push, archivos afectados y Pull Requests asociados mediante GitHub API. La actualización se clasifica como integración esperada únicamente cuando existe al menos un PR fusionado hacia `main`; en caso contrario se clasifica como anomalía y se genera o actualiza un Issue de incidente.
+
+MC-001 conserva evidencia reproducible como artifact del workflow. El artifact contiene un registro JSON estructurado con el contexto del evento, procedencia de la ejecución, clasificación, PRs asociados e Issue de incidente cuando corresponda, además de la relación de archivos afectados. El control no realiza auto-revert. El workflow utiliza `contents: read`, `pull-requests: read` e `issues: write`, limitando los permisos al mínimo necesario para observación, correlación y registro del incidente.
 
 La protección nativa futura deberá complementar, no sustituir, esta detección.
 

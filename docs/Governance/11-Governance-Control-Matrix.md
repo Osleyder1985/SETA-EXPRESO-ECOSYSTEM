@@ -1,7 +1,7 @@
 # Matriz de controles de Governance, Quality, Security y Evidence Enforcement
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.7.0  
+**Versión:** 0.8.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
 **Issues relacionados:** #13, #20, #22, #23, #25, #33, #35
@@ -29,6 +29,27 @@ Convertir las capas de Governance Enforcement, Decision Governance, Quality Vali
 | GE-011 | Residual risk | Falsa sensación de protección | Política explícita | G | Documento controlado | Depende de lectura/revisión |
 | GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard | Métricas iniciales |
 | GE-013 | Trigger determinista | Validación omitida tras cambios de estado | Triggers explícitos + dispatch dirigido | P-Compensatorio/D | Check run + evento + PR objetivo | No sustituye protección nativa de main |
+| MC-001 | Integridad detectiva de main | Push directo o anomalía de integración no trazable | Workflow sobre `push` a `main` + GitHub API + evidencia | D-Detectivo | Evento JSON + archivos afectados + workflow artifact + Issue de incidente cuando corresponde | No impide ni revierte el cambio; depende de disponibilidad de eventos/API |
+
+### MC-001 — Criterio operacional
+
+MC-001 se considera conforme para una actualización de `main` cuando el workflow registra como mínimo:
+
+1. evento y repositorio;
+2. actor;
+3. fecha/hora del commit y de observación;
+4. SHA actual;
+5. SHA anterior cuando el evento lo proporciona;
+6. estado del push y mensaje del commit;
+7. archivos afectados;
+8. Pull Request asociado cuando existe;
+9. clasificación de integración esperada o anomalía;
+10. referencia reproducible al workflow run;
+11. artifact con registro JSON estructurado y archivos afectados;
+12. Issue de incidente creado o actualizado cuando la actualización no puede acreditarse como integración normal mediante PR;
+13. referencia al Issue de incidente dentro de la evidencia cuando corresponda.
+
+MC-001 es exclusivamente detectivo/compensatorio: no realiza auto-revert y no se presenta como branch protection nativa.
 
 ## 3. Matriz de Governance Gate Controls
 

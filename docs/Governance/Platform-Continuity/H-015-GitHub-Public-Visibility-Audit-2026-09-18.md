@@ -110,7 +110,7 @@ Después de hacer público el repositorio se verificará:
 
 ## Fuentes externas de referencia
 
-La documentación oficial de GitHub establece que los runners estándar hospedados por GitHub son gratuitos e ilimitados para repositorios públicos, mientras que los runners grandes tienen facturación incluso en repositorios públicos. Por tanto, la arquitectura deberá continuar utilizando únicamente runners estándar. 
+La documentación oficial de GitHub establece que los runners estándar hospedados por GitHub son gratuitos e ilimitados para repositorios públicos, mientras que los runners grandes tienen facturación incluso en repositorios públicos. Por tanto, la arquitectura deberá continuar utilizando únicamente runners estándar.
 
 
 ## Control de licencia

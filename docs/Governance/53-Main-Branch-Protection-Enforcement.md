@@ -199,3 +199,35 @@ Los workflows actualmente operables como candidatos a required status checks son
 La conclusión de H-006 es **NOT VERIFIED por limitación de observabilidad administrativa**. MC-001 continúa únicamente como control detectivo/compensatorio. No se infiere protección ni desprotección de `main` por la ausencia de acceso administrativo.
 
 El cierre técnico futuro requiere una vía administrativa verificable y evidencia reproducible de configuración efectiva, incluyendo una prueba del comportamiento preventivo esperado.
+
+## 12. Revalidación administrativa H-006 — Issue #186 — 2026-09-18
+
+Se realizó una nueva prueba directa de los endpoints administrativos desde la integración GitHub disponible en este entorno:
+
+```text
+GET /repos/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/branches/main/protection
+→ HTTP 403: Resource not accessible by integration
+
+GET /repos/Osleyder1985/SETA-EXPRESO-ECOSYSTEM/rulesets
+→ HTTP 403: Upgrade to GitHub Pro or make this repository public to enable this feature
+```
+
+Estos resultados constituyen evidencia reproducible de que **esta integración no dispone actualmente de una vía verificable para leer la configuración efectiva de Branch Protection ni Rulesets** del repositorio privado. No constituyen evidencia de que `main` esté protegida ni de que esté desprotegida.
+
+La prueba de Rulesets además devuelve una restricción explícita de capacidad/plataforma: la API indica que se requiere GitHub Pro o hacer público el repositorio para habilitar esa consulta bajo las condiciones actuales.
+
+### Resultado H-006
+
+**Estado: NOT VERIFIED — limitación de observabilidad administrativa confirmada.**
+
+No se autoriza declarar resuelto H-006. Tampoco se modifica la configuración nativa de GitHub por esta vía, porque la integración no expone una capacidad administrativa verificable para hacerlo.
+
+El criterio de cierre permanece: debe existir evidencia reproducible de la configuración efectiva y, preferiblemente, una prueba del comportamiento preventivo esperado sobre `main`.
+
+### Deuda residual
+
+- H006-DEBT-001 — acceso administrativo verificable a Branch Protection: **ABIERTO / ALTO**.
+- H006-DEBT-002 — acceso/verificación de Rulesets: **ABIERTO / ALTO**.
+- H006-DEBT-003 — prueba preventiva reproducible de `main`: **BLOQUEADA hasta disponer de una vía administrativa/configuración verificable**.
+
+Esta actualización no altera la política Issue → Branch → Commit → Validation → Review → PR → Merge y no constituye una modificación directa de `main`.

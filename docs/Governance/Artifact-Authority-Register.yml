@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 189
+artifact_count: 190
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -2546,6 +2546,20 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
 
+  - path: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0190"
+    type: audit
+    authority: derived_or_record
+    source_of_truth: false
+    canonical_role: null
+    confidence: high
+    depends_on: ["docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/00-Software-Lifecycle-Master.md"]
+    referenced_by: "docs/Governance/Artifact-Authority-Register.yml"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
+    lifecycle_status: "controlled-audit"
+    duplicate_risk: low
+    disposition: "ACTIVE_AUDIT_RECORD"
 
 reference_analysis:
   verified_edges_batch_001:

@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 196
+artifact_count: 199
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -3384,20 +3384,6 @@ audit:
     lifecycle_status: "implementation-controlled"
     duplicate_risk: low
     disposition: "CONSERVE"
-  - path: "scripts/continuity/self-hosted-runner-preflight.sh"
-    artifact_id: "GOV-A0198"
-    type: operational_script
-    authority: supporting
-    source_of_truth: false
-    confidence: high
-    depends_on: ["Issue #192", "docs/Governance/Platform-Continuity/H-011-Runner-Deployment-Profile-Preflight-2026-09-18.md"]
-    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    implementation: "Implemented in Issue #192 branch; merge pending."
-    evidence: "Controlled PR #193"
-    lifecycle_status: "implementation-controlled"
-    duplicate_risk: low
-    disposition: "CONSERVE"
-
   - path: "docs/Governance/Platform-Continuity/H-012-Self-Hosted-Runner-Security-and-Admission-Gate-2026-09-18.md"
     artifact_id: "GOV-A0199"
     type: governance_security_gate
@@ -3405,6 +3391,19 @@ audit:
     source_of_truth: false
     confidence: high
     depends_on: ["Issue #192", "H-010", "H-011"]
+    implementation: "Implemented in Issue #192 branch; merge pending."
+    evidence: "Controlled PR #193"
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"
+  - path: "docs/Governance/Platform-Continuity/H-013-External-CI-Zero-Cost-Evaluation-2026-09-18.md"
+    artifact_id: "GOV-A0200"
+    type: governance_evaluation
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #192", "H-008", "H-009", "H-010", "H-011", "H-012"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "Implemented in Issue #192 branch; merge pending."
     evidence: "Controlled PR #193"
     lifecycle_status: "implementation-controlled"

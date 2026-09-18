@@ -2705,3 +2705,100 @@ next_consolidation_block:
   - "Assign GOV-A#### identifiers only after namespace review."
   - "Produce Dependency Graph v1 with verified edges and explicit unresolved edges."
   - "Open separate remediation Issues for consolidation, mirror synchronization, and authority-boundary changes."
+
+dependency_graph_v1:
+  status: "verified-partial"
+  scope: "Governance Core and principal cross-domain registries"
+  graph:
+    - "README-Governance.md → 06-Change-Control-Workflow.md"
+    - "GOVERNANCE-FOUNDATION.md → README-Governance.md"
+    - "00-Software-Lifecycle-Master.md → 02-Standards-Lifecycle-Matrix.md"
+    - "00-Software-Lifecycle-Master.md → 06-Change-Control-Workflow.md"
+    - "06-Change-Control-Workflow.md → 03-Artifacts-And-Evidence.md"
+    - "06-Change-Control-Workflow.md → 04-Quality-Gates.md"
+    - "06-Change-Control-Workflow.md → 07-Main-Protection-Strategy.md"
+    - "10-Governance-Enforcement-Architecture.md → 11-Governance-Control-Matrix.md"
+    - "10-Governance-Enforcement-Architecture.md → validation workflows"
+    - "11-Governance-Control-Matrix.md → Governance/Quality/Security/Evidence controls"
+    - "04-Quality-Gates.md → Quality/Quality-Gate-Catalog.yml"
+    - "Quality/Quality-Gate-Catalog.yml → Risk/Risk-Register.yml"
+    - "Quality/Quality-Gate-Catalog.yml → Decision Governance"
+    - "Quality/Quality-Gate-Catalog.yml → Evidence Validation"
+    - "19-Decision-Governance.md → Risk/Risk-Register.yml"
+    - "Decision/Decision-Authority-Matrix.yml → Decision/Role-Register.yml"
+    - "Decision/Decision-Authority-Matrix.yml → Decision/Decision-Authority-Register.md"
+    - "Decision/SoD-Decision-Function-Matrix.yml → Decision/SoD-Role-Combination-Matrix.yml"
+    - "Decision/SoD-Risk-Independence-Matrix.yml → Decision/SoD-Role-Combination-Matrix.yml"
+    - "Decision/SoD-Control-Matrix.yml → Decision/SoD-Exception-Register.yml"
+    - "23-AI-Governance.md → AI/AI-Use-Inventory.yml"
+    - "23-AI-Governance.md → AI/Model-Inventory.yml"
+    - "25-Data-Governance.md → Data governance registers"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Third-Party-Register.yml"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Vendor-Risk-Register.yml"
+    - "29-Supplier-Third-Party-Governance.md → Supplier/Dependency-Register.yml"
+    - "35-Configuration-Management.md → Configuration/Configuration-Item-Register.yml"
+    - "35-Configuration-Management.md → Configuration/Configuration-Baseline-Register.yml"
+    - "21-Engineering-Metrics-Governance.md → Metrics/Metric-Catalog.yml"
+    - "50-Non-Conformance-Management.md → Risk / Change / Decision / Quality / Security / Evidence / Configuration / Data / AI / Research"
+    - "51-Engineering-Change-Authority.md → Risk / Decision / SoD / validation / Merge"
+    - "53-Main-Branch-Protection-Enforcement.md → main-integrity-monitor workflow"
+    - "54-Main-Integrity-MC-001.md → main-integrity-monitor workflow"
+  unresolved_edges:
+    - "README-Governance.md → all domain entry points: index completeness not yet exhaustively verified."
+    - "Data governance parent policy → each Data YAML registry: exact consumer graph pending."
+    - "Supplier parent policy → all seven supplier registers: exact consumer graph pending."
+    - "Decision/SoD policy → all 30+ SoD supporting artifacts: exact dependency graph pending."
+    - "Metrics catalog → dashboard MD/HTML: derivation mechanism needs verification."
+  graph_rule: "Edges are recorded only as verified or explicitly marked unresolved; absence of a verified edge is not proof of orphan status."
+
+orphan_screening_v1:
+  status: "screening-not-proof"
+  method:
+    - "Compare repository tree against known Governance entry points, domain READMEs and verified dependency anchors."
+    - "Treat absence from an index as an orphan candidate, not as an orphan finding."
+    - "Do not classify a historical record, template or status artifact as orphan solely because it has no inbound normative dependency."
+  candidate_groups:
+    - group: "Decision/SoD"
+      examples:
+        - "SoD-Implementation-Note.md"
+        - "SoD-Validation-Note.md"
+        - "SoD-Operational-Status.md"
+        - "SoD-Review-Protocol-Status.md"
+        - "SoD-PR-Validation-Status.md"
+        - "SoD-Final-Readiness.md"
+      finding: "Likely status/record artifacts; require provenance/consumer verification before disposition."
+    - group: "Supplier"
+      examples:
+        - "Third-Party-Governance-Evidence-Index.md"
+        - "Third-Party-Governance-Status.md"
+        - "Supplier-Governance-Record-Template.md"
+      finding: "Supporting/status/template artifacts; not orphan by default because the Supplier README establishes a controlled ecosystem."
+    - group: "Configuration"
+      examples:
+        - "Configuration-Impact-Analysis.md"
+        - "Configuration-Status-Accounting.md"
+        - "Configuration-Audit-Checklist.md"
+      finding: "Explicitly named by Configuration README or policy; not orphan."
+    - group: "AI"
+      examples:
+        - "Data-Provenance-Template.md"
+        - "Prompt-Record-Template.md"
+        - "Evaluation-Record-Template.md"
+        - "Incident-Record-Template.md"
+      finding: "Explicitly indexed as templates; not orphan."
+  confirmed_orphans: []
+  conclusion: "No artifact can be safely declared a confirmed orphan from the current evidence set. A full consumer search is still required."
+
+dependency_graph_debt:
+  - id: "DG-DEBT-001"
+    issue: "Need exhaustive inbound/outbound cross-reference extraction for 182 current Governance blobs."
+    severity: high
+    status: open
+  - id: "DG-DEBT-002"
+    issue: "Need explicit generated-view relationships for MD/HTML dashboards and structured registries."
+    severity: medium
+    status: open
+  - id: "DG-DEBT-003"
+    issue: "Need complete SoD dependency graph before consolidation decisions."
+    severity: high
+    status: open

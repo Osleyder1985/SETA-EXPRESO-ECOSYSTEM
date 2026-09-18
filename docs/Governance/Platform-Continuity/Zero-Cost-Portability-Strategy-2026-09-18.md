@@ -9,7 +9,9 @@
 
 ## Propósito
 
-El proyecto no debe depender de una única plataforma SaaS ni de una cuota de CI para conservar su capacidad de ingeniería. La estrategia desacopla progresivamente:
+El proyecto debe conservar capacidad de ingeniería sin quedar bloqueado por una cuota mensual de CI ni por infraestructura propia.
+
+La estrategia desacopla progresivamente:
 
 - repositorio Git;
 - gestión de Issues y Pull Requests;
@@ -18,91 +20,75 @@ El proyecto no debe depender de una única plataforma SaaS ni de una cuota de CI
 - almacenamiento de evidencia;
 - plataforma de colaboración.
 
-La migración de plataforma **no está autorizada por este artefacto**. Este trabajo establece portabilidad y continuidad; cualquier cambio de autoridad deberá tramitarse mediante un Issue específico.
+La migración de plataforma **no está autorizada por este artefacto**. Cualquier cambio de autoridad deberá tramitarse mediante un Issue específico.
 
 ## Principios
 
 1. **Git como núcleo portable.** El historial y las ramas deben permanecer recuperables fuera del proveedor.
 2. **Validación local primero.** Los defectos deterministas deben detectarse sin consumir GitHub Actions.
-3. **CI desacoplada.** Los workflows deben poder trasladarse a un runner propio o a una plataforma compatible cuando sea viable.
-4. **Costo controlado.** No se ejecutan acciones potencialmente facturables sin necesidad técnica.
+3. **Sin infraestructura propia para CI.** No se dedicará ni administrará una PC, servidor o runner propio para el proyecto.
+4. **Costo controlado.** No se activarán servicios potencialmente facturables sin autorización explícita.
 5. **Gobernanza preservada.** Issue → Branch → Commit → Validation → Review → PR → Merge continúa siendo obligatorio.
-6. **No migración prematura.** GitHub sigue siendo la autoridad mientras se construye y verifica la portabilidad.
+6. **No migración prematura.** GitHub sigue siendo la autoridad mientras se verifica la portabilidad.
 7. **Evidencia reproducible.** Cada capacidad se clasifica como VERIFICADA, PENDIENTE o NO VERIFICADA.
+8. **Continuidad sin cuota obligatoria.** Las validaciones esenciales deben disponer de una ruta local reproducible.
 
 ## Primera implementación
 
 Se incorpora:
 
-- `scripts/validation/local-quality-validation.py`
+- `scripts/validation/local-quality-validation.py`;
 - reproducción local de QV-001..QV-006;
-- inventario explícito de los artefactos críticos que ya exige Quality Validation;
+- inventario explícito de los artefactos críticos;
 - salida de máquina `QUALITY_VALIDATION_LOCAL=PASS|FAIL`.
 
-El validador local **no sustituye** la Quality Validation oficial. Su función es detectar previamente fallos de calidad deterministas y reducir ejecuciones innecesarias de Actions.
+El validador local **no sustituye** la Quality Validation oficial. Detecta previamente fallos deterministas y permite continuar trabajando sin depender de una ejecución remota.
 
 ### Dependencia local
 
 Para QV-004 se recomienda Python 3 y PyYAML. Si PyYAML no está disponible, el validador falla explícitamente y no inventa un PASS.
 
-## Arquitectura objetivo
+## Arquitectura vigente
 
 ```text
-                         Git / historial
-                              |
-                +-------------+-------------+
-                |                           |
-          GitHub principal            Plataforma alternativa
-                |                    Forgejo / Gitea
-                |                           |
-         GitHub Actions             Runner propio / Actions
-                |                           |
-                +-------------+-------------+
-                              |
-                     Validación reproducible
-                              |
-                         Evidencia
+                    Git / historial portable
+                             |
+               +-------------+-------------+
+               |                           |
+        GitHub principal            Plataforma alternativa
+               |                    evaluada posteriormente
+               |                           |
+       CI/CD sujeto a cuota          CI/CD del proveedor
+               |
+      Validación local primero
+               |
+           Evidencia
 ```
 
-La coexistencia será preferible a una migración abrupta mientras no exista evidencia de equivalencia funcional.
+No se incorpora self-hosted runner a esta arquitectura.
 
-## Plataforma alternativa de referencia
+## Plataforma alternativa
 
-Forgejo queda como primera plataforma de evaluación técnica, con Gitea como alternativa comparable. Ambas ofrecen una arquitectura autoalojable y CI/CD basado en runners. La compatibilidad con GitHub Actions es parcial, por lo que los workflows deben someterse a una matriz de portabilidad antes de declararse equivalentes.
+Forgejo y Gitea permanecen como candidatos de evaluación técnica. La evaluación futura debe verificar sus condiciones reales de uso gratuito, mantenimiento requerido y compatibilidad con las necesidades del proyecto.
 
-## Próximas unidades controladas
+No se declara equivalencia con GitHub Actions ni se asume que una alternativa gratuita sea sostenible hasta contar con evidencia.
 
-### Unidad 2 — Inventario de portabilidad
+## Continuidad operativa a $0
 
-Inventariar cada workflow de `.github/workflows/` y clasificar:
+La ruta prioritaria es:
 
-| Campo | Estado |
-|---|---|
-| Workflow | pendiente de inventario |
-| Trigger | pendiente |
-| Dependencias externas | pendiente |
-| Secrets | pendiente |
-| Actions utilizadas | pendiente |
-| Ejecución local | pendiente |
-| Runner propio | pendiente |
-| Forgejo/Gitea | pendiente |
-| Riesgo de portabilidad | pendiente |
+1. checkout Git local;
+2. validación local reproducible;
+3. desarrollo y revisión mediante el flujo gobernado;
+4. mirror Git para recuperación;
+5. uso prudente de CI alojado cuando sea necesario y esté disponible sin coste;
+6. evaluación posterior de una plataforma alternativa que no requiera hardware administrado por el proyecto.
 
-### Unidad 3 — Mirror Git
+## Variantes descartadas
 
-Diseñar un mirror controlado sin convertirlo automáticamente en autoridad. Debe conservar historial, ramas relevantes y capacidad de recuperación.
+La opción **self-hosted runner sobre hardware propio o dedicado** fue evaluada bajo H-010, H-011 y H-012 y queda descartada.
 
-### Unidad 4 — Runner propio
-
-Definir runner reproducible para CI/CD. La infraestructura debe poder ejecutarse con herramientas libres y sin minutos SaaS.
-
-### Unidad 5 — Matriz GitHub ↔ Forgejo/Gitea
-
-Verificar Issues, PRs, reviews, labels, Actions, secrets, artifacts, permisos, webhooks y trazabilidad.
-
-### Unidad 6 — Prueba de recuperación
-
-Demostrar que el proyecto puede reconstruirse y continuar desde un mirror y una copia local sin depender de una cuota mensual de Actions.
+No se comprarán ni dedicarán equipos para ejecutar CI como parte de esta estrategia.
 
 ## Criterios de éxito
 
@@ -110,19 +96,19 @@ La estrategia se considerará operacionalmente demostrada cuando exista evidenci
 
 - el repositorio Git puede recuperarse fuera de GitHub;
 - las validaciones deterministas principales pueden ejecutarse localmente;
-- el CI puede ejecutarse en runner propio;
+- el flujo esencial puede continuar sin depender exclusivamente de una cuota mensual de Actions;
 - la trazabilidad de cambios permanece intacta;
-- existe una plataforma alternativa evaluada;
+- existe una plataforma alternativa evaluada bajo condiciones reales de costo $0, si resulta necesaria;
 - no se requiere facturación para continuar el flujo esencial del proyecto.
 
 ## Límites
 
 Este documento no afirma:
 
-- que Forgejo o Gitea sean ya equivalentes a GitHub para este repositorio;
-- que exista actualmente un mirror operativo;
-- que el runner propio ya esté instalado;
-- que todas las validaciones actuales sean portables;
-- que el costo total de cualquier infraestructura futura sea necesariamente $0.
+- que Forgejo o Gitea sean ya equivalentes a GitHub;
+- que exista actualmente un mirror operativo si aún no se ha probado;
+- que todas las validaciones sean portables;
+- que una plataforma alternativa futura sea necesariamente $0;
+- que GitHub Actions esté disponible ilimitadamente sin coste.
 
-Esas afirmaciones requieren evidencia específica.
+Las afirmaciones de capacidad y costo requieren evidencia específica.

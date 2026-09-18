@@ -4,7 +4,7 @@
 **Versión:** 0.7.0  
 **Estado:** Matriz controlada en evolución  
 **Fecha:** 2026-09-15  
-**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35
+**Issues relacionados:** #13, #20, #22, #23, #25, #33, #35, #162
 
 ---
 
@@ -30,7 +30,15 @@ Convertir las capas de Governance Enforcement, Decision Governance, Quality Vali
 | GE-012 | Métricas | Falta de visibilidad | Resultados de workflows | M | Run history / dashboard | Métricas iniciales |
 | GE-013 | Trigger determinista | Validación omitida tras cambios de estado | Triggers explícitos + dispatch dirigido | P-Compensatorio/D | Check run + evento + PR objetivo | No sustituye protección nativa de main |
 
-## 3. Matriz de Governance Gate Controls
+## 3. Matriz de Label Governance
+
+| ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
+|---|---|---|---|---|---|---|
+| LG-009 | Integridad y autorización del catálogo de labels | Labels no autorizados o taxonomía no controlada | `label-change-validation.yml` + `Label-Catalog.yml` | P-Compensatorio/D | Check run + catálogo + contexto de ejecución | No determina por sí solo la corrección semántica de la clasificación |
+
+LG-009 dispone de validación dirigida mediante `workflow_dispatch` y `repository_dispatch`. Con PR objetivo se resuelven determinísticamente PR y SHA; sin PR objetivo, el contexto PR-específico es `NOT_APPLICABLE`. La evidencia conserva evento, actor, PR objetivo cuando existe y SHA evaluado.
+
+## 4. Matriz de Governance Gate Controls
 
 Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son distintos de GE: GE controla la integridad del flujo de cambios; GC controla que exista evidencia suficiente para decidir el avance de una fase.
 
@@ -41,7 +49,7 @@ Los controles GC gobiernan la preparación y decisión de un Quality Gate. Son d
 | GC-003 | G0 Evidence Package | Decisión de gate sin evidencia trazable | Consolidación y revisión de evidencia | G/D | Assessment + Impact Analysis + validaciones + PR | La suficiencia semántica final requiere revisión |
 | GC-004 | Residual Risk Acceptance | Ocultar limitaciones técnicas o sobreafirmar controles | Registro explícito de riesgos residuales | G | Governance baseline + Gate decision | La aceptación requiere autoridad responsable |
 
-## 4. Matriz de Decision Governance
+## 5. Matriz de Decision Governance
 
 Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de los Architecture Decision Records (ADR) y Engineering Decision Records (EDR). Su detalle normativo-operacional se desarrolla en `20-Decision-Governance-Control-Matrix.md`.
 
@@ -67,7 +75,7 @@ Los controles DG gobiernan la creación, contenido, trazabilidad y evolución de
 | DG-018 | Supersession Consistency | Cadena histórica inconsistente | Validación futura | D | Check run | No implementado |
 | DG-019 | Decision Metrics | Falta de visibilidad sobre decisiones | Métricas futuras | M | Dashboard | No implementado |
 
-## 5. Matriz de Metrics Governance
+## 6. Matriz de Metrics Governance
 
 Los controles EM gobiernan la definición, medición, interpretación y evolución de las métricas de ingeniería. Su detalle se desarrolla en `22-Engineering-Metrics-Control-Matrix.md`.
 
@@ -102,7 +110,7 @@ Los controles EM gobiernan la definición, medición, interpretación y evoluci�
 | EM-027 | Periodic Review | Métricas obsoletas | Revisión controlada | G/M | Review record | Periodicidad operacional futura |
 | EM-028 | Metric Change Control | Deriva semántica no controlada | Change Control + Impact Analysis | G/D | Issue/PR | Depende de disciplina y validación |
 
-## 6. Matriz de Quality Validation
+## 7. Matriz de Quality Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -113,7 +121,7 @@ Los controles EM gobiernan la definición, medición, interpretación y evoluci�
 | QV-005 | Enlaces locales íntegros | Referencias documentales rotas | Python estándar | P-Compensatorio/D | Check run | No valida enlaces externos |
 | QV-006 | Artefactos críticos presentes | Pérdida accidental de baseline | Shell | P-Compensatorio/D | Check run | Inventario debe evolucionar con el sistema |
 
-## 7. Matriz de Security Validation
+## 8. Matriz de Security Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -127,7 +135,7 @@ Los controles EM gobiernan la definición, medición, interpretación y evoluci�
 | SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner de contenedores futuro | D | Decisión de aplicabilidad | No aplicable al baseline actual |
 | SV-009 | SBOM | Falta de inventario de componentes | Generación SBOM futura | D | Roadmap / decisión | Aún no implementado |
 
-## 8. Matriz de Evidence Validation
+## 9. Matriz de Evidence Validation
 
 | ID | Control | Riesgo controlado | Mecanismo | Naturaleza | Evidencia | Limitación |
 |---|---|---|---|---|---|---|
@@ -142,21 +150,21 @@ Los controles EM gobiernan la definición, medición, interpretación y evoluci�
 | EV-008 | Evidencia de pruebas | Cambio sin prueba apropiada | Integración testing | D | Test reports | NOT_APPLICABLE al baseline actual |
 | EV-009 | Evidencia de release/despliegue | Cambio productivo no trazable | Releases/deployments | D | Registros | NOT_APPLICABLE al baseline actual |
 
-## 9. Criterios de estado
+## 10. Criterios de estado
 
 - **PASS:** control ejecutado y conforme.
 - **FAIL:** control ejecutado y no conforme.
 - **NOT_APPLICABLE:** no aplica y existe justificación.
 - **NOT_IMPLEMENTED:** definido pero todavía no automatizado.
 
-## 10. Principio de no sobreafirmación
+## 11. Principio de no sobreafirmación
 
 Ningún control detectivo o compensatorio podrá registrarse como protección nativa. PASS demuestra únicamente conformidad con los controles automatizados aplicables de la versión vigente.
 
-## 11. Relación con Quality Gates
+## 12. Relación con Quality Gates
 
 Las capas aportan evidencia técnica a los Quality Gates, mientras que los controles GC aportan evidencia específica para la decisión de readiness. Decision Governance aporta evidencia del razonamiento de decisiones materiales cuando corresponda. Metrics Governance aporta indicadores y evidencia cuantitativa cuando existen fuentes operacionales suficientes. Ninguna capa sustituye la evaluación del gate. Un gate puede requerir evidencia adicional de requisitos, arquitectura, seguridad, validación, operación o aceptación.
 
-## 12. Evolución
+## 13. Evolución
 
 La matriz se ampliará cuando se incorporen código, pruebas, infraestructura, datos y releases. Podrán añadirse SAST, SCA, DAST, secrets scanning especializado, SBOM, IaC, contenedores, supply chain, procedencia, reproducibilidad, validación automatizada de Decision Records, extracción/cálculo de métricas y métricas de decisión.

@@ -1,0 +1,42 @@
+name: Engineering Metrics
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  actions: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Collect repository governance metric metadata
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          mkdir -p metrics-evidence
+          timestamp="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          printf '%s\n' "Engineering metrics collection snapshot" > metrics-evidence/README.md
+          printf 'timestamp=%s\nrepository=%s\ncommit=%s\n' "$timestamp" "$GH_REPO" "$GITHUB_SHA" >> metrics-evidence/README.md
+          gh pr list --repo "$GH_REPO" --state all --limit 100 --json number,state,mergedAt,title,body,url > metrics-evidence/pull-requests.json
+          gh issue list --repo "$GH_REPO" --state all --limit 100 --json number,state,title,url > metrics-evidence/issues.json
+          gh run list --repo "$GH_REPO" --limit 100 --json databaseId,status,conclusion,workflowName,createdAt,updatedAt,headSha > metrics-evidence/workflow-runs.json
+
+      - name: Upload immutable measurement evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: engineering-metrics-${{ github.run_id }}
+          path: metrics-evidence/
+          if-no-files-found: error
+          retention-days: 90

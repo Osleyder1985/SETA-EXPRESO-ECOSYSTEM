@@ -186,3 +186,16 @@ Este control se integra con:
 - `51-Engineering-Change-Authority.md`;
 - `52-Research-Governance.md`;
 - `27-Governance-Control-Matrix-SoD-NC-Change-Research.md`.
+
+
+## 11. Revalidación H-006 — 2026-09-18
+
+La revalidación de H-006 confirma que la integración GitHub utilizada en este entorno puede verificar el permiso del colaborador `Osleyder1985` como `admin`, pero no proporciona una vía administrativa verificable para consultar Branch Protection o Rulesets del repositorio privado.
+
+Por tanto, permanecen **NOT VERIFIED** la existencia y efectividad de protección nativa, required PR/reviews/checks, restricciones de force-push y deletion, configuración de bypasses y enforcement efectivo sobre `main`.
+
+Los workflows actualmente operables como candidatos a required status checks son `Governance Validation`, `Quality Validation`, `Security Validation` y `Evidence Validation`. Sus ejecuciones reales no demuestran que estén configurados como required checks en `main`.
+
+La conclusión de H-006 es **NOT VERIFIED por limitación de observabilidad administrativa**. MC-001 continúa únicamente como control detectivo/compensatorio. No se infiere protección ni desprotección de `main` por la ausencia de acceso administrativo.
+
+El cierre técnico futuro requiere una vía administrativa verificable y evidencia reproducible de configuración efectiva, incluyendo una prueba del comportamiento preventivo esperado.

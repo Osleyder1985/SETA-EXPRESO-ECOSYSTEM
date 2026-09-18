@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 190
+artifact_count: 191
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -2987,6 +2987,20 @@ sot_conflict_register:
       normative: "docs/Governance/21-Engineering-Metrics-Governance.md"
       structured_definition_sot_candidate: "docs/Governance/Metrics/Metric-Catalog.yml"
       pending: "formal precedence/synchronization rule"
+
+  - path: "docs/Governance/Platform-Continuity/H-015-GitHub-Public-Visibility-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0191"
+    type: governance_validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #194", "docs/Governance/Platform-Continuity/Zero-Cost-Portability-Strategy-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "Prepared in Issue #194 branch; repository visibility change remains pending review and controlled execution."
+    evidence: "Controlled PR #195; static repository-content and workflow review performed before visibility change."
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"
 
 overlap_register:
   confirmed_or_high_confidence:

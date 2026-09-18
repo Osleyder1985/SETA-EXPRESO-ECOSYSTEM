@@ -2,7 +2,17 @@ name: PR Governance Validation
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    branches:
+      - main
+    types: [opened, edited, synchronize, reopened, labeled, unlabeled]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to validate"
+        required: true
+        type: string
+  repository_dispatch:
+    types: [validation-requested]
 
 permissions:
   contents: read
@@ -13,102 +23,74 @@ jobs:
     name: Validate PR governance
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_PR: ${{ github.event.pull_request.number }}
+          INPUT_PR: ${{ inputs.pr_number }}
+          DISPATCH_PR: ${{ github.event.client_payload.pr_number }}
+        run: |
+          set -euo pipefail
+          pr_number=""
+          if [ "$EVENT_NAME" = "pull_request" ]; then pr_number="$EVENT_PR"; fi
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then pr_number="$INPUT_PR"; fi
+          if [ "$EVENT_NAME" = "repository_dispatch" ] && [ -n "$DISPATCH_PR" ]; then pr_number="$DISPATCH_PR"; fi
+          [ -n "$pr_number" ] || { echo "ERROR: no PR target was supplied."; exit 1; }
+          pr_json="$(gh api "repos/$REPOSITORY/pulls/$pr_number")"
+          echo "TARGET_PR_NUMBER=$pr_number" >> "$GITHUB_ENV"
+          echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+          echo "TARGET_PR_REF=$(printf '%s' "$pr_json" | jq -r '.head.ref')" >> "$GITHUB_ENV"
+          echo "TARGET_BASE_REF=$(printf '%s' "$pr_json" | jq -r '.base.ref')" >> "$GITHUB_ENV"
+
+      - name: Checkout PR target
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ env.TARGET_PR_SHA }}
+
       - name: Validate source branch naming
         env:
-          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REF: ${{ env.TARGET_PR_REF }}
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$HEAD_REF" == "main" ]]; then
-            echo "ERROR: main cannot be used as the PR source branch."
-            exit 1
-          fi
-          if [[ ! "$HEAD_REF" =~ ^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
-            echo "ERROR: invalid branch name: $HEAD_REF"
-            echo "Expected: issue-<numero>-<descripcion-corta>"
-            exit 1
-          fi
+          [[ "$HEAD_REF" != "main" ]] || { echo "ERROR: main cannot be used as the PR source branch."; exit 1; }
+          [[ "$HEAD_REF" =~ ^issue-[0-9]+-[a-z0-9]+(-[a-z0-9]+)*$ ]] || { echo "ERROR: invalid branch name: $HEAD_REF"; exit 1; }
           echo "Branch naming OK: $HEAD_REF"
 
       - name: Validate PR body contract
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
         shell: bash
         run: |
           set -euo pipefail
-
-          body="$PR_BODY"
-
-          required_sections=(
-            "## Objetivo"
-            "## Cambios"
-            "## Análisis de impacto"
-            "## Evidencia esperada"
-            "## Relación"
-          )
-
-          for section in "${required_sections[@]}"; do
-            if ! grep -Fq "$section" <<< "$body"; then
-              echo "ERROR: missing required PR section: $section"
-              exit 1
-            fi
+          PR_JSON="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")"
+          PR_BODY="$(printf '%s' "$PR_JSON" | jq -r '.body // ""')"
+          PR_TITLE="$(printf '%s' "$PR_JSON" | jq -r '.title // ""')"
+          for section in "## Objetivo" "## Cambios" "## Análisis de impacto" "## Evidencia esperada" "## Relación"; do
+            grep -Fq "$section" <<< "$PR_BODY" || { echo "ERROR: missing required PR section: $section"; exit 1; }
           done
-
-          impact=$(awk '/^## Análisis de impacto[[:space:]]*$/{flag=1; next} /^## /{flag=0} flag' <<< "$body" | sed '/^[[:space:]]*$/d')
-          evidence=$(awk '/^## Evidencia esperada[[:space:]]*$/{flag=1; next} /^## /{flag=0} flag' <<< "$body" | sed '/^[[:space:]]*$/d')
-
-          if [[ -z "$impact" ]]; then
-            echo "ERROR: ## Análisis de impacto must contain content."
-            exit 1
-          fi
-
-          if [[ -z "$evidence" ]]; then
-            echo "ERROR: ## Evidencia esperada must contain content."
-            exit 1
-          fi
-
-          if ! grep -Eq '^## (Issue|Relación)' <<< "$body"; then
-            echo "ERROR: PR must declare an Issue relationship."
-            exit 1
-          fi
-
-          issue_ref=$(grep -Eio '(^|[^0-9])#([0-9]+)' <<< "$body" | grep -Eo '#[0-9]+' | head -n1 || true)
-          if [[ -z "$issue_ref" ]]; then
-            echo "ERROR: PR must contain a GitHub Issue reference such as #112."
-            exit 1
-          fi
-
-          if grep -Eq '^[[:space:]]*Issue:[[:space:]]*$' <<< "$body"; then
-            echo "ERROR: Issue field is empty."
-            exit 1
-          fi
-
-          if [[ -z "$PR_TITLE" ]]; then
-            echo "ERROR: PR title cannot be empty."
-            exit 1
-          fi
-
-          echo "PR body contract OK; Issue reference detected: $issue_ref"
+          impact=$(awk '/^## Análisis de impacto[[:space:]]*$/{flag=1;next} /^## /{flag=0} flag' <<< "$PR_BODY" | sed '/^[[:space:]]*$/d')
+          evidence=$(awk '/^## Evidencia esperada[[:space:]]*$/{flag=1;next} /^## /{flag=0} flag' <<< "$PR_BODY" | sed '/^[[:space:]]*$/d')
+          [[ -n "$impact" ]] || { echo "ERROR: impact analysis is empty."; exit 1; }
+          [[ -n "$evidence" ]] || { echo "ERROR: evidence section is empty."; exit 1; }
+          grep -Eq 'Closes #[0-9]+|Fixes #[0-9]+|Resolves #[0-9]+' <<< "$PR_BODY" || { echo "ERROR: explicit Issue closing relation missing."; exit 1; }
+          grep -Eq '^.+\([^()]+\): .+\.$' <<< "$PR_TITLE" || { echo "ERROR: PR title does not conform."; exit 1; }
+          echo "PR body contract OK."
 
       - name: Validate structured governance metadata
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ env.TARGET_PR_NUMBER }}
         shell: bash
         run: |
           set -euo pipefail
-
-          metadata=$(awk '
-            /^```yaml[[:space:]]*$/ { capture=1; next }
-            capture && /^```[[:space:]]*$/ { exit }
-            capture { print }
-          ' <<< "$PR_BODY")
-
-          if [[ -z "$metadata" ]]; then
-            echo 'ERROR: missing YAML governance metadata block.'
-            exit 1
-          fi
-
+          PR_BODY="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" --jq '.body // ""')"
+          metadata=$(awk '/^\x60\x60\x60yaml[[:space:]]*$/{capture=1;next} capture && /^\x60\x60\x60[[:space:]]*$/{exit} capture{print}' <<< "$PR_BODY")
+          [[ -n "$metadata" ]] || { echo "ERROR: missing YAML governance metadata block."; exit 1; }
           METADATA="$metadata" ruby -ryaml -e '
             data = YAML.safe_load(ENV.fetch("METADATA"), permitted_classes: [], aliases: false) || {}
             governance = data["governance"]
@@ -116,27 +98,27 @@ jobs:
             abort "ERROR: unsupported schema_version." unless governance["schema_version"] == "1"
             validation = governance["validation"]
             abort "ERROR: governance.validation must be a mapping." unless validation.is_a?(Hash)
-
             required = %w[evidence governance quality security]
             missing = required.reject { |key| validation[key] == "required" }
             abort "ERROR: missing required validation declarations: #{missing.join(", ")}" unless missing.empty?
-
             unexpected = validation.keys - required
             abort "ERROR: unsupported validation keys: #{unexpected.join(", ")}" unless unexpected.empty?
-
             puts "PASS: structured governance metadata is valid."
-            puts "Declared required validations: #{required.join(", ")}"
           '
 
       - name: Validate PR integration path
         env:
-          BASE_REF: ${{ github.base_ref }}
-          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ env.TARGET_BASE_REF }}
+          HEAD_REF: ${{ env.TARGET_PR_REF }}
         shell: bash
         run: |
           set -euo pipefail
-          if [[ "$BASE_REF" == "main" && "$HEAD_REF" == "main" ]]; then
-            echo "ERROR: direct main-to-main integration is forbidden."
-            exit 1
-          fi
+          [[ "$BASE_REF" != "main" || "$HEAD_REF" != "main" ]] || { echo "ERROR: direct main-to-main integration is forbidden."; exit 1; }
           echo "PR integration path OK: $HEAD_REF -> $BASE_REF"
+
+      - name: PR governance validation result
+        run: |
+          echo "PR_GOVERNANCE_VALIDATION=PASS"
+          echo "VALIDATION_EVENT=${{ github.event_name }}"
+          echo "TARGET_PR=$TARGET_PR_NUMBER"
+          echo "TARGET_SHA=$TARGET_PR_SHA"

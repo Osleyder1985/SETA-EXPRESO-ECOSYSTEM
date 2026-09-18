@@ -9,22 +9,51 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to validate; leave empty for repository validation"
+        required: false
+        type: string
   repository_dispatch:
     types: [validation-requested]
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   security-validation:
     name: Validate security controls
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve validation target
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_PR: ${{ github.event.pull_request.number }}
+          INPUT_PR: ${{ inputs.pr_number }}
+          DISPATCH_PR: ${{ github.event.client_payload.pr_number }}
+        run: |
+          set -euo pipefail
+          pr_number=""
+          if [ "$EVENT_NAME" = "pull_request" ]; then pr_number="$EVENT_PR"; fi
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] && [ -n "$INPUT_PR" ]; then pr_number="$INPUT_PR"; fi
+          if [ "$EVENT_NAME" = "repository_dispatch" ] && [ -n "$DISPATCH_PR" ]; then pr_number="$DISPATCH_PR"; fi
+          if [ -n "$pr_number" ]; then
+            pr_json="$(gh api "repos/$REPOSITORY/pulls/$pr_number")"
+            echo "TARGET_PR_NUMBER=$pr_number" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+          else
+            echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ env.TARGET_PR_SHA }}
 
       - name: SV-001 Secret Material Scan
         run: |
@@ -43,13 +72,13 @@ jobs:
           catalog=".github/security/workflow-permissions.yml"
           test -f "$catalog"
           workflow_count=$(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | wc -l)
-          if [ "$workflow_count" -eq 0 ]; then exit 1; fi
+          [ "$workflow_count" -gt 0 ] || exit 1
           failed=0
           while IFS= read -r workflow; do
             if ! grep -Eq '^permissions:' "$workflow"; then failed=1; fi
             if grep -Eq '^permissions:[[:space:]]*(write-all|write)$' "$workflow"; then failed=1; fi
           done < <(find .github/workflows -type f \( -name '*.yml' -o -name '*.yaml' \) | sort)
-          if [ "$failed" -ne 0 ]; then exit 1; fi
+          [ "$failed" -eq 0 ] || exit 1
           echo "SV-002=PASS"
 
       - name: SV-003 Dangerous Workflow Trigger
@@ -78,3 +107,6 @@ jobs:
           echo "SV-008=NOT_APPLICABLE"
           echo "SV-009=NOT_IMPLEMENTED"
           echo "SECURITY_VALIDATION=PASS"
+          echo "VALIDATION_EVENT=${{ github.event_name }}"
+          echo "TARGET_PR=${TARGET_PR_NUMBER:-NOT_APPLICABLE}"
+          echo "TARGET_SHA=${TARGET_PR_SHA}"

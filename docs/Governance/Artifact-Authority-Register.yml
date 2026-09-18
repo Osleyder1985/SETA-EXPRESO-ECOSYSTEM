@@ -3187,3 +3187,26 @@ metrics_catalog_semantic_resolution:
   synchronization: "Shared semantic changes require coordinated controlled change and impact review."
   drift_is_governance_finding: true
   measurement_not_implied: true
+
+
+audit:
+  issue: 183
+  date: "2026-09-18"
+  status: "internal-integrity-verified-external-coverage-not-fully-verified"
+  baseline_sha: "e3630f66cc5277af84025397b32c218b95b8c6b7"
+  verified:
+    declared_artifact_count: 182
+    artifact_id_entries: 182
+    unique_artifact_ids: 182
+    unique_paths: 182
+    id_range: "GOV-A0001..GOV-A0182"
+    self_entry: "GOV-A0182"
+  not_verified:
+    - "complete live-tree-to-register 1:1 correspondence"
+    - "implementation for every artifact"
+    - "evidence for every artifact"
+    - "lifecycle_status for every artifact"
+    - "complete inbound reference graph"
+  unresolved_marker_occurrences: 879
+  evidence_record: "docs/Governance/Artifact-Authority-Register-H001-Audit-2026-09-18.md"
+  rule: "Do not replace TO_BE_VERIFIED values by inference."

@@ -18,3 +18,13 @@
 ## Regla
 
 La autoridad accountable no puede inferirse únicamente del autor del commit, PR o documento. Debe derivarse del registro de autoridad vigente.
+
+
+## Mirror contract
+
+**Fuente canónica:** `Decision-Authority-Matrix.yml`  
+**Rol de este documento:** vista legible derivada; no es fuente de autoridad independiente.
+
+Los cambios de roles, decisiones, accountable, approval, blocking, consulted o evidence se realizan primero en YAML y el MD se sincroniza en el mismo cambio controlado. Ante discrepancia, **prevalece YAML** y el drift debe registrarse como no conformidad.
+
+La autoría de un documento, commit o PR no confiere autoridad decisoria. Este registro no asigna personas y el estado propuesto de la matriz no se convierte en autoridad operacional por esta regla.

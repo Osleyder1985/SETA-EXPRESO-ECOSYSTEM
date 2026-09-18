@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 181
+artifact_count: 182
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -11,6 +11,9 @@ authority_model:
   template: "Controlled structure for future records; not evidence itself."
   canonical_candidate: "Provisional SoT candidate pending cross-reference validation."
 rules:
+  - "Artifact ID is the stable identity; path and filename are locators."
+  - "Artifact IDs are immutable, unique within the Governance register, and never reused."
+  - "Historical, status, evidence, impact and template artifacts receive identities without gaining normative authority."
   - "Do not infer authority from filename numbering alone."
   - "A summary/status artifact cannot override its canonical source."
   - "For MD/YAML pairs, exactly one source must become SoT before operational use."
@@ -45,6 +48,7 @@ canonical_map:
   sod_control_sot: "docs/Governance/Decision/SoD-Control-Matrix.yml"
 artifacts:
   - path: "docs/Governance/00-Software-Lifecycle-Master.md"
+    artifact_id: "GOV-A0001"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -58,6 +62,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/01-Software-Lifecycle-Audit.md"
+    artifact_id: "GOV-A0002"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -70,6 +75,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/02-Standards-Lifecycle-Matrix.md"
+    artifact_id: "GOV-A0003"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -83,6 +89,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/03-Artifacts-And-Evidence.md"
+    artifact_id: "GOV-A0004"
     type: validation_evidence
     authority: canonical_candidate
     source_of_truth: true
@@ -96,6 +103,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/04-Quality-Gates.md"
+    artifact_id: "GOV-A0005"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -109,6 +117,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/05-Repository-Naming-Convention.md"
+    artifact_id: "GOV-A0006"
     type: document
     authority: supporting
     source_of_truth: false
@@ -121,6 +130,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/06-Change-Control-Workflow.md"
+    artifact_id: "GOV-A0007"
     type: control
     authority: canonical_candidate
     source_of_truth: true
@@ -134,6 +144,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/07-Main-Protection-Strategy.md"
+    artifact_id: "GOV-A0008"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -147,6 +158,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/08-Software-Roadmap.md"
+    artifact_id: "GOV-A0009"
     type: document
     authority: supporting
     source_of_truth: false
@@ -159,6 +171,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
+    artifact_id: "GOV-A0010"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -172,6 +185,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/10-Governance-Enforcement-Architecture.md"
+    artifact_id: "GOV-A0011"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -185,6 +199,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/11-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0012"
     type: control
     authority: canonical_candidate
     source_of_truth: true
@@ -198,6 +213,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/12-Quality-Validation-Architecture.md"
+    artifact_id: "GOV-A0013"
     type: architecture
     authority: derived_or_record
     source_of_truth: false
@@ -210,6 +226,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/13-Security-Validation-Architecture.md"
+    artifact_id: "GOV-A0014"
     type: architecture
     authority: derived_or_record
     source_of_truth: false
@@ -222,6 +239,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/14-Evidence-Validation-Architecture.md"
+    artifact_id: "GOV-A0015"
     type: architecture
     authority: derived_or_record
     source_of_truth: false
@@ -234,6 +252,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/15-G0-Governance-Readiness-Assessment.md"
+    artifact_id: "GOV-A0016"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -246,6 +265,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/16-G0-Impact-Analysis.md"
+    artifact_id: "GOV-A0017"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -258,6 +278,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/17-Risk-Management-System.md"
+    artifact_id: "GOV-A0018"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -271,6 +292,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/18-Risk-Management-Control-Matrix.md"
+    artifact_id: "GOV-A0019"
     type: control
     authority: supporting
     source_of_truth: false
@@ -283,6 +305,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/19-Decision-Governance.md"
+    artifact_id: "GOV-A0020"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -296,6 +319,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/20-Decision-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0021"
     type: control
     authority: supporting
     source_of_truth: false
@@ -308,6 +332,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/21-Engineering-Metrics-Governance.md"
+    artifact_id: "GOV-A0022"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -321,6 +346,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/22-Engineering-Metrics-Control-Matrix.md"
+    artifact_id: "GOV-A0023"
     type: control
     authority: supporting
     source_of_truth: false
@@ -333,6 +359,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/23-AI-Governance.md"
+    artifact_id: "GOV-A0024"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -346,6 +373,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/24-AI-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0025"
     type: control
     authority: supporting
     source_of_truth: false
@@ -358,6 +386,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/25-Data-Governance.md"
+    artifact_id: "GOV-A0026"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -371,6 +400,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/26-Data-Governance-Control-Matrix.md"
+    artifact_id: "GOV-A0027"
     type: control
     authority: supporting
     source_of_truth: false
@@ -383,6 +413,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/27-Data-Governance-Impact-And-Closure.md"
+    artifact_id: "GOV-A0028"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -395,6 +426,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/27-Governance-Control-Matrix-SoD-NC-Change-Research.md"
+    artifact_id: "GOV-A0029"
     type: control
     authority: supporting
     source_of_truth: false
@@ -407,6 +439,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/28-Problems-11-14-Impact-Analysis.md"
+    artifact_id: "GOV-A0030"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -419,6 +452,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/29-Supplier-Third-Party-Governance.md"
+    artifact_id: "GOV-A0031"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -432,6 +466,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/30-Supplier-Third-Party-Control-Matrix.md"
+    artifact_id: "GOV-A0032"
     type: control
     authority: supporting
     source_of_truth: false
@@ -444,6 +479,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/31-Supplier-Third-Party-Impact-Analysis.md"
+    artifact_id: "GOV-A0033"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -456,6 +492,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/32-Supplier-Third-Party-Integration-Map.md"
+    artifact_id: "GOV-A0034"
     type: document
     authority: supporting
     source_of_truth: false
@@ -468,6 +505,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/33-Supplier-Third-Party-Decision-Integration.md"
+    artifact_id: "GOV-A0035"
     type: document
     authority: supporting
     source_of_truth: false
@@ -480,6 +518,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/34-Supplier-Third-Party-Baseline-Summary.md"
+    artifact_id: "GOV-A0036"
     type: document
     authority: supporting
     source_of_truth: false
@@ -492,6 +531,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/35-Configuration-Management.md"
+    artifact_id: "GOV-A0037"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -505,6 +545,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/41-Configuration-Management-Control-Matrix.md"
+    artifact_id: "GOV-A0038"
     type: control
     authority: supporting
     source_of_truth: false
@@ -517,6 +558,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/43-Quality-Gates-Operationalization.md"
+    artifact_id: "GOV-A0039"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -529,6 +571,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/48-Decision-Authority-Governance.md"
+    artifact_id: "GOV-A0040"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -541,6 +584,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/49-Deterministic-Validation-Triggers.md"
+    artifact_id: "GOV-A0041"
     type: validation_evidence
     authority: derived_or_record
     source_of_truth: false
@@ -553,6 +597,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/49-Segregation-of-Duties-Governance.md"
+    artifact_id: "GOV-A0042"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -565,6 +610,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/49-Segregation-of-Duties.md"
+    artifact_id: "GOV-A0043"
     type: document
     authority: supporting
     source_of_truth: false
@@ -577,6 +623,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/50-Non-Conformance-Management.md"
+    artifact_id: "GOV-A0044"
     type: document
     authority: supporting
     source_of_truth: false
@@ -589,6 +636,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/51-Engineering-Change-Authority.md"
+    artifact_id: "GOV-A0045"
     type: document
     authority: supporting
     source_of_truth: false
@@ -601,6 +649,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/52-Research-Governance.md"
+    artifact_id: "GOV-A0046"
     type: policy_or_governance
     authority: canonical_candidate
     source_of_truth: true
@@ -614,6 +663,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/53-Main-Branch-Protection-Enforcement.md"
+    artifact_id: "GOV-A0047"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -627,6 +677,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/54-Main-Integrity-MC-001.md"
+    artifact_id: "GOV-A0048"
     type: control
     authority: canonical_candidate
     source_of_truth: true
@@ -640,6 +691,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/54-Operation-Idempotency-Control.md"
+    artifact_id: "GOV-A0049"
     type: control
     authority: supporting
     source_of_truth: false
@@ -652,6 +704,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/AI-Use-Inventory.yml"
+    artifact_id: "GOV-A0050"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -664,6 +717,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/Data-Provenance-Template.md"
+    artifact_id: "GOV-A0051"
     type: template
     authority: template
     source_of_truth: false
@@ -676,6 +730,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/Evaluation-Record-Template.md"
+    artifact_id: "GOV-A0052"
     type: template
     authority: template
     source_of_truth: false
@@ -688,6 +743,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/Incident-Record-Template.md"
+    artifact_id: "GOV-A0053"
     type: template
     authority: template
     source_of_truth: false
@@ -700,6 +756,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/Model-Inventory.yml"
+    artifact_id: "GOV-A0054"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -712,6 +769,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/Prompt-Record-Template.md"
+    artifact_id: "GOV-A0055"
     type: template
     authority: template
     source_of_truth: false
@@ -724,6 +782,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/AI/README.md"
+    artifact_id: "GOV-A0056"
     type: index
     authority: supporting
     source_of_truth: false
@@ -736,6 +795,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/Configuration-Audit-Checklist.md"
+    artifact_id: "GOV-A0057"
     type: validation_evidence
     authority: derived_or_record
     source_of_truth: false
@@ -748,6 +808,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/Configuration-Baseline-Register.yml"
+    artifact_id: "GOV-A0058"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -760,6 +821,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/Configuration-Impact-Analysis.md"
+    artifact_id: "GOV-A0059"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -772,6 +834,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/Configuration-Item-Register.yml"
+    artifact_id: "GOV-A0060"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -784,6 +847,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/Configuration-Status-Accounting.md"
+    artifact_id: "GOV-A0061"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -796,6 +860,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Configuration/README.md"
+    artifact_id: "GOV-A0062"
     type: index
     authority: supporting
     source_of_truth: false
@@ -808,6 +873,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/00-Data-Governance-README.md"
+    artifact_id: "GOV-A0063"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -820,6 +886,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/01-Data-Governance-Scope.md"
+    artifact_id: "GOV-A0064"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -832,6 +899,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Access-Matrix.yml"
+    artifact_id: "GOV-A0065"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -844,6 +912,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Backup-Recovery-Register.yml"
+    artifact_id: "GOV-A0066"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -856,6 +925,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Governance-Baseline.md"
+    artifact_id: "GOV-A0067"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -868,6 +938,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Governance-Status.md"
+    artifact_id: "GOV-A0068"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -880,6 +951,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Inventory-Template.yml"
+    artifact_id: "GOV-A0069"
     type: template
     authority: template
     source_of_truth: false
@@ -892,6 +964,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Lineage-Register.yml"
+    artifact_id: "GOV-A0070"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -904,6 +977,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Ownership-Register.yml"
+    artifact_id: "GOV-A0071"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -916,6 +990,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Data-Quality-Rule-Catalog.yml"
+    artifact_id: "GOV-A0072"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -928,6 +1003,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/README.md"
+    artifact_id: "GOV-A0073"
     type: index
     authority: supporting
     source_of_truth: false
@@ -940,6 +1016,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Data/Retention-Schedule.yml"
+    artifact_id: "GOV-A0074"
     type: document
     authority: supporting
     source_of_truth: false
@@ -952,6 +1029,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Control-Matrix.md"
+    artifact_id: "GOV-A0075"
     type: control
     authority: supporting
     source_of_truth: false
@@ -964,6 +1042,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Escalation.md"
+    artifact_id: "GOV-A0076"
     type: document
     authority: supporting
     source_of_truth: false
@@ -976,6 +1055,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Governance-Status.md"
+    artifact_id: "GOV-A0077"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -988,6 +1068,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Impact-Analysis.md"
+    artifact_id: "GOV-A0078"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1000,6 +1081,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Implementation-Note.md"
+    artifact_id: "GOV-A0079"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1012,6 +1094,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+    artifact_id: "GOV-A0080"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1024,6 +1107,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Decision-Authority-Register.md"
+    artifact_id: "GOV-A0081"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1036,6 +1120,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/README.md"
+    artifact_id: "GOV-A0082"
     type: index
     authority: supporting
     source_of_truth: false
@@ -1048,6 +1133,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Role-Assignment-Policy.md"
+    artifact_id: "GOV-A0083"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -1060,6 +1146,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/Role-Register.yml"
+    artifact_id: "GOV-A0084"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1072,6 +1159,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Approval-Record-Template.md"
+    artifact_id: "GOV-A0085"
     type: template
     authority: template
     source_of_truth: false
@@ -1084,6 +1172,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Baseline-Criteria.md"
+    artifact_id: "GOV-A0086"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1096,6 +1185,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Baseline-Readiness.md"
+    artifact_id: "GOV-A0087"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1108,6 +1198,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Change-Assessment-Template.yml"
+    artifact_id: "GOV-A0088"
     type: template
     authority: template
     source_of_truth: false
@@ -1120,6 +1211,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Change-Assessment.md"
+    artifact_id: "GOV-A0089"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1132,6 +1224,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Change-Control-Integration.md"
+    artifact_id: "GOV-A0090"
     type: control
     authority: supporting
     source_of_truth: false
@@ -1144,6 +1237,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Configuration-Supplier-Integration.md"
+    artifact_id: "GOV-A0091"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1156,6 +1250,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Control-Matrix.yml"
+    artifact_id: "GOV-A0092"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1168,6 +1263,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Data-AI-Integration.md"
+    artifact_id: "GOV-A0093"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1180,6 +1276,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Decision-Authority-Integration.md"
+    artifact_id: "GOV-A0094"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1192,6 +1289,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Decision-Checklist.md"
+    artifact_id: "GOV-A0095"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1204,6 +1302,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+    artifact_id: "GOV-A0096"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1216,6 +1315,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Decision-Record-Template.md"
+    artifact_id: "GOV-A0097"
     type: template
     authority: template
     source_of_truth: false
@@ -1228,6 +1328,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Evidence-Model.md"
+    artifact_id: "GOV-A0098"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1240,6 +1341,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Exception-Register.yml"
+    artifact_id: "GOV-A0099"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1252,6 +1354,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Exception-Template.yml"
+    artifact_id: "GOV-A0100"
     type: template
     authority: template
     source_of_truth: false
@@ -1264,6 +1367,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Final-Readiness.md"
+    artifact_id: "GOV-A0101"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1276,6 +1380,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Gate-Checklist.md"
+    artifact_id: "GOV-A0102"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1288,6 +1393,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Governance-Status.md"
+    artifact_id: "GOV-A0103"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1300,6 +1406,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Impact-Analysis.md"
+    artifact_id: "GOV-A0104"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1312,6 +1419,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Implementation-Completion.md"
+    artifact_id: "GOV-A0105"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1324,6 +1432,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Implementation-Note.md"
+    artifact_id: "GOV-A0106"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1336,6 +1445,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Implementation-Status.md"
+    artifact_id: "GOV-A0107"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1348,6 +1458,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Integration-Register-2.md"
+    artifact_id: "GOV-A0108"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1360,6 +1471,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Integration-Register.md"
+    artifact_id: "GOV-A0109"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1372,6 +1484,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Lifecycle-Integration.md"
+    artifact_id: "GOV-A0110"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1384,6 +1497,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Metrics-Integration.md"
+    artifact_id: "GOV-A0111"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1396,6 +1510,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Operational-Status.md"
+    artifact_id: "GOV-A0112"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1408,6 +1523,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Operationalization-Backlog.md"
+    artifact_id: "GOV-A0113"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1420,6 +1536,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-PR-Validation-Status.md"
+    artifact_id: "GOV-A0114"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1432,6 +1549,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Policy-Applicability.md"
+    artifact_id: "GOV-A0115"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -1444,6 +1562,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Policy-Index.md"
+    artifact_id: "GOV-A0116"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -1456,6 +1575,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Quality-Integration.md"
+    artifact_id: "GOV-A0117"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1468,6 +1588,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-README.md"
+    artifact_id: "GOV-A0118"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1480,6 +1601,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Ready.md"
+    artifact_id: "GOV-A0119"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1492,6 +1614,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Responsibility-Model.md"
+    artifact_id: "GOV-A0120"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1504,6 +1627,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Approval.md"
+    artifact_id: "GOV-A0121"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1516,6 +1640,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Checklist.md"
+    artifact_id: "GOV-A0122"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1528,6 +1653,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Evidence-Template.yml"
+    artifact_id: "GOV-A0123"
     type: template
     authority: template
     source_of_truth: false
@@ -1540,6 +1666,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Protocol-Status.md"
+    artifact_id: "GOV-A0124"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1552,6 +1679,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Protocol.md"
+    artifact_id: "GOV-A0125"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1564,6 +1692,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Review-Record-Template.yml"
+    artifact_id: "GOV-A0126"
     type: template
     authority: template
     source_of_truth: false
@@ -1576,6 +1705,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Risk-Decision-Flow.md"
+    artifact_id: "GOV-A0127"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1588,6 +1718,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Risk-Exception-Policy.md"
+    artifact_id: "GOV-A0128"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -1600,6 +1731,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Risk-Independence-Matrix.yml"
+    artifact_id: "GOV-A0129"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1612,6 +1744,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Risk-Integration.md"
+    artifact_id: "GOV-A0130"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1624,6 +1757,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Role-Assignment-Policy.md"
+    artifact_id: "GOV-A0131"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -1636,6 +1770,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+    artifact_id: "GOV-A0132"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1648,6 +1783,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Security-Integration.md"
+    artifact_id: "GOV-A0133"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1660,6 +1796,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Status-Log.md"
+    artifact_id: "GOV-A0134"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1672,6 +1809,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Traceability-Matrix.md"
+    artifact_id: "GOV-A0135"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1684,6 +1822,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Validation-Note.md"
+    artifact_id: "GOV-A0136"
     type: validation_evidence
     authority: derived_or_record
     source_of_truth: false
@@ -1696,6 +1835,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Validation-Rerun-Trigger.md"
+    artifact_id: "GOV-A0137"
     type: validation_evidence
     authority: derived_or_record
     source_of_truth: false
@@ -1708,6 +1848,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Validation-Status.md"
+    artifact_id: "GOV-A0138"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -1720,6 +1861,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Decision/SoD-Verification-Checklist.md"
+    artifact_id: "GOV-A0139"
     type: validation_evidence
     authority: supporting
     source_of_truth: false
@@ -1732,6 +1874,7 @@ artifacts:
     duplicate_risk: high
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/GOVERNANCE-FOUNDATION.md"
+    artifact_id: "GOV-A0140"
     type: document
     authority: canonical_candidate
     source_of_truth: true
@@ -1745,6 +1888,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/LABEL-AUTOMATION-CONTRACT.md"
+    artifact_id: "GOV-A0141"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1757,6 +1901,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/LABEL-CLASSIFICATION-PRECEDENCE.md"
+    artifact_id: "GOV-A0142"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1769,6 +1914,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Label-Catalog.yml"
+    artifact_id: "GOV-A0143"
     type: registry
     authority: canonical_candidate
     source_of_truth: true
@@ -1782,6 +1928,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Metrics/Engineering-Governance-Dashboard.html"
+    artifact_id: "GOV-A0144"
     type: dashboard
     authority: derived_or_record
     source_of_truth: false
@@ -1794,6 +1941,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Metrics/Engineering-Governance-Dashboard.md"
+    artifact_id: "GOV-A0145"
     type: dashboard
     authority: derived_or_record
     source_of_truth: false
@@ -1806,6 +1954,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Metrics/Metric-Catalog.yml"
+    artifact_id: "GOV-A0146"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1818,6 +1967,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/PHASE-TRANSITION-CRITERIA.md"
+    artifact_id: "GOV-A0147"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1830,6 +1980,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/PROJECT-STATUS.md"
+    artifact_id: "GOV-A0148"
     type: status
     authority: supporting
     source_of_truth: false
@@ -1842,6 +1993,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+    artifact_id: "GOV-A0149"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1854,6 +2006,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Quality/Quality-Gates-Impact-Analysis.md"
+    artifact_id: "GOV-A0150"
     type: document
     authority: derived_or_record
     source_of_truth: false
@@ -1866,6 +2019,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/README-Governance.md"
+    artifact_id: "GOV-A0151"
     type: index
     authority: canonical_candidate
     source_of_truth: true
@@ -1879,6 +2033,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Records/Change-Request-Template.yml"
+    artifact_id: "GOV-A0152"
     type: template
     authority: template
     source_of_truth: false
@@ -1891,6 +2046,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Records/Engineering-Lesson-Template.yml"
+    artifact_id: "GOV-A0153"
     type: template
     authority: template
     source_of_truth: false
@@ -1903,6 +2059,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Records/Engineering-Lessons-Learned.yml"
+    artifact_id: "GOV-A0154"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1915,6 +2072,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Records/Non-Conformance-Template.yml"
+    artifact_id: "GOV-A0155"
     type: template
     authority: template
     source_of_truth: false
@@ -1927,6 +2085,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Risk/Risk-Register.md"
+    artifact_id: "GOV-A0156"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1939,6 +2098,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Risk/Risk-Register.yml"
+    artifact_id: "GOV-A0157"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -1951,6 +2111,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Roadmap/README.md"
+    artifact_id: "GOV-A0158"
     type: index
     authority: supporting
     source_of_truth: false
@@ -1963,6 +2124,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Roadmap/Roadmap-Dashboard.html"
+    artifact_id: "GOV-A0159"
     type: dashboard
     authority: derived_or_record
     source_of_truth: false
@@ -1975,6 +2137,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Roadmap/Roadmap-Dashboard.md"
+    artifact_id: "GOV-A0160"
     type: dashboard
     authority: derived_or_record
     source_of_truth: false
@@ -1987,6 +2150,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/SV-002-MINIMUM-PRIVILEGE.md"
+    artifact_id: "GOV-A0161"
     type: document
     authority: supporting
     source_of_truth: false
@@ -1999,6 +2163,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Dependency-Register.md"
+    artifact_id: "GOV-A0162"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2011,6 +2176,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Dependency-Register.yml"
+    artifact_id: "GOV-A0163"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2023,6 +2189,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Exit-Strategy-Register.md"
+    artifact_id: "GOV-A0164"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2035,6 +2202,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Exit-Strategy-Register.yml"
+    artifact_id: "GOV-A0165"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2047,6 +2215,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/License-Register.md"
+    artifact_id: "GOV-A0166"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2059,6 +2228,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/License-Register.yml"
+    artifact_id: "GOV-A0167"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2071,6 +2241,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/README.md"
+    artifact_id: "GOV-A0168"
     type: index
     authority: supporting
     source_of_truth: false
@@ -2083,6 +2254,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/SLA-Contractual-Control-Register.md"
+    artifact_id: "GOV-A0169"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2095,6 +2267,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/SLA-Contractual-Control-Register.yml"
+    artifact_id: "GOV-A0170"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2107,6 +2280,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Security-Assessment-Register.md"
+    artifact_id: "GOV-A0171"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2119,6 +2293,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Security-Assessment-Register.yml"
+    artifact_id: "GOV-A0172"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2131,6 +2306,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Supplier-Governance-Evidence-Checklist.md"
+    artifact_id: "GOV-A0173"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -2143,6 +2319,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Supplier-Governance-Record-Template.md"
+    artifact_id: "GOV-A0174"
     type: template
     authority: template
     source_of_truth: false
@@ -2155,6 +2332,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Third-Party-Governance-Evidence-Index.md"
+    artifact_id: "GOV-A0175"
     type: policy_or_governance
     authority: supporting
     source_of_truth: false
@@ -2167,6 +2345,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Third-Party-Governance-Status.md"
+    artifact_id: "GOV-A0176"
     type: status
     authority: derived_or_record
     source_of_truth: false
@@ -2179,6 +2358,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Third-Party-Register-Template.yml"
+    artifact_id: "GOV-A0177"
     type: template
     authority: template
     source_of_truth: false
@@ -2191,6 +2371,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Third-Party-Register.md"
+    artifact_id: "GOV-A0178"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2203,6 +2384,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Third-Party-Register.yml"
+    artifact_id: "GOV-A0179"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2215,6 +2397,7 @@ artifacts:
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Vendor-Risk-Register.md"
+    artifact_id: "GOV-A0180"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2227,6 +2410,7 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
   - path: "docs/Governance/Supplier/Vendor-Risk-Register.yml"
+    artifact_id: "GOV-A0181"
     type: registry
     authority: supporting
     source_of_truth: false
@@ -2238,6 +2422,21 @@ artifacts:
     lifecycle_status: "TO_BE_VERIFIED"
     duplicate_risk: medium
     disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Artifact-Authority-Register.yml"
+    artifact_id: "GOV-A0182"
+    type: governance_registry
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: artifact_authority_register
+    confidence: high
+    depends_on: ["docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/README-Governance.md"]
+    referenced_by: ["docs/Governance/README-Governance.md"]
+    implementation: "register-controlled"
+    evidence: "Git commit history, PR review and register validation"
+    lifecycle_status: "baseline-under-audit"
+    duplicate_risk: low
+    disposition: "KEEP"
+
 reference_analysis:
   verified_edges_batch_001:
     - "docs/Governance/00-Software-Lifecycle-Master.md -> docs/Governance/06-Change-Control-Workflow.md"
@@ -2689,13 +2888,16 @@ overlap_register:
       note: "Not a duplication defect once the YAML→MD relationship is explicit and maintained."
 
 stable_artifact_identity:
-  status: "design-required"
+  status: "assigned-controlled-baseline"
+  assignment_method: "Initial sequential assignment to the 181 previously registered artifacts, followed by GOV-A0182 for the Artifact Authority Register itself."
+  stability_rule: "Once assigned, an Artifact ID is immutable, must not be reused, and remains stable across file rename or path relocation."
+  new_artifact_rule: "New governed artifacts receive the next available GOV-A#### identifier through controlled Issue/Branch/PR change."
   current_finding: "No repository-wide Artifact ID namespace was verified in the sampled Governance artifacts. Existing control, risk, decision, metric and configuration IDs are domain identifiers, not a universal Artifact ID."
   rule: "Do not retroactively use RISK-*, DEC-*, EM-*, CI-*, GC-*, SV-* or MC-* as universal artifact identities."
   proposed_namespace: "GOV-A####"
   proposed_format: "GOV-A0001, GOV-A0002, ..."
   proposed_scope: "One stable identity per governed artifact record; filename/path remains a locator, not identity."
-  status_constraint: "Proposal only; assignment to all 181 artifacts requires a separate controlled register update after collision and lifecycle review."
+  status_constraint: "Namespace reviewed in Issue #172; assignment is now recorded as a controlled baseline for all 182 Governance blobs present on this branch."
   no_rename_implication: "Introducing stable IDs does not authorize file renames."
 
 next_consolidation_block:

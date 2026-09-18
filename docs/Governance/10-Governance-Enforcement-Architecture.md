@@ -144,7 +144,19 @@ La arquitectura de Evidence Validation se define en `14-Evidence-Validation-Arch
 
 Sus controles iniciales EV-001..EV-005 comprueban estructura mínima de evidencia, relación Issue–PR, identidad determinista del commit evaluado, declaración de validaciones y baseline documental.
 
-## 10. Controles sobre `main`
+## 10. Trazabilidad de ejecuciones dispatch
+
+Los workflows de validación que admiten `workflow_dispatch` o `repository_dispatch` resuelven de forma determinista el contexto de una PR cuando esta es suministrada. La fuente para ejecución manual es `inputs.pr_number`; para ejecución externa es `github.event.client_payload.pr_number`.
+
+Cuando existe PR objetivo, el SHA evaluado se obtiene de la cabeza de esa PR y los controles PR-específicos se ejecutan contra ese SHA. Cuando no existe PR objetivo, los controles que requieren contexto de PR se declaran `NOT_APPLICABLE`.
+
+La evidencia de ejecución conserva, como mínimo, `event_name`, `actor`, PR objetivo cuando exista, SHA evaluado y `workflow_run_id`. Esta trazabilidad no utiliza `pull_request_target` ni amplía los permisos de escritura.
+
+## 21. LG-009 — Integridad del catálogo de labels
+
+LG-009 controla que los labels aplicados a Pull Requests estén autorizados por `docs/Governance/Label-Catalog.yml`. Se implementa mediante `label-change-validation.yml` y conserva contexto de ejecución cuando se invoca por dispatch. La clasificación continúa dependiendo de `governance.classification`; LG-009 valida autorización del label, no inventa su clasificación.
+
+## 20. Controles sobre `main`
 
 Ante cada `push` a `main`, la automatización deberá registrar SHA, actor y mensaje; identificar asociación con Pull Requests cuando sea posible; distinguir integración mediante PR de actualización sin PR; marcar como `SUSPICIOUS_DIRECT_UPDATE` cualquier actualización sin PR asociado; conservar evidencia detectiva y no afirmar que la automatización revirtió o impidió el cambio.
 

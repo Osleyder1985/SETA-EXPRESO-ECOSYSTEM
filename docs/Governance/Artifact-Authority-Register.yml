@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 190
+artifact_count: 192
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -2558,6 +2558,34 @@ artifacts:
     implementation: "TO_BE_VERIFIED"
     evidence: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
     lifecycle_status: "controlled-audit"
+    duplicate_risk: low
+    disposition: "ACTIVE_AUDIT_RECORD"
+
+  - path: "docs/Governance/Standards/Normative-Standard-Registry.yml"
+    artifact_id: "GOV-A0191"
+    type: registry
+    authority: canonical_candidate
+    source_of_truth: true
+    canonical_role: normative_standard_registry
+    confidence: medium
+    depends_on: ["docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "controlled-first-layer"
+    duplicate_risk: low
+    disposition: "ACTIVE_CONTROL"
+  - path: "docs/Governance/Standards/H-007-Normative-Consumer-Inventory-2026-09-18.md"
+    artifact_id: "GOV-A0192"
+    type: audit
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: medium
+    depends_on: ["docs/Governance/Standards/Normative-Standard-Registry.yml", "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "TO_BE_VERIFIED"
+    lifecycle_status: "controlled-first-layer"
     duplicate_risk: low
     disposition: "ACTIVE_AUDIT_RECORD"
 

@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 188
+artifact_count: 189
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -3264,6 +3264,21 @@ metrics_catalog_semantic_resolution:
     implementation: "applicability-analysis"
     evidence: "validation-record"
     lifecycle_status: "controlled-baseline"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+
+  - path: "docs/Governance/Artifact-Authority-Register-H001-Live-Tree-Verification-2026-09-18.md"
+    artifact_id: "GOV-A0189"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    canonical_role: "H-001 live-tree verification record"
+    confidence: high
+    depends_on: ["docs/Governance/Artifact-Authority-Register.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "audit-record"
+    evidence: "live-tree-comparison"
+    lifecycle_status: "current-audit-record"
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
 

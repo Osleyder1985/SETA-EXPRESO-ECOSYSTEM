@@ -181,6 +181,7 @@ jobs:
           tmp="$(mktemp)"
           jq --argjson incident "$incident_json" '. + {incident_issue:$incident}' mc-001-evidence/main-integrity-event.json > "$tmp"
           mv "$tmp" mc-001-evidence/main-integrity-event.json
+          jq -r '.changed_files[] | [(.status // ""), (.path // ""), (.previous_path // "")] | @tsv' mc-001-evidence/main-integrity-event.json > mc-001-evidence/changed-files.txt
           echo "Final MC-001 evidence:"
           cat mc-001-evidence/main-integrity-event.json
 

@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 199
+artifact_count: 200
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -3406,6 +3406,20 @@ audit:
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "Implemented in Issue #192 branch; merge pending."
     evidence: "Controlled PR #193"
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"
+
+  - path: "docs/Governance/Platform-Continuity/H-014-External-CI-Controlled-Test-2026-09-18.md"
+    artifact_id: "GOV-A0201"
+    type: governance_validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #192", "H-013", "docs/Governance/Platform-Continuity/H-008-CI-CD-Portability-Inventory-2026-09-18.md", "docs/Governance/Platform-Continuity/H-009-Git-Mirror-Recovery-Design-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "Prepared in Issue #192 branch; external execution pending explicit user action and service approval."
+    evidence: "Controlled PR #193; official Codeberg CI documentation reviewed."
     lifecycle_status: "implementation-controlled"
     duplicate_risk: low
     disposition: "CONSERVE"

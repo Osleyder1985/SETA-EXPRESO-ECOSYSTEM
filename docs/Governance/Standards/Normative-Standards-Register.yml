@@ -1,0 +1,126 @@
+# H-007 — Registro normativo persistente
+
+schema_version: "1"
+
+register:
+  name: "Normative Standards Register"
+  authority_role: "Single source of truth for normative reference status"
+  documentary_control_only: true
+  conformance_claim: false
+  anti_drift_rule: "Consumers must use the controlled identifier and edition recorded here; a draft or DIS cannot replace a published edition."
+
+standards:
+  - id: STD-001
+    identifier: "ISO/IEC/IEEE 15288"
+    edition: "2023"
+    status: current
+    authority: "ISO/IEC/IEEE"
+    adopted_by_project: true
+    monitoring_required: false
+  - id: STD-002
+    identifier: "ISO/IEC/IEEE 12207"
+    edition: "2026"
+    status: current
+    authority: "ISO/IEC/IEEE"
+    adopted_by_project: true
+    monitoring_required: false
+    historical_predecessors: ["ISO/IEC/IEEE 12207:2017"]
+  - id: STD-003
+    identifier: "ISO/IEC/IEEE 29148"
+    edition: "2018"
+    status: current-with-successor-under-development
+    authority: "ISO/IEC/IEEE"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-004
+    identifier: "ISO/IEC/IEEE 42010"
+    edition: "2022"
+    status: current
+    authority: "ISO/IEC/IEEE"
+    adopted_by_project: true
+    monitoring_required: false
+  - id: STD-005
+    identifier: "ISO/IEC 25010"
+    edition: "2023"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-006
+    identifier: "NIST SP 800-218 / SSDF"
+    edition: "1.1"
+    status: current
+    authority: NIST
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-007
+    identifier: "ISO 31000"
+    edition: "2018"
+    status: pending-external-verification
+    authority: ISO
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-008
+    identifier: "IEC 31010"
+    edition: "2019"
+    status: pending-external-verification
+    authority: IEC
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-009
+    identifier: "ISO/IEC 42001"
+    edition: "2023"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-010
+    identifier: "ISO/IEC 23894"
+    edition: "2023"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-011
+    identifier: "NIST AI RMF"
+    edition: "1.0"
+    status: current
+    authority: NIST
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-012
+    identifier: "NIST AI 600-1"
+    edition: "1.0"
+    status: current-complementary-reference
+    authority: NIST
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-013
+    identifier: "ISO/IEC 27036-2"
+    edition: "2022"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-014
+    identifier: "ISO/IEC 27036-3"
+    edition: "2023"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-015
+    identifier: "ISO/IEC 27036-4"
+    edition: "2016"
+    status: pending-external-verification
+    authority: "ISO/IEC"
+    adopted_by_project: true
+    monitoring_required: true
+  - id: STD-016
+    identifier: "ISO/IEC/IEEE 12207"
+    edition: "2017"
+    status: historical-replaced
+    authority: "ISO/IEC/IEEE"
+    adopted_by_project: false
+    monitoring_required: false
+    replaced_by: STD-002

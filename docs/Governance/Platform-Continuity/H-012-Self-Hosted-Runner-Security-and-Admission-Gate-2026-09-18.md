@@ -1,74 +1,58 @@
-# H-012 — Gate de seguridad y admisión para runner propio
+# H-012 — Gate de seguridad para runner propio — alternativa descartada
 
 ## Control
 - Issue: #192
 - Unidad: 6 — seguridad y admisión antes del registro
 - Fecha: 2026-09-18
 - Autoridad: GitHub
-- Estado: implementado como control preventivo; runner no registrado
+- Estado: **CERRADO POR NO ADOPCIÓN DE LA VARIANTE**
 
-## Propósito
+## Propósito histórico
 
-Establecer un gate obligatorio antes de registrar o habilitar un self-hosted runner para este repositorio.
+H-012 estableció controles preventivos para impedir el registro prematuro de un self-hosted runner.
 
-GitHub advierte que los self-hosted runners no proporcionan el mismo aislamiento efímero que los GitHub-hosted runners y recomienda especial cautela, particularmente en repositorios públicos, porque código no confiable puede comprometer persistentemente la máquina del runner.
+La evaluación concluyó que el proyecto no adoptará esa arquitectura porque no se dedicará ni administrará hardware propio para CI.
 
-## Decisión provisional
+## Decisión
 
-**No registrar todavía el runner.**
+**No registrar ni habilitar un self-hosted runner.**
 
-Antes del registro deben cumplirse todos estos controles:
+Por tanto, el gate de admisión no se convierte en una actividad operativa pendiente.
 
-| Control | Criterio | Estado |
-|---|---|---|
-| Hardware | Equipo existente identificado y dedicado/aislado para CI | PENDIENTE |
-| SO | Sistema operativo soportado | PENDIENTE |
-| Arquitectura | x64/ARM64 compatible | PENDIENTE |
-| Usuario | Ejecución sin root | PENDIENTE |
-| Red | HTTPS saliente por 443 y conectividad necesaria | PENDIENTE |
-| Secretos | Sin credenciales personales ni claves privadas | PENDIENTE |
-| Repositorio público | Riesgo de PR no confiable evaluado y controlado | PENDIENTE |
-| Etiquetas | Labels reflejan realmente SO/arquitectura/capacidad | PENDIENTE |
-| Actualizaciones | Procedimiento definido | PENDIENTE |
-| Preflight | H-011 ejecutado y PASS | PENDIENTE |
+## Controles conservados como referencia
 
-## Reglas de admisión
+Se mantienen documentados, para trazabilidad de la decisión:
 
-1. El runner no debe contener secretos personales o de otros proyectos.
-2. No se instalará como root ni se otorgarán privilegios administrativos innecesarios al proceso de jobs.
-3. No se habilitará para cargas no confiables hasta definir aislamiento suficiente.
-4. El primer workflow candidato será Quality Validation, no workflows con escritura administrativa o secretos.
-5. Las labels deben ser verificables; GitHub utiliza labels como `self-hosted`, sistema operativo y arquitectura para seleccionar runners.
-6. La conectividad debe limitarse a lo necesario; GitHub requiere HTTPS/443 y endpoints adicionales según los workflows.
-7. Debe existir un procedimiento de actualización del runner.
-8. La credencial temporal de registro nunca se almacenará en el repositorio ni en documentación versionada.
+- separación entre ejecución y autoridad;
+- ausencia de credenciales persistentes;
+- mínimo privilegio;
+- aislamiento frente a código no confiable;
+- control de conectividad;
+- actualización del runner;
+- selección verificable de labels.
 
-## Primera prueba
+Estos controles describen una alternativa evaluada, no requisitos de la arquitectura vigente.
 
-**Local → runner propio → comparación**
+## Arquitectura vigente
 
-- mismo commit;
-- mismos controles QV-001..QV-006;
-- sin secretos de producción;
-- sin escritura en `main`;
-- logs conservados;
-- resultado PASS/FAIL reproducible.
+La continuidad $0 se basa en:
 
-El runner no será considerado productivo simplemente por aparecer como `Idle` en GitHub. La aceptación requiere reproducibilidad y controles de seguridad.
+- validación local;
+- Git portable;
+- recuperación mediante mirror;
+- minimización de consumo de CI alojado;
+- evaluación de servicios alternativos gratuitos que no requieran infraestructura propia.
 
-## Criterio de salida
+## Criterio de cierre
 
-- [ ] Hardware concreto identificado.
-- [ ] H-011 ejecutado con PASS.
-- [ ] Riesgo del repositorio público resuelto mediante aislamiento/política apropiada.
-- [ ] Runner instalado sin privilegios innecesarios.
-- [ ] Runner registrado con credencial temporal no persistida.
-- [ ] Labels verificados.
-- [ ] Conectividad comprobada.
-- [ ] Quality Validation reproducida.
-- [ ] Evidencia documentada.
-- [ ] Coste monetario $0 verificado para la ruta concreta.
+- [x] Variante de self-hosted runner evaluada.
+- [x] Riesgos documentados.
+- [x] Coste operativo de infraestructura propia identificado como incompatible con la decisión del proyecto.
+- [x] No se registra runner.
+- [x] No se modifica ningún workflow para usar `self-hosted`.
 
-## Conclusión
+## Estado final
 
-H-012 convierte la instalación del runner en una decisión condicionada por evidencia. Hasta completar el gate, GitHub continúa siendo la autoridad y no se modifica ningún workflow para enrutar jobs al runner propio.
+**CERRADO / NO APLICABLE.**
+
+GitHub continúa siendo la autoridad del repositorio. Ningún runner propio forma parte de la arquitectura operativa.

@@ -36,10 +36,6 @@ jobs:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
           set -euo pipefail
-          ISSUE_BODY="$(cat <<'EOF'
-${ISSUE_BODY}
-EOF
-)"
           metadata=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^\`\`\`[[:space:]]*$/{exit} capture{print}' <<< "$ISSUE_BODY")
           [[ -n "$metadata" ]] || { echo "FAIL LG-007: governance metadata YAML is missing."; exit 1; }
           printf '%s\n' "$metadata" > /tmp/governance.yml
@@ -177,7 +173,7 @@ EOF
             end
           '
 
-      - name: Apply authorized labels
+      - name: Reconcile authorized PR labels
         if: env.TARGET_PR_NUMBER != ''
         env:
           GH_TOKEN: ${{ github.token }}
@@ -185,14 +181,28 @@ EOF
           REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
+          gh api "repos/$REPOSITORY/issues/$PR_NUMBER/labels" --paginate --jq '.[].name' | sort -u > /tmp/current-labels
           ruby -ryaml -e '
             data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
-            classification = data.dig("governance", "classification") || {}
-            puts classification.fetch("domain")
-            puts classification.fetch("work_type")
-          ' | while IFS= read -r label; do
-            gh pr edit "$PR_NUMBER" --repo "$REPOSITORY" --add-label "$label"
-          done
+            catalog = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            classification = data.fetch("governance").fetch("classification")
+            dimensions = %w[domain work_type]
+            managed = dimensions.flat_map { |d| catalog["labels"].fetch(d).keys }.uniq
+            desired = dimensions.map { |d| classification.fetch(d) }
+            current = File.readlines("/tmp/current-labels", chomp: true)
+            stale = current & managed - desired
+            missing = desired - current
+            File.write("/tmp/stale-labels", stale.join("\n") + (stale.empty? ? "" : "\n"))
+            File.write("/tmp/missing-labels", missing.join("\n") + (missing.empty? ? "" : "\n"))
+          '
+          while IFS= read -r label; do
+            [[ -z "$label" ]] && continue
+            gh api -X DELETE "repos/$REPOSITORY/issues/$PR_NUMBER/labels/$label"
+          done < /tmp/stale-labels
+          while IFS= read -r label; do
+            [[ -z "$label" ]] && continue
+            gh api -X POST "repos/$REPOSITORY/issues/$PR_NUMBER/labels" -f "labels[]=$label" >/dev/null
+          done < /tmp/missing-labels
 
       - name: LG-001 to LG-004 Validate catalog and applied labels
         if: env.TARGET_PR_NUMBER != ''

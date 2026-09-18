@@ -1,9 +1,9 @@
 # Catálogo de artefactos y evidencias de ingeniería
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 1.0.0  
+**Versión:** 1.1.0  
 **Estado:** Catálogo controlado  
-**Fecha:** 2026-09-15
+**Fecha:** 2026-09-17
 
 ---
 
@@ -65,6 +65,8 @@ Los controles automatizados de gobernanza, calidad, seguridad y evidencia deber�
 - estado global de Governance Validation, Quality Validation, Security Validation y Evidence Validation.
 
 Los workflows no se consideran evidencia suficiente por su mera existencia: debe existir una ejecución verificable o una justificación explícita.
+
+Para MC-001, la evidencia mínima de una actualización de `main` incluye el evento, actor, timestamp del commit y de observación, SHA actual, SHA anterior cuando exista, estado del push, archivos afectados, PRs asociados, clasificación, workflow run y artifact. Cuando se detecta una anomalía, la evidencia debe conservar también la referencia al Issue de incidente generado o actualizado. El control es detectivo y no realiza auto-revert.
 
 ## 7. Evidencia de Quality Validation
 

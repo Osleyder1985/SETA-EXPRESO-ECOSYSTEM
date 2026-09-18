@@ -3164,3 +3164,14 @@ dependency_graph_v1_1:
       finding: "Complementary definition/governance layers."
       action: "Keep split; operational measurement effectiveness remains separately evidenced."
   decision_rule: "No consolidation decision is authorized by this graph update; only evidence-backed boundary classification is recorded."
+
+
+quality_gate_semantic_resolution:
+  status: "resolved-by-normative-plus-structured-layering"
+  issue: 176
+  normative_policy: "docs/Governance/04-Quality-Gates.md"
+  structured_operational_specification: "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+  precedence: "Policy prevails for normative meaning; YAML owns structured operational fields within that boundary."
+  synchronization: "Shared semantic changes require coordinated update and impact analysis in one controlled change."
+  drift_is_governance_finding: true
+  execution_not_implied: true

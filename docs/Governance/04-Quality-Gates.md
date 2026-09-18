@@ -288,3 +288,18 @@ Los criterios específicos de cada gate evolucionarán mediante cambios controla
 - Supplier/Third-Party Governance.
 
 Cualquier modificación de criterios, thresholds, autoridad o semántica de resultados deberá quedar trazada mediante Issue → Branch → PR → Validaciones → Review → Merge.
+
+
+## 14. Semantic and synchronization boundary
+
+This document is the **normative Quality Gate policy**: it defines lifecycle intent, gate semantics, decision rules, applicability and governance constraints.
+
+The machine-readable catalog `Quality/Quality-Gate-Catalog.yml` is the **structured operational specification** of those gates. It must not redefine or contradict the normative policy.
+
+**Precedence:** this policy prevails for normative meaning. The YAML catalog prevails only for the structured operational fields it explicitly owns, provided those fields conform to this policy.
+
+**Synchronization:** changes to gate IDs, names, phases, result states, mandatory checks, decision authority, or exit semantics require coordinated updates and impact analysis in the same controlled Issue → Branch → PR → Validation → Review → Merge change.
+
+**Version coupling:** the policy version and catalog `schema_version`/controlled revision must be recorded together in the change evidence. Drift between normative semantics and structured specification is a governance finding and must be resolved before the affected gate is treated as conforming.
+
+The catalog does not itself constitute evidence that a gate was executed or passed.

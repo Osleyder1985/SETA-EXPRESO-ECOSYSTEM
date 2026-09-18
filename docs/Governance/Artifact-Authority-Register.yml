@@ -300,7 +300,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/19-Decision-Governance.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -325,7 +325,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/21-Engineering-Metrics-Governance.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -338,7 +338,7 @@ artifacts:
     source_of_truth: true
     canonical_role: ai_governance
     confidence: high
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/AI/README.md", "docs/Governance/AI/AI-Use-Inventory.yml", "docs/Governance/AI/Model-Inventory.yml", "docs/Governance/AI/Data-Provenance-Template.md", "docs/Governance/AI/Prompt-Record-Template.md", "docs/Governance/AI/Evaluation-Record-Template.md", "docs/Governance/AI/Incident-Record-Template.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -375,7 +375,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/25-Data-Governance.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -387,7 +387,7 @@ artifacts:
     authority: derived_or_record
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/00-Software-Lifecycle-Master.md", "docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/04-Quality-Gates.md", "docs/Governance/06-Change-Control-Workflow.md", "docs/Governance/10-Governance-Enforcement-Architecture.md", "docs/Governance/11-Governance-Control-Matrix.md", "docs/Governance/17-Risk-Management-System.md", "docs/Governance/18-Risk-Management-Control-Matrix.md", "docs/Governance/19-Decision-Governance.md", "docs/Governance/20-Decision-Governance-Control-Matrix.md", "docs/Governance/21-Engineering-Metrics-Governance.md", "docs/Governance/22-Engineering-Metrics-Control-Matrix.md", "docs/Governance/23-AI-Governance.md", "docs/Governance/24-AI-Governance-Control-Matrix.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -436,7 +436,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/29-Supplier-Third-Party-Governance.md", "docs/Governance/Supplier/Third-Party-Register.yml", "docs/Governance/Supplier/Vendor-Risk-Register.yml", "docs/Governance/Supplier/SLA-Contractual-Control-Register.yml", "docs/Governance/Supplier/Security-Assessment-Register.yml", "docs/Governance/Supplier/License-Register.yml", "docs/Governance/Supplier/Dependency-Register.yml", "docs/Governance/Supplier/Exit-Strategy-Register.yml"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -1040,7 +1040,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/48-Decision-Authority-Governance.md", "docs/Governance/Decision/Role-Register.yml", "docs/Governance/Decision/Decision-Authority-Matrix.yml", "docs/Governance/Decision/Decision-Authority-Control-Matrix.md", "docs/Governance/Decision/Decision-Authority-Impact-Analysis.md", "docs/Governance/Decision/Decision-Authority-Escalation.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -1846,7 +1846,7 @@ artifacts:
     authority: supporting
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/04-Quality-Gates.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -2260,7 +2260,7 @@ reference_analysis:
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/04-Quality-Gates.md"
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/06-Change-Control-Workflow.md"
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
-  verification_scope: "20 core artifacts analyzed across batches; additional batches pending."
+  verification_scope: "30 core/domain artifacts analyzed across batches; additional batches pending."
 next_analysis:
   - "Assign stable Artifact IDs and owners."
   - "Extract and validate all cross-references."

@@ -69,6 +69,7 @@ La prueba debe utilizar una copia o repositorio de prueba, no el repositorio pri
 - [x] No se instala runner propio.
 - [x] No se añaden credenciales al repositorio.
 - [x] No se activa facturación.
+- [x] Pipeline mínimo Woodpecker preparado en `.woodpecker.yml`.
 - [ ] Crear/usar cuenta externa de Codeberg.
 - [ ] Solicitar acceso al CI alojado de Woodpecker.
 - [ ] Esperar aprobación del servicio.
@@ -119,6 +120,12 @@ H-014 podrá marcarse como **VERIFICADO** solamente si existe evidencia de todos
 | Límites reales documentados | PENDIENTE |
 | Procedimiento de desactivación/remoción probado | PENDIENTE |
 | Exportación/recuperación Git independiente preservada | VERIFICADO POR DISEÑO |
+
+## Pipeline de prueba preparado
+
+El archivo `.woodpecker.yml` ejecuta únicamente el validador local de calidad ya existente. El pipeline instala PyYAML dentro del contenedor y ejecuta `scripts/validation/local-quality-validation.py`. Esto permite probar la misma validación determinista sin depender de GitHub Actions. La configuración es una preparación para H-014, no evidencia de que el pipeline externo ya haya sido ejecutado.
+
+La documentación oficial de Codeberg indica que el servicio alojado utiliza Woodpecker, requiere aprobación manual y admite la habilitación del repositorio mediante `ci.codeberg.org/repos/add`. citeturn1search1
 
 ## Límite de evidencia actual
 

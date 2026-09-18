@@ -3039,3 +3039,73 @@ authority_vs_status_screening_v1:
   confirmed_authority_overrides: []
   confirmed_status_artifacts_misused_as_normative_authority: []
   remaining_scope: "This screening is evidence-based and sample-focused; exhaustive consumer/reference analysis remains open under dependency-graph debt."
+
+dependency_graph_v1_1:
+  status: "verified-conflict-scope"
+  verified_consumers_and_boundaries:
+    - source: "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      boundary: "Function taxonomy and risk-level independence rules feed role-combination classification; both remain proposed and neither is independently baselined."
+    - source: "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/SoD-Control-Matrix.yml"
+        - "docs/Governance/Decision/SoD-Exception-Register.yml"
+      boundary: "Combination classifications provide control/exception context; they do not establish actual person assignments."
+    - source: "docs/Governance/Decision/SoD-Integration-Register.md"
+      consumers:
+        - "docs/Governance/Decision/SoD-Integration-Register-2.md"
+      boundary: "Both describe cross-domain operationalization; semantic overlap is confirmed and normative precedence remains unresolved."
+    - source: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+      consumers:
+        - "docs/Governance/Decision/Decision-Authority-Register.md"
+        - "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+      boundary: "YAML is the structured authority candidate; MD is a readable mirror candidate. Authority must not be inferred from authorship."
+    - source: "docs/Governance/04-Quality-Gates.md"
+      consumers:
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+        - "docs/Governance/03-Artifacts-And-Evidence.md"
+      boundary: "MD is normative gate policy; YAML is structured operational specification."
+    - source: "docs/Governance/Metrics/Metric-Catalog.yml"
+      consumers:
+        - "docs/Governance/21-Engineering-Metrics-Governance.md"
+        - "derived dashboards"
+      boundary: "Catalog defines metric records; governance policy defines lifecycle/model; dashboard is derived and not a source of truth."
+    - source: "docs/Governance/Risk/Risk-Register.yml"
+      consumers:
+        - "docs/Governance/Risk/Risk-Register.md"
+        - "docs/Governance/19-Decision-Governance.md"
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+      boundary: "YAML is structured risk SoT; MD is derived view."
+  confirmed_overlap_findings:
+    - id: "OVERLAP-001"
+      artifacts:
+        - "docs/Governance/Decision/SoD-Integration-Register.md"
+        - "docs/Governance/Decision/SoD-Integration-Register-2.md"
+      finding: "High semantic overlap confirmed by content comparison; both describe the same pending cross-domain SoD operationalization."
+      action: "Open separate remediation Issue before consolidation; no deletion/rename performed under #172."
+    - id: "OVERLAP-002"
+      artifacts:
+        - "docs/Governance/Decision/SoD-Decision-Function-Matrix.yml"
+        - "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml"
+      finding: "Not a proven duplicate. First defines function/risk semantics; second classifies function pairs."
+      action: "Keep both pending explicit normative boundary and precedence."
+    - id: "SOT-002"
+      artifacts:
+        - "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+        - "docs/Governance/Decision/Decision-Authority-Register.md"
+      finding: "Structured YAML and human-readable MD contain materially equivalent authority records."
+      action: "Treat YAML as candidate structured SoT and MD as derived candidate pending formal mirror rule."
+    - id: "SOT-003"
+      artifacts:
+        - "docs/Governance/Quality/Quality-Gate-Catalog.yml"
+        - "docs/Governance/04-Quality-Gates.md"
+      finding: "Complementary semantic layers, not duplicate authority."
+      action: "Formalize synchronization/version coupling in a separate remediation Issue."
+    - id: "SOT-004"
+      artifacts:
+        - "docs/Governance/Metrics/Metric-Catalog.yml"
+        - "docs/Governance/21-Engineering-Metrics-Governance.md"
+      finding: "Complementary definition/governance layers."
+      action: "Keep split; operational measurement effectiveness remains separately evidenced."
+  decision_rule: "No consolidation decision is authorized by this graph update; only evidence-backed boundary classification is recorded."

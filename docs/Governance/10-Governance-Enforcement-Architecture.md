@@ -144,7 +144,19 @@ La arquitectura de Evidence Validation se define en `14-Evidence-Validation-Arch
 
 Sus controles iniciales EV-001..EV-005 comprueban estructura mínima de evidencia, relación Issue–PR, identidad determinista del commit evaluado, declaración de validaciones y baseline documental.
 
-## 10. Controles sobre `main`
+## 10. Trazabilidad de ejecuciones dispatch
+
+Los workflows de validación que admiten `workflow_dispatch` o `repository_dispatch` resuelven de forma determinista el contexto de una PR cuando esta es suministrada. La fuente para ejecución manual es `inputs.pr_number`; para ejecución externa es `github.event.client_payload.pr_number`.
+
+Cuando existe PR objetivo, el SHA evaluado se obtiene de la cabeza de esa PR y los controles PR-específicos se ejecutan contra ese SHA. Cuando no existe PR objetivo, los controles que requieren contexto de PR se declaran `NOT_APPLICABLE`.
+
+La evidencia de ejecución conserva, como mínimo, `event_name`, `actor`, PR objetivo cuando exista, SHA evaluado y `workflow_run_id`. Esta trazabilidad no utiliza `pull_request_target` ni amplía los permisos de escritura.
+
+## 11. LG-009 — Integridad del catálogo de labels
+
+LG-009 controla que los labels aplicados a Pull Requests estén autorizados por `docs/Governance/Label-Catalog.yml`. Se implementa mediante `label-change-validation.yml` y conserva contexto de ejecución cuando se invoca por dispatch. La clasificación continúa dependiendo de `governance.classification`; LG-009 valida autorización del label, no inventa su clasificación.
+
+## 12. Controles sobre `main`
 
 Ante cada `push` a `main`, el control MC-001 ejecuta un monitor dedicado que registra el evento, actor, fecha/hora del commit y de observación, SHA actual, SHA anterior cuando está disponible, mensaje, estado del push, archivos afectados y Pull Requests asociados mediante GitHub API. La actualización se clasifica como integración esperada únicamente cuando existe al menos un PR fusionado hacia `main`; en caso contrario se clasifica como anomalía y se genera o actualiza un Issue de incidente.
 
@@ -152,7 +164,7 @@ MC-001 conserva evidencia reproducible como artifact del workflow. El artifact c
 
 La protección nativa futura deberá complementar, no sustituir, esta detección.
 
-## 11. Perfil de enforcement nativo futuro
+## 13. Perfil de enforcement nativo futuro
 
 Cuando la plataforma lo permita y exista una vía de verificación administrativa compatible, `main` deberá adoptar el perfil definido en `53-Main-Branch-Protection-Enforcement.md`, incluyendo como mínimo:
 
@@ -167,7 +179,7 @@ Cuando la plataforma lo permita y exista una vía de verificación administrativ
 
 La configuración deberá probarse mediante un PR real y no se considerará efectiva por mera declaración documental ni por el simple hecho de que la cuenta administradora tenga permiso `admin`.
 
-## 12. Línea base mínima
+## 14. Línea base mínima
 
 Los siguientes artefactos forman parte de la baseline de enforcement:
 
@@ -205,15 +217,15 @@ Los siguientes artefactos forman parte de la baseline de enforcement:
 
 La ausencia de cualquiera de estos artefactos debe provocar fallo del control de baseline correspondiente cuando el control sea aplicable.
 
-## 13. Governance Gate Enforcement
+## 15. Governance Gate Enforcement
 
 Los Quality Gates utilizan controles de readiness específicos definidos en `11-Governance-Control-Matrix.md`. Para G0, los controles `GC-001` a `GC-004` verifican respectivamente la evaluación formal de readiness, el análisis de impacto, la existencia del paquete de evidencia y la explicitación del riesgo residual.
 
-## 14. Metrics Governance
+## 16. Metrics Governance
 
 Metrics Governance convierte los resultados observables del proceso de ingeniería en indicadores definidos y reproducibles. Su política, catálogo y matriz de controles se encuentran en `21-Engineering-Metrics-Governance.md` y `22-Engineering-Metrics-Control-Matrix.md`.
 
-## 15. Residual risk
+## 17. Residual risk
 
 El riesgo residual principal sigue siendo que un actor con permisos de escritura modifique `main` sin pasar por el mecanismo de Pull Request o fuerce una actualización. La arquitectura reduce la probabilidad de incumplimiento accidental y mejora la detección, pero no convierte GitHub Actions en una barrera de escritura equivalente a branch protection.
 
@@ -221,21 +233,21 @@ Existe además un riesgo de observabilidad: la integración GitHub actual no pue
 
 La aceptación del riesgo es temporal y está condicionada a repositorio privado, configuración/plataforma actual sin enforcement nativo verificable, mantenimiento de controles compensatorios y revisión periódica de las capacidades de la plataforma y de la integración.
 
-## 16. Métricas iniciales
+## 18. Métricas iniciales
 
 La arquitectura deberá permitir medir progresivamente el cumplimiento de Governance, Quality, Security, Evidence, Decision Governance y AI Governance, además de actualizaciones sospechosas de `main` y disponibilidad/frescura de evidencia.
 
-## 17. Evolución hacia enforcement nativo
+## 19. Evolución hacia enforcement nativo
 
 Cuando exista capacidad compatible de GitHub y una vía de verificación administrativa, la arquitectura conservará sus validaciones aunque se active branch protection/rulesets.
 
 La activación será una unidad de cambio controlada y deberá conservar Issue, branch, commits, PR, configuración efectiva, pruebas y evidencia de los controles.
 
-## 18. Criterio de verdad
+## 20. Criterio de verdad
 
 Nunca se utilizará la expresión `main protegida técnicamente` mientras la plataforma no esté efectivamente impidiendo las operaciones correspondientes y esa condición pueda ser verificada.
 
-## 19. Evidencia de implementación
+## 21. Evidencia de implementación
 
 La implementación debe conservar Issue, branch, PR, workflow runs, commits, análisis de impacto, Decision Records cuando correspondan, registros de AI Governance cuando existan usos reales, resultados de validación, métricas y snapshots cuando existan, estado final de integración y documentación actualizada.
 

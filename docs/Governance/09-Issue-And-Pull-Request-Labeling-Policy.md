@@ -95,19 +95,27 @@ Todo PR deberá:
 - registrar pruebas/evidencia;
 - declarar explícitamente uno y solo uno de los estados formales de integración del proyecto.
 
-## 8. Regularización histórica
+## 8. LG-009 — Integridad y autorización del catálogo
+
+LG-009 establece que los labels aplicados a Issues y Pull Requests deben pertenecer al catálogo controlado de `docs/Governance/Label-Catalog.yml`.
+
+El control se implementa mediante `label-change-validation.yml` y verifica la integridad del catálogo y la autorización de los labels presentes en una PR. Las ejecuciones por `workflow_dispatch` pueden dirigirse mediante `inputs.pr_number`; las ejecuciones por `repository_dispatch` pueden dirigirse mediante `github.event.client_payload.pr_number`. Cuando existe PR objetivo, se resuelven de forma determinista su número y SHA de cabeza. Sin PR objetivo, la validación específica de una PR es `NOT_APPLICABLE`.
+
+La evidencia de ejecución conserva evento, actor, PR objetivo cuando exista y SHA evaluado. LG-009 valida la autorización del label; no inventa ni sustituye la clasificación declarada mediante `governance.classification`.
+
+## 9. Regularización histórica
 
 Los Issues y PRs históricos no se reescribirán artificialmente. Cuando sea útil, podrán regularizarse sus labels o metadatos sin alterar el contenido sustantivo ni romper la trazabilidad histórica.
 
 La nueva convención de títulos se aplica obligatoriamente desde Issue #11 en adelante.
 
-## 9. Evolución de la taxonomía
+## 10. Evolución de la taxonomía
 
 Cuando aparezcan dominios permanentes como requisitos, testing, seguridad, datos, DevOps u operaciones, se evaluará la incorporación de labels específicos antes de utilizarlos como clasificación oficial.
 
 La incorporación deberá considerar necesidad real, ausencia de solapamiento, estabilidad semántica, utilidad para métricas/Roadmap y documentación del significado.
 
-## 10. Relación con el Roadmap
+## 11. Relación con el Roadmap
 
 ```text
 Título

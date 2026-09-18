@@ -35,12 +35,31 @@ jobs:
           set -euo pipefail
           if [[ -n "$EVENT_PR_NUMBER" ]]; then
             pr_json="$(gh api "repos/$REPOSITORY/pulls/$EVENT_PR_NUMBER")"
+            target_sha="$(printf '%s' "$pr_json" | jq -r '.head.sha')"
             echo "TARGET_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
-            echo "TARGET_PR_SHA=$(printf '%s' "$pr_json" | jq -r '.head.sha')" >> "$GITHUB_ENV"
+            echo "TARGET_PR_SHA=$target_sha" >> "$GITHUB_ENV"
           else
             echo "TARGET_PR_NUMBER=" >> "$GITHUB_ENV"
             echo "TARGET_PR_SHA=${GITHUB_SHA}" >> "$GITHUB_ENV"
           fi
+          echo "EVENT_NAME=$GITHUB_EVENT_NAME" >> "$GITHUB_ENV"
+          echo "EVENT_ACTOR=$GITHUB_ACTOR" >> "$GITHUB_ENV"
+          echo "DISPATCH_PR_NUMBER=$EVENT_PR_NUMBER" >> "$GITHUB_ENV"
+          if [[ -n "$EVENT_PR_NUMBER" ]]; then echo "DISPATCH_SHA=$target_sha" >> "$GITHUB_ENV"; else echo "DISPATCH_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"; fi
+
+      - name: Record execution context
+        run: |
+          set -euo pipefail
+          jq -n --arg event "$EVENT_NAME" --arg actor "$EVENT_ACTOR" --arg pr "$DISPATCH_PR_NUMBER" --arg sha "$DISPATCH_SHA" --arg repository "$GITHUB_REPOSITORY" --arg run_id "$GITHUB_RUN_ID" '{repository:$repository,event_name:$event,actor:$actor,target_pr_number:(if $pr == "" then null else ($pr|tonumber) end),target_sha:$sha,workflow_run_id:$run_id}' > dispatch-execution-context.json
+          cat dispatch-execution-context.json
+
+      - name: Upload execution context evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence-dispatch-context-${{ github.run_id }}-${{ github.run_attempt }}
+          path: dispatch-execution-context.json
+          if-no-files-found: error
+          retention-days: 90
 
       - name: Checkout repository
         uses: actions/checkout@v4

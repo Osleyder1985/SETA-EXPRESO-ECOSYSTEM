@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 182
+artifact_count: 188
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -3187,6 +3187,85 @@ metrics_catalog_semantic_resolution:
   synchronization: "Shared semantic changes require coordinated controlled change and impact review."
   drift_is_governance_finding: true
   measurement_not_implied: true
+
+  - path: "docs/Governance/171-Governance-Core-Final-Revalidation-2026-09-18.md"
+    artifact_id: "GOV-A0183"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/Artifact-Authority-Register.yml", "docs/Governance/00-Software-Lifecycle-Master.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "recorded-in-document"
+    lifecycle_status: "historical-revalidation-record"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Artifact-Authority-Register-H001-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0184"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/Artifact-Authority-Register.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "audit-record"
+    lifecycle_status: "historical-audit-record"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/Decision-SoD-H002-H005-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0185"
+    type: validation_evidence
+    authority: derived_or_record
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/Decision/Decision-Authority-Matrix.yml", "docs/Governance/Decision/SoD-Integration-Register.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "audit-record"
+    lifecycle_status: "historical-audit-record"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Decision/SoD-Transversal-Operationalization-Matrix-H005-2026-09-18.md"
+    artifact_id: "GOV-A0186"
+    type: governance_matrix
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/Decision/SoD-Decision-Function-Matrix.yml", "docs/Governance/Decision/SoD-Role-Combination-Matrix.yml", "docs/Governance/Decision/SoD-Control-Matrix.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "documented-operationalization-matrix"
+    evidence: "documentary-only"
+    lifecycle_status: "controlled-baseline"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Metrics/Metric-Operationalization.md"
+    artifact_id: "GOV-A0187"
+    type: governance_document
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/21-Engineering-Metrics-Governance.md", "docs/Governance/Metrics/Metric-Catalog.yml"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "first-operational-slice"
+    evidence: "operationalization-record"
+    lifecycle_status: "controlled-baseline"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
+  - path: "docs/Governance/Security/H-004-Security-Applicability-Matrix.md"
+    artifact_id: "GOV-A0188"
+    type: validation_evidence
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["docs/Governance/13-Security-Validation-Architecture.md", "docs/Governance/10-Governance-Enforcement-Architecture.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "applicability-analysis"
+    evidence: "validation-record"
+    lifecycle_status: "controlled-baseline"
+    duplicate_risk: low
+    disposition: "AUDIT_PENDING"
 
 
 audit:

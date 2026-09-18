@@ -100,3 +100,14 @@ accumulation_policy:
   segregation_of_duties: required_when_practicable
   conflicts_must_be_recorded: true
 result_states: [PROPOSED, REVIEWED, ACCEPTED, REJECTED, SUPERSEDED, DEPRECATED]
+
+
+mirror_contract:
+  canonical_source: "docs/Governance/Decision/Decision-Authority-Matrix.yml"
+  derived_mirror: "docs/Governance/Decision/Decision-Authority-Register.md"
+  rule: "All role/decision authority data in the Markdown register must be derived from the YAML canonical source."
+  precedence: "YAML prevails on conflict."
+  synchronization: "Any authority-data change requires updating the YAML first and regenerating or synchronizing the Markdown mirror in the same controlled change."
+  validation: "Validate decision IDs, accountable/approval/blocking/consulted roles and required evidence for semantic equivalence; report drift as non-conformance."
+  authorship: "Document/commit/PR authorship does not confer decision authority."
+  status_constraint: "status=proposed; this contract does not baseline operational authority or actual person assignments."

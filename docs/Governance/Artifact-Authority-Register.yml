@@ -3356,4 +3356,18 @@ audit:
     - "complete inbound reference graph"
   unresolved_marker_occurrences: 879
   evidence_record: "docs/Governance/Artifact-Authority-Register-H001-Audit-2026-09-18.md"
-  rule: "Do not replace TO_BE_VERIFIED values by inference."
+  rule: "Do not replace TO_BE_VERIFIED values by inference.
+  - path: "docs/Governance/Platform-Continuity/H-010-Self-Hosted-Runner-Design-2026-09-18.md"
+    artifact_id: "GOV-A0196"
+    type: governance_design
+    authority: supporting
+    source_of_truth: false
+    confidence: high
+    depends_on: ["Issue #192", "docs/Governance/Platform-Continuity/H-008-CI-CD-Portability-Inventory-2026-09-18.md", "docs/Governance/Platform-Continuity/H-009-Git-Mirror-Recovery-Design-2026-09-18.md"]
+    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    implementation: "Implemented in Issue #192 branch; merge pending."
+    evidence: "Controlled PR #193"
+    lifecycle_status: "implementation-controlled"
+    duplicate_risk: low
+    disposition: "CONSERVE"
+"

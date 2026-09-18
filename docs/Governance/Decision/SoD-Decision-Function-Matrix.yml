@@ -14,3 +14,13 @@ risk_levels:
   R2: "Revisión independiente según impacto y dominio."
   R3: "Separación de aprobación y ejecución cuando sea viable."
   R4: "Independencia reforzada; no concentración de definición, aprobación, ejecución y validación cuando exista alternativa viable."
+
+
+authority_boundary:
+  role: "function_and_risk_taxonomy"
+  source_of_truth: true
+  authority_scope: "Defines the controlled function vocabulary and the independence expectations associated with R1-R4 risk levels."
+  does_not_define: "It does not classify specific function pairs as allowed/restricted/prohibited and does not assign functions to persons."
+  consumer: "SoD-Role-Combination-Matrix.yml"
+  precedence: "When interpreting function names or risk-level independence semantics, this matrix is authoritative."
+  status_constraint: "status=proposed; this authority boundary does not baseline the matrix."

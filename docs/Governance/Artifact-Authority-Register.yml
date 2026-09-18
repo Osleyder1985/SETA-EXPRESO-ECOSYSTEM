@@ -202,7 +202,7 @@ artifacts:
     authority: derived_or_record
     source_of_truth: false
     confidence: medium
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/Quality/Quality-Gate-Catalog.yml"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -263,7 +263,7 @@ artifacts:
     source_of_truth: true
     canonical_role: risk_governance
     confidence: high
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/Risk/Risk-Register.yml", "docs/Governance/Risk/Risk-Register.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -288,7 +288,7 @@ artifacts:
     source_of_truth: true
     canonical_role: decision_governance
     confidence: high
-    depends_on: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
+    depends_on: ["docs/Governance/Risk/Risk-Register.yml"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "TO_BE_VERIFIED"
     evidence: "TO_BE_VERIFIED"
@@ -2260,7 +2260,7 @@ reference_analysis:
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/04-Quality-Gates.md"
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/06-Change-Control-Workflow.md"
     - "docs/Governance/07-Main-Protection-Strategy.md -> docs/Governance/09-Issue-And-Pull-Request-Labeling-Policy.md"
-  verification_scope: "10 core artifacts; additional batches pending."
+  verification_scope: "20 core artifacts analyzed across batches; additional batches pending."
 next_analysis:
   - "Assign stable Artifact IDs and owners."
   - "Extract and validate all cross-references."

@@ -1,6 +1,8 @@
 name: Label Classification Automation
 
 on:
+  issues:
+    types: [opened, edited, reopened]
   pull_request:
     types: [opened, synchronize, reopened, edited, labeled, unlabeled]
   workflow_dispatch:
@@ -14,10 +16,109 @@ on:
 
 permissions:
   contents: read
-  issues: read
+  issues: write
   pull-requests: write
 
 jobs:
+  classify-issue:
+    name: Resolve and validate Issue labels
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract and validate Issue classification
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+          ISSUE_BODY="$(cat <<'EOF'
+${ISSUE_BODY}
+EOF
+)"
+          metadata=$(awk '/^```yaml[[:space:]]*$/{capture=1;next} capture && /^\`\`\`[[:space:]]*$/{exit} capture{print}' <<< "$ISSUE_BODY")
+          [[ -n "$metadata" ]] || { echo "FAIL LG-007: governance metadata YAML is missing."; exit 1; }
+          printf '%s\n' "$metadata" > /tmp/governance.yml
+          ruby -ryaml -e '
+            metadata = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            catalog = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            classification = metadata.dig("governance", "classification")
+            labels = catalog["labels"]
+            abort "FAIL LG-007: governance.classification must be a mapping." unless classification.is_a?(Hash)
+            abort "FAIL LG-007: catalog labels section is missing." unless labels.is_a?(Hash)
+            %w[domain work_type].each do |dimension|
+              value = classification[dimension]
+              abort "FAIL LG-007: missing classification field #{dimension}." unless value.is_a?(String) && !value.empty?
+              entries = labels[dimension]
+              abort "FAIL LG-007: catalog dimension #{dimension} is missing." unless entries.is_a?(Hash)
+              abort "FAIL LG-007: #{dimension}=#{value.inspect} is not authorized by Label-Catalog.yml." unless entries.key?(value)
+            end
+          '
+
+      - name: Reconcile Issue labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPOSITORY/issues/$ISSUE_NUMBER/labels" --paginate --jq '.[].name' | sort -u > /tmp/current-labels
+          ruby -ryaml -e '
+            data = YAML.safe_load(File.read("/tmp/governance.yml"), permitted_classes: [], aliases: false) || {}
+            catalog = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            classification = data.fetch("governance").fetch("classification")
+            dimensions = %w[domain work_type]
+            managed = dimensions.flat_map { |d| catalog["labels"].fetch(d).keys }.uniq
+            desired = dimensions.map { |d| classification.fetch(d) }
+            current = File.readlines("/tmp/current-labels", chomp: true)
+            stale = current & managed - desired
+            missing = desired - current
+            File.write("/tmp/stale-labels", stale.join("\n") + (stale.empty? ? "" : "\n"))
+            File.write("/tmp/missing-labels", missing.join("\n") + (missing.empty? ? "" : "\n"))
+          '
+          while IFS= read -r label; do
+            [[ -z "$label" ]] && continue
+            gh api -X DELETE "repos/$REPOSITORY/issues/$ISSUE_NUMBER/labels/$label"
+          done < /tmp/stale-labels
+          while IFS= read -r label; do
+            [[ -z "$label" ]] && continue
+            gh api -X POST "repos/$REPOSITORY/issues/$ISSUE_NUMBER/labels" -f "labels[]=$label" >/dev/null
+          done < /tmp/missing-labels
+
+      - name: LG-001 to LG-004 Validate final Issue labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          ruby -ryaml -e '
+            c = YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false) || {}
+            abort "LG-001 FAIL: schema_version must be 1" unless c["schema_version"] == "1"
+            abort "LG-001 FAIL: labels section missing" unless c["labels"].is_a?(Hash)
+            %w[domain work_type].each { |k| abort "LG-001 FAIL: #{k} catalog missing" unless c["labels"][k].is_a?(Hash) }
+            File.write("/tmp/catalog-labels", c["labels"].values.flat_map(&:keys).uniq.sort.join("\n") + "\n")
+          '
+          mapfile -t labels < <(gh issue view "$ISSUE_NUMBER" --repo "$REPOSITORY" --json labels --jq '.labels[].name' | sort -u)
+          for label in "${labels[@]}"; do
+            [[ -z "$label" ]] && continue
+            grep -Fxq "$label" /tmp/catalog-labels || { echo "LG-002 FAIL: unauthorized label: $label"; exit 1; }
+          done
+          mapfile -t domains < <(ruby -ryaml -e 'c=YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false); puts c["labels"]["domain"].keys')
+          mapfile -t work_types < <(ruby -ryaml -e 'c=YAML.safe_load(File.read("docs/Governance/Label-Catalog.yml"), permitted_classes: [], aliases: false); puts c["labels"]["work_type"].keys')
+          domain_count=0; work_count=0
+          for label in "${labels[@]}"; do
+            for d in "${domains[@]}"; do [[ "$label" == "$d" ]] && ((domain_count+=1)); done
+            for w in "${work_types[@]}"; do [[ "$label" == "$w" ]] && ((work_count+=1)); done
+          done
+          [[ "$domain_count" -eq 1 ]] || { echo "LG-003 FAIL: expected exactly one domain label, got $domain_count"; exit 1; }
+          [[ "$work_count" -eq 1 ]] || { echo "LG-004 FAIL: expected exactly one work_type label, got $work_count"; exit 1; }
+          echo "LG-001..LG-004 PASS"
+
   classify-labels:
     name: Resolve and validate PR labels
     runs-on: ubuntu-latest

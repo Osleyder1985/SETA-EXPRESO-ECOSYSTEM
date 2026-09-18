@@ -1,54 +1,92 @@
 # Arquitectura de Security Validation
 
 **Proyecto:** SETA EXPRESO ECOSYSTEM  
-**Versión:** 0.1.0  
-**Estado:** Baseline inicial de Security Validation  
-**Fecha:** 2026-09-15  
-**Issue:** #22
+**Versión:** 0.2.0  
+**Estado:** Baseline operacional de aplicabilidad y evidencia  
+**Fecha:** 2026-09-18  
+**Issue de implementación:** #180  
+**Issue de origen:** #171 / H-004
 
-Security Validation es una capa transversal para detectar condiciones objetivas de riesgo antes de integrar cambios en `main`. No sustituye threat modeling, arquitectura de seguridad, análisis de riesgos, pruebas de penetración, revisión humana ni gestión de vulnerabilidades.
+El job `Validate security controls` de Security Validation es la ejecución automatizada de una capa transversal para detectar condiciones objetivas de riesgo antes de integrar cambios en `main`. No sustituye threat modeling, arquitectura de seguridad, análisis de riesgos, pruebas de penetración, revisión humana ni gestión de vulnerabilidades.
 
 ## Cadena de control
 
 ```text
-Issue → Branch → Pull Request → Validate governance controls → Validate repository quality → Validate security controls → Validate engineering evidence → Review → Merge → main
+Issue → Branch → Pull Request → Governance → Quality → Security → Evidence → Review → Merge → main
 ```
 
-## Controles iniciales
+## Inventario técnico verificado para H-004
 
-| ID | Control | Objetivo / riesgo | Mecanismo | Estado | Evidencia | Limitación |
+La revisión del árbol de `main` en el commit de referencia de #179 identificó:
+
+- workflows de GitHub Actions;
+- archivos de configuración y catálogos YAML;
+- documentación Markdown;
+- plantillas de gobernanza e investigación.
+
+No se identificaron manifiestos/lockfiles de paquetes de aplicación, código fuente de aplicación en lenguajes soportados por SAST, Dockerfiles/imágenes, Terraform/IaC del producto ni artefactos de componentes de software que justifiquen SCA, container scanning o SBOM de producto en esta fase.
+
+Las referencias `uses:` de GitHub Actions son dependencias de automatización y se mantienen como riesgo de supply chain separado; su presencia por sí sola no convierte SV-005 en SCA de aplicación.
+
+## Matriz de controles
+
+| ID | Control | Aplicabilidad actual | Mecanismo | Estado verificable | Evidencia | Condición de reevaluación |
 |---|---|---|---|---|---|---|
-| SV-001 | Secret Material Scan | Evitar claves privadas y credenciales críticas conocidas | Patrones deterministas | Implementado | Workflow run | No sustituye secret scanning especializado |
-| SV-002 | Workflow Least Privilege | Reducir permisos excesivos del `GITHUB_TOKEN` | Validación de `permissions` | Implementado | Workflow run | No demuestra seguridad completa |
-| SV-003 | Dangerous Workflow Trigger | Detectar `pull_request_target` no justificado | Validación de triggers | Implementado | Workflow run | Casos legítimos requieren excepción |
-| SV-004 | Security Workflow Integrity | Evitar degradación silenciosa del control | Presencia e integridad básica | Implementado | Workflow run | No impide escritura directa |
-| SV-005 | Dependency Security | Vulnerabilidades conocidas | SCA futuro | `NOT_APPLICABLE` inicial | Decisión documentada | No hay manifiestos de aplicación aún |
-| SV-006 | SAST | Vulnerabilidades en código | SAST futuro | `NOT_APPLICABLE` inicial | Decisión documentada | No hay código de aplicación aún |
-| SV-007 | IaC Security | Configuración insegura | Scanner IaC futuro | `NOT_APPLICABLE` inicial | Decisión documentada | No hay IaC del producto aún |
-| SV-008 | Container Security | Vulnerabilidades en imágenes | Scanner futuro | `NOT_APPLICABLE` inicial | Decisión documentada | No hay imágenes del producto |
-| SV-009 | SBOM | Inventario de componentes | Generación SBOM futura | `NOT_IMPLEMENTED` inicial | Roadmap | Se implementará con software/dependencias reales |
+| SV-001 | Secret Material Scan | Aplicable | Patrones deterministas sobre contenido versionado | PASS | Run de `Security Validation` | Revisar al introducir secretos/formatos nuevos |
+| SV-001A | Secret scanning especializado | Capacidad no verificable desde esta integración | Plataforma GitHub / scanner especializado | NOT_VERIFIED | Limitación de acceso a capacidades administrativas | Revaluar cuando exista acceso verificable a Security/Secret Scanning |
+| SV-002 | Workflow Least Privilege | Aplicable | Validación de `permissions` en todos los workflows | PASS | Run de `Security Validation` | Reevaluar ante nuevos workflows |
+| SV-003 | Dangerous Workflow Trigger | Aplicable | Detección de `pull_request_target` | PASS | Run de `Security Validation` | Reevaluar ante cambios de triggers |
+| SV-004 | Security Workflow Integrity | Aplicable | Presencia, integridad y autoconsistencia básica | PASS | Run de `Security Validation` | Reevaluar ante cambios del control |
+| SV-005 | Dependency Security | No aplicable al producto actual | Sin manifiestos/lockfiles de aplicación; no se declara SCA | NOT_APPLICABLE | Inventario reproducible | Al introducir manifest/lockfile o dependencia de producto |
+| SV-006 | SAST de producto | No aplicable al producto actual | No existe código de aplicación analizable | NOT_APPLICABLE | Inventario reproducible | Al introducir código de aplicación soportado |
+| SV-006A | SAST especializado de workflows | Potencialmente aplicable; capacidad no verificable | GitHub CodeQL para GitHub Actions | NOT_VERIFIED | Run #2 terminó con configuration error: Code scanning no está habilitado y la integración no puede acceder al endpoint requerido | Revaluar cuando Code Scanning/CodeQL sea habilitable y verificable |
+| SV-007 | IaC Security | No aplicable | No existe IaC del producto | NOT_APPLICABLE | Inventario reproducible | Al introducir Terraform, cloud/IaC u otra infraestructura declarativa |
+| SV-008 | Container Security | No aplicable | No existen Dockerfiles/imágenes del producto | NOT_APPLICABLE | Inventario reproducible | Al introducir Dockerfile, imagen o pipeline de contenedor |
+| SV-009 | SBOM | No aplicable al producto actual | No existe composición de producto que genere un SBOM significativo | NOT_APPLICABLE | Inventario reproducible | Al introducir software/dependencias/componentes de producto |
 
-## Marcos de referencia
+## Supply chain de GitHub Actions
 
-NIST SP 800-218 (SSDF 1.1) recomienda integrar prácticas de desarrollo seguro dentro del SDLC. NIST CSF 2.0 organiza la gestión del riesgo mediante Govern, Identify, Protect, Detect, Respond y Recover. Se utilizan como referencias y su uso no implica conformidad automática.
+Los workflows contienen referencias externas mediante `uses:`. Estas referencias constituyen una superficie de supply chain de automatización, pero no se presentan como SCA de aplicación ni como SBOM.
 
-Security Validation es transversal al ciclo de vida y se relacionará con ISO/IEC/IEEE 12207:2026, 15288:2023 e ISO/IEC 25010:2023 mediante requisitos y medidas verificables cuando exista contexto suficiente.
+La política aplicable es:
 
-## Política de fallo
+1. mantener permisos mínimos;
+2. evitar `pull_request_target` salvo excepción justificada;
+3. revisar cambios de acciones dentro de PR;
+4. preferir referencias mantenidas y versiones controladas;
+5. reevaluar Dependabot/dependency review cuando la capacidad del repositorio lo permita;
+6. tratar CodeQL como capacidad no verificada mientras el repositorio no permita una ejecución y publicación de resultados reproducible.
 
-SV-001..SV-004 son controles activos para el estado actual. Un fallo termina la ejecución con resultado distinto de PASS. `NOT_APPLICABLE` y `NOT_IMPLEMENTED` se conservan explícitamente y no se convierten artificialmente en PASS.
+En la ejecución #2 de `Security — CodeQL Workflows`, CodeQL analizó 10/10 workflows y produjo SARIF, pero terminó con `configuration error` al no poder acceder a los endpoints requeridos y al indicar que Code Scanning no está habilitado. Por tanto, ese run **no constituye evidencia PASS ni IMPLEMENTED** para SV-006A.
 
-## Evolución
+La documentación de GitHub indica que Dependency Review analiza cambios de dependencias en pull requests y que la acción puede usarse como gate cuando el repositorio dispone de las capacidades requeridas. No se afirma que esa capacidad esté habilitada aquí. 
 
-Cuando exista código e infraestructura reales se incorporarán, según riesgo y aplicabilidad, SAST, SCA, secret scanning especializado, SBOM, IaC, contenedores, configuración cloud, DAST, seguridad de API, threat modeling, supply chain y procedencia.
+## Política de fallo y estados
 
-## Riesgo residual
+Los estados `PASS`, `NOT_APPLICABLE`, `NOT_VERIFIED` e `IMPLEMENTED` tienen semántica distinta:
 
-La capa inicial no garantiza ausencia de vulnerabilidades. Persisten riesgos de vulnerabilidades lógicas, errores de autorización/autenticación, dependencias futuras vulnerables, secretos no capturados, infraestructura insegura, proveedores vulnerables, ataques de cadena de suministro y modificaciones directas de `main` mientras no exista enforcement nativo.
+- `PASS`: el mecanismo aplicable se ejecutó y satisfizo el criterio definido.
+- `IMPLEMENTED`: el mecanismo está integrado y existe evidencia verificable de su ejecución satisfactoria.
+- `NOT_APPLICABLE`: el inventario actual demuestra que el objeto del control no existe; debe existir condición explícita de reevaluación.
+- `NOT_VERIFIED`: la capacidad puede ser pertinente, pero la integración disponible no permite verificarla; no equivale a PASS ni a NOT_APPLICABLE.
+
+Un control no puede cambiar de estado por inferencia documental.
+
+## Integración con Governance Core
+
+La evidencia de esta evaluación se integra con:
+
+- `03-Artifacts-And-Evidence.md`: evidencia reproducible de workflow y matriz de aplicabilidad;
+- `14-Evidence-Validation-Architecture.md`: cadena de evidencia y trazabilidad;
+- `17-Risk-Management-System.md`: riesgo residual cuando una capacidad no puede verificarse;
+- `50-Non-Conformance-Management.md`: desviación solo cuando exista incumplimiento de un control aplicable, no por la mera existencia de un N/A justificado;
+- `04-Quality-Gates.md`: Security Validation sigue siendo un gate de validación, no una certificación de seguridad.
 
 ## Criterio de verdad
 
-Nunca se afirmará que el Ecosistema está «seguro» únicamente porque Security Validation haya pasado. La afirmación permitida es que los controles automatizados aplicables ejecutados en esa revisión fueron satisfechos.
+Nunca se afirmará que el Ecosistema está «seguro» únicamente porque Security Validation haya pasado. La afirmación permitida es que los controles automatizados aplicables ejecutados en esa revisión fueron satisfechos. Un mecanismo que termina con error de configuración no puede registrarse como control implementado o PASS.
+
+La existencia de esta matriz tampoco demuestra eficacia de controles futuros. Cada control debe conservar evidencia de ejecución o una justificación verificable de no aplicabilidad.
 
 ## Evidencia mínima
 

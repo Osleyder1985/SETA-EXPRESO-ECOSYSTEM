@@ -3,7 +3,7 @@ register_status: "baseline-under-audit"
 generated_from: "main"
 master_issue: 171
 construction_issue: 172
-artifact_count: 192
+artifact_count: 191
 authority_model:
   canonical: "Normative or structured source of truth."
   supporting: "Explains, operationalizes, integrates, or indexes a canonical artifact."
@@ -2991,27 +2991,13 @@ sot_conflict_register:
   - path: "docs/Governance/Platform-Continuity/H-015-GitHub-Public-Visibility-Audit-2026-09-18.md"
     artifact_id: "GOV-A0191"
     type: governance_validation_evidence
-    authority: derived_or_record
-    source_of_truth: false
-    confidence: high
-    depends_on: ["Issue #194", "docs/Governance/03-Artifacts-And-Evidence.md", "docs/Governance/07-Main-Protection-Strategy.md"]
-    referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
-    implementation: "Prepared in Issue #194 branch; public-visibility execution remains pending controlled review."
-    evidence: "Controlled PR #195; static public-exposure audit performed against main."
-    lifecycle_status: "implementation-controlled"
-    duplicate_risk: low
-    disposition: "CONSERVE"
-
-  - path: "docs/Governance/Platform-Continuity/H-015-GitHub-Public-Visibility-Audit-2026-09-18.md"
-    artifact_id: "GOV-A0192"
-    type: governance_validation_evidence
     authority: supporting
     source_of_truth: false
     confidence: high
     depends_on: ["Issue #194", "docs/Governance/Platform-Continuity/Zero-Cost-Portability-Strategy-2026-09-18.md"]
     referenced_by: "TO_BE_VERIFIED_FROM_CROSS_REFERENCES"
     implementation: "Prepared in Issue #194 branch; repository visibility change remains pending review and controlled execution."
-    evidence: "Issue #194 public-exposure audit; static repository-content and workflow review performed before visibility change."
+    evidence: "Controlled PR #195; static repository-content and workflow review performed before visibility change."
     lifecycle_status: "implementation-controlled"
     duplicate_risk: low
     disposition: "CONSERVE"

@@ -7,7 +7,7 @@
 **Issue de implementación:** #180  
 **Issue de origen:** #171 / H-004
 
-Security Validation es una capa transversal para detectar condiciones objetivas de riesgo antes de integrar cambios en `main`. No sustituye threat modeling, arquitectura de seguridad, análisis de riesgos, pruebas de penetración, revisión humana ni gestión de vulnerabilidades.
+El job `Validate security controls` de Security Validation es la ejecución automatizada de una capa transversal para detectar condiciones objetivas de riesgo antes de integrar cambios en `main`. No sustituye threat modeling, arquitectura de seguridad, análisis de riesgos, pruebas de penetración, revisión humana ni gestión de vulnerabilidades.
 
 ## Cadena de control
 

@@ -3175,3 +3175,15 @@ quality_gate_semantic_resolution:
   synchronization: "Shared semantic changes require coordinated update and impact analysis in one controlled change."
   drift_is_governance_finding: true
   execution_not_implied: true
+
+
+metrics_catalog_semantic_resolution:
+  status: "resolved-by-governance-plus-structured-catalog-plus-derived-views"
+  issue: 177
+  normative_policy: "docs/Governance/21-Engineering-Metrics-Governance.md"
+  structured_definition_catalog: "docs/Governance/Metrics/Metric-Catalog.yml"
+  derived_views: "Engineering Metrics dashboards/reports"
+  precedence: "Policy governs semantics; YAML governs structured metric definitions within that boundary; dashboards are derived."
+  synchronization: "Shared semantic changes require coordinated controlled change and impact review."
+  drift_is_governance_finding: true
+  measurement_not_implied: true

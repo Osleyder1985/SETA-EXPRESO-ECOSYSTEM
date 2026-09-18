@@ -4,7 +4,8 @@
 **Issue:** #152  
 **Naturaleza:** D-Detectivo / compensatorio  
 **Workflow:** `.github/workflows/main-integrity-monitor.yml`  
-**Estado:** Implementación en rama de trabajo; pendiente de validación, review y merge.
+**Integración:** PR #167  
+**Estado:** Implementado en `main`; verificación operacional no destructiva completada.
 
 ## 1. Propósito
 
@@ -87,16 +88,27 @@ MC-001 no modifica `main`, no realiza rollback y no intenta corregir automática
 - La clasificación automática no sustituye la investigación del incidente.
 - La protección nativa de ramas/rulesets sigue siendo una capacidad separada y un riesgo residual mientras no esté efectivamente habilitada y verificada.
 
-## 10. Criterio de cierre de Issue #152
+## 10. Implementación y verificación operacional
 
-El Issue #152 podrá cerrarse únicamente después de demostrar mediante un PR real:
+MC-001 fue implementado mediante el Issue #152 y el PR #167, integrado de forma controlada en `main`. El Issue #152 quedó cerrado como completado tras el merge.
+
+La implementación quedó incorporada en `.github/workflows/main-integrity-monitor.yml` y conserva el flujo detectivo/compensatorio definido en este documento.
+
+La verificación operacional no destructiva se realizó mediante `workflow_dispatch` sobre `main`. La ejecución `Main Integrity Monitor #2` finalizó en estado verde (`SUCCESS`), acreditando la capacidad del workflow para ejecutarse manualmente desde `main` y recorrer la ruta operacional de observación y generación de evidencia sin modificar el repositorio ni provocar deliberadamente una anomalía.
+
+Esta verificación no constituye una prueba de push directo no autorizado. Dicha prueba destructiva no se ejecuta porque contradiría el proceso de control establecido. La detección de anomalías queda implementada para eventos `push` y debe evaluarse mediante evidencia real cuando exista una actualización que requiera investigación.
+
+### Evidencia de implementación y cierre
 
 1. workflow válido y activado sobre `main`;
-2. registro de SHA, actor, fecha/hora y archivos;
-3. asociación de PR cuando exista;
-4. clasificación de una integración normal mediante PR;
-5. generación de Issue ante una anomalía verificable, sin auto-revert;
+2. registro implementado de SHA, actor, fecha/hora y archivos;
+3. asociación de PR cuando GitHub la expone;
+4. clasificación de integraciones normales mediante PR;
+5. generación de Issue ante una anomalía clasificable, sin auto-revert;
 6. artifact de evidencia reproducible;
-7. permisos mínimos justificados;
+7. permisos mínimos declarados y justificados;
 8. validaciones CI de Governance, Quality, Security y Evidence;
-9. review y merge controlados.
+9. review/decisión de integración y merge controlados del PR #167;
+10. verificación operacional manual no destructiva mediante `Main Integrity Monitor #2`.
+
+Con estas evidencias, el criterio documental de cierre de Issue #152 queda satisfecho. Se mantienen las limitaciones descritas en la sección 9 y el carácter detectivo/compensatorio del control.

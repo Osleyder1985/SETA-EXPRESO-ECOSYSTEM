@@ -58,7 +58,7 @@ jobs:
       - name: Upload execution context evidence
         uses: actions/upload-artifact@v4
         with:
-          name: governance-dispatch-context-\${{ github.run_id }}-\${{ github.run_attempt }}
+          name: governance-dispatch-context-${{ github.run_id }}-${{ github.run_attempt }}
           path: governance-dispatch-context.json
           if-no-files-found: error
           retention-days: 90

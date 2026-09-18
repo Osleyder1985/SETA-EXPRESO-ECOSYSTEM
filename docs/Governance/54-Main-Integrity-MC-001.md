@@ -4,7 +4,7 @@
 **Issue:** #152  
 **Naturaleza:** D-Detectivo / compensatorio  
 **Workflow:** `.github/workflows/main-integrity-monitor.yml`  
-**Estado:** Implementado en rama de trabajo; pendiente de validación, review y merge.
+**Estado:** Implementación en rama de trabajo; pendiente de validación, review y merge.
 
 ## 1. Propósito
 
@@ -27,12 +27,12 @@ Para cada ejecución se registra:
 |---|---|
 | Evento | `github.event_name` |
 | Actor | `github.actor` |
-| Fecha/hora | `github.event.head_commit.timestamp` o timestamp UTC de ejecución manual |
+| Fecha/hora | timestamp del commit (`github.event.head_commit.timestamp`) + timestamp UTC de observación |
 | SHA actual | `github.sha` |
 | SHA anterior | `github.event.before`, cuando existe |
 | Mensaje | `github.event.head_commit.message` |
 | Estado del push | `forced`, `created`, `deleted` |
-| Archivos afectados | `git diff --name-status` |
+| Archivos afectados | `git diff --name-status --find-renames`, conservado en JSON y `changed-files.txt` |
 | PR asociado | GitHub API `commits/{sha}/pulls` |
 | Clasificación | integración esperada, anomalía u observación manual |
 
@@ -61,7 +61,7 @@ Cada ejecución genera un artifact con retención de 90 días que contiene:
 - `main-integrity-event.json`: registro estructurado del evento;
 - `changed-files.txt`: relación reproducible de archivos afectados.
 
-La evidencia debe correlacionarse con el workflow run, su SHA y el Issue de incidente cuando exista.
+La evidencia debe correlacionarse con el workflow run, su SHA, el actor y el Issue de incidente cuando exista. El JSON incorpora la procedencia de la ejecución, la clasificación, el estado del push y la referencia al Issue generado/actualizado.
 
 ## 7. Permisos
 

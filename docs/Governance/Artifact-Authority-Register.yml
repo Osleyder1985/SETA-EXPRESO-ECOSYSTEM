@@ -2546,6 +2546,20 @@ artifacts:
     duplicate_risk: low
     disposition: "AUDIT_PENDING"
 
+  - path: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
+    artifact_id: "GOV-A0190"
+    type: audit
+    authority: derived_or_record
+    source_of_truth: false
+    canonical_role: null
+    confidence: high
+    depends_on: ["docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/00-Software-Lifecycle-Master.md"]
+    referenced_by: "docs/Governance/Artifact-Authority-Register.yml"
+    implementation: "TO_BE_VERIFIED"
+    evidence: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
+    lifecycle_status: "controlled-audit"
+    duplicate_risk: low
+    disposition: "ACTIVE_AUDIT_RECORD"
 
 reference_analysis:
   verified_edges_batch_001:
@@ -3283,20 +3297,6 @@ metrics_catalog_semantic_resolution:
   measurement_not_implied: true
 
 
-  - path: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
-    artifact_id: "GOV-A0190"
-    type: audit
-    authority: derived_or_record
-    source_of_truth: false
-    canonical_role: null
-    confidence: high
-    depends_on: ["docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/00-Software-Lifecycle-Master.md"]
-    referenced_by: "docs/Governance/Artifact-Authority-Register.yml"
-    implementation: "TO_BE_VERIFIED"
-    evidence: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
-    lifecycle_status: "controlled-audit"
-    duplicate_risk: low
-    disposition: "ACTIVE_AUDIT_RECORD"
 audit:
   issue: 183
   date: "2026-09-18"
@@ -3318,17 +3318,3 @@ audit:
   unresolved_marker_occurrences: 879
   evidence_record: "docs/Governance/Artifact-Authority-Register-H001-Audit-2026-09-18.md"
   rule: "Do not replace TO_BE_VERIFIED values by inference."
-  - path: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
-    artifact_id: "GOV-A0190"
-    type: audit
-    authority: derived_or_record
-    source_of_truth: false
-    canonical_role: null
-    confidence: high
-    depends_on: ["docs/Governance/02-Standards-Lifecycle-Matrix.md", "docs/Governance/00-Software-Lifecycle-Master.md"]
-    referenced_by: "docs/Governance/Artifact-Authority-Register.yml"
-    implementation: "TO_BE_VERIFIED"
-    evidence: "docs/Governance/Standards/H-007-Standards-Version-Audit-2026-09-18.md"
-    lifecycle_status: "controlled-audit"
-    duplicate_risk: low
-    disposition: "ACTIVE_AUDIT_RECORD"

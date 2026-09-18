@@ -109,9 +109,9 @@ La baseline actual utiliza ISO/IEC/IEEE 12207:2026 como referencia principal de 
 
 ## 9. Estado del programa
 
-El programa #171 debe permanecer **OPEN**.
+El ciclo de auditoría del Issue #171 quedó completado con la revalidación incorporada por PR #171. La deuda residual no se considera resuelta: se transfiere explícitamente al Issue #182 para continuar el programa de mejora mediante Issues/PRs controlados.
 
-Los bloqueadores principales para un cierre integral son:
+La deuda residual que continúa abierta y será gestionada bajo el Issue #182 comprende:
 
 1. completar la verificación exhaustiva de autoridad/dependencias/estado del Artifact Authority Register;
 2. completar la auditoría de Decision/SoD y sus consumidores;
@@ -137,7 +137,13 @@ La conclusión correcta es:
 
 **Governance Core con remediaciones significativas y primera capa operacional demostrada, pero todavía con deuda residual de exhaustividad, integración, evidencia y efectividad.**
 
-## 11. Siguiente bloque controlado
+## 11. Transferencia de deuda residual
+
+Issue sucesor: **#182 — Governance/Core: Remediar deuda residual posterior a la auditoría #171**.
+
+El cierre del ciclo de auditoría #171 no implica que el Governance Core esté completo ni certificado. Significa que la auditoría y su primera ola de remediaciones quedaron revalidadas y que las brechas restantes poseen trazabilidad explícita en #182.
+
+## 12. Siguiente bloque controlado
 
 Las próximas remediaciones deberán derivarse de Issues específicas y seguir exclusivamente:
 

@@ -48,3 +48,14 @@ notes:
   - "La matriz clasifica funciones en una decisión/cambio concreto; no exige personas distintas para todos los roles conceptuales."
   - "Las combinaciones deben interpretarse junto con el análisis de riesgo y el dominio afectado."
   - "Los controles técnicos solo se afirmarán cuando exista enforcement verificable."
+
+
+authority_boundary:
+  role: "function_combination_classification"
+  source_of_truth: true
+  authority_scope: "Defines the classification of specific function pairs by risk level as ALLOWED, RESTRICTED or PROHIBITED, plus exception requirements."
+  depends_on: "SoD-Decision-Function-Matrix.yml"
+  does_not_define: "It does not redefine the function vocabulary, risk-level meanings, or actual person/role assignments."
+  precedence: "For pair classification, this matrix is authoritative; for function vocabulary and risk semantics, the Function Matrix prevails."
+  consumer: "SoD-Control-Matrix.yml / SoD-Exception-Register.yml"
+  status_constraint: "status=proposed; this authority boundary does not baseline the matrix."
